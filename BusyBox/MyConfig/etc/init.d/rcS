@@ -1,0 +1,29 @@
+#! /bin/sh
+
+clear
+
+/bin/mount -a
+
+mkdir /var/log
+mount -t tmpfs mdev /dev
+mkdir /dev/pts
+mount -t devpts devpts /dev/pts
+mount -a
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+/bin/hostname -F /etc/hostname
+mdev -s
+
+#RAID
+mdadm -As &> /var/log/mdadm.log
+#RAID
+
+if [ -e /dev/sr0 ]; then
+    cd /dev
+    ln -s /dev/sr0 /dev/cdrom
+    dd if=/dev/cdrom count=1 bs=1 2> /dev/null
+    if [ $? -eq 0 ];then
+        mkdir -p /mnt/cdrom
+        mount /dev/cdrom /mnt/cdrom -t udf,iso9660
+    fi
+fi
+

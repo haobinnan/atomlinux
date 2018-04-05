@@ -1,0 +1,35 @@
+# /etc/profile: system-wide .profile file for the Bourne shells
+
+# * * * * * * System Setup * * * * * *
+HOSTNAME=`/bin/hostname`
+PS1='[\u@\h:\w]\# '
+export PS1 HOSTNAME
+# * * * * * * System Setup * * * * * *
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export LD_LIBRARY_PATH=/lib:/usr/lib
+export LD_PRELOAD=/lib/preloadable_libiconv.so
+
+# * * * * * * Qt4 Config * * * * * *
+export QTDIR=/qt
+export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+export QT_QWS_FONTDIR=$QTDIR/fonts/
+export QWS_DISPLAY=LinuxFb:/dev/fb0
+export QWS_SIZE=1024x768
+export QWS_MOUSE_PROTO=IntelliMouse:/dev/input/mice
+# * * * * * * Qt4 Config * * * * * *
+
+# * * * * * * Qt5 Config * * * * * *
+# export QT_DEBUG_PLUGINS=1
+export QT5DIR=/qt5
+export LD_LIBRARY_PATH=$QT5DIR/lib:$LD_LIBRARY_PATH
+export QT_PLUGIN_PATH=$QT5DIR/plugins
+export QT_QPA_FONTDIR=$QT5DIR/fonts
+export QT_QPA_PLATFORM_PLUGIN_PATH=$QT5DIR/plugins/platforms
+export QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0:size=1024x768
+# * * * * * * Qt5 Config * * * * * *
+
+export TERMINFO=/usr/share/terminfo
+
+# AutoRun
+

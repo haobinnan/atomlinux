@@ -1,0 +1,72 @@
+#GraphicsLibrary: "Null" | "Ncurses" | "Qt" | "Qt5"
+AtomLinux_GraphicsLibrary=Null
+#GraphicsLibrary: "Null" | "Ncurses" | "Qt" | "Qt5"
+
+#Compile configuration
+    #Only 64Bit Type: "Yes" | "No"
+AtomLinux_Only64Bit=No
+    #Only 64Bit Type: "Yes" | "No"
+
+    #SecureBoot Signature: "Yes" | "No"
+AtomLinux_SecureBootSignature=No
+    #SecureBoot Signature: "Yes" | "No"
+
+    #SecureBoot Signature Method: "CodeSgin" | "EVCodeSgin"
+AtomLinux_SignatureMethod=CodeSgin
+    #SecureBoot Signature Method: "CodeSgin" | "EVCodeSgin"
+#Compile configuration
+
+#Variable
+AtomLinux_LinuxSoftwareDirName=Software
+AtomLinux_SoftwareName=AtomLinux
+AtomLinux_ISOName=AtomLinux.iso
+AtomLinux_InitramfsLinuxAppDirName=Program
+AtomLinux_InitramfsLinuxAppFontDirName=ProgramFont
+AtomLinux_InstallationPackageFileName=atomlinux.dat
+AtomLinux_Grub2StyleDirName=Grub2Style
+AtomLinux_Grub2DirName=AtomLinuxBoot
+AtomLinux_Grub2LdrName=alldr
+#Variable
+
+#Certificate Variable
+AtomLinux_key=Private.key
+AtomLinux_crt=Certificate.crt
+AtomLinux_cer=Certificate.cer
+#Certificate Variable
+
+#Shim
+AtomLinux_ShimVNumber=14
+#Shim
+
+#Grub2
+AtomLinux_Grub2VNumber=2.02+dfsg1-4
+#Grub2
+
+#LinuxKernel
+AtomLinux_LinuxKernelVNumber=4.14.32
+#LinuxKernel
+
+#BusyBox
+AtomLinux_BusyBoxVNumber=1.28.3
+#BusyBox
+
+#QtLib
+AtomLinux_QtVNumber4=4.8.7
+AtomLinux_QtVNumber5=5.9.4
+#QtLib
+
+#NcursesLib
+AtomLinux_NcursesVNumber=6.1
+#NcursesLib
+
+#Utils - mdadm
+AtomLinux_MdadmVNumber=4.0
+#Utils - mdadm
+
+#Lib - glib
+AtomLinux_GlibVNumber=2.53.1
+#Lib - glib
+
+#Lib - iconv
+AtomLinux_IconvVNumber=1.15
+#Lib - iconv
