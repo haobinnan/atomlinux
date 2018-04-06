@@ -25,8 +25,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-#    wget https://cdn.kernel.org/pub/linux/kernel/v4.x/${FILENAME}
-    wget http://mirrors.ustc.edu.cn/kernel.org/linux/kernel/v4.x/${FILENAME}
+    wget https://cdn.kernel.org/pub/linux/kernel/v4.x/${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download linuxkernel ."
         exit 1

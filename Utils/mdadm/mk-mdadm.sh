@@ -24,7 +24,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget http://mirrors.ustc.edu.cn/kernel.org/linux/utils/raid/mdadm/${FILENAME}
+    wget https://cdn.kernel.org/pub/linux/utils/raid/mdadm/${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download mdadm ."
         exit 1

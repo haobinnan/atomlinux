@@ -24,7 +24,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget http://mirrors.ustc.edu.cn/gnu/libiconv/${FILENAME}
+    wget https://ftp.gnu.org/pub/gnu/libiconv/${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download libiconv ."
         exit 1

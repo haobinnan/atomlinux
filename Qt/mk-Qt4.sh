@@ -46,8 +46,6 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-
-    #wget http://mirrors.neusoft.edu.cn/qt/official_releases/qt/4.8/4.8.7/${FILENAME}
     wget http://download.qt.io/official_releases/qt/4.8/${QtVNumber}/${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download Qt ."
