@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-sudo clear
-
 Make="make -j$(cat /proc/cpuinfo | grep "cpu cores" | wc -l)"
 
 if [ ! -f ../../VariableSetting ]; then
@@ -47,7 +45,6 @@ fi
 #Platform
 
 mkdir ${OBJ_PROJECT}-${ARCH}-tmp
-
 tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-${ARCH}-tmp
 #Check Decompression
 if [ ! $? -eq 0 ]; then
@@ -55,17 +52,17 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check Decompression
-
+mkdir ./${ARCH}-${OBJ_PROJECT}
 cd ./${OBJ_PROJECT}-${ARCH}-tmp/${FILENAME_DIR}
 
 #configure
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    ./configure --prefix=/usr/local/glib64 --enable-static --disable-shared CFLAGS="-static"
+    ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static"
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
-        ./configure --prefix=/usr/local/glib --enable-static --disable-shared CFLAGS="-static" CC="gcc -m32" CXX="g++ -m32"
+        ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static" CC="gcc -m32" CXX="g++ -m32"
     else
-        ./configure --prefix=/usr/local/glib --enable-static --disable-shared CFLAGS="-static"
+        ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static"
     fi
 fi
 #configure
