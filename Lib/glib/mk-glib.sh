@@ -80,7 +80,7 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check make
-sudo make install
+make install
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (glib) ."

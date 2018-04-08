@@ -36,12 +36,31 @@ echo y | sudo apt install wget vim git git-gui sbsigntool
 
 echo y | sudo apt install build-essential module-assistant gcc-multilib g++-multilib libtool
 
-echo y | sudo apt install libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3 libpcre3-dev libssl-dev libnss3-tools pesign
+echo y | sudo apt install libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3 libpcre3-dev libnss3-tools pesign
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
     if [ $(getconf LONG_BIT) = '64' ]; then
-        echo y | sudo apt install libncurses5-dev:i386 zlib1g-dev:i386 libpng-dev:i386 libjpeg-dev:i386 libpcre3-dev:i386 libssl-dev:i386
+        echo y | sudo apt install libncurses5-dev:i386 zlib1g-dev:i386 libpng-dev:i386 libjpeg-dev:i386 libpcre3-dev:i386
     fi
 fi
+
+#libssl
+sudo apt list libssl1.0-dev | grep libssl1.0-dev -q
+if [ ! $? -eq 0 ]; then
+    echo y | sudo apt install libssl1.0-dev
+    if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
+        if [ $(getconf LONG_BIT) = '64' ]; then
+            echo y | sudo apt install libssl1.0-dev:i386
+        fi
+    fi
+else
+    echo y | sudo apt install libssl-dev
+    if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
+        if [ $(getconf LONG_BIT) = '64' ]; then
+            echo y | sudo apt install libssl-dev:i386
+        fi
+    fi
+fi
+#libssl
 
 #What you need to build 'LinuxKernel'
 echo y | sudo apt install libelf-dev
