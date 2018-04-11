@@ -13,6 +13,7 @@ AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirNam
 AtomLinux_LinuxSoftwareDirName="$(grep -i ^AtomLinux_LinuxSoftwareDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_InitramfsLinuxAppFontDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppFontDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_BusyBoxURL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=busybox
@@ -28,7 +29,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget https://busybox.net/downloads/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download busybox ."
         exit 1

@@ -10,6 +10,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_LinuxKernelVNumber="$(grep -i ^AtomLinux_LinuxKernelVNumber ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_LinuxKernelURL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=linuxkernel
@@ -25,7 +26,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget https://cdn.kernel.org/pub/linux/kernel/v4.x/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download linuxkernel ."
         exit 1

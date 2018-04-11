@@ -10,6 +10,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_ShimVNumber="$(grep -i ^AtomLinux_ShimVNumber ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_cer="$(grep -i ^AtomLinux_cer ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_ShimURL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #Use Existing Certificate  (yes | no)
@@ -34,7 +35,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget https://github.com/rhboot/shim/archive/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download shim ."
         exit 1

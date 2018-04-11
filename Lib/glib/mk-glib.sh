@@ -10,6 +10,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_GlibVNumber="$(grep -i ^AtomLinux_GlibVNumber ../../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_GlibURL ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=glib
@@ -24,7 +25,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget http://gemmei.ftp.acc.umu.se/pub/gnome/sources/glib/2.53/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download glib ."
         exit 1

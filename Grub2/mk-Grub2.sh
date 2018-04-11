@@ -7,13 +7,10 @@ if [ ! -f ../VariableSetting ]; then
     exit 1
 fi
 
-if [ ! -d ./style ]; then
-    mkdir ./style
-fi
-
 #Load from VariableSetting file
 AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Grub2VNumber="$(grep -i ^AtomLinux_Grub2VNumber ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_Grub2URL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=grub2
@@ -36,7 +33,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget https://salsa.debian.org/grub-team/grub/repository/debian%2F${AtomLinux_Grub2VNumber}/archive.tar.bz2 -O ${FILENAME}
+    wget ${AtomLinux_DownloadURL}${AtomLinux_Grub2VNumber}/archive.tar.bz2 -O ${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download grub2 ."
         exit 1
@@ -66,6 +63,10 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check Decompression
+
+if [ ! -d ./style ]; then
+    mkdir ./style
+fi
 
 #Rename the directory
 mv ./${OBJ_PROJECT}-tmp/grub-debian* ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}

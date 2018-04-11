@@ -10,6 +10,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_MdadmVNumber="$(grep -i ^AtomLinux_MdadmVNumber ../../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_MdadmURL ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=mdadm
@@ -24,7 +25,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget https://cdn.kernel.org/pub/linux/utils/raid/mdadm/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download mdadm ."
         exit 1

@@ -10,6 +10,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_QtVNumber4="$(grep -i ^AtomLinux_QtVNumber4 ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_Qt4URL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #Platform
@@ -46,7 +47,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget http://download.qt.io/official_releases/qt/4.8/${QtVNumber}/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${QtVNumber}/${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download Qt ."
         exit 1

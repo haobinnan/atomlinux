@@ -10,6 +10,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_IconvVNumber="$(grep -i ^AtomLinux_IconvVNumber ../../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_IconvURL ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=libiconv
@@ -24,7 +25,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget https://ftp.gnu.org/pub/gnu/libiconv/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download libiconv ."
         exit 1

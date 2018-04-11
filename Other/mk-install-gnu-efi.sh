@@ -18,6 +18,7 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_GnuEFIVNumber="$(grep -i ^AtomLinux_GnuEFIVNumber ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_GnuEFIURL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=gnu-efi
@@ -31,7 +32,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget https://jaist.dl.sourceforge.net/project/gnu-efi/${FILENAME}
+    wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download gnu-efi ."
         exit 1
