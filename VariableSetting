@@ -64,7 +64,7 @@ AtomLinux_MdadmVNumber=4.0
 #Utils - mdadm
 
 #Lib - gnu-efi
-AtomLinux_GnuEFIVNumber=3.0.6
+AtomLinux_GnuEFIVNumber=3.0.8
 #Lib - gnu-efi
 
 #Lib - glib

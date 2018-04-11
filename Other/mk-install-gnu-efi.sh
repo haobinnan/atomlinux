@@ -21,7 +21,7 @@ AtomLinux_GnuEFIVNumber="$(grep -i ^AtomLinux_GnuEFIVNumber ../VariableSetting |
 #Load from VariableSetting file
 
 OBJ_PROJECT=gnu-efi
-FILENAME=${OBJ_PROJECT}_${AtomLinux_GnuEFIVNumber}.orig.tar.bz2
+FILENAME=${OBJ_PROJECT}-${AtomLinux_GnuEFIVNumber}.tar.bz2
 
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
@@ -31,7 +31,7 @@ if [ ! -f ./${FILENAME} ]; then
         exit 1
     fi
     #Check if necessary tools are installed
-    wget http://ftp.debian.org/debian/pool/main/g/gnu-efi/${FILENAME}
+    wget https://jaist.dl.sourceforge.net/project/gnu-efi/${FILENAME}
     if [ ! $? -eq 0 ]; then
         echo "Error: Download gnu-efi ."
         exit 1
