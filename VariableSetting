@@ -35,7 +35,7 @@ AtomLinux_cer=Certificate.cer
 #Certificate Variable
 
 #Shim
-AtomLinux_ShimVNumber=14
+AtomLinux_ShimVNumber=15
 AtomLinux_ShimURL=https://github.com/rhboot/shim/archive/
 #Shim
 

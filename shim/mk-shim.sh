@@ -50,28 +50,25 @@ fi
 
 rm -rf ./${OBJ_PROJECT}_result
 mkdir ${OBJ_PROJECT}_result
-mkdir ${OBJ_PROJECT}-tmp
-tar xzvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
-#Check Decompression
-if [ ! $? -eq 0 ]; then
-    echo "Error: Decompression shim ."
-    exit 1
-fi
-#Check Decompression
-
-cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}-${AtomLinux_ShimVNumber}
-
-#Compile special treatment (Ubuntu OS?)
-# sed -i 's/?= $(LIBDIR)\/gnuefi/?= $(LIBDIR)/g' ./Makefile
-#Compile special treatment (Ubuntu OS?)
-
-#cp -v ../../make-certs ./
 
 #function
 function build()
 {
     ARCH=$1
     NAME=$2
+
+    rm -rf ${OBJ_PROJECT}-tmp
+    mkdir ${OBJ_PROJECT}-tmp
+    tar xzvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
+    #Check Decompression
+    if [ ! $? -eq 0 ]; then
+        echo "Error: Decompression shim ."
+        exit 1
+    fi
+    #Check Decompression
+
+    cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}-${AtomLinux_ShimVNumber}
+
     if [ $UseExistingCertificate = "yes" ]; then
         echo | $Make ARCH=$ARCH VENDOR_CERT_FILE=../../../certificate/$AtomLinux_cer 2>&1 | tee ../../shim_build_${NAME}.log
     else
@@ -96,27 +93,21 @@ function build()
     fi
     #Copy Certificate
 
-    make ARCH=$ARCH clean
+    #clean
+    cd ../../
+    rm -rf ${OBJ_PROJECT}-tmp
+    #clean
 }
 #function
 
 #x86
-sed -i 's/$(shell $(CC) -print-libgcc-file-name)/$(shell $(CC) -m32 -print-libgcc-file-name)/g' ./Makefile
 build ia32 ia32
-sed -i 's/$(shell $(CC) -m32 -print-libgcc-file-name)/$(shell $(CC) -print-libgcc-file-name)/g' ./Makefile
 #x86
 
 echo "-------------------------------------------------------------"
 
 #x86_64
-sed -i 's/$(shell $(CC) -print-libgcc-file-name)/$(shell $(CC) -m64 -print-libgcc-file-name)/g' ./Makefile
 build x86_64 x64
-sed -i 's/$(shell $(CC) -m64 -print-libgcc-file-name)/$(shell $(CC) -print-libgcc-file-name)/g' ./Makefile
 #x86_64
-
-#clean
-cd ../../
-rm -rf ${OBJ_PROJECT}-tmp
-#clean
 
 echo "Complete."
