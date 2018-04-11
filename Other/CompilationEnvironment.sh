@@ -96,8 +96,8 @@ echo y | sudo apt install bison libopts25 libselinux1-dev autogen m4 autoconf he
 #What you need to build 'grub2'
 
 #What you need to build 'shim'
-echo y | sudo apt install gnu-efi
-echo y | sudo apt install gnu-efi:i386
+#   echo y | sudo apt install gnu-efi
+#   echo y | sudo apt install gnu-efi:i386
 #What you need to build 'shim'
 
 #Install Qt Creator
@@ -124,5 +124,7 @@ echo y | sudo apt install qemu ovmf
 #Install upx
 echo y | sudo apt install upx-ucl
 #Install upx
+
+./mk-install-gnu-efi.sh
 
 echo "Complete."

@@ -9,7 +9,6 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_ShimVNumber="$(grep -i ^AtomLinux_ShimVNumber ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_cer="$(grep -i ^AtomLinux_cer ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
@@ -62,7 +61,7 @@ fi
 cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}-${AtomLinux_ShimVNumber}
 
 #Compile special treatment (Ubuntu OS?)
-sed -i 's/?= $(LIBDIR)\/gnuefi/?= $(LIBDIR)/g' ./Makefile
+# sed -i 's/?= $(LIBDIR)\/gnuefi/?= $(LIBDIR)/g' ./Makefile
 #Compile special treatment (Ubuntu OS?)
 
 #cp -v ../../make-certs ./
@@ -85,12 +84,19 @@ function build()
     #Check make
 
     cp -v ./*${NAME}.efi ../../${OBJ_PROJECT}_result/
+    #Check cp
+    if [ ! $? -eq 0 ]; then
+        echo "Error: cp (shim) ."
+        exit 1
+    fi
+    #Check cp
     cp -v ./*${NAME}.efi.* ../../${OBJ_PROJECT}_result/
+
+    make ARCH=$ARCH clean
 }
 #function
 
 #x86
-# make clean
 sed -i 's/$(shell $(CC) -print-libgcc-file-name)/$(shell $(CC) -m32 -print-libgcc-file-name)/g' ./Makefile
 build ia32 ia32
 #Check build
@@ -105,7 +111,6 @@ sed -i 's/$(shell $(CC) -m32 -print-libgcc-file-name)/$(shell $(CC) -print-libgc
 echo "-------------------------------------------------------------"
 
 #x86_64
-make clean
 sed -i 's/$(shell $(CC) -print-libgcc-file-name)/$(shell $(CC) -m64 -print-libgcc-file-name)/g' ./Makefile
 build x86_64 x64
 #Check build

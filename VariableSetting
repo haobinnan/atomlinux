@@ -63,6 +63,10 @@ AtomLinux_NcursesVNumber=6.1
 AtomLinux_MdadmVNumber=4.0
 #Utils - mdadm
 
+#Lib - gnu-efi
+AtomLinux_GnuEFIVNumber=3.0.6
+#Lib - gnu-efi
+
 #Lib - glib
 AtomLinux_GlibVNumber=2.53.1
 #Lib - glib
