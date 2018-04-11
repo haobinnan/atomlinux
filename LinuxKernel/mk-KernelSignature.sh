@@ -66,23 +66,11 @@ function KernelSignature()
 # ***************** Signature x86 *****************
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
     KernelSignature x86
-    #Check KernelSignature x86
-    if [ ! $? -eq 0 ]; then
-        echo "Error: KernelSignature (x86) ."
-        exit 1
-    fi
-    #Check KernelSignature x86
 fi
 # ***************** Signature x86 *****************
 
 # ***************** Signature x86_64 *****************
 KernelSignature x86_64
-#Check KernelSignature x86_64
-if [ ! $? -eq 0 ]; then
-    echo "Error: KernelSignature (x86_64) ."
-    exit 1
-fi
-#Check KernelSignature x86_64
 # ***************** Signature x86_64 *****************
 
 echo "Complete."

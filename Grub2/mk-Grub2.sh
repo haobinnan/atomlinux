@@ -240,20 +240,8 @@ function build_efi_SecureBoot()
 #i386-efi
 if [ $UsingPreviousBuildResults = "yes" ]; then
     build_efi_SecureBoot i386
-    #Check build_efi_SecureBoot i386
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_efi_SecureBoot (i386) ."
-        exit 1
-    fi
-    #Check build_efi_SecureBoot i386
 else
     build_efi bootia32.efi i386
-    #Check build_efi i386
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_efi (i386) ."
-        exit 1
-    fi
-    #Check build_efi i386
 fi
 #i386-efi
 
@@ -262,20 +250,8 @@ echo "-------------------------------------------------------------"
 #x86_64-efi
 if [ $UsingPreviousBuildResults = "yes" ]; then
     build_efi_SecureBoot x86_64
-    #Check build_efi_SecureBoot x86_64
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_efi_SecureBoot (x86_64) ."
-        exit 1
-    fi
-    #Check build_efi_SecureBoot x86_64
 else
     build_efi bootx64.efi x86_64
-    #Check build_efi x86_64
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_efi (x86_64) ."
-        exit 1
-    fi
-    #Check build_efi x86_64
 fi
 #x86_64-efi
 

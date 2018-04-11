@@ -85,12 +85,6 @@ if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
     #x86
     # make distclean
     build x86
-    #Check build
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build ."
-        exit 1
-    fi
-    #Check build
     #x86
 fi
 
@@ -99,12 +93,6 @@ echo "-------------------------------------------------------------"
 #x86_64
 make distclean
 build x86_64
-#Check build
-if [ ! $? -eq 0 ]; then
-    echo "Error: build ."
-    exit 1
-fi
-#Check build
 #x86_64
 
 #clean

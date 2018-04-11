@@ -68,22 +68,10 @@ function Grub2Signature()
 
 # ***************** Signature i386 *****************
 Grub2Signature i386 ia32
-#Check Grub2Signature i386
-if [ ! $? -eq 0 ]; then
-    echo "Error: Grub2Signature (i386) ."
-    exit 1
-fi
-#Check Grub2Signature i386
 # ***************** Signature i386 *****************
 
 # ***************** Signature x86_64 *****************
 Grub2Signature x86_64 x64
-#Check Grub2Signature x86_64
-if [ ! $? -eq 0 ]; then
-    echo "Error: Grub2Signature (x86_64) ."
-    exit 1
-fi
-#Check Grub2Signature x86_64
 # ***************** Signature x86_64 *****************
 
 echo "Complete."

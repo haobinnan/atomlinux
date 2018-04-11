@@ -96,24 +96,12 @@ sudo rm -rf /usr/include/efi
 
 #x86
 build ia32 ${CurrentDIR}
-#Check build
-if [ ! $? -eq 0 ]; then
-    echo "Error: build ."
-    exit 1
-fi
-#Check build
 #x86
 
 echo "-------------------------------------------------------------"
 
 #x86_64
 build amd64 ${CurrentDIR}
-#Check build
-if [ ! $? -eq 0 ]; then
-    echo "Error: build ."
-    exit 1
-fi
-#Check build
 #x86_64
 
 #clean

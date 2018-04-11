@@ -218,48 +218,24 @@ function build_Desktop()
 
 if [ ${DisableDebug_Emb} != "yes" ]; then
     build_Emb debug
-    #Check build_Emb debug
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_Emb (debug) ."
-        exit 1
-    fi
-    #Check build_Emb debug
 fi
 
 echo "-------------------------------------------------------------"
 
 if [ ${DisableRelease_Emb} != "yes" ]; then
     build_Emb release
-    #Check build_Emb release
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_Emb (release) ."
-        exit 1
-    fi
-    #Check build_Emb release
 fi
 
 echo "-------------------------------------------------------------"
 
 if [ ${DisableRelease_Desktop} != "yes" ]; then
     build_Desktop release
-    #Check build_Desktop release
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_Desktop (release) ."
-        exit 1
-    fi
-    #Check build_Desktop release
 fi
 
 echo "-------------------------------------------------------------"
 
 if [ ${DisableDebug_Desktop} != "yes" ]; then
     build_Desktop debug
-    #Check build_Desktop debug
-    if [ ! $? -eq 0 ]; then
-        echo "Error: build_Desktop (debug) ."
-        exit 1
-    fi
-    #Check build_Desktop debug
 fi
 
 rm -rf ${OBJ_PROJECT}-tmp

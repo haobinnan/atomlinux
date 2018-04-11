@@ -99,12 +99,6 @@ function build()
 #x86
 sed -i 's/$(shell $(CC) -print-libgcc-file-name)/$(shell $(CC) -m32 -print-libgcc-file-name)/g' ./Makefile
 build ia32 ia32
-#Check build
-if [ ! $? -eq 0 ]; then
-    echo "Error: build ."
-    exit 1
-fi
-#Check build
 sed -i 's/$(shell $(CC) -m32 -print-libgcc-file-name)/$(shell $(CC) -print-libgcc-file-name)/g' ./Makefile
 #x86
 
@@ -113,12 +107,6 @@ echo "-------------------------------------------------------------"
 #x86_64
 sed -i 's/$(shell $(CC) -print-libgcc-file-name)/$(shell $(CC) -m64 -print-libgcc-file-name)/g' ./Makefile
 build x86_64 x64
-#Check build
-if [ ! $? -eq 0 ]; then
-    echo "Error: build ."
-    exit 1
-fi
-#Check build
 sed -i 's/$(shell $(CC) -m64 -print-libgcc-file-name)/$(shell $(CC) -print-libgcc-file-name)/g' ./Makefile
 #x86_64
 
