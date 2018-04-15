@@ -87,8 +87,8 @@ else
 fi
 
 #RAID Support
-cp -v ../../Utils/mdadm/${ARCH}-mdadm/mdadm ./sbin/
-cp -v ../../Utils/mdadm/${ARCH}-mdadm/mdmon ./sbin/
+cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdadm ./sbin/
+cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdmon ./sbin/
 #RAID Support
 
 mkdir $AtomLinux_InitramfsLinuxAppDirName

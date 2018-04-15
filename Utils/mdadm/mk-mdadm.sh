@@ -46,7 +46,6 @@ fi
 #Platform
 
 rm -rf ./${ARCH}-${OBJ_PROJECT}
-mkdir ${ARCH}-${OBJ_PROJECT}
 mkdir ${ARCH}-${OBJ_PROJECT}-tmp
 tar xvJf ./${FILENAME} -C ./${ARCH}-${OBJ_PROJECT}-tmp
 #Check Decompression
@@ -69,17 +68,23 @@ else
     fi
 fi
 #make
-
 #Check make
 if [ ! $? -eq 0 ]; then
     echo "Error: make (mdadm) ."
     exit 1
 fi
 #Check make
-#Compile result
-cp -v ./mdadm ../../${ARCH}-${OBJ_PROJECT}
-cp -v ./mdmon ../../${ARCH}-${OBJ_PROJECT}
-#Compile result
+
+#make install
+make DESTDIR=../../${ARCH}-${OBJ_PROJECT} install
+#make install
+#Check make install
+if [ ! $? -eq 0 ]; then
+    echo "Error: make install (mdadm) ."
+    exit 1
+fi
+#Check make install
+
 cd ../../
 rm -rf ${ARCH}-${OBJ_PROJECT}-tmp
 

@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-if test $1 && [ $1 = "clean" ]; then
+#function
+function clean_gnuefi()
+{
     sudo rm -rf /usr/include/efi
     sudo rm -rf /usr/lib/gnuefi
     sudo rm -rf /usr/lib64/gnuefi
+}
+#function
 
+if test $1 && [ $1 = "clean" ]; then
+    clean_gnuefi
     echo "clean ok!"
     exit
 fi
@@ -54,17 +60,13 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
-CurrentDIR=$(pwd)/${OBJ_PROJECT}-tmp/out
-
 cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}-${AtomLinux_GnuEFIVNumber}
 
 #function
 function build()
 {
     ARCH=$1
-    INSTALLDIR=$2
 
-    rm -rf ${INSTALLDIR}/*
     echo | $Make ARCH=$ARCH
     #Check make
     if [ ! $? -eq 0 ]; then
@@ -72,37 +74,35 @@ function build()
         exit 1
     fi
     #Check make
-    make ARCH=$ARCH install INSTALLROOT=${INSTALLDIR}
-    make ARCH=$ARCH clean
 
     #install
     if [ ${ARCH} = "ia32" ]; then
-        sudo cp -rv ${INSTALLDIR}/usr/local/include/efi /usr/include
-        sudo rm -rf /usr/lib/gnuefi
-        sudo mkdir -p /usr/lib/gnuefi
-        sudo cp -rv ${INSTALLDIR}/usr/local/lib/* /usr/lib/gnuefi
+        make ARCH=$ARCH PREFIX=/usr LIBDIR=/usr/lib/gnuefi install
     elif [ ${ARCH} = "amd64" ]; then
-        sudo cp -rv ${INSTALLDIR}/usr/local/include/efi /usr/include
-        sudo rm -rf /usr/lib64/gnuefi
-        sudo mkdir -p /usr/lib64/gnuefi
-        sudo cp -rv ${INSTALLDIR}/usr/local/lib/* /usr/lib64/gnuefi
+        make ARCH=$ARCH PREFIX=/usr LIBDIR=/usr/lib64/gnuefi install
     fi
     #install
+    #Check make install
+    if [ ! $? -eq 0 ]; then
+        echo "Error: make install (gnu-efi) ."
+        exit 1
+    fi
+    #Check make install
+
+    make ARCH=$ARCH clean
 }
 #function
 
-#delete install
-sudo rm -rf /usr/include/efi
-#delete install
+clean_gnuefi
 
 #x86
-build ia32 ${CurrentDIR}
+build ia32
 #x86
 
 echo "-------------------------------------------------------------"
 
 #x86_64
-build amd64 ${CurrentDIR}
+build amd64
 #x86_64
 
 #clean
