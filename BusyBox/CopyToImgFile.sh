@@ -55,7 +55,7 @@ fi
 initramfsImgSize=$(du -sm ../Linux_sample | awk '{print int($0)}')
 dd if=/dev/zero of=../$AtomLinux_InstallationPackageFileName bs=1M count=${initramfsImgSize}
 sudo mkdir ../mnt
-mkfs.vfat ../$AtomLinux_InstallationPackageFileName
+sudo mkfs.vfat ../$AtomLinux_InstallationPackageFileName
 sudo mount -t vfat -n ../$AtomLinux_InstallationPackageFileName ../mnt
 sudo cp -rRv ../Linux_sample/* ../mnt/
 sudo umount -n ../mnt
