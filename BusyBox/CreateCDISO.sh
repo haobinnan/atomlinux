@@ -51,7 +51,7 @@ sudo umount -n ./mnt
 initramfsImgSize=$(du -sm ./efi_tmp | awk '{print int($0)}')
 dd if=/dev/zero of=./efiboot bs=1M count=${initramfsImgSize}
 sudo mkdir ./mnt
-mkfs.vfat ./efiboot
+sudo mkfs.vfat ./efiboot
 sudo mount -t vfat -n ./efiboot ./mnt
 sudo cp -rRv ./efi_tmp/* ./mnt/
 sudo umount -n ./mnt
