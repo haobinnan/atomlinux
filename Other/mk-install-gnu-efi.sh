@@ -77,9 +77,9 @@ function build()
 
     #install
     if [ ${ARCH} = "ia32" ]; then
-        make ARCH=$ARCH PREFIX=/usr LIBDIR=/usr/lib/gnuefi install
+        sudo make ARCH=$ARCH PREFIX=/usr LIBDIR=/usr/lib/gnuefi install
     elif [ ${ARCH} = "amd64" ]; then
-        make ARCH=$ARCH PREFIX=/usr LIBDIR=/usr/lib64/gnuefi install
+        sudo make ARCH=$ARCH PREFIX=/usr LIBDIR=/usr/lib64/gnuefi install
     fi
     #install
     #Check make install
