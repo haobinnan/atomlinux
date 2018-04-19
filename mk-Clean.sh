@@ -46,6 +46,7 @@ rm -rf ./Qt/*_release
 #Qt5
 
 rm -rf ./Lib/libiconv/*-libiconv
+rm -rf ./Lib/glib/*-glib
 rm -rf ./Utils/mdadm/*-mdadm
 rm -f ./$AtomLinux_InstallationPackageFileName
 rm -f ./$AtomLinux_ISOName
