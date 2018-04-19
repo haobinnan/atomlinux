@@ -75,7 +75,7 @@ function build()
         echo | $Make ARCH=$ARCH ENABLE_SHIM_CERT=1
     fi
     #Check make
-    if [ ! $? -eq 0 ]; then
+    if [ ! -f ./shim${NAME}.efi ]; then
         echo "Error: make (shim) ."
         exit 1
     fi
@@ -83,6 +83,13 @@ function build()
 
     cp -v ./*${NAME}.efi ../../${OBJ_PROJECT}_result/
     cp -v ./*${NAME}.efi.* ../../${OBJ_PROJECT}_result/
+
+    #cab & sha256sum
+    DATE=`date --date='0 days ago' +%Y%m%d`
+    lcab shim${NAME}.efi ../../${OBJ_PROJECT}_result/shim${NAME}_v${AtomLinux_ShimVNumber}_${DATE}.cab
+    SHA256SUM=$(sha256sum ./shim${NAME}.efi | awk '{print $1}')
+    echo ${SHA256SUM} > ../../${OBJ_PROJECT}_result/shim${NAME}.efi.sha256sum
+    #cab & sha256sum
 
     #Copy Certificate
     if [ $UseExistingCertificate = "no" ]; then

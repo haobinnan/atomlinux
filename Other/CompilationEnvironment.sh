@@ -31,7 +31,7 @@ fi
 #apt update
 
 #tools
-echo y | sudo apt install wget vim git git-gui sbsigntool
+echo y | sudo apt install wget vim git git-gui sbsigntool lcab
 #tools
 
 echo y | sudo apt install build-essential module-assistant gcc-multilib g++-multilib libtool
