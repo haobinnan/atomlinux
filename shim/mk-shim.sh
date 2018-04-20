@@ -87,7 +87,7 @@ function build()
     #cab & sha256sum
     DATE=`date --date='0 days ago' +%Y%m%d`
     lcab shim${NAME}.efi ../../${OBJ_PROJECT}_result/shim${NAME}_v${AtomLinux_ShimVNumber}_${DATE}.cab
-    SHA256SUM=$(sha256sum ./shim${NAME}.efi | awk '{print $1}')
+    SHA256SUM=$(sha256sum -b ./shim${NAME}.efi | awk '{print $1}')
     echo ${SHA256SUM} > ../../${OBJ_PROJECT}_result/shim${NAME}.efi.sha256sum
     #cab & sha256sum
 
