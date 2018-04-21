@@ -11,6 +11,7 @@ fi
 AtomLinux_LinuxKernelVNumber="$(grep -i ^AtomLinux_LinuxKernelVNumber ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_LinuxKernelURL ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=linuxkernel
@@ -61,14 +62,35 @@ if [ -f ../../logo/my_logo.ppm ]; then
 fi
 #Replace logo file
 
+#Secure Boot Patches
+
+#https://github.com/vathpela/linux
+if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
+    for file in $(ls ../../SecureBootPatches);
+    do
+        echo -e "\033[31m$file\033[0m"
+        patch -p1 < ../../SecureBootPatches/$file
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (linuxkernel) ."
+            exit 1
+        fi
+        #Check patch
+    done
+fi
+#Secure Boot Patches
+
 #function
 function build()
 {
     ARCH=$1
-    CONFIG_NAME=".config_"${ARCH}
+    if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
+        CONFIG_NAME=".config_"${ARCH}"_sb"
+    else
+        CONFIG_NAME=".config_"${ARCH}
+    fi
 
-    cp -v ../../${CONFIG_NAME} ./
-    mv ${CONFIG_NAME} .config
+    cp -v ../../${CONFIG_NAME} ./.config
 
     echo | $Make bzImage
     #Check make

@@ -1,0 +1,55 @@
+From e7f6ea9025f27738a847289e0b99630036ca6e0c Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Wed, 18 Oct 2017 17:28:02 +0100
+Subject: [PATCH 23/35] debugfs: Disallow use of debugfs files when the kernel
+ is locked down
+
+Disallow opening of debugfs files when the kernel is locked down as various
+drivers give raw access to hardware through debugfs.
+
+Accesses to tracefs should use /sys/kernel/tracing/ rather than
+/sys/kernel/debug/tracing/.  Possibly a symlink should be emplaced.
+
+Normal device interaction should be done through configfs or a miscdev, not
+debugfs.
+
+Note that this makes it unnecessary to specifically lock down show_dsts(),
+show_devs() and show_call() in the asus-wmi driver.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Andy Shevchenko <andy.shevchenko@gmail.com>
+cc: acpi4asus-user@lists.sourceforge.net
+cc: platform-driver-x86@vger.kernel.org
+cc: Matthew Garrett <matthew.garrett@nebula.com>
+cc: Thomas Gleixner <tglx@linutronix.de>
+---
+ fs/debugfs/file.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
+index 6dabc4a..32b5168 100644
+--- a/fs/debugfs/file.c
++++ b/fs/debugfs/file.c
+@@ -103,6 +103,9 @@ static int open_proxy_open(struct inode *inode, struct file *filp)
+ 	const struct file_operations *real_fops = NULL;
+ 	int srcu_idx, r;
+ 
++	if (kernel_is_locked_down("debugfs"))
++		return -EPERM;
++
+ 	r = debugfs_use_file_start(dentry, &srcu_idx);
+ 	if (r) {
+ 		r = -ENOENT;
+@@ -232,6 +235,9 @@ static int full_proxy_open(struct inode *inode, struct file *filp)
+ 	struct file_operations *proxy_fops = NULL;
+ 	int srcu_idx, r;
+ 
++	if (kernel_is_locked_down("debugfs"))
++		return -EPERM;
++
+ 	r = debugfs_use_file_start(dentry, &srcu_idx);
+ 	if (r) {
+ 		r = -ENOENT;
+-- 
+2.7.4
+
