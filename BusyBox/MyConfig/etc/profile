@@ -31,5 +31,13 @@ export QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0:size=1024x768
 
 export TERMINFO=/usr/share/terminfo
 
+clear
+
+echo '  ############################'
+echo '  #                          #'
+echo '  #  Welcome to "AtomLinux"  #'
+echo '  #                          #'
+echo '  ############################'
+
 # AutoRun
 
