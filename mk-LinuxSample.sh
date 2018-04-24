@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-sudo clear
-
 if [ ! -f ./VariableSetting ]; then
     echo "Error: VariableSetting file does not exist ."
     exit 1
