@@ -198,6 +198,10 @@ function build_efi()
 
     cd ../install_tmp/lib/grub/${ARCH}-efi
 
+    #All mod
+    # $(ls *.mod | cut -d '.' -f 1)
+    #All mod
+
     ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p "/boot/grub/" newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid linuxefi
     #Check grub-mkimage
     if [ ! $? -eq 0 ]; then
