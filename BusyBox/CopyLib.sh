@@ -37,13 +37,11 @@ if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
         ArrayLib[$((iIndex++))]="/lib/x86_64-linux-gnu/libz.so.1"
         ArrayLib[$((iIndex++))]="/lib/x86_64-linux-gnu/libgcc_s.so.1"
         ArrayLib[$((iIndex++))]="/usr/lib/x86_64-linux-gnu/libstdc++.so.6"
-        ArrayLib[$((iIndex++))]="/usr/lib/x86_64-linux-gnu/libpng16.so.16"
     else
         ArrayLib[$((iIndex++))]="/lib/i386-linux-gnu/librt.so.1"
         ArrayLib[$((iIndex++))]="/lib/i386-linux-gnu/libz.so.1"
         ArrayLib[$((iIndex++))]="/lib/i386-linux-gnu/libgcc_s.so.1"
         ArrayLib[$((iIndex++))]="/usr/lib/i386-linux-gnu/libstdc++.so.6"
-        ArrayLib[$((iIndex++))]="/usr/lib/i386-linux-gnu/libpng16.so.16"
     fi
 elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
