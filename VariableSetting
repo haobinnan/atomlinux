@@ -68,7 +68,7 @@ AtomLinux_NcursesURL=https://ftp.gnu.org/gnu/ncurses/
 #NcursesLib
 
 #Utils - mdadm
-AtomLinux_MdadmVNumber=4.0
+AtomLinux_MdadmVNumber=4.1
 AtomLinux_MdadmURL=https://cdn.kernel.org/pub/linux/utils/raid/mdadm/
 #Utils - mdadm
 

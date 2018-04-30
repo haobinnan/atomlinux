@@ -15,7 +15,7 @@ AtomLinux_DownloadURL="$(grep -i ^AtomLinux_MdadmURL ../../VariableSetting | cut
 
 OBJ_PROJECT=mdadm
 FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_MdadmVNumber
-FILENAME=${FILENAME_DIR}.tar.xz
+FILENAME=${FILENAME_DIR}-rc1.tar.xz
 
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
@@ -55,7 +55,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
-cd ./${ARCH}-${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+cd ./${ARCH}-${OBJ_PROJECT}-tmp/${FILENAME_DIR}_rc1
 
 #make
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
