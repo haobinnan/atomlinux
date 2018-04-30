@@ -26,6 +26,7 @@ AtomLinux_InstallationPackageFileName=atomlinux.dat
 AtomLinux_Grub2StyleDirName=Grub2Style
 AtomLinux_Grub2DirName=AtomLinuxBoot
 AtomLinux_Grub2LdrName=alldr
+AtomLinux_LinuxKernelParameter=""
 #Variable
 
 #Certificate Variable
@@ -45,7 +46,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.35
+AtomLinux_LinuxKernelVNumber=4.14.38
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 

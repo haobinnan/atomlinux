@@ -10,6 +10,7 @@ AtomLinux_Grub2DirName="$(grep -i ^AtomLinux_Grub2DirName ../VariableSetting | c
 AtomLinux_Grub2StyleDirName="$(grep -i ^AtomLinux_Grub2StyleDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_SoftwareName="$(grep -i ^AtomLinux_SoftwareName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_LinuxKernelParameter="$(grep -i ^AtomLinux_LinuxKernelParameter ../VariableSetting | sed s/AtomLinux_LinuxKernelParameter=// | sed s/\"//g)"
 #Load from VariableSetting file
 
 NotCreated_Main_GrubCfg=yes
@@ -35,7 +36,7 @@ search --no-floppy --file --set=root /$AtomLinux_Grub2DirName/$AtomLinux_Grub2St
 set theme=/$AtomLinux_Grub2DirName/$AtomLinux_Grub2StyleDirName/style.txt
 
 menuentry ' ' --hotkey=f0 {
-    linux /$AtomLinux_Grub2DirName/bzImage
+    linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     initrd /$AtomLinux_Grub2DirName/initramfs
 }" > ./grub.cfg
     else
@@ -58,12 +59,12 @@ set theme=/$AtomLinux_Grub2DirName/$AtomLinux_Grub2StyleDirName/style.txt
 
 menuentry ' ' --hotkey=f0 {
     if [ 'efi' == \$grub_platform ]; then
-        linux /$AtomLinux_Grub2DirName/bzImage
+        linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     else
         if cpuid -l; then
-            linux /$AtomLinux_Grub2DirName/bzImage
+            linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
         else
-            linux /$AtomLinux_Grub2DirName/bzImage_x86
+            linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
         fi
     fi
     initrd /$AtomLinux_Grub2DirName/initramfs
@@ -88,7 +89,7 @@ set gfxpayload=1024x768
 
 menuentry '$AtomLinux_SoftwareName' {
     echo 'Loading ...'
-    linux /$AtomLinux_Grub2DirName/bzImage
+    linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     initrd /$AtomLinux_Grub2DirName/initramfs
 }" > ./cd_grub.cfg
 else
@@ -107,12 +108,12 @@ set gfxpayload=1024x768
 menuentry '$AtomLinux_SoftwareName' {
     echo 'Loading ...'
     if [ 'efi' == \$grub_platform ]; then
-        linux /$AtomLinux_Grub2DirName/bzImage
+        linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     else
         if cpuid -l; then
-            linux /$AtomLinux_Grub2DirName/bzImage
+            linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
         else
-            linux /$AtomLinux_Grub2DirName/bzImage_x86
+            linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
         fi
     fi
     initrd /$AtomLinux_Grub2DirName/initramfs
