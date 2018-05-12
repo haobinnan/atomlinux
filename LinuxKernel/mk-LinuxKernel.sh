@@ -63,7 +63,6 @@ fi
 #Replace logo file
 
 #Secure Boot Patches
-
 #https://github.com/vathpela/linux
 if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
     for file in $(ls ../../SecureBootPatches);
