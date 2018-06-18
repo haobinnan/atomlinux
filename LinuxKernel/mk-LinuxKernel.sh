@@ -83,13 +83,13 @@ fi
 function build()
 {
     ARCH=$1
-    if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
-        CONFIG_NAME=".config_"${ARCH}"_sb"
-    else
-        CONFIG_NAME=".config_"${ARCH}
-    fi
 
-    cp -v ../../${CONFIG_NAME} ./.config
+    cp -v ../../".config_"${ARCH} ./.config
+    #Use patches
+    if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
+        patch -p1 < ../../${ARCH}"_sb".patch
+    fi
+    #Use patches
 
     echo | $Make bzImage
     #Check make
@@ -123,3 +123,10 @@ rm -rf ${OBJ_PROJECT}-code-tmp
 #clean
 
 echo "Complete."
+
+# ---------------------------------------------------------------------
+#Creating a Secure Boot Kernel Configuration File Patch
+# diff -u ./.config_x86 ./.config_x86_sb > x86_sb.patch
+
+# Use patches
+# patch -p1 < x86_sb.patch

@@ -10,11 +10,6 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ../VariableSetti
 AtomLinux_InitramfsLinuxAppFontDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppFontDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
-
-# CD
-AtomLinux_SoftwareName="$(grep -i ^AtomLinux_SoftwareName ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_LinuxSoftwareDirName="$(grep -i ^AtomLinux_LinuxSoftwareDirName ../VariableSetting | cut -f2 -d'=')"
-# CD
 #Load from VariableSetting file
 
 #Platform
@@ -94,14 +89,7 @@ cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdmon ./sbin/
 mkdir $AtomLinux_InitramfsLinuxAppDirName
 
 if test $1 && [ $1 = "cd" ]; then
-    sed -i '/.\/SearchApp/d' ./etc/profile
-    sed -i 's/TransferCommandLine/'${AtomLinux_SoftwareName}' -qws/' ./etc/profile
-
-    cp -rv ../$AtomLinux_LinuxSoftwareDirName/* ./$AtomLinux_InitramfsLinuxAppDirName/
-
-    echo "[SectionInfo]\r
-FromBootMark = \"CDR\"\r">>./${AtomLinux_InitramfsLinuxAppDirName}/Info.ini
-
+    :
     echo "cpio For CD"
 else
     if [ $(ls ../$AtomLinux_InitramfsLinuxAppDirName/ -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then

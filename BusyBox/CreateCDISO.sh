@@ -38,6 +38,7 @@ rm -f ${AtomLinux_ISOName}
 rm -rf iso_tmp
 mkdir iso_tmp
 cd iso_tmp
+
 # efi
 mkdir efi_tmp
 cd efi_tmp

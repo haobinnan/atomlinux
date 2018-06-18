@@ -6,7 +6,7 @@ Atom Linux is a tiny Linux system, which is totally compiled via source code. Th
 **1. Modify "VeriableSetting" configuration file based on your own needs to change compiling result. This file defines parameters such as source code version, specified target platform, grapgic development library, secure boot support, etc.**<br>
 **2. Run "Other\CompilationEnvironment.sh" script to install libraries and common tools required by Atom Linux.**<br>
 **3. Run "mk-CompileAll.sh" script to start compiling of entire system.**<br>
-**4. Run "test_iso.sh" script to test operating situation of Atom Linux.**<br>
+**4. Run "Test_ISO.sh" script to test operating situation of Atom Linux.**<br>
 
 ## Other common scripts<br>
 **"mk-Clean.sh"** Clears compiling result files.<br>
