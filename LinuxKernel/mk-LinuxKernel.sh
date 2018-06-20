@@ -87,7 +87,14 @@ function build()
     cp -v ../../".config_"${ARCH} ./.config
     #Use patches
     if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
+        echo -e "\033[31m****** Kernel Config Patch ******\033[0m"
         patch -p1 < ../../${ARCH}"_sb".patch
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (linuxkernel) ."
+            exit 1
+        fi
+        #Check patch
     fi
     #Use patches
 
