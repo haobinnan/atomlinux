@@ -13,7 +13,6 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ./VariableSettin
 AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_SignatureMethod="$(grep -i ^AtomLinux_SignatureMethod ./VariableSetting | cut -f2 -d'=')"
 
-AtomLinux_cer="$(grep -i ^AtomLinux_cer ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_key="$(grep -i ^AtomLinux_key ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_crt="$(grep -i ^AtomLinux_crt ./VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
@@ -27,11 +26,6 @@ if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
 
         if [ ! -f ./certificate/$AtomLinux_crt ]; then
             echo "Error: crt file does not exist ."
-            exit 1
-        fi
-
-        if [ ! -f ./certificate/$AtomLinux_cer ]; then
-            echo "Error: cer file does not exist ."
             exit 1
         fi
     fi
