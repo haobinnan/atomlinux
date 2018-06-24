@@ -19,5 +19,17 @@ fi
 #BIOS
 
 #UEFI
-qemu-system-x86_64 -bios "OVMF.fd" -m 256M -cdrom ${AtomLinux_ISOName} -boot d -vga std
+OVMFPath="./ovmf/OVMFX64.fd"
+if [ -f ${OVMFPath} ]; then
+    qemu-system-x86_64 -bios "${OVMFPath}" -m 256M -cdrom ${AtomLinux_ISOName} -boot d -vga std
+else
+    echo -e "\"${OVMFPath}\" \033[31mfile does not exist .\033[0m"
+fi
+
+OVMFPath="./ovmf/OVMFIA32.fd"
+if [ -f ${OVMFPath} ]; then
+    qemu-system-x86_64 -bios "${OVMFPath}" -m 256M -cdrom ${AtomLinux_ISOName} -boot d -vga std
+else
+    echo -e "\"${OVMFPath}\" \033[31mfile does not exist .\033[0m"
+fi
 #UEFI

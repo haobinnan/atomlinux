@@ -86,3 +86,8 @@ AtomLinux_GlibURL=http://gemmei.ftp.acc.umu.se/pub/gnome/sources/glib/2.53/
 AtomLinux_IconvVNumber=1.15
 AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
+
+#ovmf
+AtomLinux_OvmfVNumber=master
+AtomLinux_OvmfURL=https://github.com/tianocore/edk2/archive/
+#ovmf

@@ -48,6 +48,7 @@ rm -rf ./Qt/*_release
 rm -rf ./Lib/libiconv/*-libiconv
 rm -rf ./Lib/glib/*-glib
 rm -rf ./Utils/mdadm/*-mdadm
+rm -f ./ovmf/OVMF*.fd
 rm -f ./$AtomLinux_InstallationPackageFileName
 rm -f ./$AtomLinux_ISOName
 rm -rf Linux_sample
@@ -64,6 +65,7 @@ if [ ! -n "$1" ]; then
         rm -f ./Qt/qt-everywhere-opensource-src-*.tar.gz
         rm -f ./Qt/qt-everywhere-opensource-src-*.tar.xz
         rm -f ./Utils/mdadm/mdadm-*.tar.xz
+        rm -f ./ovmf/*.tar.gz
         rm -f ./Grub2/grub-*.tar.bz2
 
         #shim

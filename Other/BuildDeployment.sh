@@ -100,6 +100,10 @@ echo y | sudo apt install bison libopts25 libselinux1-dev autogen m4 autoconf he
 #   echo y | sudo apt install gnu-efi:i386
 #What you need to build 'shim'
 
+#What you need to build 'OVMF'
+echo y | sudo apt install nasm acpica-tools
+#What you need to build 'OVMF'
+
 #Install Qt Creator
 echo y | sudo apt install qtcreator
 #Install Qt Creator
@@ -118,7 +122,7 @@ fi
 #What you need to build 'glib'
 
 #Install qemu
-echo y | sudo apt install qemu ovmf
+echo y | sudo apt install qemu
 #Install qemu
 
 #Install upx

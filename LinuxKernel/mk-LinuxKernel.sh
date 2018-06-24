@@ -132,7 +132,7 @@ rm -rf ${OBJ_PROJECT}-code-tmp
 echo "Complete."
 
 # ---------------------------------------------------------------------
-#Creating a Secure Boot Kernel Configuration File Patch
+# Creating a Secure Boot Kernel Configuration File Patch
 # diff -u ./.config_x86 ./.config_x86_sb > x86_sb.patch
 
 # Use patches
