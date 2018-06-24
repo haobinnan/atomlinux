@@ -49,12 +49,12 @@ fi
 cd ./${OBJ_PROJECT}-tmp/*-${AtomLinux_OvmfVNumber}
 
 #IA32
-OvmfPkg/build.sh -a IA32 -n 4
+OvmfPkg/build.sh -a IA32
 cp -v Build/OvmfIa32/DEBUG_GCC*/FV/OVMF.fd ../../OVMFIA32.fd
 #IA32
 
 #X64
-OvmfPkg/build.sh -a X64 -n 4
+OvmfPkg/build.sh -a X64
 cp -v Build/OvmfX64/DEBUG_GCC*/FV/OVMF.fd ../../OVMFX64.fd
 #X64
 
