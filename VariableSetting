@@ -57,9 +57,9 @@ AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 
 #QtLib
 AtomLinux_QtVNumber4=4.8.7
-AtomLinux_Qt4URL=http://download.qt.io/official_releases/qt/4.8/
+AtomLinux_Qt4URL=http://download.qt.io/archive/qt/4.8/
 AtomLinux_QtVNumber5=5.9.4
-AtomLinux_Qt5URL=http://download.qt.io/official_releases/qt/5.9/
+AtomLinux_Qt5URL=http://download.qt.io/archive/qt/5.9/
 #QtLib
 
 #NcursesLib
