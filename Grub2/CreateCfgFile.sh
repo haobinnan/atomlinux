@@ -58,14 +58,10 @@ search --no-floppy --file --set=root /$AtomLinux_Grub2DirName/$AtomLinux_Grub2St
 set theme=/$AtomLinux_Grub2DirName/$AtomLinux_Grub2StyleDirName/style.txt
 
 menuentry ' ' --hotkey=f0 {
-    if [ 'efi' == \$grub_platform ]; then
+    if [ 'x86_64' == \$grub_cpu ]; then
         linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     else
-        if cpuid -l; then
-            linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
-        else
-            linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
-        fi
+        linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
     fi
     initrd /$AtomLinux_Grub2DirName/initramfs
 }" > ./grub.cfg
@@ -107,14 +103,10 @@ set gfxpayload=1024x768
 
 menuentry '$AtomLinux_SoftwareName' {
     echo 'Loading ...'
-    if [ 'efi' == \$grub_platform ]; then
+    if [ 'x86_64' == \$grub_cpu ]; then
         linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     else
-        if cpuid -l; then
-            linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
-        else
-            linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
-        fi
+        linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
     fi
     initrd /$AtomLinux_Grub2DirName/initramfs
 }" > ./cd_grub.cfg
