@@ -58,7 +58,7 @@ search --no-floppy --file --set=root /$AtomLinux_Grub2DirName/$AtomLinux_Grub2St
 set theme=/$AtomLinux_Grub2DirName/$AtomLinux_Grub2StyleDirName/style.txt
 
 menuentry ' ' --hotkey=f0 {
-    if [ 'x86_64' == \$grub_cpu ]; then
+    if cpuid -l; then
         linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     else
         linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
@@ -103,7 +103,7 @@ set gfxpayload=1024x768
 
 menuentry '$AtomLinux_SoftwareName' {
     echo 'Loading ...'
-    if [ 'x86_64' == \$grub_cpu ]; then
+    if cpuid -l; then
         linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
     else
         linux /$AtomLinux_Grub2DirName/bzImage_x86$AtomLinux_LinuxKernelParameter
