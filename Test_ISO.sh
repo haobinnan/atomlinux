@@ -9,7 +9,12 @@ fi
 AtomLinux_ISOName="$(grep -i ^AtomLinux_ISOName ./VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
-QEMURunParameter="-smp 2 -m 256M -enable-kvm -cdrom ${AtomLinux_ISOName} -boot d"
+QEMURunParameter="-smp 2 -m 256M -cdrom ${AtomLinux_ISOName} -boot d"
+if [ -c /dev/kvm ]; then
+    QEMURunParameter=${QEMURunParameter}" -enable-kvm"
+else
+    echo -e "\033[31mKVM is not supported.\033[0m"
+fi
 
 #Legacy BIOS
 echo -e "\033[31mPlatform: 32-Bit(Legacy BIOS)\033[0m"
