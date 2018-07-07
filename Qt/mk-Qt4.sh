@@ -124,7 +124,7 @@ function build_Emb()
     -no-scripttools \
     -no-mmx -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 -no-3dnow -no-avx -no-neon \
     -qt-zlib -no-gif -no-libtiff -qt-libpng -no-libmng -qt-libjpeg \
-    -no-nis -no-cups -no-iconv \
+    -no-nis -no-cups -no-iconv -no-icu \
     -no-openssl -no-nas-sound -no-opengl -no-openvg -no-sm -no-xshape -no-xvideo -no-xsync -no-xinerama -no-xcursor -no-xfixes -no-xrandr -no-xrender -no-xinput -no-glib -no-freetype
     #Check configure
     if [ ! $? -eq 0 ]; then
@@ -189,7 +189,7 @@ function build_Desktop()
     -no-scripttools \
     -no-mmx -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 -no-3dnow -no-avx -no-neon \
     -qt-zlib -no-gif -no-libtiff -qt-libpng -no-libmng -qt-libjpeg \
-    -no-nis -no-cups -no-iconv \
+    -no-nis -no-cups -no-iconv -no-icu \
     -no-openssl -no-nas-sound -no-opengl -no-openvg -no-sm -no-xshape -no-xvideo -no-xsync -no-xinerama -no-xcursor -no-xfixes -no-xrandr -no-xrender -no-xinput -no-glib \
     -fontconfig
     #Check configure

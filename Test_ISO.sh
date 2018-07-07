@@ -7,6 +7,7 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_ISOName="$(grep -i ^AtomLinux_ISOName ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ./VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 QEMURunParameter="-smp 2 -m 256M -cdrom ${AtomLinux_ISOName} -boot d"
@@ -17,8 +18,10 @@ else
 fi
 
 #Legacy BIOS
-echo -e "\033[31mPlatform: 32-Bit(Legacy BIOS)\033[0m"
-sudo qemu-system-i386 ${QEMURunParameter}
+if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
+    echo -e "\033[31mPlatform: 32-Bit(Legacy BIOS)\033[0m"
+    sudo qemu-system-i386 ${QEMURunParameter}
+fi
 if [ $(getconf LONG_BIT) = '64' ]; then
     echo -e "\033[31mPlatform: 64-Bit(Legacy BIOS)\033[0m"
     sudo qemu-system-x86_64 ${QEMURunParameter}
@@ -30,8 +33,10 @@ fi
 OVMFPath="./ovmf/OVMFIA32.fd"
 if [ -f ${OVMFPath} ]; then
     if [ $(getconf LONG_BIT) = '64' ]; then
-        echo -e "\033[31mPlatform: 32-Bit(32Bit UEFI BIOS)\033[0m"
-        sudo qemu-system-i386 -bios "${OVMFPath}" ${QEMURunParameter}
+        if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
+            echo -e "\033[31mPlatform: 32-Bit(32Bit UEFI BIOS)\033[0m"
+            sudo qemu-system-i386 -bios "${OVMFPath}" ${QEMURunParameter}
+        fi
         echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS)\033[0m"
         sudo qemu-system-x86_64 -bios "${OVMFPath}" ${QEMURunParameter}
     else

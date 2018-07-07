@@ -42,6 +42,7 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/librt.so.1"
     ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libz.so.1"
     ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libgcc_s.so.1"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libudev.so.1"
     ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libstdc++.so.6"
     ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libdrm.so.2"
     ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libpng16.so.16"
