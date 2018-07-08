@@ -8,6 +8,8 @@ echo y | sudo apt autoclean
 echo y | sudo apt clean
 #ubuntu use
 
+rm -rf ~/.cache/vmware/drag_and_drop/*
+
 #Wipe vmdk
 sudo vmware-toolbox-cmd disk wipe /
 #Compress vmdk
