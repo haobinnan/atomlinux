@@ -97,7 +97,7 @@ function build_Emb()
     -platform ${MyPlatform} \
     -xplatform qws/${MpXPlatform} \
     -embedded ${MyEmbedded} \
-    -depths 16,18,24,32 \
+    -depths all \
     -no-gfx-qvfb \
     -qt-gfx-linuxfb \
     -no-gfx-transformed \
