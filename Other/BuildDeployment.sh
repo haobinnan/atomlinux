@@ -36,12 +36,31 @@ echo y | sudo apt install wget vim git git-gui sbsigntool lcab python perl ruby 
 
 echo y | sudo apt install build-essential module-assistant gcc-multilib g++-multilib libtool libnss3-tools libpcre3
 
-echo y | sudo apt install libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3-dev libssl1.0-dev
+echo y | sudo apt install libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3-dev
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
     if [ $(getconf LONG_BIT) = '64' ]; then
-        echo y | sudo apt install libncurses5-dev:i386 zlib1g-dev:i386 libpng-dev:i386 libjpeg-dev:i386 libpcre3-dev:i386 libssl1.0-dev:i386
+        echo y | sudo apt install libncurses5-dev:i386 zlib1g-dev:i386 libpng-dev:i386 libjpeg-dev:i386 libpcre3-dev:i386
     fi
 fi
+
+#libssl
+apt list libssl1.0-dev | egrep 'libssl1.0-dev'
+if [ ! $? -eq 0 ]; then
+    echo y | sudo apt install libssl-dev
+    if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
+        if [ $(getconf LONG_BIT) = '64' ]; then
+            echo y | sudo apt install libssl-dev:i386
+        fi
+    fi
+else
+    echo y | sudo apt install libssl1.0-dev
+    if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
+        if [ $(getconf LONG_BIT) = '64' ]; then
+            echo y | sudo apt install libssl1.0-dev:i386
+        fi
+    fi
+fi
+#libssl
 
 #What you need to build 'LinuxKernel'
 echo y | sudo apt install libelf-dev

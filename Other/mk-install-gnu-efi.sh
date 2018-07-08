@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ $(getconf LONG_BIT) != '64' ]; then
+    echo "GNU-EFI Lib Only supports compiling on 64-Bit systems ."
+    exit 1
+fi
+
 #function
 function clean_gnuefi()
 {

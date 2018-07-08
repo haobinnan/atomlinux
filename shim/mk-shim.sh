@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ $(getconf LONG_BIT) != '64' ]; then
-    echo "Error: Only supports compiling on 64-Bit systems ."
+    echo "SHIM Only supports compiling on 64-Bit systems ."
     exit 1
 fi
 
