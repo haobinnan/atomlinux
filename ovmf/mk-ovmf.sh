@@ -96,7 +96,11 @@ if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
 else
     OvmfPkg/build.sh -a IA32 -b RELEASE
 fi
-cp -v Build/OvmfIa32/RELEASE_GCC*/FV/OVMF.fd ../../OVMFIA32.fd
+cp -v Build/OvmfIa32/RELEASE_GCC*/FV/OVMF.fd ../../OVMF_IA32.fd
+cp -v Build/OvmfIa32/RELEASE_GCC*/FV/OVMF.fd ../../OVMF_IA32_BAK.fd
+
+cp -v Build/OvmfIa32/RELEASE_GCC*/FV/OVMF_CODE.fd ../../OVMF_CODE_IA32.fd
+cp -v Build/OvmfIa32/RELEASE_GCC*/FV/OVMF_VARS.fd ../../OVMF_VARS_IA32.fd
 #IA32
 
 #X64
@@ -105,7 +109,11 @@ if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
 else
     OvmfPkg/build.sh -a X64 -b RELEASE
 fi
-cp -v Build/OvmfX64/RELEASE_GCC*/FV/OVMF.fd ../../OVMFX64.fd
+cp -v Build/OvmfX64/RELEASE_GCC*/FV/OVMF.fd ../../OVMF_X64.fd
+cp -v Build/OvmfX64/RELEASE_GCC*/FV/OVMF.fd ../../OVMF_X64_BAK.fd
+
+cp -v Build/OvmfX64/RELEASE_GCC*/FV/OVMF_CODE.fd ../../OVMF_CODE_X64.fd
+cp -v Build/OvmfX64/RELEASE_GCC*/FV/OVMF_VARS.fd ../../OVMF_VARS_X64.fd
 #X64
 
 #clean
