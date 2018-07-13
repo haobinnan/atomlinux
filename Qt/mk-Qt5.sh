@@ -72,7 +72,7 @@ echo yes | ./configure -v -prefix ${CurrentDIR}/${ARCH} \
 -no-icu -no-glib -no-cups -no-journald -no-fontconfig -evdev \
 -qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -no-harfbuzz -qt-xkbcommon \
 -no-opengl -xcb \
--skip 3d -skip x11extras \
+-skip 3d -skip x11extras -skip qtwebengine \
 -nomake tests -nomake examples \
 -platform ${MyPlatform}
 #-mtdev
