@@ -35,7 +35,7 @@ if [ -f ${OVMFPath} ]; then
     if [ $(getconf LONG_BIT) = '64' ]; then
         if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
             echo -e "\033[31mPlatform: 32-Bit(32Bit UEFI BIOS)\033[0m"
-            sudo qemu-system-i386 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+            sudo qemu-system-i386 ${QEMURunParameter} -bios ${OVMFPath}
         fi
         echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS)\033[0m"
         sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
