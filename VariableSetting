@@ -57,7 +57,7 @@ AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
 #BusyBox
-AtomLinux_BusyBoxVNumber=1.28.4
+AtomLinux_BusyBoxVNumber=1.29.1
 AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 #BusyBox
 

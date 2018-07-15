@@ -30,6 +30,7 @@ ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libc.so.6"
 ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libm.so.6"
 ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libdl.so.2"
 ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libpthread.so.0"
+ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libresolv.so.2"
 #Basic lib
 
 #GraphicsLibrary
