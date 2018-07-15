@@ -43,9 +43,22 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libz.so.1"
     ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libgcc_s.so.1"
     ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libudev.so.1"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libpcre.so.3"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libbsd.so.0"
     ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libstdc++.so.6"
     ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libdrm.so.2"
     ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libpng16.so.16"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libGL.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libharfbuzz.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libGLX.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libGLdispatch.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libglib-2.0.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libfreetype.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libgraphite2.so.3"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libX11.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libxcb.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libXau.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libXdmcp.so.6"
 elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     :
 fi

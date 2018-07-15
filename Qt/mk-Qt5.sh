@@ -70,12 +70,11 @@ cd ./${OBJ_PROJECT}-${ARCH}-tmp/${FILENAME_DIR}
 
 echo yes | ./configure -v -prefix ${CurrentDIR}/${ARCH} \
 -${VERSION} \
--opensource -confirm-license -shared -qml-debug -gui -widgets -zlib -optimize-size \
--no-icu -no-glib -no-cups -no-journald -no-fontconfig -evdev \
--qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -no-harfbuzz -qt-xkbcommon \
--xcb \
--skip 3d -skip x11extras -skip qtwebengine \
--nomake tests -nomake examples \
+-opensource -confirm-license -shared -optimize-size \
+-no-icu -no-glib -no-cups -no-journald -no-fontconfig \
+-qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -qt-xkbcommon \
+-xcb -evdev \
+-skip qtwebengine \
 -platform ${MyPlatform}
 #-mtdev
 #Check configure
