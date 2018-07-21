@@ -114,14 +114,7 @@ fi
 
 cd ../install_tmp/lib/grub/${ARCH}
 
-../../../bin/grub-mkimage --prefix="/Boot/grub" -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
-#Check grub-mkimage
-if [ ! $? -eq 0 ]; then
-    echo "Error: grub-mkimage (Grub2) ."
-    exit 1
-fi
-#Check grub-mkimage
-../../../bin/grub-mkimage --prefix="/boot/grub" -O i386-pc -d . -o ${LDRNAME}_cd.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
+../../../bin/grub-mkimage --prefix="/boot/grub" -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
 #Check grub-mkimage
 if [ ! $? -eq 0 ]; then
     echo "Error: grub-mkimage (Grub2) ."
@@ -130,10 +123,7 @@ fi
 #Check grub-mkimage
 
 cat lnxboot.img ${LDRNAME}.img > ${LDRNAME}
-cat cdboot.img ${LDRNAME}_cd.img > ${LDRNAME}_cd
-
-rm -f ${LDRNAME}.img
-rm -f ${LDRNAME}_cd.img
+cat cdboot.img ${LDRNAME}.img > ${LDRNAME}_cd
 
 mv ${LDRNAME} ../../../
 mv ${LDRNAME}_cd ../../../
