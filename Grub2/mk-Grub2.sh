@@ -114,14 +114,14 @@ fi
 
 cd ../install_tmp/lib/grub/${ARCH}
 
-../../../bin/grub-mkimage --prefix="/Boot/grub" -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid
+../../../bin/grub-mkimage --prefix="/Boot/grub" -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
 #Check grub-mkimage
 if [ ! $? -eq 0 ]; then
     echo "Error: grub-mkimage (Grub2) ."
     exit 1
 fi
 #Check grub-mkimage
-../../../bin/grub-mkimage --prefix="/boot/grub" -O i386-pc -d . -o ${LDRNAME}_cd.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid
+../../../bin/grub-mkimage --prefix="/boot/grub" -O i386-pc -d . -o ${LDRNAME}_cd.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
 #Check grub-mkimage
 if [ ! $? -eq 0 ]; then
     echo "Error: grub-mkimage (Grub2) ."
@@ -202,7 +202,7 @@ function build_efi()
     # $(ls *.mod | cut -d '.' -f 1)
     #All mod
 
-    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p "/boot/grub/" newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid linuxefi
+    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p "/boot/grub/" newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid scsi linuxefi
     #Check grub-mkimage
     if [ ! $? -eq 0 ]; then
         echo "Error: grub-mkimage (Grub2) ."

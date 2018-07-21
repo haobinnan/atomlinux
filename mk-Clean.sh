@@ -66,7 +66,7 @@ if [ ! -n "$1" ]; then
         rm -f ./Qt/qt-everywhere-opensource-src-*.tar.xz
         rm -f ./Utils/mdadm/mdadm-*.tar.xz
         rm -f ./ovmf/*.tar.gz
-        rm -f ./Grub2/grub-*.tar.bz2
+        rm -f ./Grub2/grub*.tar.*
 
         #shim
         rm -f ./shim/*.tar.gz

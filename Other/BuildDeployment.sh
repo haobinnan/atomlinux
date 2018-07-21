@@ -108,14 +108,12 @@ if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
         echo y | sudo apt install libxcursor-dev:i386 libxcomposite-dev:i386 libxdamage-dev:i386 libxrandr-dev:i386 libdbus-1-dev:i386 libfontconfig1-dev:i386 libcap-dev:i386 libxtst-dev:i386 libpulse-dev:i386 libudev-dev:i386 libpci-dev:i386 libnspr4-dev:i386 libnss3-dev:i386 libasound2-dev:i386 libxss-dev:i386 libegl1-mesa-dev:i386
         echo y | sudo apt install libbz2-dev:i386 libgcrypt11-dev:i386 libdrm-dev:i386 libcupsimage2-dev:i386 libtiff-dev:i386 libcups2-dev:i386 libatkmm-1.6-dev:i386
         # Qt WebEngine
-
-        echo y | sudo apt autoremove
     fi
 fi
 #What you need to build 'Qt5'
 
 #What you need to build 'grub2'
-echo y | sudo apt install libopts25 libfont-freetype-perl libopts25-dev libselinux1-dev autotools-dev libfreetype6-dev libdevmapper-dev libpciaccess-dev
+echo y | sudo apt install libopts25 libfont-freetype-perl libopts25-dev libselinux1-dev autotools-dev libfreetype6-dev libdevmapper-dev libpciaccess-dev librpm-dev
 #What you need to build 'grub2'
 
 #What you need to build 'OVMF'
@@ -138,6 +136,8 @@ fi
 #Install qemu
 echo y | sudo apt install qemu
 #Install qemu
+
+echo y | sudo apt autoremove
 
 ./mk-install-gnu-efi.sh
 
