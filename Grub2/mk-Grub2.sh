@@ -90,7 +90,8 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check autogen
 
-./configure --with-platform=pc --target=i386 --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp"
+# --disable-werror
+./configure --with-platform=pc --target=i386 --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount
 #Check configure
 if [ ! $? -eq 0 ]; then
     echo "Error: configure (Grub2) ."
@@ -164,7 +165,8 @@ function build_efi()
     fi
     #Check autogen
 
-    ./configure --with-platform=efi --target=${ARCH} --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp"
+    # --disable-werror
+    ./configure --with-platform=efi --target=${ARCH} --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount
     #Check configure
     if [ ! $? -eq 0 ]; then
         echo "Error: configure (Grub2) ."
@@ -192,7 +194,7 @@ function build_efi()
     # $(ls *.mod | cut -d '.' -f 1)
     #All mod
 
-    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p "/boot/grub/" newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid scsi linuxefi
+    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p "/boot/grub/" newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid scsi linuxefi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video
     #Check grub-mkimage
     if [ ! $? -eq 0 ]; then
         echo "Error: grub-mkimage (Grub2) ."
