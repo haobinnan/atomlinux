@@ -12,6 +12,7 @@ AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ./VariableSetting | cut -f2 
 AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_SignatureMethod="$(grep -i ^AtomLinux_SignatureMethod ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ./VariableSetting | cut -f2 -d'=')"
 
 AtomLinux_key="$(grep -i ^AtomLinux_key ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_crt="$(grep -i ^AtomLinux_crt ./VariableSetting | cut -f2 -d'=')"
@@ -92,6 +93,29 @@ fi
 cd ..
 # ********************************** LinuxKernel **********************************
 
+# ********************************** Grub2 **********************************
+cd Grub2
+./mk-Grub2.sh
+#Check
+if [ ! $? -eq 0 ]; then
+    echo "Error: mk-Grub2.sh ."
+    exit 1
+fi
+#Check
+#SecureBoot Signature
+if [ ${AtomLinux_SecureBootSignature} = "Yes" ] && [ ${AtomLinux_UsingPreviousBuildResults_SecureBoot} != "Yes" ]; then
+    ./mk-Grub2Signature.sh
+    #Check
+    if [ ! $? -eq 0 ]; then
+        echo "Error: mk-Grub2Signature.sh ."
+        exit 1
+    fi
+    #Check
+fi
+#SecureBoot Signature
+cd ..
+# ********************************** Grub2 **********************************
+
 # ********************************** GraphicsLibrary **********************************
 if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
     cd Qt
@@ -125,29 +149,6 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     cd ..
 fi
 # ********************************** GraphicsLibrary **********************************
-
-# ********************************** Grub2 **********************************
-cd Grub2
-./mk-Grub2.sh
-#Check
-if [ ! $? -eq 0 ]; then
-    echo "Error: mk-Grub2.sh ."
-    exit 1
-fi
-#Check
-#SecureBoot Signature
-if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
-    ./mk-Grub2Signature.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-Grub2Signature.sh ."
-        exit 1
-    fi
-    #Check
-fi
-#SecureBoot Signature
-cd ..
-# ********************************** Grub2 **********************************
 
 # ********************************** libiconv **********************************
 cd Lib/libiconv

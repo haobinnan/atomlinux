@@ -18,6 +18,10 @@ AtomLinux_SecureBootSignature=No
 AtomLinux_SignatureMethod=CodeSgin
     #SecureBoot Signature Method: "CodeSgin" | "EVCodeSgin"
 
+    #Using previous build results(Secure boot)? : "Yes" | "No"
+AtomLinux_UsingPreviousBuildResults_SecureBoot=No
+    #Using previous build results(Secure boot)? : "Yes" | "No"
+
 # **** Only supported on 64-bit systems ****
 
 #Compile configuration
@@ -52,7 +56,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.56
+AtomLinux_LinuxKernelVNumber=4.14.57
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 

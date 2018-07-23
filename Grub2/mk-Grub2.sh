@@ -11,6 +11,7 @@ fi
 AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Grub2VNumber="$(grep -i ^AtomLinux_Grub2VNumber ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_Grub2URL ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=grub2
@@ -19,9 +20,6 @@ FILENAME=${FILENAME_DIR}.tar.bz2
 
 #Build Method				[ no: All modules | yes: Single file ]
 RemoveModuleCompiledMode=yes
-
-#Using previous build results(Secure boot)?		[ no | yes ]
-UsingPreviousBuildResults=no
 
 CurrentDIR=$(pwd)
 
@@ -229,13 +227,15 @@ function build_efi_SecureBoot()
     # cp -v ./grub.cfg ./efi-${ARCH}/boot/grub/
 
     if [ $RemoveModuleCompiledMode = "yes" ]; then
-        rm -rf ./efi-${ARCH}/boot/grub/${ARCH}-efi
+        if [ -d ./efi-${ARCH}/boot/grub/${ARCH}-efi ]; then
+            rm -rf ./efi-${ARCH}/boot/grub/${ARCH}-efi
+        fi
     fi
 }
 #function
 
 #i386-efi
-if [ $UsingPreviousBuildResults = "yes" ]; then
+if [ $AtomLinux_UsingPreviousBuildResults_SecureBoot = "Yes" ]; then
     build_efi_SecureBoot i386
 else
     build_efi bootia32.efi i386
@@ -245,7 +245,7 @@ fi
 echo "-------------------------------------------------------------"
 
 #x86_64-efi
-if [ $UsingPreviousBuildResults = "yes" ]; then
+if [ $AtomLinux_UsingPreviousBuildResults_SecureBoot = "Yes" ]; then
     build_efi_SecureBoot x86_64
 else
     build_efi bootx64.efi x86_64
