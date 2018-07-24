@@ -8,9 +8,9 @@ if [ ! -f ../VariableSetting ]; then
 fi
 
 #Load from VariableSetting file
-AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_Grub2VNumber="$(grep -i ^AtomLinux_Grub2VNumber ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_Grub2URL ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Grub2VNumber="$(grep -i ^AtomLinux_Grub2VNumber ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
@@ -21,28 +21,33 @@ FILENAME=${FILENAME_DIR}.tar.bz2
 #Build Method				[ no: All modules | yes: Single file ]
 RemoveModuleCompiledMode=yes
 
+#Code acquisition method		[ git | wget ]
+CodeAcquisitionMethod=wget
+
 CurrentDIR=$(pwd)
 
-#Download Source Code
-if [ ! -f ./${FILENAME} ]; then
-    #Check if necessary tools are installed
-    if [ -z $(which wget) ]; then
-        echo "wget is not installed."
-        exit 1
-    fi
-    #Check if necessary tools are installed
-    wget ${AtomLinux_DownloadURL}${AtomLinux_Grub2VNumber}/archive.tar.bz2 -O ${FILENAME}
-    if [ ! $? -eq 0 ]; then
-        echo "Error: Download grub2 ."
-        exit 1
-    fi
-    #Check if it is downloaded successfully
+if [ $CodeAcquisitionMethod = "wget" ]; then
+    #Download Source Code
     if [ ! -f ./${FILENAME} ]; then
-        echo "Error: Download grub2 ."
-        exit 1
+        #Check if necessary tools are installed
+        if [ -z $(which wget) ]; then
+            echo "wget is not installed."
+            exit 1
+        fi
+        #Check if necessary tools are installed
+        wget ${AtomLinux_DownloadURL}${AtomLinux_Grub2VNumber}/archive.tar.bz2 -O ${FILENAME}
+        if [ ! $? -eq 0 ]; then
+            echo "Error: Download grub2 ."
+            exit 1
+        fi
+        #Check if it is downloaded successfully
+        if [ ! -f ./${FILENAME} ]; then
+            echo "Error: Download grub2 ."
+            exit 1
+        fi
     fi
+    #Download Source Code
 fi
-#Download Source Code
 
 ./CreateCfgFile.sh
 #Check
@@ -54,21 +59,31 @@ fi
 
 mkdir -p ${OBJ_PROJECT}-tmp/install_tmp
 
-tar xjvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
-#Check Decompression
-if [ ! $? -eq 0 ]; then
-    echo "Error: Decompression grub2 ."
-    exit 1
+if [ $CodeAcquisitionMethod = "wget" ]; then
+    tar xjvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
+    #Check Decompression
+    if [ ! $? -eq 0 ]; then
+        echo "Error: Decompression grub2 ."
+        exit 1
+    fi
+    #Check Decompression
+
+    #Rename the directory
+     mv ./${OBJ_PROJECT}-tmp/grub-debian* ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+    #Rename the directory
+else
+    FILENAME_DIR=grub2
+
+    cd ./${OBJ_PROJECT}-tmp/
+    git clone ${AtomLinux_DownloadURL}
+    cd grub2/
+    git checkout -b ${AtomLinux_Grub2VNumber}
+    cd ../..
 fi
-#Check Decompression
 
 if [ ! -d ./style ]; then
     mkdir ./style
 fi
-
-#Rename the directory
-mv ./${OBJ_PROJECT}-tmp/grub-debian* ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
-#Rename the directory
 
 # sed -i '/Welcome to GRUB!/d' ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/grub-core/kern/main.c
 

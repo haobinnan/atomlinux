@@ -41,7 +41,7 @@ if [ -f ${OVMFPath} ]; then
         sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
     else
         echo -e "\033[31mPlatform: 32-Bit(32Bit UEFI BIOS)\033[0m"
-        sudo qemu-system-i386 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+        sudo qemu-system-i386 ${QEMURunParameter} -bios ${OVMFPath}
     fi
 else
     echo -e "\"${OVMFPath}\" \033[31mfile does not exist .\033[0m"
