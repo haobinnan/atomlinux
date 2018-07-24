@@ -69,7 +69,7 @@ if [ $CodeAcquisitionMethod = "wget" ]; then
     #Check Decompression
 
     #Rename the directory
-     mv ./${OBJ_PROJECT}-tmp/grub-debian* ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+    mv ./${OBJ_PROJECT}-tmp/grub-debian* ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
     #Rename the directory
 else
     FILENAME_DIR=grub2
@@ -77,7 +77,7 @@ else
     cd ./${OBJ_PROJECT}-tmp/
     git clone ${AtomLinux_DownloadURL}
     cd grub2/
-    git checkout -b ${AtomLinux_Grub2VNumber}
+    git checkout -b ${AtomLinux_Grub2VNumber} origin/${AtomLinux_Grub2VNumber}
     cd ../..
 fi
 
