@@ -44,8 +44,7 @@ mkdir efi_tmp
 cd efi_tmp
 cp -rRv ../../../Linux_sample/EFIBIOSBoot/32Bit/* ./
 cp -rRv ../../../Linux_sample/EFIBIOSBoot/64Bit/* ./
-rm -f ./boot/grub/grub.cfg
-cp -v ../../../Grub2/cd_grub.cfg ./boot/grub/grub.cfg
+rm -rf ./Boot/
 
 cd ..
 sudo umount -n ./mnt
@@ -63,10 +62,9 @@ rm -rf ./efi_tmp
 
 # legacy
 cp -rRv ../../Linux_sample/LegacyBIOSBoot/* ./
-mv ./Boot ./boot
-rm -f ./boot/grub/grub.cfg
+rm -f ./Boot/grub/grub.cfg
 rm -f ./${AtomLinux_Grub2LdrName}
-cp -v ../../Grub2/cd_grub.cfg ./boot/grub/grub.cfg
+cp -v ../../Grub2/cd_grub.cfg ./Boot/grub/grub.cfg
 cp -v ../../Grub2/${AtomLinux_Grub2LdrName}_cd ./
 mkdir ${AtomLinux_Grub2DirName}
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then

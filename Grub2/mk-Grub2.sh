@@ -128,7 +128,7 @@ fi
 
 cd ../install_tmp/lib/grub/${ARCH}
 
-../../../bin/grub-mkimage --prefix="/boot/grub" -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
+../../../bin/grub-mkimage --prefix="/Boot/grub" -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
 #Check grub-mkimage
 if [ ! $? -eq 0 ]; then
     echo "Error: grub-mkimage (Grub2) ."
@@ -207,7 +207,7 @@ function build_efi()
     # $(ls *.mod | cut -d '.' -f 1)
     #All mod
 
-    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p "/boot/grub/" newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid scsi linuxefi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video
+    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p "/Boot/grub/" newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid scsi linuxefi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video
     #Check grub-mkimage
     if [ ! $? -eq 0 ]; then
         echo "Error: grub-mkimage (Grub2) ."
@@ -217,19 +217,19 @@ function build_efi()
 
     mv ${LDRNAME} ../../../
 
-    mkdir -p ../../../../../efi-${ARCH}/boot/grub/${ARCH}-efi
-    cp -v *.mod *.lst ../../../../../efi-${ARCH}/boot/grub/${ARCH}-efi
+    mkdir -p ../../../../../efi-${ARCH}/Boot/grub/${ARCH}-efi
+    cp -v *.mod *.lst ../../../../../efi-${ARCH}/Boot/grub/${ARCH}-efi
 
     cd ../../../../../
 
-    cp -v ./font.pf2 ./efi-${ARCH}/boot/grub
-    # cp -v ./grub.cfg ./efi-${ARCH}/boot/grub
+    cp -v ./font.pf2 ./efi-${ARCH}/Boot/grub
+    # cp -v ./grub.cfg ./efi-${ARCH}/Boot/grub
 
     mkdir -p ./efi-${ARCH}/EFI/BOOT
     cp -v ./${OBJ_PROJECT}-tmp/install_tmp/${LDRNAME} ./efi-${ARCH}/EFI/BOOT
 
     if [ $RemoveModuleCompiledMode = "yes" ]; then
-        rm -rf ./efi-${ARCH}/boot/grub/${ARCH}-efi
+        rm -rf ./efi-${ARCH}/Boot/grub/${ARCH}-efi
     fi
 }
 
@@ -239,11 +239,11 @@ function build_efi_SecureBoot()
 
     mkdir ./efi-${ARCH}
     cp -rv ./SecureBoot/${ARCH}/* ./efi-${ARCH}/
-    # cp -v ./grub.cfg ./efi-${ARCH}/boot/grub/
+    # cp -v ./grub.cfg ./efi-${ARCH}/Boot/grub/
 
     if [ $RemoveModuleCompiledMode = "yes" ]; then
-        if [ -d ./efi-${ARCH}/boot/grub/${ARCH}-efi ]; then
-            rm -rf ./efi-${ARCH}/boot/grub/${ARCH}-efi
+        if [ -d ./efi-${ARCH}/Boot/grub/${ARCH}-efi ]; then
+            rm -rf ./efi-${ARCH}/Boot/grub/${ARCH}-efi
         fi
     fi
 }
