@@ -41,27 +41,29 @@ function Grub2Signature()
     ARCH=$1
     NAME=$2
 
-    cp -rv ./efi-${ARCH} ./efi-${ARCH}.nosign
+    if [ -f ./efi-${ARCH}/EFI/BOOT/boot${NAME}.efi ]; then
+        cp -rv ./efi-${ARCH} ./efi-${ARCH}.nosign
 
-    if [ $AtomLinux_SignatureMethod = "CodeSgin" ]; then
-        cd ./efi-${ARCH}/EFI/BOOT/
-        sbsign --key ../../../../certificate/${AtomLinux_key} --cert ../../../../certificate/${AtomLinux_crt} --output ./grub${NAME}.efi ./boot${NAME}.efi
-        #Check sbsign
-        if [ ! $? -eq 0 ]; then
-            echo "Error: sbsign ."
-            exit 1
+        if [ $AtomLinux_SignatureMethod = "CodeSgin" ]; then
+            cd ./efi-${ARCH}/EFI/BOOT/
+            sbsign --key ../../../../certificate/${AtomLinux_key} --cert ../../../../certificate/${AtomLinux_crt} --output ./grub${NAME}.efi ./boot${NAME}.efi
+            #Check sbsign
+            if [ ! $? -eq 0 ]; then
+                echo "Error: sbsign ."
+                exit 1
+            fi
+            #Check sbsign
+            rm -f ./boot${NAME}.efi
+            cp -v ../../../SecureBoot/shim/shim${NAME}.efi ./boot${NAME}.efi
+            #sbverify --cert ../../../../certificate/${AtomLinux_crt} ./grub${NAME}.efi
+            cd ../../../
+        elif [ ${AtomLinux_SignatureMethod} = "EVCodeSgin" ]; then
+            cd ./efi-${ARCH}/EFI/BOOT/
+            mv ./boot${NAME}.efi ./grub${NAME}.efi
+            cp -v ../../../SecureBoot/shim/shim${NAME}.efi ./boot${NAME}.efi
+            echo -e "****************** \033[31mPlease sign file\033[0m:\033[33m$(pwd)/grub${NAME}.efi\033[0m ******************"
+            cd ../../../
         fi
-        #Check sbsign
-        rm -f ./boot${NAME}.efi
-        cp -v ../../../SecureBoot/shim/shim${NAME}.efi ./boot${NAME}.efi
-        #sbverify --cert ../../../../certificate/${AtomLinux_crt} ./grub${NAME}.efi
-        cd ../../../
-    elif [ ${AtomLinux_SignatureMethod} = "EVCodeSgin" ]; then
-        cd ./efi-${ARCH}/EFI/BOOT/
-        mv ./boot${NAME}.efi ./grub${NAME}.efi
-        cp -v ../../../SecureBoot/shim/shim${NAME}.efi ./boot${NAME}.efi
-        echo -e "****************** \033[31mPlease sign file\033[0m:\033[33m$(pwd)/grub${NAME}.efi\033[0m ******************"
-        cd ../../../
     fi
 }
 #function

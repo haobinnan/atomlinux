@@ -10,6 +10,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_InstallationPackageFileName="$(grep -i ^AtomLinux_InstallationPackageFileName ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Grub2PrefixDirName="$(grep -i ^AtomLinux_Grub2PrefixDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Grub2DirName="$(grep -i ^AtomLinux_Grub2DirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_ISOName="$(grep -i ^AtomLinux_ISOName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ../VariableSetting | cut -f2 -d'=')"
@@ -44,29 +45,35 @@ mkdir efi_tmp
 cd efi_tmp
 cp -rRv ../../../Linux_sample/EFIBIOSBoot/32Bit/* ./
 cp -rRv ../../../Linux_sample/EFIBIOSBoot/64Bit/* ./
-rm -rf ./Boot/
+rm -rf .${AtomLinux_Grub2PrefixDirName}/
 
 cd ..
-sudo umount -n ./mnt
+if [ -d ./mnt ]; then
+    sudo umount -n ./mnt
+fi
 initramfsImgSize=$(du -sm ./efi_tmp | awk '{print int($0)}')
 dd if=/dev/zero of=./efiboot bs=1M count=${initramfsImgSize}
 sudo mkdir ./mnt
 sudo mkfs.vfat ./efiboot
 sudo mount -t vfat -n ./efiboot ./mnt
 sudo cp -rRv ./efi_tmp/* ./mnt/
-sudo umount -n ./mnt
-sudo rm -rf ./mnt
+if [ -d ./mnt ]; then
+    sudo umount -n ./mnt
+    sudo rm -rf ./mnt
+fi
 
 rm -rf ./efi_tmp
 # efi
 
 # legacy
 cp -rRv ../../Linux_sample/LegacyBIOSBoot/* ./
-rm -f ./Boot/grub/grub.cfg
+rm -f .${AtomLinux_Grub2PrefixDirName}/grub.cfg
 rm -f ./${AtomLinux_Grub2LdrName}
-cp -v ../../Grub2/cd_grub.cfg ./Boot/grub/grub.cfg
+cp -v ../../Grub2/cd_grub.cfg .${AtomLinux_Grub2PrefixDirName}/grub.cfg
 cp -v ../../Grub2/${AtomLinux_Grub2LdrName}_cd ./
-mkdir ${AtomLinux_Grub2DirName}
+if [ ! -d ./${AtomLinux_Grub2DirName} ]; then
+    mkdir ${AtomLinux_Grub2DirName}
+fi
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
     cp -v ../../Linux_sample/Kernel/32Bit/bzImage ./${AtomLinux_Grub2DirName}/bzImage_x86
 fi

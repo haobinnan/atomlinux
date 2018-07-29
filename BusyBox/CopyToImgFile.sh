@@ -24,10 +24,16 @@ fi
 #Check
 
 RAMDISK_NAME=initramfs
-sudo umount -n ../mnt
-sudo rm -rf ../mnt
-rm ../$AtomLinux_InstallationPackageFileName
-rm ../Linux_sample/${RAMDISK_NAME}
+if [ -d ../mnt ]; then
+    sudo umount -n ../mnt
+    sudo rm -rf ../mnt
+fi
+if [ -f ../$AtomLinux_InstallationPackageFileName ]; then
+    rm ../$AtomLinux_InstallationPackageFileName
+fi
+if [ -f ../Linux_sample/${RAMDISK_NAME} ]; then
+    rm ../Linux_sample/${RAMDISK_NAME}
+fi
 cp -v ./${RAMDISK_NAME} ../Linux_sample/
 cp -v ../Grub2/MBR/grubmbr ../Linux_sample/
 
@@ -58,7 +64,9 @@ sudo mkdir ../mnt
 sudo mkfs.vfat ../$AtomLinux_InstallationPackageFileName
 sudo mount -t vfat -n ../$AtomLinux_InstallationPackageFileName ../mnt
 sudo cp -rRv ../Linux_sample/* ../mnt/
-sudo umount -n ../mnt
-sudo rm -rf ../mnt
+if [ -d ../mnt ]; then
+    sudo umount -n ../mnt
+    sudo rm -rf ../mnt
+fi
 
 echo "Complete."
