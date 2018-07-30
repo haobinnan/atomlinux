@@ -52,7 +52,7 @@ AtomLinux_ShimURL=https://github.com/rhboot/shim/archive/
 #Shim
 
 #Grub2
-AtomLinux_Grub2VNumber=2.02+dfsg1-4
+AtomLinux_Grub2VNumber=2.02+dfsg1-5
 AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
