@@ -21,6 +21,30 @@ FILENAME_Prefix=busybox-$AtomLinux_BusyBoxVNumber
 FILENAME=${FILENAME_Prefix}.tar.bz2
 FILENAME_DIR=${FILENAME_Prefix}
 
+#Clean
+function clean_busybox()
+{
+    rm -rf ./initramfs
+    rm -rf ./*_install
+    rm -rf ./iso_tmp
+    rm -rf ./$AtomLinux_InitramfsLinuxAppDirName
+    rm -rf ./$AtomLinux_InitramfsLinuxAppFontDirName
+    rm -rf ./$AtomLinux_LinuxSoftwareDirName
+    #MyConfig
+    rm -rf ./MyConfig/lib
+    rm -rf ./MyConfig/lib64
+    #MyConfig
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_busybox
+    echo "busybox clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -50,8 +74,10 @@ fi
 #Platform
 
 ROOTFS_NAME=rootfs
-mkdir ${OBJ_PROJECT}-${ARCH}-tmp
-tar -xjvf ${FILENAME} -C ./${OBJ_PROJECT}-${ARCH}-tmp/
+
+clean_busybox
+mkdir ${OBJ_PROJECT}-tmp
+tar -xjvf ${FILENAME} -C ./${OBJ_PROJECT}-tmp/
 #Check Decompression
 if [ ! $? -eq 0 ]; then
     echo "Error: Decompression busybox ."
@@ -69,7 +95,7 @@ if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
 fi
 #mkdir
 
-cd ./${OBJ_PROJECT}-${ARCH}-tmp/${FILENAME_DIR}
+cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 make defconfig
 #Check make defconfig
 if [ ! $? -eq 0 ]; then
@@ -119,6 +145,6 @@ fi
 rm -rf ../../${ARCH}_install
 mv ./_install ../../${ARCH}_install
 cd ../../
-rm -rf ./${OBJ_PROJECT}-${ARCH}-tmp
+rm -rf ${OBJ_PROJECT}-tmp
 
 echo "Complete."

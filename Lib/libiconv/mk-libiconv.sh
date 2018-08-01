@@ -17,6 +17,21 @@ OBJ_PROJECT=libiconv
 FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_IconvVNumber
 FILENAME=${FILENAME_DIR}.tar.gz
 
+#Clean
+function clean_libiconv()
+{
+    rm -rf ./*-libiconv
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_libiconv
+    echo "libiconv clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -45,15 +60,16 @@ if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
 fi
 #Platform
 
-mkdir ${OBJ_PROJECT}-${ARCH}-tmp
-tar -xzvf ${FILENAME} -C ./${OBJ_PROJECT}-${ARCH}-tmp/
+clean_libiconv
+mkdir ${OBJ_PROJECT}-tmp
+tar -xzvf ${FILENAME} -C ./${OBJ_PROJECT}-tmp/
 #Check Decompression
 if [ ! $? -eq 0 ]; then
     echo "Error: Decompression libiconv ."
     exit 1
 fi
 #Check Decompression
-cd ./${OBJ_PROJECT}-${ARCH}-tmp/${FILENAME_DIR}
+cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 #configure
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
@@ -93,6 +109,6 @@ fi
 mkdir ../../${ARCH}-${OBJ_PROJECT}
 cp -rv ./out/lib/preloadable_libiconv.so ../../${ARCH}-${OBJ_PROJECT}
 cd ../../
-rm -rf ${OBJ_PROJECT}-${ARCH}-tmp
+rm -rf ${OBJ_PROJECT}-tmp
 
 echo "Complete."

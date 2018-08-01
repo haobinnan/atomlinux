@@ -19,6 +19,27 @@ OBJ_PROJECT=grub2
 FILENAME_DIR=grub-$AtomLinux_Grub2VNumber
 FILENAME=${FILENAME_DIR}.tar.bz2
 
+#Clean
+function clean_grub2()
+{
+    rm -rf ./i386-pc
+    rm -rf ./efi-x86_64
+    rm -rf ./efi-i386
+    rm -f ./*.cfg
+    rm -f ./*_cd
+    rm -rf ./style
+    rm -rf ./*.nosign
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_grub2
+    echo "grub2 clean ok!"
+    exit
+fi
+#Clean
+
 #Build Method				[ no: All modules | yes: Single file ]
 RemoveModuleCompiledMode=yes
 
@@ -50,14 +71,7 @@ if [ $CodeAcquisitionMethod = "wget" ]; then
     #Download Source Code
 fi
 
-./CreateCfgFile.sh
-#Check
-if [ ! $? -eq 0 ]; then
-    echo "Error: CreateCfgFile.sh ."
-    exit 1
-fi
-#Check
-
+clean_grub2
 mkdir -p ${OBJ_PROJECT}-tmp/install_tmp
 
 if [ $CodeAcquisitionMethod = "wget" ]; then
@@ -85,6 +99,14 @@ fi
 if [ ! -d ./style ]; then
     mkdir ./style
 fi
+
+./CreateCfgFile.sh
+#Check
+if [ ! $? -eq 0 ]; then
+    echo "Error: CreateCfgFile.sh ."
+    exit 1
+fi
+#Check
 
 # sed -i '/Welcome to GRUB!/d' ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/grub-core/kern/main.c
 
@@ -268,6 +290,6 @@ else
 fi
 #x86_64-efi
 
-rm -rf ./${OBJ_PROJECT}-tmp
+rm -rf ${OBJ_PROJECT}-tmp
 
 echo "Complete."

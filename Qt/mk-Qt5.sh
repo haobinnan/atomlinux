@@ -23,12 +23,27 @@ fi
 #Platform
 
 CurrentDIR=$(pwd)
-OBJ_PROJECT=qt
+OBJ_PROJECT=qt5
 
 QtVNumber=$AtomLinux_QtVNumber5
 
 FILENAME_DIR=qt-everywhere-opensource-src-${QtVNumber}
 FILENAME=${FILENAME_DIR}.tar.xz
+
+#Clean
+function clean_qt5()
+{
+    rm -rf ./*_release
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_qt5
+    echo "qt5 clean ok!"
+    exit
+fi
+#Clean
 
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
@@ -53,10 +68,12 @@ fi
 
 VERSION=release
 ARCH=${MyArch}_${VERSION}
-mkdir ${ARCH}
-mkdir ${OBJ_PROJECT}-${ARCH}-tmp
 
-tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-${ARCH}-tmp
+clean_qt5
+mkdir ${ARCH}
+mkdir ${OBJ_PROJECT}-tmp
+
+tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
 #Check Decompression
 if [ ! $? -eq 0 ]; then
     echo "Error: Decompression Qt ."
@@ -64,7 +81,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
-cd ./${OBJ_PROJECT}-${ARCH}-tmp/${FILENAME_DIR}
+cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 # ***************** Compiling "opengl" and "qtwebengine" requires a large amount of memory (8GB). *****************
 
@@ -120,7 +137,7 @@ fi
 # Install docs
 
 cd ../../
-rm -rf ${OBJ_PROJECT}-${ARCH}-tmp
+rm -rf ${OBJ_PROJECT}-tmp
 # echo "-------------------------------------------------------------"
 
 echo "Complete."

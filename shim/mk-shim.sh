@@ -32,6 +32,22 @@ fi
 OBJ_PROJECT=shim
 FILENAME=${AtomLinux_ShimVNumber}.tar.gz
 
+#Clean
+function clean_shim()
+{
+    rm -f ./*.log
+    rm -rf ./shim_result
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_shim
+    echo "shim clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -53,7 +69,7 @@ if [ ! -f ./${FILENAME} ]; then
 fi
 #Download Source Code
 
-rm -rf ./${OBJ_PROJECT}_result
+clean_shim
 mkdir ${OBJ_PROJECT}_result
 
 #function

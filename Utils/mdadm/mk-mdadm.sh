@@ -17,6 +17,21 @@ OBJ_PROJECT=mdadm
 FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_MdadmVNumber
 FILENAME=${FILENAME_DIR}-rc1.tar.xz
 
+#Clean
+function clean_mdadm()
+{
+    rm -rf ./*-mdadm
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_mdadm
+    echo "mdadm clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -45,9 +60,9 @@ if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
 fi
 #Platform
 
-rm -rf ./${ARCH}-${OBJ_PROJECT}
-mkdir ${ARCH}-${OBJ_PROJECT}-tmp
-tar xvJf ./${FILENAME} -C ./${ARCH}-${OBJ_PROJECT}-tmp
+clean_mdadm
+mkdir ${OBJ_PROJECT}-tmp
+tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
 #Check Decompression
 if [ ! $? -eq 0 ]; then
     echo "Error: Decompression mdadm ."
@@ -55,7 +70,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
-cd ./${ARCH}-${OBJ_PROJECT}-tmp/${FILENAME_DIR}_rc1
+cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}_rc1
 
 #make
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
@@ -86,6 +101,6 @@ fi
 #Check make install
 
 cd ../../
-rm -rf ${ARCH}-${OBJ_PROJECT}-tmp
+rm -rf ${OBJ_PROJECT}-tmp
 
 echo "Complete."

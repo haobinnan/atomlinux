@@ -43,6 +43,7 @@ function KernelSignature()
 {
     ARCH=$1
 
+    rm -rf ./${ARCH}.nosign
     cp -rv ./${ARCH} ./${ARCH}.nosign
 
     if [ $AtomLinux_SignatureMethod = "CodeSgin" ]; then

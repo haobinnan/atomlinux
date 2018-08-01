@@ -39,6 +39,22 @@ QtVNumber=$AtomLinux_QtVNumber4
 FILENAME_DIR=qt-everywhere-opensource-src-${QtVNumber}
 FILENAME=${FILENAME_DIR}.tar.gz
 
+#Clean
+function clean_qt4()
+{
+    rm -rf ./*_debug_*
+    rm -rf ./*_release_*
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_qt4
+    echo "qt4 clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -60,6 +76,7 @@ if [ ! -f ./${FILENAME} ]; then
 fi
 #Download Source Code
 
+clean_qt4
 mkdir -p ${OBJ_PROJECT}-tmp/build_tmp
 tar -xzvf ${FILENAME} -C ./${OBJ_PROJECT}-tmp/
 #Check Decompression

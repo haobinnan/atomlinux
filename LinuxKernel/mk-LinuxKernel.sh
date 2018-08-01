@@ -19,6 +19,23 @@ FILENAME_Prefix=linux-$AtomLinux_LinuxKernelVNumber
 FILENAME=${FILENAME_Prefix}.tar.xz
 FILENAME_DIR=${FILENAME_Prefix}
 
+#Clean
+function clean_linuxkernel()
+{
+    rm -rf ./x86
+    rm -rf ./x86_64
+    rm -rf ./*.nosign
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_linuxkernel
+    echo "linuxkernel clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -40,9 +57,10 @@ if [ ! -f ./${FILENAME} ]; then
 fi
 #Download Source Code
 
-mkdir ${OBJ_PROJECT}-code-tmp
+clean_linuxkernel
+mkdir ${OBJ_PROJECT}-tmp
 
-tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-code-tmp
+tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
 #Check Decompression
 if [ ! $? -eq 0 ]; then
     echo "Error: Decompression linuxkernel ."
@@ -50,7 +68,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
-cd ./${OBJ_PROJECT}-code-tmp/${FILENAME_DIR}
+cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 #Replace logo file
 if [ -f ../../logo/my_logo.ppm ]; then
@@ -126,7 +144,7 @@ build x86_64
 
 #clean
 cd ../../
-rm -rf ${OBJ_PROJECT}-code-tmp
+rm -rf ${OBJ_PROJECT}-tmp
 #clean
 
 echo "Complete."

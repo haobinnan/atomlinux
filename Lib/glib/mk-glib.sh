@@ -17,6 +17,21 @@ OBJ_PROJECT=glib
 FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_GlibVNumber
 FILENAME=${FILENAME_DIR}.tar.xz
 
+#Clean
+function clean_glib()
+{
+    rm -rf ./*-glib
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_glib
+    echo "glib clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -45,8 +60,9 @@ if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
 fi
 #Platform
 
-mkdir ${OBJ_PROJECT}-${ARCH}-tmp
-tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-${ARCH}-tmp
+clean_glib
+mkdir ${OBJ_PROJECT}-tmp
+tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
 #Check Decompression
 if [ ! $? -eq 0 ]; then
     echo "Error: Decompression glib ."
@@ -54,7 +70,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 mkdir ./${ARCH}-${OBJ_PROJECT}
-cd ./${OBJ_PROJECT}-${ARCH}-tmp/${FILENAME_DIR}
+cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 #configure
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
@@ -89,6 +105,6 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check make install
 cd ../../
-rm -rf ${OBJ_PROJECT}-${ARCH}-tmp
+rm -rf ${OBJ_PROJECT}-tmp
 
 echo "Complete."

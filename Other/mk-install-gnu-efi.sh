@@ -5,20 +5,20 @@ if [ $(getconf LONG_BIT) != '64' ]; then
     exit 1
 fi
 
-#function
+#Clean
 function clean_gnuefi()
 {
     sudo rm -rf /usr/include/efi
     sudo rm -rf /usr/lib/gnuefi
     sudo rm -rf /usr/lib64/gnuefi
 }
-#function
 
 if test $1 && [ $1 = "clean" ]; then
     clean_gnuefi
     echo "clean ok!"
     exit
 fi
+#Clean
 
 Make="make -j$(cat /proc/cpuinfo | grep "cpu cores" | wc -l)"
 

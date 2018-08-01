@@ -1,56 +1,43 @@
 #!/usr/bin/env bash
 
-if [ ! -f ./VariableSetting ]; then
-    echo "Error: VariableSetting file does not exist ."
-    exit 1
-fi
+cd LinuxKernel/
+./mk-LinuxKernel.sh clean
+cd ..
 
-#Load from VariableSetting file
-AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirName ./VariableSetting | cut -f2 -d'=')"
-AtomLinux_InitramfsLinuxAppFontDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppFontDirName ./VariableSetting | cut -f2 -d'=')"
-AtomLinux_LinuxSoftwareDirName="$(grep -i ^AtomLinux_LinuxSoftwareDirName ./VariableSetting | cut -f2 -d'=')"
-AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ./VariableSetting | cut -f2 -d'=')"
-AtomLinux_InstallationPackageFileName="$(grep -i ^AtomLinux_InstallationPackageFileName ./VariableSetting | cut -f2 -d'=')"
-AtomLinux_ISOName="$(grep -i ^AtomLinux_ISOName ./VariableSetting | cut -f2 -d'=')"
-#Load from VariableSetting file
+cd Grub2/
+./mk-Grub2.sh clean
+cd ..
 
-rm -rf ./BusyBox/initramfs
-rm -rf ./BusyBox/*_install
-rm -rf ./BusyBox/iso_tmp
-rm -rf ./BusyBox/$AtomLinux_InitramfsLinuxAppDirName
-rm -rf ./BusyBox/$AtomLinux_InitramfsLinuxAppFontDirName
-rm -rf ./BusyBox/$AtomLinux_LinuxSoftwareDirName
-#MyConfig
-rm -rf ./BusyBox/MyConfig/lib
-rm -rf ./BusyBox/MyConfig/lib64
-#MyConfig
-rm -rf ./Grub2/i386-pc
-rm -rf ./Grub2/efi-x86_64
-rm -rf ./Grub2/efi-i386
-rm -f ./Grub2/*.cfg
-rm -f ./Grub2/${AtomLinux_Grub2LdrName}_cd
-rm -rf ./Grub2/style
-rm -rf ./Grub2/*.nosign
-rm -rf ./LinuxKernel/x86
-rm -rf ./LinuxKernel/x86_64
-rm -rf ./LinuxKernel/*.nosign
-rm -rf ./Ncurses/*-ncurses
+cd Qt/
+./mk-Qt4.sh clean
+./mk-Qt5.sh clean
+cd ..
 
-#Qt4
-rm -rf ./Qt/*_debug_*
-rm -rf ./Qt/*_release_*
-#Qt4
+cd Ncurses/
+./mk-ncurses.sh clean
+cd ..
 
-#Qt5
-rm -rf ./Qt/*_release
-#Qt5
+cd Lib/glib/
+./mk-glib.sh clean
+cd ../..
 
-rm -rf ./Lib/libiconv/*-libiconv
-rm -rf ./Lib/glib/*-glib
-rm -rf ./Utils/mdadm/*-mdadm
-rm -f ./ovmf/OVMF*.fd
-rm -f ./$AtomLinux_InstallationPackageFileName
-rm -f ./$AtomLinux_ISOName
+cd Lib/libiconv/
+./mk-libiconv.sh clean
+cd ../..
+
+cd Utils/mdadm/
+./mk-mdadm.sh clean
+cd ../..
+
+cd BusyBox/
+./mk-BusyBox.sh clean
+cd ..
+
+cd ovmf/
+./mk-ovmf.sh clean
+cd ..
+
+rm -f ./*.dat *.iso
 rm -rf Linux_sample
 
 if [ ! -n "$1" ]; then
@@ -69,9 +56,10 @@ if [ ! -n "$1" ]; then
         rm -f ./Grub2/grub*.tar.*
 
         #shim
+        cd shim/
+        ./mk-shim.sh clean
+        cd ..
         rm -f ./shim/*.tar.gz
-        rm -rf ./shim/shim_result
-        rm -f ./shim/*.log
         #shim
     fi
 fi

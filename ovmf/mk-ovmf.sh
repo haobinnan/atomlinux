@@ -17,6 +17,21 @@ AtomLinux_OvmfOpenSSLURL="$(grep -i ^AtomLinux_OvmfOpenSSLURL ../VariableSetting
 OBJ_PROJECT=ovmf
 FILENAME=${AtomLinux_OvmfVNumber}.tar.gz
 
+#Clean
+function clean_ovmf()
+{
+    rm -f ./OVMF*.fd
+
+    rm -rf ${OBJ_PROJECT}-tmp
+}
+
+if test $1 && [ $1 = "clean" ]; then
+    clean_ovmf
+    echo "ovmf clean ok!"
+    exit
+fi
+#Clean
+
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
@@ -38,9 +53,7 @@ if [ ! -f ./${FILENAME} ]; then
 fi
 #Download Source Code
 
-rm -f OVMF*.fd
-
-rm -rf ${OBJ_PROJECT}-tmp
+clean_ovmf
 mkdir ${OBJ_PROJECT}-tmp
 tar xzvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
 #Check Decompression
