@@ -22,13 +22,6 @@ AtomLinux_DownloadURL="$(grep -i ^AtomLinux_ShimURL ../VariableSetting | cut -f2
 UseExistingCertificate=yes
 #Use Existing Certificate  (yes | no)
 
-if [ $UseExistingCertificate = "yes" ]; then
-    if [ ! -f ../certificate/$AtomLinux_cer ]; then
-        echo "Error: VendorCertfile does not exist ."
-        exit 1
-    fi
-fi
-
 OBJ_PROJECT=shim
 FILENAME=${AtomLinux_ShimVNumber}.tar.gz
 
@@ -47,6 +40,13 @@ if test $1 && [ $1 = "clean" ]; then
     exit
 fi
 #Clean
+
+if [ $UseExistingCertificate = "yes" ]; then
+    if [ ! -f ../certificate/$AtomLinux_cer ]; then
+        echo "Error: VendorCertfile does not exist ."
+        exit 1
+    fi
+fi
 
 #Download Source Code
 if [ ! -f ./${FILENAME} ]; then

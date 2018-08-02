@@ -65,8 +65,6 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
 fi
 #GraphicsLibrary
 
-#ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libdbus-1.so.3"
-
 for var in ${ArrayLib[@]};
 do
     if [ -f $var ]; then

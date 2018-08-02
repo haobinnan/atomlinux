@@ -109,8 +109,6 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check
 
-# sed -i '/Welcome to GRUB!/d' ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/grub-core/kern/main.c
-
 #i386-pc
 LDRNAME=$AtomLinux_Grub2LdrName
 ARCH=i386-pc
@@ -175,7 +173,6 @@ cp -v *.mod *.lst ../../../../../${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}
 cd ../../../../../
 
 cp -v ./font.pf2 ./${ARCH}${AtomLinux_Grub2PrefixDirName}
-# cp -v ./grub.cfg ./${ARCH}${AtomLinux_Grub2PrefixDirName}
 
 cp -v ./${OBJ_PROJECT}-tmp/install_tmp/${LDRNAME} ./${ARCH}
 cp -v ./${OBJ_PROJECT}-tmp/install_tmp/${LDRNAME}_cd ./
@@ -256,7 +253,6 @@ function build_efi()
     cd ../../../../../
 
     cp -v ./font.pf2 ./efi-${ARCH}${AtomLinux_Grub2PrefixDirName}
-    # cp -v ./grub.cfg ./efi-${ARCH}${AtomLinux_Grub2PrefixDirName}
 
     mkdir -p ./efi-${ARCH}/EFI/BOOT
     cp -v ./${OBJ_PROJECT}-tmp/install_tmp/${LDRNAME} ./efi-${ARCH}/EFI/BOOT
@@ -272,7 +268,6 @@ function build_efi_SecureBoot()
 
     mkdir ./efi-${ARCH}
     cp -rv ./SecureBoot/${ARCH}/* ./efi-${ARCH}/
-    # cp -v ./grub.cfg ./efi-${ARCH}${AtomLinux_Grub2PrefixDirName}/
 
     if [ $RemoveModuleCompiledMode = "yes" ]; then
         if [ -d ./efi-${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}-efi ]; then

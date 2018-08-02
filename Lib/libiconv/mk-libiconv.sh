@@ -90,8 +90,6 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check configure
 
-# sed -i -e '/gets is a security/d' srclib/stdio.in.h  2017-04-27
-
 echo | $Make
 #Check make
 if [ ! $? -eq 0 ]; then

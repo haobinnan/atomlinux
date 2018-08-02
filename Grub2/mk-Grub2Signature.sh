@@ -55,7 +55,6 @@ function Grub2Signature()
             #Check sbsign
             rm -f ./boot${NAME}.efi
             cp -v ../../../SecureBoot/shim/shim${NAME}.efi ./boot${NAME}.efi
-            #sbverify --cert ../../../../certificate/${AtomLinux_crt} ./grub${NAME}.efi
             cd ../../../
         elif [ ${AtomLinux_SignatureMethod} = "EVCodeSgin" ]; then
             cd ./efi-${ARCH}/EFI/BOOT/

@@ -61,6 +61,12 @@ if [ ! -n "$1" ]; then
         cd ..
         rm -f ./shim/*.tar.gz
         #shim
+
+        #certificate
+        cd certificate/
+        rm -f ./*.cer *.crt *.key
+        cd ..
+        #certificate
     fi
 fi
 
