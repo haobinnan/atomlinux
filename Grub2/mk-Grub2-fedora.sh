@@ -27,6 +27,7 @@ function clean_grub2()
     rm -rf ./efi-i386
     rm -f ./*.cfg
     rm -f ./*_cd
+    rm -f ./MBR/grubmbr
     rm -rf ./style
     rm -rf ./*.nosign
 
@@ -182,6 +183,9 @@ cp -v ./${OBJ_PROJECT}-tmp/install_tmp/${LDRNAME}_cd ./
 if [ $RemoveModuleCompiledMode = "yes" ]; then
     rm -rf ./${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}
 fi
+#CreateMBR
+MBR/CreateMBR.py ${AtomLinux_Grub2LdrName}
+#CreateMBR
 #i386-pc
 
 echo "-------------------------------------------------------------"
