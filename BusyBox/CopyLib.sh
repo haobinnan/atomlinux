@@ -8,6 +8,7 @@ fi
 #Load from VariableSetting file
 AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 rm -rf ./MyConfig/lib/*
@@ -65,10 +66,49 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
 fi
 #GraphicsLibrary
 
+#weston
+if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/librt.so.1"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libudev.so.1"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libpcre.so.3"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libexpat.so.1"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libz.so.1"
+    ArrayLib[$((iIndex++))]="/lib/"${Arch}"-linux-gnu/libbsd.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libwayland-server.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libwayland-client.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libwayland-cursor.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libinput.so.10"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libpixman-1.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libxkbcommon.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libffi.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libmtdev.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libevdev.so.2"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libwacom.so.2"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libgudev-1.0.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libgobject-2.0.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libglib-2.0.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libcairo.so.2"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libjpeg.so.8"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libfontconfig.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libxcb-shm.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libxcb-render.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libXrender.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libXext.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libpng16.so.16"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libfreetype.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libxcb.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libX11.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libXau.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/"${Arch}"-linux-gnu/libXdmcp.so.6"
+fi
+#weston
+
 for var in ${ArrayLib[@]};
 do
     if [ -f $var ]; then
-        cp -v $var ./MyConfig/lib/
+        if [ ! -f ./MyConfig/lib/${var##*/} ]; then
+            cp -v $var ./MyConfig/lib/
+        fi
     fi
 done
 

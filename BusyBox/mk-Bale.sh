@@ -10,6 +10,7 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ../VariableSetti
 AtomLinux_InitramfsLinuxAppFontDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppFontDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #Platform
@@ -73,6 +74,15 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     Copy_libiconv="yes"
 fi
 #GraphicsLibrary
+
+#weston
+if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
+    mkdir ./weston
+    cp -rRv ../../Utils/weston/${ARCH}-weston/* ./weston
+    #mkdir -p ./etc/xdg/weston/
+    #mv ./weston/weston.ini ./etc/xdg/weston/weston.ini
+fi
+#weston
 
 cp -rRv ../MyConfig/* ./
 if [ ${Copy_libiconv} = "yes" ]; then

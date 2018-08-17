@@ -6,8 +6,8 @@ PS1='[\u@\h:\w]\# '
 export PS1 HOSTNAME
 # * * * * * * System Setup * * * * * *
 
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin
-export LD_LIBRARY_PATH=/lib:/usr/lib
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/weston/bin
+export LD_LIBRARY_PATH=/lib:/usr/lib:/weston/lib
 export LD_PRELOAD=/lib/preloadable_libiconv.so
 
 # * * * * * * Qt4 Config * * * * * *
@@ -30,6 +30,14 @@ export QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0:size=1024x768
 export QT_QPA_EVDEV_MOUSE_PARAMETERS=/dev/input/mouse0
 export QT_QPA_EVDEV_KEYBOARD_PARAMETERS=/dev/input/event1
 # * * * * * * Qt5 Config * * * * * *
+
+# * * * * * * weston * * * * * *
+mkdir -p /usr/share/X11/xkb
+mkdir -p /tmp/$USER-weston
+chmod 0700 /tmp/$USER-weston
+export XDG_RUNTIME_DIR=/tmp/$USER-weston
+# ** weston -B fbdev-backend.so --tty=2 **
+# * * * * * * weston * * * * * *
 
 export TERMINFO=/usr/share/terminfo
 

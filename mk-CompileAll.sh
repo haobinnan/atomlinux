@@ -13,6 +13,7 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ./VariableSettin
 AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_SignatureMethod="$(grep -i ^AtomLinux_SignatureMethod ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ./VariableSetting | cut -f2 -d'=')"
 
 AtomLinux_key="$(grep -i ^AtomLinux_key ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_crt="$(grep -i ^AtomLinux_crt ./VariableSetting | cut -f2 -d'=')"
@@ -173,6 +174,20 @@ fi
 #Check
 cd ../../
 # ********************************** mdadm **********************************
+
+# ********************************** weston **********************************
+if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
+    cd Utils/weston
+    ./mk-weston.sh
+    #Check
+    if [ ! $? -eq 0 ]; then
+        echo "Error: mk-weston.sh ."
+        exit 1
+    fi
+    #Check
+    cd ../../
+fi
+# ********************************** weston **********************************
 
 # ********************************** BusyBox **********************************
 cd BusyBox

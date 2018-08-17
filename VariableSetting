@@ -24,6 +24,10 @@ AtomLinux_UsingPreviousBuildResults_SecureBoot=No
 
 # **** Only supported on 64-bit systems ****
 
+    #Using weston: "Yes" | "No"
+AtomLinux_UsingWeston=No
+    #Using weston: "Yes" | "No"
+
 #Compile configuration
 
 #Variable
@@ -82,6 +86,11 @@ AtomLinux_NcursesURL=https://ftp.gnu.org/gnu/ncurses/
 AtomLinux_MdadmVNumber=4.1
 AtomLinux_MdadmURL=https://cdn.kernel.org/pub/linux/utils/raid/mdadm/
 #Utils - mdadm
+
+#Utils - weston
+AtomLinux_WestonVNumber=4.0.93
+AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
+#Utils - weston
 
 #Lib - gnu-efi
 AtomLinux_GnuEFIVNumber=3.0.8

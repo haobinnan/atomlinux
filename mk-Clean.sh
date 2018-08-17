@@ -29,6 +29,10 @@ cd Utils/mdadm/
 ./mk-mdadm.sh clean
 cd ../..
 
+cd Utils/weston/
+./mk-weston.sh clean
+cd ../..
+
 cd BusyBox/
 ./mk-BusyBox.sh clean
 cd ..

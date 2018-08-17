@@ -116,6 +116,19 @@ fi
 echo y | sudo apt install libopts25 libfont-freetype-perl libopts25-dev libselinux1-dev autotools-dev libfreetype6-dev libdevmapper-dev libpciaccess-dev librpm-dev
 #What you need to build 'grub2'
 
+#What you need to build 'weston'
+echo y | sudo apt install wayland-protocols
+
+echo y | sudo apt install libgles2-mesa-dev libxcb-composite0-dev libxcursor-dev libcairo2-dev libgbm-dev libpam0g-dev
+echo y | sudo apt install libinput-dev libxkbcommon-dev libxml2-dev
+if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
+    if [ $(getconf LONG_BIT) = '64' ]; then
+        echo y | sudo apt install libgles2-mesa-dev:i386 libxcb-composite0-dev:i386 libxcursor-dev:i386 libcairo2-dev:i386 libgbm-dev:i386 libpam0g-dev:i386
+        echo y | sudo apt install libinput-dev:i386 libxkbcommon-dev:i386 libxml2-dev:i386
+    fi
+fi
+#What you need to build 'weston'
+
 #What you need to build 'OVMF'
 echo y | sudo apt install acpica-tools
 #What you need to build 'OVMF'
