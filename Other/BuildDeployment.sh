@@ -31,7 +31,7 @@ fi
 #apt update
 
 #tools
-echo y | sudo apt install wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign automake nasm autogen m4 autoconf help2man xorriso texinfo gettext upx-ucl irpas
+echo y | sudo apt install wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign automake nasm autogen m4 autoconf meson help2man xorriso texinfo gettext upx-ucl irpas
 #tools
 
 echo y | sudo apt install build-essential module-assistant gcc-multilib g++-multilib libtool libnss3-tools libpcre3

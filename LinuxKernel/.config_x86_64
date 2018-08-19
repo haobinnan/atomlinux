@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 4.14.61 Kernel Configuration
+# Linux/x86 4.14.65 Kernel Configuration
 #
 CONFIG_64BIT=y
 CONFIG_X86_64=y
@@ -238,6 +238,7 @@ CONFIG_SLUB_CPU_PARTIAL=y
 # CONFIG_PROFILING is not set
 CONFIG_CRASH_CORE=y
 CONFIG_KEXEC_CORE=y
+CONFIG_HOTPLUG_SMT=y
 CONFIG_HAVE_OPROFILE=y
 CONFIG_OPROFILE_NMI_TIMER=y
 # CONFIG_KPROBES is not set

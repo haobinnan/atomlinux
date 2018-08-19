@@ -61,7 +61,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.61
+AtomLinux_LinuxKernelVNumber=4.14.65
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
@@ -88,7 +88,7 @@ AtomLinux_MdadmURL=https://cdn.kernel.org/pub/linux/utils/raid/mdadm/
 #Utils - mdadm
 
 #Utils - weston
-AtomLinux_WestonVNumber=4.0.93
+AtomLinux_WestonVNumber=4.0.94
 AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
 #Utils - weston
 
