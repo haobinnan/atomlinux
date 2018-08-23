@@ -77,10 +77,9 @@ fi
 
 #weston
 if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
-    mkdir ./weston
-    cp -rRv ../../Utils/weston/${ARCH}-weston/* ./weston
+    cp -rRv ../../Utils/weston/${ARCH}-weston/* ./
     #mkdir -p ./etc/xdg/weston/
-    #mv ./weston/weston.ini ./etc/xdg/weston/weston.ini
+    #mv ../../Utils/weston/weston.ini ./etc/xdg/weston/weston.ini
 fi
 #weston
 

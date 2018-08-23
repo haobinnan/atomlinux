@@ -6,8 +6,8 @@ PS1='[\u@\h:\w]\# '
 export PS1 HOSTNAME
 # * * * * * * System Setup * * * * * *
 
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/weston/bin
-export LD_LIBRARY_PATH=/lib:/usr/lib:/weston/lib
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export LD_LIBRARY_PATH=/lib:/usr/lib
 export LD_PRELOAD=/lib/preloadable_libiconv.so
 
 # * * * * * * Qt4 Config * * * * * *

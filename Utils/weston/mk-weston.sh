@@ -13,12 +13,14 @@ AtomLinux_DownloadURL="$(grep -i ^AtomLinux_WestonURL ../../VariableSetting | cu
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
+CurrentDIR=$(pwd)
 OBJ_PROJECT=weston
 FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_WestonVNumber
 
 #Clean
 function clean_weston()
 {
+    rm -f ./weston.ini
     rm -rf ./*-weston
 
     rm -rf ${OBJ_PROJECT}-tmp
@@ -47,14 +49,14 @@ WESTONPARAM="--disable-setuid-install --disable-weston-launch --enable-fbdev-com
 
 #autogen
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    ./autogen.sh --prefix=/weston ${WESTONPARAM}
+    ./autogen.sh --prefix=/usr ${WESTONPARAM}
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
         export PKG_CONFIG_PATH=/usr/lib/i386-linux-gnu/pkgconfig/
-        ./autogen.sh --prefix=/weston ${WESTONPARAM} --build=i386-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+        ./autogen.sh --prefix=/usr ${WESTONPARAM} --build=i386-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
         export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/
     else
-        ./autogen.sh --prefix=/weston ${WESTONPARAM}
+        ./autogen.sh --prefix=/usr ${WESTONPARAM}
     fi
 fi
 #autogen
@@ -73,28 +75,23 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check make
 
-sudo make install
+make install DESTDIR=${CurrentDIR}/${ARCH}-weston/
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (weston) ."
     exit 1
 fi
 #Check make install
-sudo cp ./weston.ini  /weston/
+cp ./weston.ini ${CurrentDIR}/
 
 cd ../../
 rm -rf ${OBJ_PROJECT}-tmp
 
-mkdir ${ARCH}-weston
-sudo cp -rRv /weston/* ./${ARCH}-weston/
-sudo rm -rf /weston
-sudo chown -R "$USER" ./${ARCH}-weston/
-
 #Delete useless files
-sudo rm -rf ./${ARCH}-weston/include
-sudo rm -rf ./${ARCH}-weston/share/man
-sudo rm -rf ./${ARCH}-weston/lib/pkgconfig
-sudo find ./${ARCH}-weston -name '*.la' -type f -print -exec rm -rf {} \;
+rm -rf ./${ARCH}-weston/usr/include
+rm -rf ./${ARCH}-weston/usr/share/man
+rm -rf ./${ARCH}-weston/usr/lib/pkgconfig
+find ./${ARCH}-weston/usr/ -name '*.la' -type f -print -exec rm -rf {} \;
 #Delete useless files
 
 echo "Complete."
