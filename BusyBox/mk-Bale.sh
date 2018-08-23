@@ -42,13 +42,13 @@ Copy_libiconv="no"
 
 #GraphicsLibrary
 if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
-    mkdir -p ./qt/fonts/
-    mkdir -p ./qt/lib/
-    cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtCore.so* ./qt/lib/
-    cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtGui.so* ./qt/lib/
-    cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtNetwork.so* ./qt/lib/
-    cp -rv ../../Qt/${ARCH}_release_Emb/lib/fonts/fixed_120_50.qpf ./qt/fonts/
-    cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./qt/fonts/
+    mkdir -p ./usr/fonts/
+    mkdir -p ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtCore.so* ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtGui.so* ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtNetwork.so* ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_release_Emb/lib/fonts/fixed_120_50.qpf ./usr/fonts/
+    cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/fonts/
 
     Copy_libiconv="yes"
 elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
