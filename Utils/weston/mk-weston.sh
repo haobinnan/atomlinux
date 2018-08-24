@@ -75,7 +75,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check make
 
-make install DESTDIR=${CurrentDIR}/${ARCH}-weston/
+make install DESTDIR=${CurrentDIR}/${ARCH}-weston
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (weston) ."
