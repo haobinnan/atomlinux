@@ -13,6 +13,7 @@ AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut 
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_IconvURL ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
+CurrentDIR=$(pwd)
 OBJ_PROJECT=libiconv
 FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_IconvVNumber
 FILENAME=${FILENAME_DIR}.tar.gz
@@ -20,7 +21,7 @@ FILENAME=${FILENAME_DIR}.tar.gz
 #Clean
 function clean_libiconv()
 {
-    rm -rf ./*-libiconv
+    rm -rf ./*-${OBJ_PROJECT}
 
     rm -rf ${OBJ_PROJECT}-tmp
 }
@@ -73,16 +74,15 @@ cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 #configure
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    ./configure --prefix=$PWD/out
+    ./configure --prefix=/usr
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
-        ./configure --prefix=$PWD/out CC="gcc -m32"
+        ./configure --prefix=/usr CC="gcc -m32"
     else
-        ./configure --prefix=$PWD/out
+        ./configure --prefix=/usr
     fi
 fi
 #configure
-
 #Check configure
 if [ ! $? -eq 0 ]; then
     echo "Error: configure (libiconv) ."
@@ -97,15 +97,14 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check make
-make install
+make install DESTDIR=${CurrentDIR}/${ARCH}-${OBJ_PROJECT}
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (libiconv) ."
     exit 1
 fi
 #Check make install
-mkdir ../../${ARCH}-${OBJ_PROJECT}
-cp -rv ./out/lib/preloadable_libiconv.so ../../${ARCH}-${OBJ_PROJECT}
+
 cd ../../
 rm -rf ${OBJ_PROJECT}-tmp
 

@@ -13,6 +13,7 @@ AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_NcursesURL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
+CurrentDIR=$(pwd)
 OBJ_PROJECT=ncurses
 FILENAME_Prefix=${OBJ_PROJECT}-$AtomLinux_NcursesVNumber
 FILENAME=${FILENAME_Prefix}.tar.gz
@@ -21,7 +22,7 @@ FILENAME_DIR=${FILENAME_Prefix}
 #Clean
 function clean_ncurses()
 {
-    rm -rf ./*-ncurses
+    rm -rf ./*-${OBJ_PROJECT}
 
     rm -rf ${OBJ_PROJECT}-tmp
 }
@@ -61,8 +62,6 @@ if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
 fi
 #Platform
 
-CurrentDIR=$(pwd)
-
 clean_ncurses
 mkdir ${OBJ_PROJECT}-tmp
 tar -xzvf ${FILENAME} -C ./${OBJ_PROJECT}-tmp/
@@ -78,22 +77,22 @@ cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 #configure
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    ./configure --prefix=$CurrentDIR/${ARCH}-$OBJ_PROJECT --with-shared --with-normal --with-debug --enable-overwrite --enable-widec
+    ./configure --prefix=/usr --with-shared --with-normal --with-debug --enable-overwrite --enable-widec
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
-        ./configure --prefix=$CurrentDIR/${ARCH}-$OBJ_PROJECT --with-shared --with-normal --with-debug --enable-overwrite --enable-widec CC="gcc -m32" CXX="g++ -m32"
+        ./configure --prefix=/usr --with-shared --with-normal --with-debug --enable-overwrite --enable-widec CC="gcc -m32" CXX="g++ -m32"
     else
-        ./configure --prefix=$CurrentDIR/${ARCH}-$OBJ_PROJECT --with-shared --with-normal --with-debug --enable-overwrite --enable-widec
+        ./configure --prefix=/usr --with-shared --with-normal --with-debug --enable-overwrite --enable-widec
     fi
 fi
 #configure
-
 #Check configure
 if [ ! $? -eq 0 ]; then
     echo "Error: configure (ncurses) ."
     exit 1
 fi
 #Check configure
+
 echo | $Make
 #Check make
 if [ ! $? -eq 0 ]; then
@@ -101,7 +100,8 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check make
-make install
+
+make install DESTDIR=$CurrentDIR/${ARCH}-$OBJ_PROJECT
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (ncurses) ."

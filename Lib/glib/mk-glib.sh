@@ -20,7 +20,7 @@ FILENAME=${FILENAME_DIR}.tar.xz
 #Clean
 function clean_glib()
 {
-    rm -rf ./*-glib
+    rm -rf ./*-${OBJ_PROJECT}
 
     rm -rf ${OBJ_PROJECT}-tmp
 }

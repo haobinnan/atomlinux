@@ -42,8 +42,9 @@ Copy_libiconv="no"
 
 #GraphicsLibrary
 if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
-    mkdir -p ./usr/fonts/
     mkdir -p ./usr/lib/
+    mkdir -p ./usr/fonts/
+
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtCore.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtGui.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtNetwork.so* ./usr/lib/
@@ -52,21 +53,24 @@ if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
 
     Copy_libiconv="yes"
 elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
-    mkdir -p ./qt5/fonts/
-    mkdir -p ./qt5/lib/
-    cp -rv ../../Qt/${ARCH}_release/lib/libQt5Core.so* ./qt5/lib/
-    cp -rv ../../Qt/${ARCH}_release/lib/libQt5Gui.so* ./qt5/lib/
-    cp -rv ../../Qt/${ARCH}_release/lib/libQt5Widgets.so* ./qt5/lib/
-    cp -rv ../../Qt/${ARCH}_release/plugins ./qt5
-    cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./qt5/fonts/
+    mkdir -p ./usr/lib/
+    mkdir -p ./usr/qt5/fonts/
+
+    cp -rv ../../Qt/${ARCH}_release/lib/libQt5Core.so* ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_release/lib/libQt5Gui.so* ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_release/lib/libQt5Widgets.so* ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_release/plugins ./usr/qt5
+    cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/qt5/fonts/
 
     Copy_libiconv="yes"
 elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
+    mkdir -p ./usr/lib/
     mkdir -p ./usr/share/terminfo/
-    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libformw.so* ./lib/
-    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libmenuw.so* ./lib/
-    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libncursesw.so* ./lib/
-    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libpanelw.so* ./lib/
+
+    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libformw.so* ./usr/lib/
+    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libmenuw.so* ./usr/lib/
+    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libncursesw.so* ./usr/lib/
+    cp -rv ../../Ncurses/${ARCH}-ncurses/lib/libpanelw.so* ./usr/lib/
     cp -rRv ../../Ncurses/${ARCH}-ncurses/share/tabset ./usr/share/
     cp -rRv ../../Ncurses/${ARCH}-ncurses/share/terminfo/l ./usr/share/terminfo/
     cp -rRv ../../Ncurses/${ARCH}-ncurses/share/terminfo/t ./usr/share/terminfo/
@@ -85,7 +89,8 @@ fi
 
 cp -rRv ../MyConfig/* ./
 if [ ${Copy_libiconv} = "yes" ]; then
-    cp -v ../../Lib/libiconv/${ARCH}-libiconv/preloadable_libiconv.so ./lib/
+    mkdir -p ./usr/lib/
+    cp -v ../../Lib/libiconv/${ARCH}-libiconv/usr/lib/preloadable_libiconv.so ./usr/lib/
 else
     sed -i '/preloadable_libiconv.so/d' ./etc/profile
 fi

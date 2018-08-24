@@ -21,7 +21,7 @@ FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_WestonVNumber
 function clean_weston()
 {
     rm -f ./weston.ini
-    rm -rf ./*-weston
+    rm -rf ./*-${OBJ_PROJECT}
 
     rm -rf ${OBJ_PROJECT}-tmp
 }
@@ -75,7 +75,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check make
 
-make install DESTDIR=${CurrentDIR}/${ARCH}-weston
+make install DESTDIR=${CurrentDIR}/${ARCH}-${OBJ_PROJECT}
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (weston) ."
@@ -88,10 +88,10 @@ cd ../../
 rm -rf ${OBJ_PROJECT}-tmp
 
 #Delete useless files
-rm -rf ./${ARCH}-weston/usr/include
-rm -rf ./${ARCH}-weston/usr/share/man
-rm -rf ./${ARCH}-weston/usr/lib/pkgconfig
-find ./${ARCH}-weston/usr/ -name '*.la' -type f -print -exec rm -rf {} \;
+rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/include
+rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/share/man
+rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/lib/pkgconfig
+find ./${ARCH}-${OBJ_PROJECT}/usr/ -name '*.la' -type f -print -exec rm -rf {} \;
 #Delete useless files
 
 echo "Complete."

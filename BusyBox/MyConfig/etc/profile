@@ -8,7 +8,7 @@ export PS1 HOSTNAME
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 export LD_LIBRARY_PATH=/lib:/usr/lib
-export LD_PRELOAD=/lib/preloadable_libiconv.so
+export LD_PRELOAD=/usr/lib/preloadable_libiconv.so
 
 # * * * * * * Qt4 Config * * * * * *
 export QT_QWS_FONTDIR=/usr/fonts/
@@ -19,8 +19,7 @@ export QWS_MOUSE_PROTO=IntelliMouse:/dev/input/mice
 
 # * * * * * * Qt5 Config * * * * * *
 # export QT_DEBUG_PLUGINS=1
-export QT5DIR=/qt5
-export LD_LIBRARY_PATH=$QT5DIR/lib:$LD_LIBRARY_PATH
+export QT5DIR=/usr/qt5
 export QT_PLUGIN_PATH=$QT5DIR/plugins
 export QT_QPA_FONTDIR=$QT5DIR/fonts
 export QT_QPA_PLATFORM_PLUGIN_PATH=$QT5DIR/plugins/platforms
@@ -29,6 +28,10 @@ export QT_QPA_EVDEV_MOUSE_PARAMETERS=/dev/input/mouse0
 export QT_QPA_EVDEV_KEYBOARD_PARAMETERS=/dev/input/event1
 # * * * * * * Qt5 Config * * * * * *
 
+# * * * * * * ncurses * * * * * *
+export TERMINFO=/usr/share/terminfo
+# * * * * * * ncurses * * * * * *
+
 # * * * * * * weston * * * * * *
 mkdir -p /usr/share/X11/xkb
 mkdir -p /tmp/$USER-weston
@@ -36,8 +39,6 @@ chmod 0700 /tmp/$USER-weston
 export XDG_RUNTIME_DIR=/tmp/$USER-weston
 # ** weston -B fbdev-backend.so --tty=2 **
 # * * * * * * weston * * * * * *
-
-export TERMINFO=/usr/share/terminfo
 
 clear
 

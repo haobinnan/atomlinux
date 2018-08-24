@@ -20,7 +20,7 @@ FILENAME=${FILENAME_DIR}-rc2.tar.xz
 #Clean
 function clean_mdadm()
 {
-    rm -rf ./*-mdadm
+    rm -rf ./*-${OBJ_PROJECT}
 
     rm -rf ${OBJ_PROJECT}-tmp
 }
