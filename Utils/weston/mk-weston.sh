@@ -45,7 +45,7 @@ mkdir -p ${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 git clone --branch ${AtomLinux_WestonVNumber} ${AtomLinux_DownloadURL} ${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
-WESTONPARAM="--disable-setuid-install --disable-weston-launch --enable-fbdev-compositor --disable-x11-compositor --disable-drm-compositor --disable-wayland-compositor --disable-rdp-compositor --disable-headless-compositor --disable-egl --disable-xwayland"
+WESTONPARAM="--disable-setuid-install --disable-weston-launch --enable-fbdev-compositor --disable-x11-compositor --disable-drm-compositor --disable-wayland-compositor --disable-rdp-compositor --disable-headless-compositor --disable-egl --disable-xwayland WESTON_NATIVE_BACKEND=fbdev-backend.so"
 
 #autogen
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then

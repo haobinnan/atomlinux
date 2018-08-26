@@ -10,6 +10,7 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ../VariableSetti
 AtomLinux_InitramfsLinuxAppFontDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppFontDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
@@ -83,7 +84,7 @@ fi
 if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
     cp -rRv ../../Utils/weston/${ARCH}-weston/* ./
     #mkdir -p ./etc/xdg/weston/
-    #mv ../../Utils/weston/weston.ini ./etc/xdg/weston/weston.ini
+    #cp ../../Utils/weston/weston.ini ./etc/xdg/weston/
 fi
 #weston
 
@@ -96,8 +97,11 @@ else
 fi
 
 #RAID Support
-cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdadm ./sbin/
-cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdmon ./sbin/
+if [ ${AtomLinux_UsingMdadm} = "Yes" ]; then
+    mkdir -p ./usr/sbin/
+    cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdadm ./usr/sbin/
+    cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdmon ./usr/sbin/
+fi
 #RAID Support
 
 mkdir $AtomLinux_InitramfsLinuxAppDirName

@@ -24,6 +24,10 @@ AtomLinux_UsingPreviousBuildResults_SecureBoot=No
 
 # **** Only supported on 64-bit systems ****
 
+    #Using mdadm: "Yes" | "No"
+AtomLinux_UsingMdadm=No
+    #Using mdadm: "Yes" | "No"
+
     #Using weston: "Yes" | "No"
 AtomLinux_UsingWeston=No
     #Using weston: "Yes" | "No"
@@ -61,7 +65,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.66
+AtomLinux_LinuxKernelVNumber=4.14.67
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
@@ -88,7 +92,7 @@ AtomLinux_MdadmURL=https://cdn.kernel.org/pub/linux/utils/raid/mdadm/
 #Utils - mdadm
 
 #Utils - weston
-AtomLinux_WestonVNumber=4.0.94
+AtomLinux_WestonVNumber=5.0.0
 AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
 #Utils - weston
 
@@ -108,7 +112,7 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=master
+AtomLinux_OvmfVNumber=edk2-stable201808
 AtomLinux_OvmfURL=https://github.com/tianocore/edk2/archive/
 AtomLinux_OvmfOpenSSLVNumber=OpenSSL_1_1_0h
 AtomLinux_OvmfOpenSSLURL=https://github.com/openssl/openssl/archive/

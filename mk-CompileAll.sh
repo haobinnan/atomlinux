@@ -13,6 +13,7 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ./VariableSettin
 AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_SignatureMethod="$(grep -i ^AtomLinux_SignatureMethod ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ./VariableSetting | cut -f2 -d'=')"
 
 AtomLinux_key="$(grep -i ^AtomLinux_key ./VariableSetting | cut -f2 -d'=')"
@@ -164,15 +165,17 @@ cd ../../
 # ********************************** libiconv **********************************
 
 # ********************************** mdadm **********************************
-cd Utils/mdadm
-./mk-mdadm.sh
-#Check
-if [ ! $? -eq 0 ]; then
-    echo "Error: mk-mdadm.sh ."
-    exit 1
+if [ ${AtomLinux_UsingMdadm} = "Yes" ]; then
+    cd Utils/mdadm
+    ./mk-mdadm.sh
+    #Check
+    if [ ! $? -eq 0 ]; then
+        echo "Error: mk-mdadm.sh ."
+        exit 1
+    fi
+    #Check
+    cd ../../
 fi
-#Check
-cd ../../
 # ********************************** mdadm **********************************
 
 # ********************************** weston **********************************

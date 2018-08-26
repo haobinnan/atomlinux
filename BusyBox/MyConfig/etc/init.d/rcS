@@ -14,7 +14,9 @@ echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
 
 #RAID
-mdadm -As &> /var/log/mdadm.log
+if command -v mdadm > /dev/null; then
+    mdadm -As &> /var/log/mdadm.log
+fi
 #RAID
 
 if [ -e /dev/sr0 ]; then
