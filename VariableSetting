@@ -65,12 +65,12 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.67
+AtomLinux_LinuxKernelVNumber=4.14.69
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
 #BusyBox
-AtomLinux_BusyBoxVNumber=1.29.2
+AtomLinux_BusyBoxVNumber=1.29.3
 AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 #BusyBox
 
