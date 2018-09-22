@@ -47,6 +47,9 @@ RemoveModuleCompiledMode=yes
 #Code acquisition method		[ git | wget ]
 CodeAcquisitionMethod=wget
 
+#Application patches(debian)		[ yes | no ]
+ApplicationPatches=no
+
 CurrentDIR=$(pwd)
 
 if [ $CodeAcquisitionMethod = "wget" ]; then
@@ -91,11 +94,24 @@ else
     FILENAME_DIR=grub2
 
     cd ./${OBJ_PROJECT}-tmp/
-    git clone ${AtomLinux_DownloadURL}
-    cd grub2/
-    git checkout -b ${AtomLinux_Grub2VNumber} origin/${AtomLinux_Grub2VNumber}
-    cd ../..
+    git clone --branch ${AtomLinux_Grub2VNumber} ${AtomLinux_DownloadURL}
+    cd ..
 fi
+
+#Application patches
+if [ $ApplicationPatches = "yes" ]; then
+    cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+
+    cat ./debian/patches/series | while read line
+    do
+        strfile="./debian/patches/${line}"
+        echo -e "\033[31m$strfile\033[0m"
+        patch -p1 < $strfile
+    done
+
+    cd ../../
+fi
+#Application patches
 
 if [ ! -d ./style ]; then
     mkdir ./style
