@@ -43,8 +43,8 @@ cd iso_tmp
 # efi
 mkdir efi_tmp
 cd efi_tmp
-cp -rRv ../../../Linux_sample/EFIBIOSBoot/32Bit/* ./
-cp -rRv ../../../Linux_sample/EFIBIOSBoot/64Bit/* ./
+cp -rRv ../../../Grub2/efi-i386/* ./
+cp -rRv ../../../Grub2/efi-x86_64/* ./
 rm -rf .${AtomLinux_Grub2PrefixDirName}/
 
 cd ..
@@ -66,7 +66,7 @@ rm -rf ./efi_tmp
 # efi
 
 # legacy
-cp -rRv ../../Linux_sample/LegacyBIOSBoot/* ./
+cp -rRv ../../Grub2/i386-pc/* ./
 rm -f .${AtomLinux_Grub2PrefixDirName}/grub.cfg
 rm -f ./${AtomLinux_Grub2LdrName}
 cp -v ../../Grub2/cd_grub.cfg .${AtomLinux_Grub2PrefixDirName}/grub.cfg
@@ -75,9 +75,9 @@ if [ ! -d ./${AtomLinux_Grub2DirName} ]; then
     mkdir ${AtomLinux_Grub2DirName}
 fi
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
-    cp -v ../../Linux_sample/Kernel/32Bit/bzImage ./${AtomLinux_Grub2DirName}/bzImage_x86
+    cp -v ../../LinuxKernel/x86/bzImage ./${AtomLinux_Grub2DirName}/bzImage_x86
 fi
-cp -v ../../Linux_sample/Kernel/64Bit/bzImage ./${AtomLinux_Grub2DirName}/bzImage
+cp -v ../../LinuxKernel/x86_64/bzImage ./${AtomLinux_Grub2DirName}/bzImage
 cp -v ../${RAMDISK_NAME} ./${AtomLinux_Grub2DirName}/
 # legacy
 

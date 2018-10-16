@@ -32,6 +32,10 @@ AtomLinux_UsingMdadm=No
 AtomLinux_UsingWeston=No
     #Using weston: "Yes" | "No"
 
+    #BCD deployment method: "Yes" | "No"
+AtomLinux_BCDDeploymentMethod=No
+    #BCD deployment method: "Yes" | "No"
+
 #Compile configuration
 
 #Variable
@@ -67,7 +71,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.74
+AtomLinux_LinuxKernelVNumber=4.14.76
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 

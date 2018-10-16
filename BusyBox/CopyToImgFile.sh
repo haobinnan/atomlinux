@@ -13,6 +13,7 @@ AtomLinux_InstallationPackageFileName="$(grep -i ^AtomLinux_InstallationPackageF
 AtomLinux_Grub2DirName="$(grep -i ^AtomLinux_Grub2DirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_LinuxSoftwareDirName="$(grep -i ^AtomLinux_LinuxSoftwareDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Grub2StyleDirName="$(grep -i ^AtomLinux_Grub2StyleDirName ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_BCDDeploymentMethod="$(grep -i ^AtomLinux_BCDDeploymentMethod ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 ./mk-Bale.sh
@@ -35,25 +36,28 @@ if [ -f ../Linux_sample/${RAMDISK_NAME} ]; then
     rm ../Linux_sample/${RAMDISK_NAME}
 fi
 cp -v ./${RAMDISK_NAME} ../Linux_sample/
-cp -v ../Grub2/MBR/grubmbr ../Linux_sample/
+
+if [ ${AtomLinux_BCDDeploymentMethod} = "No" ]; then
+    cp -v ../Grub2/MBR/grubmbr ../Linux_sample/
+fi
 
 #Update file of Linux_sample
-rm -rf ../Linux_sample/$AtomLinux_LinuxSoftwareDirName
-if [ $(ls ./$AtomLinux_LinuxSoftwareDirName/ -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then
-    mkdir ../Linux_sample/$AtomLinux_LinuxSoftwareDirName
-    cp -rRv ./$AtomLinux_LinuxSoftwareDirName/* ../Linux_sample/$AtomLinux_LinuxSoftwareDirName/
-fi
-rm -rf ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
-rm -rf ../Linux_sample/${AtomLinux_Grub2DirName}
-if [ $(ls ../Grub2/style -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then
-    mkdir -p ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
-    cp -rv ../Grub2/style/* ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
+if [ ${AtomLinux_BCDDeploymentMethod} = "No" ]; then
+    rm -rf ../Linux_sample/$AtomLinux_LinuxSoftwareDirName
+    if [ $(ls ./$AtomLinux_LinuxSoftwareDirName/ -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then
+        mkdir ../Linux_sample/$AtomLinux_LinuxSoftwareDirName
+        cp -rRv ./$AtomLinux_LinuxSoftwareDirName/* ../Linux_sample/$AtomLinux_LinuxSoftwareDirName/
+    fi
+    rm -rf ../Linux_sample/${AtomLinux_Grub2DirName}
+    if [ $(ls ../Grub2/style -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then
+        mkdir -p ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
+        cp -rv ../Grub2/style/* ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
+    fi
 fi
 #Update file of Linux_sample
 
 #Ncurses
 if [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
-    rm -rf ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
     rm -rf ../Linux_sample/${AtomLinux_Grub2DirName}
 fi
 #Ncurses
