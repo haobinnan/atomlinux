@@ -46,8 +46,6 @@ if [ ${AtomLinux_BCDDeploymentMethod} = "No" ]; then
     fi
 fi
 
-if [ ${AtomLinux_BCDDeploymentMethod} = "No" ]; then
-    cp -rv ./Grub2/MBR/grubmbr ./Linux_sample/
-fi
+cp -rv ./Grub2/MBR/grubmbr ./Linux_sample/
 
 echo "Complete."
