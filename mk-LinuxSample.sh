@@ -19,17 +19,21 @@ mkdir -p Linux_sample/LegacyBIOSBoot/
 mkdir -p Linux_sample/EFIBIOSBoot/32Bit/
 mkdir -p Linux_sample/EFIBIOSBoot/64Bit/
 
-cp -rv ./Grub2/i386-pc/* ./Linux_sample/LegacyBIOSBoot/
-cp -rv ./Grub2/efi-i386/* ./Linux_sample/EFIBIOSBoot/32Bit/
-cp -rv ./Grub2/efi-x86_64/* ./Linux_sample/EFIBIOSBoot/64Bit/
-
 if [ ${AtomLinux_BCDDeploymentMethod} = "Yes" ]; then
-    rm -rf ./Linux_sample/LegacyBIOSBoot/${AtomLinux_Grub2DirName}
-    rm -rf ./Linux_sample/EFIBIOSBoot/32Bit/${AtomLinux_Grub2DirName}
-    rm -rf ./Linux_sample/EFIBIOSBoot/64Bit/${AtomLinux_Grub2DirName}
+    cp -rv ./Grub2/font.pf2 ./Linux_sample/
 
-    mv ./Linux_sample/EFIBIOSBoot/32Bit/EFI/BOOT/bootia32.efi ./Linux_sample/EFIBIOSBoot/32Bit/EFI/BOOT/${AtomLinux_SoftwareName}_boot.efi
-    mv ./Linux_sample/EFIBIOSBoot/64Bit/EFI/BOOT/bootx64.efi ./Linux_sample/EFIBIOSBoot/64Bit/EFI/BOOT/${AtomLinux_SoftwareName}_boot.efi
+    cp -rv ./Grub2/i386-pc/* ./Linux_sample/LegacyBIOSBoot/
+    cp -rv ./Grub2/efi-i386/EFI/BOOT/* ./Linux_sample/EFIBIOSBoot/32Bit/
+    cp -rv ./Grub2/efi-x86_64/EFI/BOOT/* ./Linux_sample/EFIBIOSBoot/64Bit/
+
+    rm -rf ./Linux_sample/LegacyBIOSBoot/${AtomLinux_Grub2DirName}
+
+    mv ./Linux_sample/EFIBIOSBoot/32Bit/bootia32.efi ./Linux_sample/EFIBIOSBoot/32Bit/${AtomLinux_SoftwareName}_boot.efi
+    mv ./Linux_sample/EFIBIOSBoot/64Bit/bootx64.efi ./Linux_sample/EFIBIOSBoot/64Bit/${AtomLinux_SoftwareName}_boot.efi
+else
+    cp -rv ./Grub2/i386-pc/* ./Linux_sample/LegacyBIOSBoot/
+    cp -rv ./Grub2/efi-i386/* ./Linux_sample/EFIBIOSBoot/32Bit/
+    cp -rv ./Grub2/efi-x86_64/* ./Linux_sample/EFIBIOSBoot/64Bit/
 fi
 
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
