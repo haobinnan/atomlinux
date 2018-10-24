@@ -71,7 +71,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.76
+AtomLinux_LinuxKernelVNumber=4.14.78
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
@@ -103,7 +103,7 @@ AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
 #Utils - weston
 
 #Lib - gnu-efi
-AtomLinux_GnuEFIVNumber=3.0.8
+AtomLinux_GnuEFIVNumber=3.0.9
 AtomLinux_GnuEFIURL=https://jaist.dl.sourceforge.net/project/gnu-efi/
 #Lib - gnu-efi
 
