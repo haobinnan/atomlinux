@@ -85,6 +85,18 @@ cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 # ***************** Compiling "opengl" and "qtwebengine" requires a large amount of memory (8GB). *****************
 
+# ****** Desktop ******
+
+# echo yes | ./configure -v -prefix ${CurrentDIR}/${ARCH} \
+# -${VERSION} \
+# -opensource -confirm-license -shared \
+# -no-icu -no-glib -no-cups -no-journald \
+# -qt-pcre -qt-libpng -qt-libjpeg \
+# -xcb -proprietary-codecs \
+# -platform ${MyPlatform}
+
+# ****** Desktop ******
+
 echo yes | ./configure -v -prefix ${CurrentDIR}/${ARCH} \
 -${VERSION} \
 -opensource -confirm-license -shared -optimize-size \
