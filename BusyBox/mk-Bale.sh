@@ -107,8 +107,8 @@ fi
 mkdir $AtomLinux_InitramfsLinuxAppDirName
 
 if test $1 && [ $1 = "cd" ]; then
-    if [ -f ./mk-Bale-customize.sh ]; then
-        ./mk-Bale-customize.sh
+    if [ -f ../mk-Bale-customize.sh ]; then
+        ../mk-Bale-customize.sh
     fi
     echo "cpio For CD"
 else

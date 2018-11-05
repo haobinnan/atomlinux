@@ -24,6 +24,7 @@ FILENAME_DIR=${FILENAME_Prefix}
 #Clean
 function clean_busybox()
 {
+    rm -f ./mk-Bale-customize.sh
     rm -rf ./initramfs
     rm -rf ./*_install
     rm -rf ./iso_tmp
