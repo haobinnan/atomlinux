@@ -71,7 +71,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.78
+AtomLinux_LinuxKernelVNumber=4.14.81
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
@@ -83,7 +83,7 @@ AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 #QtLib
 AtomLinux_QtVNumber4=4.8.7
 AtomLinux_Qt4URL=http://download.qt.io/archive/qt/4.8/
-AtomLinux_QtVNumber5=5.9.6
+AtomLinux_QtVNumber5=5.9.7
 AtomLinux_Qt5URL=http://download.qt.io/archive/qt/5.9/
 #QtLib
 
