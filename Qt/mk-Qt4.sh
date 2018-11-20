@@ -16,20 +16,23 @@ AtomLinux_DownloadURL="$(grep -i ^AtomLinux_Qt4URL ../VariableSetting | cut -f2 
 #Platform
 MyArch=x86
 MyPlatform=linux-g++-32
-MpXPlatform=linux-x86-g++
+MyXPlatform=linux-x86-g++
 MyEmbedded=x86
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
     MyArch=x86_64
     MyPlatform=linux-g++-64
-    MpXPlatform=linux-x86_64-g++
+    MyXPlatform=linux-x86_64-g++
     MyEmbedded=x86_64
 fi
 #Platform
+
+SetStandard=no
 
 DisableDebug_Emb=yes
 DisableRelease_Emb=no
 DisableDebug_Desktop=yes
 DisableRelease_Desktop=no
+DisableRelease_qvfb=yes
 
 CurrentDIR=$(pwd)
 OBJ_PROJECT=qt
@@ -94,6 +97,21 @@ if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
 fi
 #64bit system usage
 
+#-std=gnu++98
+function SetStandard()
+{
+    LN=`grep -n "load(qt_config)" $1| awk -F"[:]" '{print $1}'`
+    sed ${LN-1}' iQMAKE_CXXFLAGS = $$QMAKE_CFLAGS -std=gnu++98' -i $1
+}
+
+if [ ${SetStandard} = "yes" ]; then
+    SetStandard ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/mkspecs/linux-g++-32/qmake.conf
+    SetStandard ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/mkspecs/linux-g++-64/qmake.conf
+    SetStandard ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/mkspecs/qws/linux-x86-g++/qmake.conf
+    SetStandard ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/mkspecs/qws/linux-x86_64-g++/qmake.conf
+fi
+#-std=gnu++98
+
 #function
 function build_Emb()
 {
@@ -104,7 +122,7 @@ function build_Emb()
     cd ./${OBJ_PROJECT}-tmp/build_tmp/
 
     # make confclean
-    mkdir ../../${ARCH}	
+    mkdir ../../${ARCH}
     echo yes | ../${FILENAME_DIR}/configure -prefix ${CurrentDIR}/${ARCH} \
     -make libs \
     -nomake demos \
@@ -112,7 +130,7 @@ function build_Emb()
     -nomake docs \
     -nomake tools \
     -platform ${MyPlatform} \
-    -xplatform qws/${MpXPlatform} \
+    -xplatform qws/${MyXPlatform} \
     -embedded ${MyEmbedded} \
     -depths all \
     -no-gfx-qvfb \
@@ -126,7 +144,6 @@ function build_Emb()
     -shared \
     -no-accessibility \
     -largefile \
-    -fast \
     -no-sql-db2 -no-sql-ibase -no-sql-mysql -no-sql-oci -no-sql-odbc -no-sql-psql -no-sql-sqlite -no-sql-sqlite2 -no-sql-sqlite_symbian -no-sql-symsql -no-sql-tds \
     -no-qt3support \
     -no-xmlpatterns \
@@ -139,10 +156,73 @@ function build_Emb()
     -no-javascript-jit \
     -no-script \
     -no-scripttools \
-    -no-mmx -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 -no-3dnow -no-avx -no-neon \
     -qt-zlib -no-gif -no-libtiff -qt-libpng -no-libmng -qt-libjpeg \
     -no-nis -no-cups -no-iconv -no-icu \
     -no-openssl -no-nas-sound -no-opengl -no-openvg -no-sm -no-xshape -no-xvideo -no-xsync -no-xinerama -no-xcursor -no-xfixes -no-xrandr -no-xrender -no-xinput -no-glib -no-freetype
+    #Check configure
+    if [ ! $? -eq 0 ]; then
+        echo "Error: configure (Qt) ."
+        exit 1
+    fi
+    #Check configure
+    echo | $Make
+    #Check make
+    if [ ! $? -eq 0 ]; then
+        echo "Error: make (Qt) ."
+        exit 1
+    fi
+    #Check make
+    make install
+    #Check make install
+    if [ ! $? -eq 0 ]; then
+        echo "Error: make install (Qt) ."
+        exit 1
+    fi
+    #Check make install
+
+    cd ../../
+}
+
+function build_qvfb()
+{
+    VERSION=$1
+    ARCH=${MyArch}_${VERSION}_qvfb
+
+    rm -rf ./${OBJ_PROJECT}-tmp/build_tmp/*
+    cd ./${OBJ_PROJECT}-tmp/build_tmp/
+
+    # make confclean
+    mkdir ../../${ARCH}
+    echo yes | ../${FILENAME_DIR}/configure -prefix ${CurrentDIR}/${ARCH} \
+    -make libs \
+    -make tools \
+    -nomake demos \
+    -nomake examples \
+    -nomake docs \
+    -platform ${MyPlatform} \
+    -xplatform qws/${MyXPlatform} \
+    -embedded ${MyEmbedded} \
+    -qt-gfx-qvfb -qt-kbd-qvfb -qt-mouse-qvfb \
+    -${VERSION} \
+    -opensource \
+    -shared \
+    -no-accessibility \
+    -largefile \
+    -no-sql-db2 -no-sql-ibase -no-sql-mysql -no-sql-oci -no-sql-odbc -no-sql-psql -no-sql-sqlite -no-sql-sqlite2 -no-sql-sqlite_symbian -no-sql-symsql -no-sql-tds \
+    -no-qt3support \
+    -no-xmlpatterns \
+    -no-multimedia \
+    -no-audio-backend \
+    -no-phonon \
+    -no-phonon-backend \
+    -no-svg \
+    -no-webkit \
+    -no-javascript-jit \
+    -no-script \
+    -no-scripttools \
+    -qt-zlib -no-gif -no-libtiff -qt-libpng -no-libmng -qt-libjpeg \
+    -no-nis -no-cups -no-iconv -no-icu \
+    -no-openssl -no-nas-sound -no-opengl -no-openvg -no-sm -no-xshape -no-xvideo -no-xsync -no-xinerama -no-xcursor -no-xfixes -no-xrandr -no-xrender -no-xinput -no-glib
     #Check configure
     if [ ! $? -eq 0 ]; then
         echo "Error: configure (Qt) ."
@@ -191,7 +271,6 @@ function build_Desktop()
     -shared \
     -no-accessibility \
     -largefile \
-    -fast \
     -no-sql-db2 -no-sql-ibase -no-sql-mysql -no-sql-oci -no-sql-odbc -no-sql-psql -no-sql-sqlite -no-sql-sqlite2 -no-sql-sqlite_symbian -no-sql-symsql -no-sql-tds \
     -no-qt3support \
     -no-xmlpatterns \
@@ -204,8 +283,6 @@ function build_Desktop()
     -no-javascript-jit \
     -no-script \
     -no-scripttools \
-    -no-mmx -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 -no-3dnow -no-avx -no-neon \
-    -qt-zlib -no-gif -no-libtiff -qt-libpng -no-libmng -qt-libjpeg \
     -no-nis -no-cups -no-iconv -no-icu \
     -no-openssl -no-nas-sound -no-opengl -no-openvg -no-sm -no-xshape -no-xvideo -no-xsync -no-xinerama -no-xcursor -no-xfixes -no-xrandr -no-xrender -no-xinput -no-glib \
     -fontconfig
@@ -229,6 +306,19 @@ function build_Desktop()
         exit 1
     fi
     #Check make install
+
+    #qvfb
+    cd tools/qvfb/
+    echo | $Make
+    #Check make qvfb
+    if [ ! $? -eq 0 ]; then
+        echo "Error: make qvfb (Qt) ."
+        exit 1
+    fi
+    #Check make qvfb
+    cp -v ../../bin/qvfb ${CurrentDIR}/${ARCH}/bin/
+    cd ../../
+    #qvfb
 
     cd ../../
 }
@@ -254,6 +344,12 @@ echo "-------------------------------------------------------------"
 
 if [ ${DisableDebug_Desktop} != "yes" ]; then
     build_Desktop debug
+fi
+
+echo "-------------------------------------------------------------"
+
+if [ ${DisableRelease_qvfb} != "yes" ]; then
+    build_qvfb release
 fi
 
 rm -rf ${OBJ_PROJECT}-tmp
