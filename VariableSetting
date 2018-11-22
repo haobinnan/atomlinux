@@ -71,7 +71,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.14.81
+AtomLinux_LinuxKernelVNumber=4.14.82
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
@@ -118,7 +118,7 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=edk2-stable201808
+AtomLinux_OvmfVNumber=edk2-stable201811
 AtomLinux_OvmfURL=https://github.com/tianocore/edk2/archive/
 AtomLinux_OvmfOpenSSLVNumber=OpenSSL_1_1_0h
 AtomLinux_OvmfOpenSSLURL=https://github.com/openssl/openssl/archive/
