@@ -37,8 +37,11 @@ if [ -f ${OVMFPath} ]; then
             echo -e "\033[31mPlatform: 32-Bit(32Bit UEFI BIOS)\033[0m"
             sudo qemu-system-i386 ${QEMURunParameter} -bios ${OVMFPath}
         fi
-        echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS)\033[0m"
+        echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS ** Secure Boot **)\033[0m"
         sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+
+        echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS)\033[0m"
+        sudo qemu-system-x86_64 ${QEMURunParameter} -bios ${OVMFPath}
     else
         echo -e "\033[31mPlatform: 32-Bit(32Bit UEFI BIOS)\033[0m"
         sudo qemu-system-i386 ${QEMURunParameter} -bios ${OVMFPath}
@@ -52,8 +55,11 @@ fi
 if [ $(getconf LONG_BIT) = '64' ]; then
     OVMFPath="./ovmf/OVMF_X64.fd"
     if [ -f ${OVMFPath} ]; then
-        echo -e "\033[31mPlatform: 64-Bit(64Bit UEFI BIOS)\033[0m"
+        echo -e "\033[31mPlatform: 64-Bit(64Bit UEFI BIOS ** Secure Boot **)\033[0m"
         sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+
+        echo -e "\033[31mPlatform: 64-Bit(64Bit UEFI BIOS)\033[0m"
+        sudo qemu-system-x86_64 ${QEMURunParameter} -bios ${OVMFPath}
     else
         echo -e "\"${OVMFPath}\" \033[31mfile does not exist .\033[0m"
     fi
