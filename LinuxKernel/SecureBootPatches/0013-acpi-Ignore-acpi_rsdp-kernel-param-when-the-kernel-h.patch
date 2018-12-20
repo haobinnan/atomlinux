@@ -1,0 +1,34 @@
+From 2090d85d28100ddbca935506e6044d283b3b0166 Mon Sep 17 00:00:00 2001
+From: Josh Boyer <jwboyer@redhat.com>
+Date: Mon, 9 Apr 2018 09:52:49 +0100
+Subject: [PATCH 28/78] acpi: Ignore acpi_rsdp kernel param when the kernel has been locked down
+
+This option allows userspace to pass the RSDP address to the kernel, which
+makes it possible for a user to modify the workings of hardware .  Reject
+the option when the kernel is locked down.
+
+Signed-off-by: Josh Boyer <jwboyer@redhat.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: "Lee, Chun-Yi" <jlee@suse.com>
+cc: Dave Young <dyoung@redhat.com>
+cc: linux-acpi@vger.kernel.org
+---
+ drivers/acpi/osl.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/drivers/acpi/osl.c b/drivers/acpi/osl.c
+index ed73f6f..71cf213 100644
+--- a/drivers/acpi/osl.c
++++ b/drivers/acpi/osl.c
+@@ -194,7 +194,7 @@ acpi_physical_address __init acpi_os_get_root_pointer(void)
+ 	acpi_physical_address pa;
+ 
+ #ifdef CONFIG_KEXEC
+-	if (acpi_rsdp)
++	if (acpi_rsdp && !kernel_is_locked_down("ACPI RSDP specification"))
+ 		return acpi_rsdp;
+ #endif
+ 	pa = acpi_arch_get_root_pointer();
+-- 
+1.7.1
+

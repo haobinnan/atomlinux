@@ -1,0 +1,34 @@
+From 7a2daf48b4c54aa17130ba2c17abd758517b244c Mon Sep 17 00:00:00 2001
+From: Josh Boyer <jwboyer@fedoraproject.org>
+Date: Mon, 9 Apr 2018 09:52:47 +0100
+Subject: [PATCH 22/78] hibernate: Disable when the kernel is locked down
+
+There is currently no way to verify the resume image when returning
+from hibernate.  This might compromise the signed modules trust model,
+so until we can work with signed hibernate images we disable it when the
+kernel is locked down.
+
+Signed-off-by: Josh Boyer <jwboyer@fedoraproject.org>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: "Lee, Chun-Yi" <jlee@suse.com>
+cc: linux-pm@vger.kernel.org
+---
+ kernel/power/hibernate.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+index abef759..802795b 100644
+--- a/kernel/power/hibernate.c
++++ b/kernel/power/hibernate.c
+@@ -70,7 +70,7 @@ enum {
+ 
+ bool hibernation_available(void)
+ {
+-	return (nohibernate == 0);
++	return nohibernate == 0 && !kernel_is_locked_down("Hibernation");
+ }
+ 
+ /**
+-- 
+1.7.1
+

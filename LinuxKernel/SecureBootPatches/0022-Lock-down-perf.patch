@@ -1,0 +1,32 @@
+From 3a8cbd5e91ed6212129aedafce1d2241c2533347 Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Wed, 4 Apr 2018 14:45:38 +0100
+Subject: [PATCH 37/78] Lock down perf
+
+Disallow the use of certain perf facilities that might allow userspace to
+access kernel data.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+---
+ kernel/events/core.c |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 5a97f34..a13f3d8 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -10432,6 +10432,11 @@ static int perf_event_set_clock(struct perf_event *event, clockid_t clk_id)
+ 			return -EINVAL;
+ 	}
+ 
++	if ((attr.sample_type & PERF_SAMPLE_REGS_INTR) &&
++	    kernel_is_locked_down("PERF_SAMPLE_REGS_INTR"))
++		/* REGS_INTR can leak data, lockdown must prevent this */
++		return -EPERM;
++
+ 	/* Only privileged users can get physical addresses */
+ 	if ((attr.sample_type & PERF_SAMPLE_PHYS_ADDR) &&
+ 	    perf_paranoid_kernel() && !capable(CAP_SYS_ADMIN))
+-- 
+1.7.1
+

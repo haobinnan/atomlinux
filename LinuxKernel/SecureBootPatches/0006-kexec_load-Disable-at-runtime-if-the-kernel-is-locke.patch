@@ -1,0 +1,43 @@
+From 83d2c130fe65782921043bbf49c492a1efa8faf8 Mon Sep 17 00:00:00 2001
+From: Matthew Garrett <mjg59@srcf.ucam.org>
+Date: Mon, 9 Apr 2018 09:52:46 +0100
+Subject: [PATCH 21/78] kexec_load: Disable at runtime if the kernel is locked down
+
+The kexec_load() syscall permits the loading and execution of arbitrary
+code in ring 0, which is something that lock-down is meant to prevent. It
+makes sense to disable kexec_load() in this situation.
+
+This does not affect kexec_file_load() syscall which can check for a
+signature on the image to be booted.
+
+Signed-off-by: Matthew Garrett <mjg59@srcf.ucam.org>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Acked-by: Dave Young <dyoung@redhat.com>
+Reviewed-by: "Lee, Chun-Yi" <jlee@suse.com>
+Reviewed-by: James Morris <james.l.morris@oracle.com>
+cc: kexec@lists.infradead.org
+---
+ kernel/kexec.c |    7 +++++++
+ 1 files changed, 7 insertions(+), 0 deletions(-)
+
+diff --git a/kernel/kexec.c b/kernel/kexec.c
+index 6855980..041d505 100644
+--- a/kernel/kexec.c
++++ b/kernel/kexec.c
+@@ -202,6 +202,13 @@ static inline int kexec_load_check(unsigned long nr_segments,
+ 	if (!capable(CAP_SYS_BOOT) || kexec_load_disabled)
+ 		return -EPERM;
+ 
++	/*
++	 * kexec can be used to circumvent module loading restrictions, so
++	 * prevent loading in that case
++	 */
++	if (kernel_is_locked_down("kexec of unsigned images"))
++		return -EPERM;
++
+ 	/* Permit LSMs and IMA to fail the kexec */
+ 	result = security_kernel_load_data(LOADING_KEXEC_IMAGE);
+ 	if (result < 0)
+-- 
+1.7.1
+

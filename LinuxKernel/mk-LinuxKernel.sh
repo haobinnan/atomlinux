@@ -81,7 +81,7 @@ fi
 #Replace logo file
 
 #Secure Boot Patches
-#https://github.com/vathpela/linux
+#https://git.kernel.org/pub/scm/linux/kernel/git/jwboyer/fedora.git
 if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
     for file in $(ls ../../SecureBootPatches);
     do
