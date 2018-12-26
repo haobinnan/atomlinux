@@ -8,9 +8,10 @@ fi
 #Load from VariableSetting file
 AtomLinux_ISOName="$(grep -i ^AtomLinux_ISOName ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ./VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
-QEMURunParameter="-smp 2 -m 256M -vga qxl -cdrom ${AtomLinux_ISOName} -boot d"
+QEMURunParameter="-smp 2 -m 256M -vga qxl -cdrom ${AtomLinux_ISOName} -boot d -net nic,model=e1000 -net user"
 if [ -c /dev/kvm ]; then
     QEMURunParameter=${QEMURunParameter}" -enable-kvm"
 else
@@ -37,8 +38,10 @@ if [ -f ${OVMFPath} ]; then
             echo -e "\033[31mPlatform: 32-Bit(32Bit UEFI BIOS)\033[0m"
             sudo qemu-system-i386 ${QEMURunParameter} -bios ${OVMFPath}
         fi
-        echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS ** Secure Boot **)\033[0m"
-        sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+        if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
+            echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS ** Secure Boot **)\033[0m"
+            sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+        fi
 
         echo -e "\033[31mPlatform: 64-Bit(32Bit UEFI BIOS)\033[0m"
         sudo qemu-system-x86_64 ${QEMURunParameter} -bios ${OVMFPath}
@@ -55,8 +58,10 @@ fi
 if [ $(getconf LONG_BIT) = '64' ]; then
     OVMFPath="./ovmf/OVMF_X64.fd"
     if [ -f ${OVMFPath} ]; then
-        echo -e "\033[31mPlatform: 64-Bit(64Bit UEFI BIOS ** Secure Boot **)\033[0m"
-        sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+        if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
+            echo -e "\033[31mPlatform: 64-Bit(64Bit UEFI BIOS ** Secure Boot **)\033[0m"
+            sudo qemu-system-x86_64 ${QEMURunParameter} -drive file=${OVMFPath},if=pflash,format=raw,unit=0,readonly=off
+        fi
 
         echo -e "\033[31mPlatform: 64-Bit(64Bit UEFI BIOS)\033[0m"
         sudo qemu-system-x86_64 ${QEMURunParameter} -bios ${OVMFPath}

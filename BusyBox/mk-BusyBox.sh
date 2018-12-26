@@ -34,6 +34,7 @@ function clean_busybox()
     #MyConfig
     rm -rf ./MyConfig/lib
     rm -rf ./MyConfig/lib64
+    rm -rf ./MyConfig/usr
     #MyConfig
 
     rm -rf ${OBJ_PROJECT}-tmp
@@ -142,6 +143,11 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check make install
+
+#Copy udhcpc script
+mkdir -p ../../MyConfig/usr/share/udhcpc/
+cp -v ./examples/udhcp/simple.script ../../MyConfig/usr/share/udhcpc/default.script
+#Copy udhcpc script
 
 rm -rf ../../${ARCH}_install
 mv ./_install ../../${ARCH}_install

@@ -9,8 +9,8 @@ mount -t tmpfs mdev /dev
 mkdir /dev/pts
 mount -t devpts devpts /dev/pts
 mount -a
-echo /sbin/mdev > /proc/sys/kernel/hotplug
 /bin/hostname -F /etc/hostname
+echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
 
 #RAID
@@ -18,6 +18,15 @@ if command -v mdadm > /dev/null; then
     mdadm -As &> /var/log/mdadm.log
 fi
 #RAID
+
+#Network
+ifconfig lo 127.0.0.1
+
+for file in `ls /sys/class/net/ | grep ^eth`
+do
+    udhcpc -i $file > /dev/null 2>&1
+done
+#Network
 
 if [ -e /dev/sr0 ]; then
     cd /dev
