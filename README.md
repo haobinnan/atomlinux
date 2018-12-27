@@ -13,3 +13,5 @@ Atom Linux is a tiny Linux system, which is totally compiled via source code. Th
 **"BusyBox\CreateCDISO.sh"** Creates ISO CD image of Atom Linux.<br>
 **"BusyBox\CopyToImgFile.sh"** Copies compiling result of Atom Linux to img image file in order to deploy to computer in the future.<br>
 **"Other\CompressionVMDK.sh"** If the system is running in VMware virtual machine, you can use this script to compress vmdk virtual disk and free up disk space of host computer.<br>
+
+root password:root

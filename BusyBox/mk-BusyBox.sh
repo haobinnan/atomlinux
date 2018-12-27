@@ -27,6 +27,7 @@ function clean_busybox()
     rm -f ./mk-Bale-customize.sh
     rm -rf ./initramfs
     rm -rf ./*_install
+    rm -rf ./examples
     rm -rf ./iso_tmp
     rm -rf ./$AtomLinux_InitramfsLinuxAppDirName
     rm -rf ./$AtomLinux_InitramfsLinuxAppFontDirName
@@ -91,10 +92,6 @@ fi
 mkdir $AtomLinux_LinuxSoftwareDirName
 mkdir $AtomLinux_InitramfsLinuxAppDirName
 mkdir $AtomLinux_InitramfsLinuxAppFontDirName
-mkdir ./MyConfig/lib
-if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    mkdir ./MyConfig/lib64
-fi
 #mkdir
 
 cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
@@ -144,10 +141,10 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check make install
 
-#Copy udhcpc script
-mkdir -p ../../MyConfig/usr/share/udhcpc/
-cp -v ./examples/udhcp/simple.script ../../MyConfig/usr/share/udhcpc/default.script
-#Copy udhcpc script
+#Copy busybox examples
+rm -rf ../../examples
+cp -rv ./examples ../../
+#Copy busybox examples
 
 rm -rf ../../${ARCH}_install
 mv ./_install ../../${ARCH}_install

@@ -32,6 +32,10 @@ AtomLinux_UsingMdadm=No
 AtomLinux_UsingWeston=No
     #Using weston: "Yes" | "No"
 
+    #Using libnss: "Yes" | "No"
+AtomLinux_UsingLibnss=Yes
+    #Using libnss: "Yes" | "No"
+
     #BCD deployment method: "Yes" | "No"
 AtomLinux_BCDDeploymentMethod=No
     #BCD deployment method: "Yes" | "No"
@@ -49,7 +53,7 @@ AtomLinux_Grub2PrefixDirName=/AtomLinuxBoot
 AtomLinux_Grub2StyleDirName=Grub2Style
 AtomLinux_Grub2DirName=AtomLinuxBoot
 AtomLinux_Grub2LdrName=alldr
-AtomLinux_LinuxKernelParameter=" quiet"
+AtomLinux_LinuxKernelParameter=""
 #Variable
 
 #Certificate Variable

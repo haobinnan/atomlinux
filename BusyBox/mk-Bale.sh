@@ -104,6 +104,16 @@ if [ ${AtomLinux_UsingMdadm} = "Yes" ]; then
 fi
 #RAID Support
 
+#Copy udhcpc script
+if [ -f ../examples/udhcp/simple.script ]; then
+    mkdir -p ./usr/share/udhcpc/
+    cp -v ../examples/udhcp/simple.script ./usr/share/udhcpc/default.script
+else
+    echo "Error: simple.script file does not exist ."
+    exit 1
+fi
+#Copy udhcpc script
+
 mkdir $AtomLinux_InitramfsLinuxAppDirName
 
 if test $1 && [ $1 = "cd" ]; then

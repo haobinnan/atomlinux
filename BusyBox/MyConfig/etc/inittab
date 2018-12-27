@@ -8,3 +8,12 @@
 tty2::askfirst:-/bin/sh
 tty3::askfirst:-/bin/sh
 tty4::askfirst:-/bin/sh
+
+# Log in with a password
+# ::respawn:/sbin/getty 19200 tty1
+# ::respawn:/sbin/getty 19200 tty2
+# ::respawn:/sbin/getty 19200 tty3
+# ::respawn:/sbin/getty 19200 tty4
+# ::respawn:/sbin/getty 19200 tty5
+# ::respawn:/sbin/getty 19200 tty6
+# Log in with a password
