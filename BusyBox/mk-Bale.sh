@@ -12,6 +12,7 @@ AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirNam
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_NetworkSupport="$(grep -i ^AtomLinux_NetworkSupport ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #Platform
@@ -105,12 +106,14 @@ fi
 #RAID Support
 
 #Copy udhcpc script
-if [ -f ../examples/udhcp/simple.script ]; then
-    mkdir -p ./usr/share/udhcpc/
-    cp -v ../examples/udhcp/simple.script ./usr/share/udhcpc/default.script
-else
-    echo "Error: simple.script file does not exist ."
-    exit 1
+if [ ${AtomLinux_NetworkSupport} = "Yes" ]; then
+    if [ -f ../examples/udhcp/simple.script ]; then
+        mkdir -p ./usr/share/udhcpc/
+        cp -v ../examples/udhcp/simple.script ./usr/share/udhcpc/default.script
+    else
+        echo "Error: simple.script file does not exist ."
+        exit 1
+    fi
 fi
 #Copy udhcpc script
 

@@ -22,6 +22,10 @@ AtomLinux_SignatureMethod=CodeSgin
 AtomLinux_UsingPreviousBuildResults_SecureBoot=No
     #Using previous build results(Secure boot)? : "Yes" | "No"
 
+    #Network Support "Yes" | "No"
+AtomLinux_NetworkSupport=Yes
+    #Network Support "Yes" | "No"
+
 # **** Only supported on 64-bit systems ****
 
     #Using mdadm: "Yes" | "No"

@@ -5,6 +5,7 @@ clear
 /bin/mount -a
 
 mkdir /var/log
+mkdir /var/run
 mount -t tmpfs mdev /dev
 mkdir /dev/pts
 mount -t devpts devpts /dev/pts
@@ -22,10 +23,12 @@ fi
 #Network
 ifconfig lo 127.0.0.1
 
-for file in `ls /sys/class/net/ | grep ^eth`
-do
-    udhcpc -i $file > /dev/null 2>&1
-done
+if [ -f /usr/share/udhcpc/default.script ]; then
+    for file in `ls /sys/class/net/ | grep ^eth`
+    do
+        udhcpc -b -i $file -p /var/run/udhcpc-$file.pid -R
+    done
+fi
 #Network
 
 if [ -e /dev/sr0 ]; then
