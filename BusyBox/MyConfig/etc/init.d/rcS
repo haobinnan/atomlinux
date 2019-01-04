@@ -1,18 +1,19 @@
 #! /bin/sh
 
-clear
-
-/bin/mount -a
-
 mkdir /var/log
 mkdir /var/run
+
+mount -a
+
 mount -t tmpfs mdev /dev
 mkdir /dev/pts
 mount -t devpts devpts /dev/pts
-mount -a
-/bin/hostname -F /etc/hostname
+
+mount -t sysfs sysfs /sys
 echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
+
+/bin/hostname -F /etc/hostname
 
 #RAID
 if command -v mdadm > /dev/null; then
