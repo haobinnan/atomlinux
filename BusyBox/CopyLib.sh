@@ -25,6 +25,11 @@ if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
         mkdir ./MyConfig/lib64
     fi
 fi
+if [ -d ./MyConfig/usr/lib ]; then
+    rm -rf ./MyConfig/usr/lib/*
+else
+    mkdir -p ./MyConfig/usr/lib
+fi
 #mkdir lib
 
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
@@ -120,8 +125,14 @@ fi
 for var in ${ArrayLib[@]};
 do
     if [ -f $var ]; then
-        if [ ! -f ./MyConfig/lib/${var##*/} ]; then
-            cp -v $var ./MyConfig/lib/
+        if [ ${var:0:9} = "/usr/lib/" ]; then
+            if [ ! -f ./MyConfig/usr/lib/${var##*/} ]; then
+                cp -v $var ./MyConfig/usr/lib/
+            fi
+        else
+            if [ ! -f ./MyConfig/lib/${var##*/} ]; then
+                cp -v $var ./MyConfig/lib/
+            fi
         fi
     fi
 done

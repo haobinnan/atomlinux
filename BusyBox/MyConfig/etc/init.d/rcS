@@ -1,9 +1,9 @@
 #! /bin/sh
 
+mount -a
+
 mkdir /var/log
 mkdir /var/run
-
-mount -a
 
 mount -t tmpfs mdev /dev
 mkdir /dev/pts
@@ -22,11 +22,12 @@ fi
 #RAID
 
 #Network
-ifconfig lo 127.0.0.1
+ip link set dev lo up
 
 if [ -f /usr/share/udhcpc/default.script ]; then
     for file in `ls /sys/class/net/ | grep ^eth`
     do
+        ip link set dev $file up
         udhcpc -b -i $file -p /var/run/udhcpc-$file.pid -R
     done
 fi
