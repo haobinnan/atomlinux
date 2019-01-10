@@ -33,6 +33,7 @@ function clean_busybox()
     rm -rf ./$AtomLinux_InitramfsLinuxAppFontDirName
     rm -rf ./$AtomLinux_LinuxSoftwareDirName
     #MyConfig
+    rm -f ./MyConfig/etc/profile.user
     rm -rf ./MyConfig/lib
     rm -rf ./MyConfig/lib64
     rm -rf ./MyConfig/usr

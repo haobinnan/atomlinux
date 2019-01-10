@@ -1,5 +1,5 @@
 # Atom Linux
-Atom Linux is a tiny Linux system, which is totally compiled via source code. This script executes automatically and finally generates a complete set of tiny Linux system. Optional graphic development library (Qt\ncurses), specified target platform (x86\amd64).<br>
+Atom Linux is a tiny Linux system(Since 2013), which is totally compiled via source code. This script executes automatically and finally generates a complete set of tiny Linux system. Optional graphic development library (Qt\ncurses), specified target platform (x86\amd64).<br>
 
 ## Instruction of compiling method<br>
 **Required environment: Ubuntu\Debian**<br>
