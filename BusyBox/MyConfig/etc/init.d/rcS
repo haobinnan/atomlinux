@@ -2,6 +2,8 @@
 
 mount -a
 
+#echo 0 > /proc/sys/kernel/printk
+
 mkdir /var/log
 mkdir /var/run
 
@@ -42,4 +44,3 @@ if [ -e /dev/sr0 ]; then
         mount /dev/cdrom /mnt/cdrom -t udf,iso9660
     fi
 fi
-

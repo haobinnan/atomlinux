@@ -1,7 +1,6 @@
 ::sysinit:/etc/init.d/rcS
 ::restart:/sbin/init
 ::shutdown:/sbin/swapoff -a
-::shutdown:sync
 # ::shutdown:umount -a -r
 ::ctrlaltdel:/sbin/reboot
 ::respawn:-/bin/sh

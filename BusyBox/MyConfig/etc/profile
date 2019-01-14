@@ -40,6 +40,8 @@ export XDG_RUNTIME_DIR=/tmp/$USER-weston
 # ** weston -B fbdev-backend.so --tty=2 **
 # * * * * * * weston * * * * * *
 
+alias ll='ls -l'
+
 # read user profile
 if [ -f /etc/profile.user ]; then
     . /etc/profile.user
@@ -52,4 +54,3 @@ else
     echo '  ############################'
 fi
 # read user profile
-
