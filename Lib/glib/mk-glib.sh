@@ -74,11 +74,14 @@ cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 #configure
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
+    ./autogen.sh
     ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static"
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
+        ./autogen.sh
         ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static" CC="gcc -m32" CXX="g++ -m32"
     else
+        ./autogen.sh
         ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static"
     fi
 fi

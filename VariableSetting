@@ -79,7 +79,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.19.15
+AtomLinux_LinuxKernelVNumber=4.19.16
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
@@ -116,8 +116,8 @@ AtomLinux_GnuEFIURL=https://jaist.dl.sourceforge.net/project/gnu-efi/
 #Lib - gnu-efi
 
 #Lib - glib
-AtomLinux_GlibVNumber=2.53.1
-AtomLinux_GlibURL=http://gemmei.ftp.acc.umu.se/pub/gnome/sources/glib/2.53/
+AtomLinux_GlibVNumber=2.58.2
+AtomLinux_GlibURL=http://gemmei.ftp.acc.umu.se/pub/gnome/sources/glib/2.58/
 #Lib - glib
 
 #Lib - iconv
