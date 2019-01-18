@@ -33,7 +33,7 @@ FILENAME=${FILENAME_DIR}.tar.xz
 #Clean
 function clean_qt5()
 {
-    rm -rf ./*_release
+    rm -rf ./*_qt5_release
 
     rm -rf ${OBJ_PROJECT}-tmp
 }
@@ -67,7 +67,7 @@ fi
 #Download Source Code
 
 VERSION=release
-ARCH=${MyArch}_${VERSION}
+ARCH=${MyArch}_qt5_${VERSION}
 
 clean_qt5
 mkdir ${ARCH}
