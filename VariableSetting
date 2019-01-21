@@ -4,11 +4,15 @@ AtomLinux_GraphicsLibrary=Null
 
 #Compile configuration
 
-# **** Only supported on 64-bit systems ****
-
     #Only 64Bit Type: "Yes" | "No"
 AtomLinux_Only64Bit=No
     #Only 64Bit Type: "Yes" | "No"
+
+    #BCD deployment method: "Yes" | "No"
+AtomLinux_BCDDeploymentMethod=No
+    #BCD deployment method: "Yes" | "No"
+
+# **** Secure Boot ****
 
     #SecureBoot Signature: "Yes" | "No"
 AtomLinux_SecureBootSignature=No
@@ -22,11 +26,15 @@ AtomLinux_SignatureMethod=CodeSgin
 AtomLinux_UsingPreviousBuildResults_SecureBoot=No
     #Using previous build results(Secure boot)? : "Yes" | "No"
 
+# **** Secure Boot ****
+
     #Network Support "Yes" | "No"
 AtomLinux_NetworkSupport=Yes
     #Network Support "Yes" | "No"
 
-# **** Only supported on 64-bit systems ****
+    #Using iconv lib: "Yes" | "No"
+AtomLinux_UsingIconvLib=No
+    #Using iconv lib: "Yes" | "No"
 
     #Using mdadm: "Yes" | "No"
 AtomLinux_UsingMdadm=No
@@ -39,10 +47,6 @@ AtomLinux_UsingWeston=No
     #Using libnss: "Yes" | "No"
 AtomLinux_UsingLibnss=Yes
     #Using libnss: "Yes" | "No"
-
-    #BCD deployment method: "Yes" | "No"
-AtomLinux_BCDDeploymentMethod=No
-    #BCD deployment method: "Yes" | "No"
 
 #Compile configuration
 

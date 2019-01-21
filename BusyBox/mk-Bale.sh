@@ -10,6 +10,7 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ../VariableSetti
 AtomLinux_InitramfsLinuxAppFontDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppFontDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingIconvLib="$(grep -i ^AtomLinux_UsingIconvLib ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_NetworkSupport="$(grep -i ^AtomLinux_NetworkSupport ../VariableSetting | cut -f2 -d'=')"
@@ -40,8 +41,6 @@ cp -rv ../${ARCH}_install/* ./
 mv linuxrc init
 mkdir dev etc home lib proc root sys tmp var run
 
-Copy_libiconv="no"
-
 #GraphicsLibrary
 if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
     mkdir -p ./usr/lib/
@@ -52,8 +51,6 @@ if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtNetwork.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/fonts/fixed_120_50.qpf ./usr/fonts/
     cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/fonts/
-
-    Copy_libiconv="yes"
 elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     mkdir -p ./usr/lib/
     mkdir -p ./usr/qt5/fonts/
@@ -63,8 +60,6 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     cp -rv ../../Qt/${ARCH}_release/lib/libQt5Widgets.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_release/plugins ./usr/qt5
     cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/qt5/fonts/
-
-    Copy_libiconv="yes"
 elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     mkdir -p ./usr/lib/
     mkdir -p ./usr/share/terminfo/
@@ -76,10 +71,10 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     cp -rRv ../../Ncurses/${ARCH}-ncurses/share/tabset ./usr/share/
     cp -rRv ../../Ncurses/${ARCH}-ncurses/share/terminfo/l ./usr/share/terminfo/
     cp -rRv ../../Ncurses/${ARCH}-ncurses/share/terminfo/t ./usr/share/terminfo/
-
-    Copy_libiconv="yes"
 fi
 #GraphicsLibrary
+
+cp -rRv ../MyConfig/* ./
 
 #weston
 if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
@@ -89,19 +84,17 @@ if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
 fi
 #weston
 
-cp -rRv ../MyConfig/* ./
-if [ ${Copy_libiconv} = "yes" ]; then
+#iconv Support
+if [ ${AtomLinux_UsingIconvLib} = "Yes" ]; then
     mkdir -p ./usr/lib/
     cp -v ../../Lib/libiconv/${ARCH}-libiconv/usr/lib/preloadable_libiconv.so ./usr/lib/
-else
-    sed -i '/preloadable_libiconv.so/d' ./etc/profile
 fi
+#iconv Support
 
 #RAID Support
 if [ ${AtomLinux_UsingMdadm} = "Yes" ]; then
     mkdir -p ./usr/sbin/
     cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdadm ./usr/sbin/
-    cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdmon ./usr/sbin/
 fi
 #RAID Support
 

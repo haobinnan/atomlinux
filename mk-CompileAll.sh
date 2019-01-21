@@ -13,6 +13,7 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ./VariableSettin
 AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_SignatureMethod="$(grep -i ^AtomLinux_SignatureMethod ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingIconvLib="$(grep -i ^AtomLinux_UsingIconvLib ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ./VariableSetting | cut -f2 -d'=')"
 
@@ -153,15 +154,17 @@ fi
 # ********************************** GraphicsLibrary **********************************
 
 # ********************************** libiconv **********************************
-cd Lib/libiconv
-./mk-libiconv.sh
-#Check
-if [ ! $? -eq 0 ]; then
-    echo "Error: mk-libiconv.sh ."
-    exit 1
+if [ ${AtomLinux_UsingIconvLib} = "Yes" ]; then
+    cd Lib/libiconv
+    ./mk-libiconv.sh
+    #Check
+    if [ ! $? -eq 0 ]; then
+        echo "Error: mk-libiconv.sh ."
+        exit 1
+    fi
+    #Check
+    cd ../../
 fi
-#Check
-cd ../../
 # ********************************** libiconv **********************************
 
 # ********************************** mdadm **********************************
