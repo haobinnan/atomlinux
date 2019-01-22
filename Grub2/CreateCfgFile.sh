@@ -27,9 +27,15 @@ set default=0
 set gfxpayload=1024x768
 
 menuentry '$AtomLinux_SoftwareName' {
-    echo 'Loading ...'
-    linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
-    initrd /$AtomLinux_Grub2DirName/initramfs
+    if cpuid -l; then
+        echo 'Loading ...'
+        linux /$AtomLinux_Grub2DirName/bzImage$AtomLinux_LinuxKernelParameter
+        initrd /$AtomLinux_Grub2DirName/initramfs
+    else
+        echo 'This CPU is not compatible with 64-bit mode.'
+        sleep 3
+        reboot
+    fi
 }" > ./cd_grub.cfg
 else
     echo "insmod part_gpt
