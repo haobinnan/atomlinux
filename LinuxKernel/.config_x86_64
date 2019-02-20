@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 4.19.21 Kernel Configuration
+# Linux/x86 4.19.23 Kernel Configuration
 #
 
 #
@@ -3895,7 +3895,8 @@ CONFIG_QUOTACTL=y
 CONFIG_QUOTACTL_COMPAT=y
 CONFIG_AUTOFS4_FS=y
 CONFIG_AUTOFS_FS=y
-# CONFIG_FUSE_FS is not set
+CONFIG_FUSE_FS=y
+CONFIG_CUSE=y
 # CONFIG_OVERLAY_FS is not set
 
 #

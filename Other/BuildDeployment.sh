@@ -112,6 +112,10 @@ MyInstall "libgles2-mesa-dev libxcb-composite0-dev libxcursor-dev libcairo2-dev 
 MyInstall "libinput-dev libxkbcommon-dev libxml2-dev"
 #What you need to build 'weston'
 
+#What you need to build 'dislocker'
+MyInstall "libfuse-dev libmbedtls-dev ruby-dev"
+#What you need to build 'dislocker'
+
 #What you need to build 'OVMF'
 MyInstall_Base "acpica-tools"
 

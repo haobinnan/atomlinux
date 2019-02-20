@@ -12,6 +12,7 @@ AtomLinux_InitramfsLinuxAppDirName="$(grep -i ^AtomLinux_InitramfsLinuxAppDirNam
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingIconvLib="$(grep -i ^AtomLinux_UsingIconvLib ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_NetworkSupport="$(grep -i ^AtomLinux_NetworkSupport ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
@@ -97,6 +98,14 @@ if [ ${AtomLinux_UsingMdadm} = "Yes" ]; then
     cp -v ../../Utils/mdadm/${ARCH}-mdadm/sbin/mdadm ./usr/sbin/
 fi
 #RAID Support
+
+#BitLocker Support
+if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
+    mkdir -p ./usr/lib/
+    mkdir -p ./usr/bin/
+    cp -rv ../../Utils/dislocker/${ARCH}-dislocker/usr/local/* ./usr/
+fi
+#BitLocker Support
 
 #Copy udhcpc script
 if [ ${AtomLinux_NetworkSupport} = "Yes" ]; then

@@ -40,6 +40,10 @@ AtomLinux_UsingIconvLib=No
 AtomLinux_UsingMdadm=No
     #Using mdadm: "Yes" | "No"
 
+    #Using dislocker: "Yes" | "No"
+AtomLinux_UsingDislocker=No
+    #Using dislocker: "Yes" | "No"
+
     #Using weston: "Yes" | "No"
 AtomLinux_UsingWeston=No
     #Using weston: "Yes" | "No"
@@ -83,7 +87,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.19.21
+AtomLinux_LinuxKernelVNumber=4.19.23
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
@@ -113,6 +117,11 @@ AtomLinux_MdadmURL=https://cdn.kernel.org/pub/linux/utils/raid/mdadm/
 AtomLinux_WestonVNumber=5.0.0
 AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
 #Utils - weston
+
+#Utils - dislocker
+AtomLinux_DislockerVNumber=0.7.1
+AtomLinux_DislockerURL=https://codeload.github.com/Aorimn/dislocker/
+#Utils - dislocker
 
 #Lib - gnu-efi
 AtomLinux_GnuEFIVNumber=3.0.9
