@@ -121,6 +121,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check make install
 rm -rf ../../${ARCH}-${OBJ_PROJECT}/usr/local/share
+rm -f ../../${ARCH}-${OBJ_PROJECT}/usr/local/bin/dislocker-find
 
 cd ../../
 rm -rf ${OBJ_PROJECT}-tmp

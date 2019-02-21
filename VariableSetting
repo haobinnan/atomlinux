@@ -5,7 +5,7 @@ AtomLinux_GraphicsLibrary=Null
 #Compile configuration
 
     #Only 64Bit Type: "Yes" | "No"
-AtomLinux_Only64Bit=No
+AtomLinux_Only64Bit=Yes
     #Only 64Bit Type: "Yes" | "No"
 
     #BCD deployment method: "Yes" | "No"
@@ -87,7 +87,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=4.19.23
+AtomLinux_LinuxKernelVNumber=4.19.24
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v4.x/
 #LinuxKernel
 
