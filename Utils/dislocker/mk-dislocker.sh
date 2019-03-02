@@ -70,20 +70,23 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
-#Code bug processing
-RUBYV=`ls /usr/include | grep "^ruby-" | sed -n '1p'`
-if [ -f /usr/include/${RUBYV}/ruby/config.h ]; then
-    sudo rm -f /usr/include/${RUBYV}/ruby/config.h
-fi
-
-if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    sudo ln -s /usr/include/x86_64-linux-gnu/${RUBYV}/ruby/config.h /usr/include/${RUBYV}/ruby/config.h
-else
-    sudo ln -s /usr/include/i386-linux-gnu/${RUBYV}/ruby/config.h /usr/include/${RUBYV}/ruby/config.h
-fi
-#Code bug processing
-
 cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+
+#Patches
+if [ -d ../../Patches ]; then
+    for file in $(ls ../../Patches);
+    do
+        echo -e "\033[31m$file\033[0m"
+        patch -p1 < ../../Patches/$file
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (dislocker) ."
+            exit 1
+        fi
+        #Check patch
+    done
+fi
+#Patches
 
 #make
 cmake .
@@ -125,11 +128,5 @@ rm -f ../../${ARCH}-${OBJ_PROJECT}/usr/local/bin/dislocker-find
 
 cd ../../
 rm -rf ${OBJ_PROJECT}-tmp
-
-#Code bug processing
-if [ -f /usr/include/${RUBYV}/ruby/config.h ]; then
-    sudo rm -f /usr/include/${RUBYV}/ruby/config.h
-fi
-#Code bug processing
 
 echo "Complete."
