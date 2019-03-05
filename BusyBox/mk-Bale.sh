@@ -136,6 +136,13 @@ if [ ${AtomLinux_GraphicsLibrary} = "Null" ]; then
     rm -rf ./$AtomLinux_InitramfsLinuxAppDirName
 fi
 
+#Create Version File
+strCurrentDateTime=`date "+%Y-%m-%d %H:%M:%S"`
+echo "OS Build Time:"${strCurrentDateTime} >> ./etc/version
+strGitRevParse=`git rev-parse --short HEAD`
+echo "Git Commit ID:"${strGitRevParse} >> ./etc/version
+#Create Version File
+
 #find . | cpio -o -H newc | gzip > ../${RAMDISK_NAME}
 #find . | cpio -o -H newc | lzma -9 -v > ../${RAMDISK_NAME}
 find . | cpio -R root:root -H newc -o | xz -9 -v --check=none > ../${RAMDISK_NAME}
