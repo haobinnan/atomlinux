@@ -15,9 +15,22 @@ if [ -f /usr/lib/preloadable_libiconv.so ]; then
 fi
 # * * * * * * iconv lib * * * * * *
 
+# * * * * * * Set default graphics card * * * * * *
+DefaultGC="fb0"
+cnt=15
+while [ $cnt -ge 0 ]
+do
+    if [ -c "/dev/fb$cnt" ]; then
+        DefaultGC="fb$cnt"
+        break
+    fi
+    cnt=$((cnt - 1))
+done
+# * * * * * * Set default graphics card * * * * * *
+
 # * * * * * * Qt4 Config * * * * * *
 export QT_QWS_FONTDIR=/usr/fonts/
-export QWS_DISPLAY=LinuxFb:/dev/fb0
+export QWS_DISPLAY=LinuxFb:/dev/${DefaultGC}
 export QWS_SIZE=1024x768
 export QWS_MOUSE_PROTO=IntelliMouse:/dev/input/mice
 # * * * * * * Qt4 Config * * * * * *
@@ -28,7 +41,7 @@ export QT5DIR=/usr/qt5
 export QT_PLUGIN_PATH=$QT5DIR/plugins
 export QT_QPA_FONTDIR=$QT5DIR/fonts
 export QT_QPA_PLATFORM_PLUGIN_PATH=$QT5DIR/plugins/platforms
-export QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0:size=1024x768
+export QT_QPA_PLATFORM=linuxfb:fb=/dev/${DefaultGC}:size=1024x768
 export QT_QPA_EVDEV_MOUSE_PARAMETERS=/dev/input/mouse0
 export QT_QPA_EVDEV_KEYBOARD_PARAMETERS=/dev/input/event1
 # * * * * * * Qt5 Config * * * * * *
