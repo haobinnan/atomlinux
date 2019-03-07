@@ -17,7 +17,7 @@ fi
 
 # * * * * * * Set default graphics card * * * * * *
 DefaultGC="fb0"
-cnt=15
+cnt=31
 while [ $cnt -ge 0 ]
 do
     if [ -c "/dev/fb$cnt" ]; then
