@@ -17,15 +17,15 @@ fi
 
 # * * * * * * Set default graphics card * * * * * *
 DefaultGC="fb0"
-cnt=31
-while [ $cnt -ge 0 ]
-do
-    if [ -c "/dev/fb$cnt" ]; then
-        DefaultGC="fb$cnt"
-        break
-    fi
-    cnt=$((cnt - 1))
-done
+# cnt=31
+# while [ $cnt -ge 0 ]
+# do
+#     if [ -c "/dev/fb$cnt" ]; then
+#         DefaultGC="fb$cnt"
+#         break
+#     fi
+#     cnt=$((cnt - 1))
+# done
 # * * * * * * Set default graphics card * * * * * *
 
 # * * * * * * Qt4 Config * * * * * *
