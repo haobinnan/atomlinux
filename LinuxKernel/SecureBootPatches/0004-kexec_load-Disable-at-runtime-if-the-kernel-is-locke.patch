@@ -1,7 +1,7 @@
-From 83d2c130fe65782921043bbf49c492a1efa8faf8 Mon Sep 17 00:00:00 2001
+From 8ffe5ececcfdb861c9e4734b874973c31cba4b6a Mon Sep 17 00:00:00 2001
 From: Matthew Garrett <mjg59@srcf.ucam.org>
 Date: Mon, 9 Apr 2018 09:52:46 +0100
-Subject: [PATCH 21/78] kexec_load: Disable at runtime if the kernel is locked down
+Subject: [PATCH 19/85] kexec_load: Disable at runtime if the kernel is locked down
 
 The kexec_load() syscall permits the loading and execution of arbitrary
 code in ring 0, which is something that lock-down is meant to prevent. It

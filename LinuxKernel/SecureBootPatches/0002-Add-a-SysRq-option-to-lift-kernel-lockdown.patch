@@ -1,7 +1,7 @@
-From 0b4c7a9a4ed081c55a97155cd2d9b34c8ae91c01 Mon Sep 17 00:00:00 2001
+From 18a36fbcac0b283e6ea3790ee0902efc6d3fbaa4 Mon Sep 17 00:00:00 2001
 From: Kyle McMartin <kyle@redhat.com>
 Date: Mon, 9 Apr 2018 09:52:45 +0100
-Subject: [PATCH 17/78] Add a SysRq option to lift kernel lockdown
+Subject: [PATCH 17/85] Add a SysRq option to lift kernel lockdown
 
 Make an option to provide a sysrq key that will lift the kernel lockdown,
 thereby allowing the running kernel image to be accessed and modified.
@@ -26,7 +26,7 @@ cc: x86@kernel.org
  8 files changed, 87 insertions(+), 8 deletions(-)
 
 diff --git a/arch/x86/include/asm/setup.h b/arch/x86/include/asm/setup.h
-index ae13bc9..3108e29 100644
+index ed8ec01..8daf633 100644
 --- a/arch/x86/include/asm/setup.h
 +++ b/arch/x86/include/asm/setup.h
 @@ -9,6 +9,8 @@
@@ -39,10 +39,10 @@ index ae13bc9..3108e29 100644
  
  #include <linux/pfn.h>
 diff --git a/drivers/input/misc/uinput.c b/drivers/input/misc/uinput.c
-index 8ec483e..c2a77dc 100644
+index 26ec603..a73e924 100644
 --- a/drivers/input/misc/uinput.c
 +++ b/drivers/input/misc/uinput.c
-@@ -365,6 +365,7 @@ static int uinput_create_device(struct uinput_device *udev)
+@@ -366,6 +366,7 @@ static int uinput_create_device(struct uinput_device *udev)
  		dev->flush = uinput_dev_flush;
  	}
  
@@ -51,10 +51,10 @@ index 8ec483e..c2a77dc 100644
  
  	input_set_drvdata(udev->dev, udev);
 diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
-index 06ed20d..34b9964 100644
+index 1f03078..0a05d33 100644
 --- a/drivers/tty/sysrq.c
 +++ b/drivers/tty/sysrq.c
-@@ -487,6 +487,7 @@ static void sysrq_handle_unrt(int key)
+@@ -480,6 +480,7 @@ static void sysrq_handle_unrt(int key)
  	/* x: May be registered on mips for TLB dump */
  	/* x: May be registered on ppc/powerpc for xmon */
  	/* x: May be registered on sparc64 for global PMU dump */
@@ -62,7 +62,7 @@ index 06ed20d..34b9964 100644
  	NULL,				/* x */
  	/* y: May be registered on sparc64 for global register dump */
  	NULL,				/* y */
-@@ -530,7 +531,7 @@ static void __sysrq_put_key_op(int key, struct sysrq_key_op *op_p)
+@@ -523,7 +524,7 @@ static void __sysrq_put_key_op(int key, struct sysrq_key_op *op_p)
                  sysrq_key_table[i] = op_p;
  }
  
@@ -71,7 +71,7 @@ index 06ed20d..34b9964 100644
  {
  	struct sysrq_key_op *op_p;
  	int orig_log_level;
-@@ -550,11 +551,15 @@ void __handle_sysrq(int key, bool check_mask)
+@@ -543,11 +544,15 @@ void __handle_sysrq(int key, bool check_mask)
  
          op_p = __sysrq_get_key_op(key);
          if (op_p) {
@@ -88,7 +88,7 @@ index 06ed20d..34b9964 100644
  			pr_cont("%s\n", op_p->action_msg);
  			console_loglevel = orig_log_level;
  			op_p->handler(key);
-@@ -586,7 +591,7 @@ void __handle_sysrq(int key, bool check_mask)
+@@ -579,7 +584,7 @@ void __handle_sysrq(int key, bool check_mask)
  void handle_sysrq(int key)
  {
  	if (sysrq_on())
@@ -97,7 +97,7 @@ index 06ed20d..34b9964 100644
  }
  EXPORT_SYMBOL(handle_sysrq);
  
-@@ -667,7 +672,7 @@ static void sysrq_do_reset(struct timer_list *t)
+@@ -659,7 +664,7 @@ static void sysrq_do_reset(struct timer_list *t)
  static void sysrq_handle_reset_request(struct sysrq_state *state)
  {
  	if (state->reset_requested)
@@ -106,7 +106,7 @@ index 06ed20d..34b9964 100644
  
  	if (sysrq_reset_downtime_ms)
  		mod_timer(&state->keyreset_timer,
-@@ -818,8 +823,10 @@ static bool sysrq_handle_keypress(struct sysrq_state *sysrq,
+@@ -812,8 +817,10 @@ static bool sysrq_handle_keypress(struct sysrq_state *sysrq,
  
  	default:
  		if (sysrq->active && value && value != 2) {
@@ -118,7 +118,7 @@ index 06ed20d..34b9964 100644
  		}
  		break;
  	}
-@@ -1102,7 +1109,7 @@ static ssize_t write_sysrq_trigger(struct file *file, const char __user *buf,
+@@ -1096,7 +1103,7 @@ static ssize_t write_sysrq_trigger(struct file *file, const char __user *buf,
  
  		if (get_user(c, buf))
  			return -EFAULT;
@@ -185,10 +185,10 @@ index 8c71874..7de1f08 100644
  int unregister_sysrq_key(int key, struct sysrq_key_op *op);
  struct sysrq_key_op *__sysrq_get_key_op(int key);
 diff --git a/kernel/debug/kdb/kdb_main.c b/kernel/debug/kdb/kdb_main.c
-index f338d23..74403fb 100644
+index 82a3b32..efee1ab 100644
 --- a/kernel/debug/kdb/kdb_main.c
 +++ b/kernel/debug/kdb/kdb_main.c
-@@ -1996,7 +1996,7 @@ static int kdb_sr(int argc, const char **argv)
+@@ -1981,7 +1981,7 @@ static int kdb_sr(int argc, const char **argv)
  		return KDB_ARGCOUNT;
  
  	kdb_trap_printk++;
@@ -198,7 +198,7 @@ index f338d23..74403fb 100644
  
  	return 0;
 diff --git a/security/Kconfig b/security/Kconfig
-index 878338f..57ad16e 100644
+index 870fcf6..3a6a5f5 100644
 --- a/security/Kconfig
 +++ b/security/Kconfig
 @@ -252,6 +252,17 @@ config LOCK_DOWN_MANDATORY
@@ -216,9 +216,9 @@ index 878338f..57ad16e 100644
 +	  combination on a wired keyboard.  On x86, this is SysRq+x.
 +
 +
- source security/selinux/Kconfig
- source security/smack/Kconfig
- source security/tomoyo/Kconfig
+ source "security/selinux/Kconfig"
+ source "security/smack/Kconfig"
+ source "security/tomoyo/Kconfig"
 diff --git a/security/lock_down.c b/security/lock_down.c
 index f35ffdd..2615669 100644
 --- a/security/lock_down.c

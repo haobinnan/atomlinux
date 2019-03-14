@@ -1,7 +1,7 @@
-From 0e74c4a94b9481e494891fe30776e3c099421c47 Mon Sep 17 00:00:00 2001
+From 70b2633270a1883d36ae15c11956c3d6ce9cae5b Mon Sep 17 00:00:00 2001
 From: Matthew Garrett <mjg59@srcf.ucam.org>
 Date: Mon, 9 Apr 2018 09:52:48 +0100
-Subject: [PATCH 25/78] x86: Lock down IO port access when the kernel is locked down
+Subject: [PATCH 23/85] x86: Lock down IO port access when the kernel is locked down
 
 IO port access would permit users to gain access to PCI configuration
 registers, which in turn (on a lot of hardware) give access to MMIO

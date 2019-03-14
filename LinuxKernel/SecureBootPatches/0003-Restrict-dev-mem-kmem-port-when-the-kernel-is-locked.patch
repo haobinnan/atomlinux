@@ -1,7 +1,7 @@
-From ce18c6a73651308c6d5fe801d3f89882613288f7 Mon Sep 17 00:00:00 2001
+From 6fa7fa694a4271a36192e6877970aa82be949cb6 Mon Sep 17 00:00:00 2001
 From: Matthew Garrett <mjg59@srcf.ucam.org>
 Date: Mon, 9 Apr 2018 09:52:46 +0100
-Subject: [PATCH 20/78] Restrict /dev/{mem,kmem,port} when the kernel is locked down
+Subject: [PATCH 18/85] Restrict /dev/{mem,kmem,port} when the kernel is locked down
 
 Allowing users to read and write to core kernel memory makes it possible
 for the kernel to be subverted, avoiding module loading restrictions, and
@@ -21,7 +21,7 @@ Reviewed-by: "Lee, Chun-Yi" <jlee@suse.com>
  1 files changed, 2 insertions(+), 0 deletions(-)
 
 diff --git a/drivers/char/mem.c b/drivers/char/mem.c
-index 7b4e4de..131c8da 100644
+index b08dc50..0a2f2e7 100644
 --- a/drivers/char/mem.c
 +++ b/drivers/char/mem.c
 @@ -786,6 +786,8 @@ static loff_t memory_lseek(struct file *file, loff_t offset, int orig)

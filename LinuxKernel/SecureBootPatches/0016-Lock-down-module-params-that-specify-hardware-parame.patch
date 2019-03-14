@@ -1,7 +1,7 @@
-From f555075e55c8d1ff2e345a425b9423714d0e021c Mon Sep 17 00:00:00 2001
+From b8911e38ba2ad05058f506504d9dc28df82decb8 Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Wed, 4 Apr 2018 14:45:37 +0100
-Subject: [PATCH 33/78] Lock down module params that specify hardware parameters (eg. ioport)
+Subject: [PATCH 31/85] Lock down module params that specify hardware parameters (eg. ioport)
 
 Provided an annotation for module parameters that specify hardware
 parameters (such as io ports, iomem addresses, irqs, dma channels, fixed

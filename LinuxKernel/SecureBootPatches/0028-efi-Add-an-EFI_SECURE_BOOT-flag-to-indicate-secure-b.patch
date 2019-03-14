@@ -1,7 +1,7 @@
-From cb1e4198eb99850e27235a226412685f4ec90eaa Mon Sep 17 00:00:00 2001
+From 263be363df401a3e1c0600e9ab264a6e78c697c1 Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Tue, 27 Feb 2018 10:04:55 +0000
-Subject: [PATCH 50/78] efi: Add an EFI_SECURE_BOOT flag to indicate secure boot mode
+Subject: [PATCH 45/85] efi: Add an EFI_SECURE_BOOT flag to indicate secure boot mode
 
 UEFI machines can be booted in Secure Boot mode.  Add an EFI_SECURE_BOOT
 flag that can be passed to efi_enabled() to find out whether secure boot is
@@ -14,16 +14,17 @@ Suggested-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 Signed-off-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 cc: linux-efi@vger.kernel.org
+Signed-off-by: Jeremy Cline <jcline@redhat.com>
 ---
  arch/x86/kernel/setup.c           |   14 +------------
  drivers/firmware/efi/Makefile     |    1 +
  drivers/firmware/efi/secureboot.c |   38 +++++++++++++++++++++++++++++++++++++
- include/linux/efi.h               |   16 +++++++++-----
- 4 files changed, 50 insertions(+), 19 deletions(-)
+ include/linux/efi.h               |   18 +++++++++++-----
+ 4 files changed, 52 insertions(+), 19 deletions(-)
  create mode 100644 drivers/firmware/efi/secureboot.c
 
 diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 28a907c..454d0fb 100644
+index cf2f3df..686fed6 100644
 --- a/arch/x86/kernel/setup.c
 +++ b/arch/x86/kernel/setup.c
 @@ -1161,19 +1161,7 @@ void __init setup_arch(char **cmdline_p)
@@ -104,7 +105,7 @@ index 0000000..9070055
 +	}
 +}
 diff --git a/include/linux/efi.h b/include/linux/efi.h
-index 32099da..26a50b7 100644
+index a71b3e3..af08098 100644
 --- a/include/linux/efi.h
 +++ b/include/linux/efi.h
 @@ -1188,6 +1188,14 @@ static inline int efi_range_is_wc(unsigned long start, unsigned long len)
@@ -122,23 +123,25 @@ index 32099da..26a50b7 100644
  
  #ifdef CONFIG_EFI
  /*
-@@ -1200,6 +1208,7 @@ static inline bool efi_enabled(int feature)
+@@ -1200,6 +1208,8 @@ static inline bool efi_enabled(int feature)
  extern void efi_reboot(enum reboot_mode reboot_mode, const char *__unused);
  
  extern bool efi_is_table_address(unsigned long phys_addr);
++
 +extern void __init efi_set_secure_boot(enum efi_secureboot_mode mode);
  #else
  static inline bool efi_enabled(int feature)
  {
-@@ -1218,6 +1227,7 @@ static inline bool efi_is_table_address(unsigned long phys_addr)
+@@ -1218,6 +1228,8 @@ static inline bool efi_is_table_address(unsigned long phys_addr)
  {
  	return false;
  }
++
 +static inline void efi_set_secure_boot(enum efi_secureboot_mode mode) {}
  #endif
  
  extern int efi_status_to_err(efi_status_t status);
-@@ -1604,12 +1614,6 @@ efi_status_t efi_setup_gop(efi_system_table_t *sys_table_arg,
+@@ -1604,12 +1616,6 @@ efi_status_t efi_setup_gop(efi_system_table_t *sys_table_arg,
  bool efi_runtime_disabled(void);
  extern void efi_call_virt_check_flags(unsigned long flags, const char *call);
  

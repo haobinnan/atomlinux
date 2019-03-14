@@ -1,7 +1,7 @@
-From 4b0542483e44660b8f67310d24110b09ffbdec76 Mon Sep 17 00:00:00 2001
+From dc47568d9aba8ecceacbf69bda6e8b114636aa41 Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Fri, 5 May 2017 08:21:56 +0100
-Subject: [PATCH 39/78] KEYS: Allow unrestricted boot-time addition of keys to secondary keyring
+Subject: [PATCH 38/85] KEYS: Allow unrestricted boot-time addition of keys to secondary keyring
 
 Allow keys to be added to the system secondary certificates keyring during
 kernel initialisation in an unrestricted fashion.  Such keys are implicitly

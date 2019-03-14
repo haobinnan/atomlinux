@@ -1,7 +1,7 @@
-From 0efb43171767b883260d1b20364bd9ee724ee3eb Mon Sep 17 00:00:00 2001
+From 548601c63bd02e8fb4ea74e09ff5704b842cb125 Mon Sep 17 00:00:00 2001
 From: Matthew Garrett <mjg59@srcf.ucam.org>
 Date: Mon, 9 Apr 2018 09:52:48 +0100
-Subject: [PATCH 24/78] PCI: Lock down BAR access when the kernel is locked down
+Subject: [PATCH 22/85] PCI: Lock down BAR access when the kernel is locked down
 
 Any hardware that can potentially generate DMA has to be locked down in
 order to avoid it being possible for an attacker to modify kernel code,
@@ -55,7 +55,7 @@ index 9ecfe13..40c1457 100644
  }
  
 diff --git a/drivers/pci/proc.c b/drivers/pci/proc.c
-index 7ac035a..6311e1c 100644
+index 6fa1627..1549cdd 100644
 --- a/drivers/pci/proc.c
 +++ b/drivers/pci/proc.c
 @@ -117,6 +117,9 @@ static ssize_t proc_bus_pci_write(struct file *file, const char __user *buf,

@@ -1,7 +1,7 @@
-From ec706d14990452ac74ae198950e85ea76b2fa6c9 Mon Sep 17 00:00:00 2001
+From cbb6ebbd625c44e47eeb260464c48225fea4fe43 Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Mon, 9 Apr 2018 09:52:45 +0100
-Subject: [PATCH 16/78] Add the ability to lock down access to the running kernel image
+Subject: [PATCH 16/85] Add the ability to lock down access to the running kernel image
 
 Provide a single call to allow kernel code to determine whether the system
 should be locked down, thereby disallowing various accesses that might
@@ -50,7 +50,7 @@ Signed-off-by: David Howells <dhowells@redhat.com>
  create mode 100644 security/lock_down.c
 
 diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index b4866ba..28a907c 100644
+index 3d872a5..cf2f3df 100644
 --- a/arch/x86/kernel/setup.c
 +++ b/arch/x86/kernel/setup.c
 @@ -1005,6 +1005,8 @@ void __init setup_arch(char **cmdline_p)
@@ -63,7 +63,7 @@ index b4866ba..28a907c 100644
  	dmi_memdev_walk();
  	dmi_set_dump_stack_arch_desc();
 diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-index d6aac75..940051e 100644
+index 8f0e68e..e1f3c8c 100644
 --- a/include/linux/kernel.h
 +++ b/include/linux/kernel.h
 @@ -340,6 +340,38 @@ static inline void refcount_error_report(struct pt_regs *regs, const char *err)
@@ -106,7 +106,7 @@ index d6aac75..940051e 100644
  int __must_check _kstrtoul(const char *s, unsigned int base, unsigned long *res);
  int __must_check _kstrtol(const char *s, unsigned int base, long *res);
 diff --git a/security/Kconfig b/security/Kconfig
-index d9aa521..878338f 100644
+index e4fe2f3..870fcf6 100644
 --- a/security/Kconfig
 +++ b/security/Kconfig
 @@ -230,6 +230,28 @@ config STATIC_USERMODEHELPER_PATH
@@ -135,9 +135,9 @@ index d9aa521..878338f 100644
 +	  Makes the lockdown non-negotiable.  It is always on and cannot be
 +	  disabled.
 +
- source security/selinux/Kconfig
- source security/smack/Kconfig
- source security/tomoyo/Kconfig
+ source "security/selinux/Kconfig"
+ source "security/smack/Kconfig"
+ source "security/tomoyo/Kconfig"
 @@ -277,4 +299,3 @@ config DEFAULT_SECURITY
  	default "" if DEFAULT_SECURITY_DAC
  

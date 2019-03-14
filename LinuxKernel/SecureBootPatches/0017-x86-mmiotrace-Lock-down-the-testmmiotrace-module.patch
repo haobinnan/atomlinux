@@ -1,7 +1,7 @@
-From cc0aa970f9710bb5249260346499a6ea0c2494e6 Mon Sep 17 00:00:00 2001
+From 41ac2637cacfe9409c32677f8a486bc87aff3f76 Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Wed, 4 Apr 2018 14:45:38 +0100
-Subject: [PATCH 34/78] x86/mmiotrace: Lock down the testmmiotrace module
+Subject: [PATCH 32/85] x86/mmiotrace: Lock down the testmmiotrace module
 
 The testmmiotrace module shouldn't be permitted when the kernel is locked
 down as it can be used to arbitrarily read and write MMIO space.

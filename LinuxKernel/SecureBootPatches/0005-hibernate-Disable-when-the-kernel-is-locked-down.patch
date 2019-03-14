@@ -1,7 +1,7 @@
-From 7a2daf48b4c54aa17130ba2c17abd758517b244c Mon Sep 17 00:00:00 2001
+From 0fd954f3ab30aa32f643c6e18b579d21f98040b1 Mon Sep 17 00:00:00 2001
 From: Josh Boyer <jwboyer@fedoraproject.org>
 Date: Mon, 9 Apr 2018 09:52:47 +0100
-Subject: [PATCH 22/78] hibernate: Disable when the kernel is locked down
+Subject: [PATCH 20/85] hibernate: Disable when the kernel is locked down
 
 There is currently no way to verify the resume image when returning
 from hibernate.  This might compromise the signed modules trust model,

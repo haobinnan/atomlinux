@@ -1,7 +1,7 @@
-From 1a61f692e7d26cf627287e9698c1744e254a6b85 Mon Sep 17 00:00:00 2001
+From 26aa2b78f0a6efaf278dbe8a5e7e6bd54c8f8afc Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Wed, 4 Apr 2018 14:45:38 +0100
-Subject: [PATCH 35/78] Lock down /proc/kcore
+Subject: [PATCH 33/85] Lock down /proc/kcore
 
 Disallow access to /proc/kcore when the kernel is locked down to prevent
 access to cryptographic data.
@@ -13,7 +13,7 @@ Reviewed-by: James Morris <james.l.morris@oracle.com>
  1 files changed, 2 insertions(+), 0 deletions(-)
 
 diff --git a/fs/proc/kcore.c b/fs/proc/kcore.c
-index d297fe4..0235871 100644
+index bbcc185..d50ebfb 100644
 --- a/fs/proc/kcore.c
 +++ b/fs/proc/kcore.c
 @@ -518,6 +518,8 @@ static void append_kcore_note(char *notes, size_t *i, const char *name,
