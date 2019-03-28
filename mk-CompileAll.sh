@@ -16,6 +16,7 @@ AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPrevio
 AtomLinux_UsingIconvLib="$(grep -i ^AtomLinux_UsingIconvLib ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ./VariableSetting | cut -f2 -d'=')"
 
 AtomLinux_key="$(grep -i ^AtomLinux_key ./VariableSetting | cut -f2 -d'=')"
@@ -195,6 +196,20 @@ if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
     cd ../../
 fi
 # ********************************** dislocker **********************************
+
+# ********************************** Dropbear SSH **********************************
+if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
+    cd Utils/dropbear
+    ./mk-dropbear.sh
+    #Check
+    if [ ! $? -eq 0 ]; then
+        echo "Error: mk-dropbear.sh ."
+        exit 1
+    fi
+    #Check
+    cd ../../
+fi
+# ********************************** Dropbear SSH **********************************
 
 # ********************************** weston **********************************
 if [ ${AtomLinux_UsingWeston} = "Yes" ]; then

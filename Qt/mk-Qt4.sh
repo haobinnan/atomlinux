@@ -9,8 +9,8 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_QtVNumber4="$(grep -i ^AtomLinux_QtVNumber4 ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_Qt4URL ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #Platform

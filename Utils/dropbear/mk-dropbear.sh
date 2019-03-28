@@ -8,17 +8,17 @@ if [ ! -f ../../VariableSetting ]; then
 fi
 
 #Load from VariableSetting file
-AtomLinux_MdadmVNumber="$(grep -i ^AtomLinux_MdadmVNumber ../../VariableSetting | cut -f2 -d'=')"
-AtomLinux_DownloadURL="$(grep -i ^AtomLinux_MdadmURL ../../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DropbearSSHVNumber="$(grep -i ^AtomLinux_DropbearSSHVNumber ../../VariableSetting | cut -f2 -d'=')"
+AtomLinux_DownloadURL="$(grep -i ^AtomLinux_DropbearSSHURL ../../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
-OBJ_PROJECT=mdadm
-FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_MdadmVNumber
-FILENAME=${FILENAME_DIR}.tar.xz
+OBJ_PROJECT=dropbear
+FILENAME_DIR=dropbear-$AtomLinux_DropbearSSHVNumber
+FILENAME=${FILENAME_DIR}.tar.bz2
 
 #Clean
-function clean_mdadm()
+function clean_dropbear()
 {
     rm -rf ./*-${OBJ_PROJECT}
 
@@ -26,8 +26,8 @@ function clean_mdadm()
 }
 
 if test $1 && [ $1 = "clean" ]; then
-    clean_mdadm
-    echo "mdadm clean ok!"
+    clean_dropbear
+    echo "dropbear clean ok!"
     exit
 fi
 #Clean
@@ -42,12 +42,12 @@ if [ ! -f ./${FILENAME} ]; then
     #Check if necessary tools are installed
     wget ${AtomLinux_DownloadURL}${FILENAME}
     if [ ! $? -eq 0 ]; then
-        echo "Error: Download mdadm ."
+        echo "Error: Download dropbear ."
         exit 1
     fi
     #Check if it is downloaded successfully
     if [ ! -f ./${FILENAME} ]; then
-        echo "Error: Download mdadm ."
+        echo "Error: Download dropbear ."
         exit 1
     fi
 fi
@@ -60,61 +60,51 @@ if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
 fi
 #Platform
 
-clean_mdadm
+clean_dropbear
 mkdir ${OBJ_PROJECT}-tmp
-tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
+tar xjvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
 #Check Decompression
 if [ ! $? -eq 0 ]; then
-    echo "Error: Decompression mdadm ."
+    echo "Error: Decompression dropbear ."
     exit 1
 fi
 #Check Decompression
-
+mkdir ./${ARCH}-${OBJ_PROJECT}
 cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
-#Patches
-if [ -d ../../Patches ]; then
-    for file in $(ls ../../Patches);
-    do
-        echo -e "\033[31m$file\033[0m"
-        patch -p1 < ../../Patches/$file
-        #Check patch
-        if [ ! $? -eq 0 ]; then
-            echo "Error: patch (mdadm) ."
-            exit 1
-        fi
-        #Check patch
-    done
-fi
-#Patches
-
-#make
+#configure
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    echo | $Make CXFLAGS=-O2
+    ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT}
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
-        echo | $Make CXFLAGS="-O2 -m32"
+        ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} CC="gcc -m32" CXX="g++ -m32"
     else
-        echo | $Make CXFLAGS=-O2
+        ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT}
     fi
 fi
-#make
-#Check make
-if [ ! $? -eq 0 ]; then
-    echo "Error: make (mdadm) ."
-    exit 1
-fi
-#Check make
+#configure
 
-#make install
-make DESTDIR=../../${ARCH}-${OBJ_PROJECT} install
-#make install
+#Check configure
+if [ ! $? -eq 0 ]; then
+    echo "Error: configure (dropbear) ."
+    exit 1
+fi
+#Check configure
+echo | $Make
+#Check make
+if [ ! $? -eq 0 ]; then
+    echo "Error: make (dropbear) ."
+    exit 1
+fi
+#Check make
+make install
 #Check make install
 if [ ! $? -eq 0 ]; then
-    echo "Error: make install (mdadm) ."
+    echo "Error: make install (dropbear) ."
     exit 1
 fi
 #Check make install
+rm -rf ../../${ARCH}-${OBJ_PROJECT}/share
 
 cd ../../
 rm -rf ${OBJ_PROJECT}-tmp

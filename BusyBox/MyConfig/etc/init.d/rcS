@@ -35,6 +35,12 @@ if [ -f /usr/share/udhcpc/default.script ]; then
 fi
 #Network
 
+#Dropbear SSH
+if [ -f /usr/sbin/dropbear ]; then
+    dropbear -ER
+fi
+#Dropbear SSH
+
 if [ -e /dev/sr0 ]; then
     cd /dev
     ln -s /dev/sr0 /dev/cdrom

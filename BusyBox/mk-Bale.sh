@@ -13,6 +13,7 @@ AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2
 AtomLinux_UsingIconvLib="$(grep -i ^AtomLinux_UsingIconvLib ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_NetworkSupport="$(grep -i ^AtomLinux_NetworkSupport ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
@@ -106,6 +107,15 @@ if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
     cp -rv ../../Utils/dislocker/${ARCH}-dislocker/usr/local/* ./usr/
 fi
 #BitLocker Support
+
+#Dropbear SSH Support
+if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
+    mkdir -p ./usr/bin/
+    mkdir -p ./usr/sbin/
+    mkdir -p ./etc/dropbear
+    cp -rv ../../Utils/dropbear/${ARCH}-dropbear/* ./usr/
+fi
+#Dropbear SSH Support
 
 #Copy udhcpc script
 if [ ${AtomLinux_NetworkSupport} = "Yes" ]; then

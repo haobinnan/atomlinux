@@ -9,8 +9,8 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_NcursesVNumber="$(grep -i ^AtomLinux_NcursesVNumber ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_NcursesURL ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 CurrentDIR=$(pwd)

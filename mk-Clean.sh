@@ -37,6 +37,10 @@ cd Utils/dislocker/
 ./mk-dislocker.sh clean
 cd ../..
 
+cd Utils/dropbear/
+./mk-dropbear.sh clean
+cd ../..
+
 cd BusyBox/
 ./mk-BusyBox.sh clean
 cd ..
@@ -61,6 +65,7 @@ if [ ! -n "$1" ]; then
         rm -f ./Qt/qt-everywhere-opensource-src-*.tar.xz
         rm -f ./Utils/mdadm/mdadm-*.tar.xz
         rm -f ./Utils/dislocker/dislocker-*.tar.gz
+        rm -f ./Utils/dropbear/dropbear-*.tar.bz2
         rm -f ./ovmf/*.tar.gz
         rm -f ./Grub2/grub*.tar.*
 

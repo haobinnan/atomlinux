@@ -44,6 +44,10 @@ AtomLinux_UsingMdadm=No
 AtomLinux_UsingDislocker=No
     #Using dislocker: "Yes" | "No"
 
+    #Using Dropbear SSH: "Yes" | "No"
+AtomLinux_UsingDropbearSSH=No
+    #Using Dropbear SSH: "Yes" | "No"
+
     #Using weston: "Yes" | "No"
 AtomLinux_UsingWeston=No
     #Using weston: "Yes" | "No"
@@ -80,14 +84,14 @@ AtomLinux_ShimURL=https://github.com/rhboot/shim/archive/
 #Shim
 
 #Grub2
-AtomLinux_Grub2VNumber=2.02+dfsg1-13
+AtomLinux_Grub2VNumber=2.02+dfsg1-16
 AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #AtomLinux_Grub2VNumber=import/2.02+dfsg1-5ubuntu4
 #AtomLinux_Grub2URL=git://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.0.3
+AtomLinux_LinuxKernelVNumber=5.0.5
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
@@ -122,6 +126,11 @@ AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
 AtomLinux_DislockerVNumber=0.7.1
 AtomLinux_DislockerURL=https://codeload.github.com/Aorimn/dislocker/
 #Utils - dislocker
+
+#Utils - Dropbear SSH
+AtomLinux_DropbearSSHVNumber=2019.78
+AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
+#Utils - Dropbear SSH
 
 #Lib - gnu-efi
 AtomLinux_GnuEFIVNumber=3.0.9

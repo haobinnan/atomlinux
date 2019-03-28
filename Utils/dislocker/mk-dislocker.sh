@@ -9,8 +9,8 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_DislockerVNumber="$(grep -i ^AtomLinux_DislockerVNumber ../../VariableSetting | cut -f2 -d'=')"
-AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_DislockerURL ../../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=dislocker

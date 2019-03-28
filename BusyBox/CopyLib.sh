@@ -10,6 +10,7 @@ AtomLinux_GraphicsLibrary="$(grep -i ^AtomLinux_GraphicsLibrary ../VariableSetti
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingLibnss="$(grep -i ^AtomLinux_UsingLibnss ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
@@ -132,6 +133,13 @@ if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
     ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgmp.so.10"
 fi
 #dislocker
+
+#Dropbear SSH
+if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libutil.so.1"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libcrypt.so.1"
+fi
+#Dropbear SSH
 
 for var in ${ArrayLib[@]};
 do
