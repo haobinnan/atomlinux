@@ -90,14 +90,14 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check configure
-echo | $Make
+echo | $Make PROGRAMS="dropbear dbclient dropbearkey dropbearconvert scp"
 #Check make
 if [ ! $? -eq 0 ]; then
     echo "Error: make (dropbear) ."
     exit 1
 fi
 #Check make
-make install
+make PROGRAMS="dropbear dbclient dropbearkey dropbearconvert scp" install
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (dropbear) ."

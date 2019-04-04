@@ -31,6 +31,9 @@ DefaultGC="fb0"
 # * * * * * * Qt4 Config * * * * * *
 export QT_QWS_FONTDIR=/usr/fonts/
 export QWS_DISPLAY=LinuxFb:/dev/${DefaultGC}
+if [ ! -c /dev/${DefaultGC} ]; then
+    export QWS_DISPLAY=VNC
+fi
 export QWS_SIZE=1024x768
 export QWS_MOUSE_PROTO=IntelliMouse:/dev/input/mice
 # * * * * * * Qt4 Config * * * * * *

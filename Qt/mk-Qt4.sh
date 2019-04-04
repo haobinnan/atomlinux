@@ -136,8 +136,8 @@ function build_Emb()
     -no-gfx-qvfb \
     -qt-gfx-linuxfb \
     -no-gfx-transformed \
-    -no-gfx-vnc \
-    -no-gfx-multiscreen \
+    -qt-gfx-vnc \
+    -qt-gfx-multiscreen \
     -qt-kbd-tty \
     -${VERSION} \
     -opensource \
