@@ -1,7 +1,7 @@
 From 757e55435997e355ee9b03e5d913b5496a3c39a8 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Tue, 11 Dec 2018 15:04:07 +0100
-Subject: [PATCH 11/21] policy.c: Fix for compiler error
+Subject: [PATCH 11/24] policy.c: Fix for compiler error
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
