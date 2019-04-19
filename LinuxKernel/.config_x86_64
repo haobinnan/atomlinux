@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.0.7 Kernel Configuration
+# Linux/x86 5.0.8 Kernel Configuration
 #
 
 #
@@ -2359,6 +2359,7 @@ CONFIG_SERIAL_NONSTANDARD=y
 # CONFIG_N_HDLC is not set
 # CONFIG_N_GSM is not set
 # CONFIG_TRACE_SINK is not set
+CONFIG_LDISC_AUTOLOAD=y
 CONFIG_DEVMEM=y
 # CONFIG_DEVKMEM is not set
 
@@ -2410,7 +2411,6 @@ CONFIG_HW_RANDOM=y
 # CONFIG_HW_RANDOM_AMD is not set
 CONFIG_HW_RANDOM_VIA=y
 CONFIG_NVRAM=y
-# CONFIG_R3964 is not set
 # CONFIG_APPLICOM is not set
 
 #

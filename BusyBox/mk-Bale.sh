@@ -41,7 +41,7 @@ cd ./${ARCH}-${ROOTFS_NAME}/
 cp -rv ../${ARCH}_install/* ./
 
 mv linuxrc init
-mkdir dev etc home lib proc root sys tmp var run
+mkdir dev etc home lib proc root sys tmp var run mnt
 
 #GraphicsLibrary
 if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
