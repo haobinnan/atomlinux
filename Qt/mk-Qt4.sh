@@ -135,7 +135,7 @@ function build_Emb()
     -depths all \
     -no-gfx-qvfb \
     -qt-gfx-linuxfb \
-    -no-gfx-transformed \
+    -qt-gfx-transformed \
     -qt-gfx-vnc \
     -qt-gfx-multiscreen \
     -qt-kbd-tty \

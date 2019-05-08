@@ -35,6 +35,10 @@ if [ ! -c /dev/${DefaultGC} ]; then
     export QWS_DISPLAY=VNC
 fi
 export QWS_SIZE=1024x768
+if [ -f "/sys/class/graphics/${DefaultGC}/virtual_size" ]; then
+    export QWS_SIZE=$(cat /sys/class/graphics/${DefaultGC}/virtual_size)
+    export QWS_SIZE=${QWS_SIZE/,/x}
+fi
 export QWS_MOUSE_PROTO=IntelliMouse:/dev/input/mice
 # * * * * * * Qt4 Config * * * * * *
 
