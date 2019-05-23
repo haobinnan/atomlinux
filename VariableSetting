@@ -143,7 +143,7 @@ AtomLinux_GlibURL=http://gemmei.ftp.acc.umu.se/pub/gnome/sources/glib/2.58/
 #Lib - glib
 
 #Lib - iconv
-AtomLinux_IconvVNumber=1.16
+AtomLinux_IconvVNumber=1.15
 AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
