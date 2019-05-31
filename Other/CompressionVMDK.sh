@@ -10,8 +10,6 @@ echo y | sudo apt clean
 
 rm -rf ~/.cache/vmware/drag_and_drop/*
 
-#Wipe vmdk
-sudo vmware-toolbox-cmd disk wipe /
 #Compress vmdk
 sudo vmware-toolbox-cmd disk shrink /
 
