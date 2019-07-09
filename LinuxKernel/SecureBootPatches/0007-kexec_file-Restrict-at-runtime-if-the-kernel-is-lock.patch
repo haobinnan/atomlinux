@@ -1,0 +1,43 @@
+From 9e1c9a959e04ef40671a13b86b012f925aba24ba Mon Sep 17 00:00:00 2001
+From: Jiri Bohac <jbohac@suse.cz>
+Date: Mon, 18 Feb 2019 12:44:58 +0000
+Subject: [PATCH 24/91] kexec_file: Restrict at runtime if the kernel is locked down
+
+When KEXEC_SIG is not enabled, kernel should not load images through
+kexec_file systemcall if the kernel is locked down.
+
+[Modified by David Howells to fit with modifications to the previous patch
+ and to return -EPERM if the kernel is locked down for consistency with
+ other lockdowns. Modified by Matthew Garrett to remove the IMA
+ integration, which will be replaced by integrating with the IMA
+ architecture policy patches.]
+
+Signed-off-by: Jiri Bohac <jbohac@suse.cz>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Jiri Bohac <jbohac@suse.cz>
+cc: kexec@lists.infradead.org
+Signed-off-by: Matthew Garrett <matthewgarrett@google.com>
+---
+ kernel/kexec_file.c |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index 0a06e12..58efdd5 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -237,6 +237,12 @@ void kimage_file_post_load_cleanup(struct kimage *image)
+ 		}
+ 
+ 		ret = 0;
++
++		if (kernel_is_locked_down(reason)) {
++			ret = -EPERM;
++			goto out;
++		}
++
+ 		break;
+ 
+ 		/* All other errors are fatal, including nomem, unparseable
+-- 
+1.7.1
+

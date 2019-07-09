@@ -1,0 +1,117 @@
+From 18131ef136918cd4d8a429cc85f415ced0ecf1c5 Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Tue, 27 Feb 2018 10:04:55 +0000
+Subject: [PATCH 53/91] efi: Lock down the kernel if booted in secure boot mode
+
+UEFI Secure Boot provides a mechanism for ensuring that the firmware will
+only load signed bootloaders and kernels.  Certain use cases may also
+require that all kernel modules also be signed.  Add a configuration option
+that to lock down the kernel - which includes requiring validly signed
+modules - if the kernel is secure-booted.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+Acked-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+cc: linux-efi@vger.kernel.org
+---
+ arch/x86/kernel/setup.c |    7 +++++--
+ fs/debugfs/inode.c      |    2 +-
+ security/Kconfig        |   14 ++++++++++++++
+ security/lock_down.c    |    5 +++++
+ 4 files changed, 25 insertions(+), 3 deletions(-)
+
+diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
+index 76e8602..251c470 100644
+--- a/arch/x86/kernel/setup.c
++++ b/arch/x86/kernel/setup.c
+@@ -66,6 +66,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/ctype.h>
+ #include <linux/uaccess.h>
++#include <linux/security.h>
+ 
+ #include <linux/percpu.h>
+ #include <linux/crash_dump.h>
+@@ -1012,6 +1013,10 @@ void __init setup_arch(char **cmdline_p)
+ 	if (efi_enabled(EFI_BOOT))
+ 		efi_init();
+ 
++	efi_set_secure_boot(boot_params.secure_boot);
++
++	init_lockdown();
++
+ 	dmi_setup();
+ 
+ 	/*
+@@ -1164,8 +1169,6 @@ void __init setup_arch(char **cmdline_p)
+ 	/* Allocate bigger log buffer */
+ 	setup_log_buf(1);
+ 
+-	efi_set_secure_boot(boot_params.secure_boot);
+-
+ 	reserve_initrd();
+ 
+ 	acpi_table_upgrade();
+diff --git a/fs/debugfs/inode.c b/fs/debugfs/inode.c
+index 6a1d90c..77af425 100644
+--- a/fs/debugfs/inode.c
++++ b/fs/debugfs/inode.c
+@@ -40,7 +40,7 @@
+ static int debugfs_setattr(struct dentry *dentry, struct iattr *ia)
+ {
+ 	if ((ia->ia_valid & (ATTR_MODE | ATTR_UID | ATTR_GID)) &&
+-	    kernel_is_locked_down("debugfs"))
++	    kernel_is_locked_down("changing perms in debugfs"))
+ 		return -EPERM;
+ 	return simple_setattr(dentry, ia);
+ }
+diff --git a/security/Kconfig b/security/Kconfig
+index bcbf360..cc8e055 100644
+--- a/security/Kconfig
++++ b/security/Kconfig
+@@ -255,6 +255,20 @@ config ALLOW_LOCKDOWN_LIFT_BY_SYSRQ
+           Allow the lockdown on a kernel to be lifted, by pressing a SysRq key
+           combination on a wired keyboard.  On x86, this is SysRq+x.
+ 
++config LOCK_DOWN_IN_EFI_SECURE_BOOT
++	bool "Lock down the kernel in EFI Secure Boot mode"
++	default n
++	select LOCK_DOWN_KERNEL
++	depends on EFI
++	help
++	  UEFI Secure Boot provides a mechanism for ensuring that the firmware
++	  will only load signed bootloaders and kernels.  Secure boot mode may
++	  be determined from EFI variables provided by the system firmware if
++	  not indicated by the boot parameters.
++
++	  Enabling this option turns on results in kernel lockdown being
++	  triggered if EFI Secure Boot is set.
++
+ source "security/selinux/Kconfig"
+ source "security/smack/Kconfig"
+ source "security/tomoyo/Kconfig"
+diff --git a/security/lock_down.c b/security/lock_down.c
+index d68dff8..b66b3ba 100644
+--- a/security/lock_down.c
++++ b/security/lock_down.c
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/security.h>
+ #include <linux/export.h>
++#include <linux/efi.h>
+ #include <linux/sysrq.h>
+ #include <asm/setup.h>
+ 
+@@ -50,6 +51,10 @@ void __init init_lockdown(void)
+ #ifdef CONFIG_LOCK_DOWN_FORCE
+ 	lock_kernel_down("Kernel configuration");
+ #endif
++#ifdef CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT
++	if (efi_enabled(EFI_SECURE_BOOT))
++		lock_kernel_down("EFI secure boot");
++#endif
+ }
+ 
+ /**
+-- 
+1.7.1
+
