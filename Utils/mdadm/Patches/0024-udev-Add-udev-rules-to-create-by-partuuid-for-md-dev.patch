@@ -1,7 +1,7 @@
 From 3c9b46cf9ae15a9be98fc47e2080bd9494496246 Mon Sep 17 00:00:00 2001
 From: Liwei Song <liwei.song@windriver.com>
 Date: Tue, 19 Mar 2019 23:51:05 -0400
-Subject: [PATCH 24/24] udev: Add udev rules to create by-partuuid for md
+Subject: [PATCH 24/30] udev: Add udev rules to create by-partuuid for md
  device
 
 This rules will create link under /dev/disk/by-partuuid/ for
