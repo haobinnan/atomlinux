@@ -36,6 +36,10 @@ AtomLinux_NetworkSupport=Yes
 AtomLinux_UsingIconvLib=No
     #Using iconv lib: "Yes" | "No"
 
+    #Using glib lib: "Yes" | "No"
+AtomLinux_UsingGlibLib=No
+    #Using glib lib: "Yes" | "No"
+
     #Using mdadm: "Yes" | "No"
 AtomLinux_UsingMdadm=No
     #Using mdadm: "Yes" | "No"

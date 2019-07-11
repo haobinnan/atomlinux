@@ -14,6 +14,7 @@ AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ./Variab
 AtomLinux_SignatureMethod="$(grep -i ^AtomLinux_SignatureMethod ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingIconvLib="$(grep -i ^AtomLinux_UsingIconvLib ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingGlibLib="$(grep -i ^AtomLinux_UsingGlibLib ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ./VariableSetting | cut -f2 -d'=')"
@@ -184,6 +185,24 @@ function Build_libiconv()
 }
 Build_libiconv &
 # ********************************** libiconv **********************************
+
+# ********************************** libGlib **********************************
+function Build_libGlib()
+{
+    if [ ${AtomLinux_UsingGlibLib} = "Yes" ]; then
+        cd Lib/glib
+        ./mk-glib.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-glib.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
+    fi
+}
+Build_libGlib &
+# ********************************** libGlib **********************************
 
 # ********************************** mdadm **********************************
 function Build_mdadm()
