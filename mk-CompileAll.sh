@@ -76,165 +76,220 @@ fi
 strStartTime=`date "+%Y-%m-%d %H:%M:%S"`
 
 # ********************************** LinuxKernel **********************************
-cd LinuxKernel
-./mk-LinuxKernel.sh
-#Check
-if [ ! $? -eq 0 ]; then
-    echo "Error: mk-LinuxKernel.sh ."
-    exit 1
-fi
-#Check
-#SecureBoot Signature
-if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
-    ./mk-KernelSignature.sh
+function Build_LinuxKernel()
+{
+    cd LinuxKernel
+    ./mk-LinuxKernel.sh
     #Check
     if [ ! $? -eq 0 ]; then
-        echo "Error: mk-KernelSignature.sh ."
+        echo "Error: mk-LinuxKernel.sh ." >> ../mk-CompileAll_Error.log
         exit 1
     fi
     #Check
-fi
-#SecureBoot Signature
-cd ..
+    #SecureBoot Signature
+    if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
+        ./mk-KernelSignature.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-KernelSignature.sh ." >> ../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+    fi
+    #SecureBoot Signature
+    cd ..
+}
+Build_LinuxKernel &
 # ********************************** LinuxKernel **********************************
 
 # ********************************** Grub2 **********************************
-cd Grub2
-./mk-Grub2.sh
-#Check
-if [ ! $? -eq 0 ]; then
-    echo "Error: mk-Grub2.sh ."
-    exit 1
-fi
-#Check
-#SecureBoot Signature
-if [ ${AtomLinux_SecureBootSignature} = "Yes" ] && [ ${AtomLinux_UsingPreviousBuildResults_SecureBoot} != "Yes" ]; then
-    ./mk-Grub2Signature.sh
+function Build_Grub2()
+{
+    cd Grub2
+    ./mk-Grub2.sh
     #Check
     if [ ! $? -eq 0 ]; then
-        echo "Error: mk-Grub2Signature.sh ."
+        echo "Error: mk-Grub2.sh ." >> ../mk-CompileAll_Error.log
         exit 1
     fi
     #Check
-fi
-#SecureBoot Signature
-cd ..
+    #SecureBoot Signature
+    if [ ${AtomLinux_SecureBootSignature} = "Yes" ] && [ ${AtomLinux_UsingPreviousBuildResults_SecureBoot} != "Yes" ]; then
+        ./mk-Grub2Signature.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-Grub2Signature.sh ." >> ../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+    fi
+    #SecureBoot Signature
+    cd ..
+}
+Build_Grub2 &
 # ********************************** Grub2 **********************************
 
 # ********************************** GraphicsLibrary **********************************
-if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
-    cd Qt
-    ./mk-Qt4.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-Qt4.sh ."
-        exit 1
+function Build_GraphicsLibrary()
+{
+    if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
+        cd Qt
+        ./mk-Qt4.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-Qt4.sh ." >> ../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ..
+    elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
+        cd Qt
+        ./mk-Qt5.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-Qt5.sh ." >> ../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ..
+    elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
+        cd Ncurses
+        ./mk-ncurses.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-ncurses.sh ." >> ../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ..
     fi
-    #Check
-    cd ..
-elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
-    cd Qt
-    ./mk-Qt5.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-Qt5.sh ."
-        exit 1
-    fi
-    #Check
-    cd ..
-elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
-    cd Ncurses
-    ./mk-ncurses.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-ncurses.sh ."
-        exit 1
-    fi
-    #Check
-    cd ..
-fi
+}
+Build_GraphicsLibrary &
 # ********************************** GraphicsLibrary **********************************
 
 # ********************************** libiconv **********************************
-if [ ${AtomLinux_UsingIconvLib} = "Yes" ]; then
-    cd Lib/libiconv
-    ./mk-libiconv.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-libiconv.sh ."
-        exit 1
+function Build_libiconv()
+{
+    if [ ${AtomLinux_UsingIconvLib} = "Yes" ]; then
+        cd Lib/libiconv
+        ./mk-libiconv.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-libiconv.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
     fi
-    #Check
-    cd ../../
-fi
+}
+Build_libiconv &
 # ********************************** libiconv **********************************
 
 # ********************************** mdadm **********************************
-if [ ${AtomLinux_UsingMdadm} = "Yes" ]; then
-    cd Utils/mdadm
-    ./mk-mdadm.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-mdadm.sh ."
-        exit 1
+function Build_mdadm()
+{
+    if [ ${AtomLinux_UsingMdadm} = "Yes" ]; then
+        cd Utils/mdadm
+        ./mk-mdadm.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-mdadm.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
     fi
-    #Check
-    cd ../../
-fi
+}
+Build_mdadm &
 # ********************************** mdadm **********************************
 
 # ********************************** dislocker **********************************
-if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
-    cd Utils/dislocker
-    ./mk-dislocker.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-dislocker.sh ."
-        exit 1
+function Build_dislocker()
+{
+    if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
+        cd Utils/dislocker
+        ./mk-dislocker.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-dislocker.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
     fi
-    #Check
-    cd ../../
-fi
+}
+Build_dislocker &
 # ********************************** dislocker **********************************
 
 # ********************************** Dropbear SSH **********************************
-if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
-    cd Utils/dropbear
-    ./mk-dropbear.sh
-    #Check
-    if [ ! $? -eq 0 ]; then
-        echo "Error: mk-dropbear.sh ."
-        exit 1
+function Build_DropbearSSH()
+{
+    if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
+        cd Utils/dropbear
+        ./mk-dropbear.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-dropbear.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
     fi
-    #Check
-    cd ../../
-fi
+}
+Build_DropbearSSH &
 # ********************************** Dropbear SSH **********************************
 
 # ********************************** weston **********************************
-if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
-    cd Utils/weston
-    ./mk-weston.sh
+function Build_weston()
+{
+    if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
+        cd Utils/weston
+        ./mk-weston.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-weston.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
+    fi
+}
+Build_weston &
+# ********************************** weston **********************************
+
+# ********************************** ovmf **********************************
+function Build_ovmf()
+{
+    cd ovmf
+    ./mk-ovmf.sh
     #Check
     if [ ! $? -eq 0 ]; then
-        echo "Error: mk-weston.sh ."
+        echo "Error: mk-ovmf.sh ." >> ../mk-CompileAll_Error.log
         exit 1
     fi
     #Check
-    cd ../../
-fi
-# ********************************** weston **********************************
+
+    gnome-terminal --tab --title="QEMU EnrollDefaultKeys" -- ./EnrollDefaultKeys.sh
+
+    cd ../
+}
+Build_ovmf &
+# ********************************** ovmf **********************************
 
 # ********************************** BusyBox **********************************
-cd BusyBox
-./mk-BusyBox.sh
-#Check
-if [ ! $? -eq 0 ]; then
-    echo "Error: mk-BusyBox.sh ."
-    exit 1
-fi
-#Check
-cd ..
+function Build_BusyBox()
+{
+    cd BusyBox
+    ./mk-BusyBox.sh
+    #Check
+    if [ ! $? -eq 0 ]; then
+        echo "Error: mk-BusyBox.sh ." >> ../mk-CompileAll_Error.log
+        exit 1
+    fi
+    #Check
+    cd ..
+}
+Build_BusyBox &
 # ********************************** BusyBox **********************************
 
 #SecureBootSignature
@@ -252,6 +307,8 @@ if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
     fi
 fi
 #SecureBootSignature
+
+wait
 
 ./mk-LinuxSample.sh
 if [ ${AtomLinux_GraphicsLibrary} = "Null" ]; then
