@@ -329,6 +329,11 @@ fi
 
 wait
 
+if [ -f ./mk-CompileAll_Error.log ]; then
+    echo "Error exists in the compilation process ."
+    exit 1
+fi
+
 ./mk-LinuxSample.sh
 if [ ${AtomLinux_GraphicsLibrary} = "Null" ]; then
     cd BusyBox

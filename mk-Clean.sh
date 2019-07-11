@@ -49,6 +49,7 @@ cd ovmf/
 ./mk-ovmf.sh clean
 cd ..
 
+rm -f ./mk-CompileAll_Error.log
 rm -f ./*.dat *.iso
 rm -rf Linux_sample
 
