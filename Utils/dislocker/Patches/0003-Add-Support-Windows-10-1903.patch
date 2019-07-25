@@ -1,0 +1,108 @@
+From 0c58134da5584f56f37719685c7cd67ade0ac67e Mon Sep 17 00:00:00 2001
+From: haobinnan <haobinnan@gmail.com>
+Date: Thu, 25 Jul 2019 09:05:15 +0800
+Subject: [PATCH] Add Support Windows 10 1903
+
+---
+ include/dislocker/metadata/datums.h |  4 +++-
+ src/inouts/inouts.c                 | 10 ++++++++++
+ src/metadata/datums.c               |  3 ++-
+ src/metadata/metadata.c             | 11 +++++++++++
+ 4 files changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/include/dislocker/metadata/datums.h b/include/dislocker/metadata/datums.h
+index 6985a6f..d092030 100644
+--- a/include/dislocker/metadata/datums.h
++++ b/include/dislocker/metadata/datums.h
+@@ -42,7 +42,7 @@
+ /**
+  * Here stand datums' value types stuff
+  */
+-#define NB_DATUMS_VALUE_TYPES 20
++#define NB_DATUMS_VALUE_TYPES 22
+ 
+ enum value_types
+ {
+@@ -353,6 +353,8 @@ static const print_datum_f print_datum_tab[NB_DATUMS_VALUE_TYPES] =
+ 	print_datum_generic,
+ 	print_datum_generic,
+ 	print_datum_generic,
++	print_datum_generic,
++	print_datum_generic,
+ };
+ 
+ 
+diff --git a/src/inouts/inouts.c b/src/inouts/inouts.c
+index de44e7e..a38cabb 100644
+--- a/src/inouts/inouts.c
++++ b/src/inouts/inouts.c
+@@ -25,6 +25,7 @@
+ #include "dislocker/inouts/inouts.priv.h"
+ #include "dislocker/dislocker.priv.h"
+ #include "dislocker/config.priv.h"
++#include <sys/mount.h>
+ 
+ 
+ /**
+@@ -88,6 +89,15 @@ static uint64_t get_volume_size(dis_context_t dis_ctx)
+ 		dis_free(input);
+ 	}
+ 
++	//Windows 10 1903 exFAT
++	if (!volume_size) {
++		uint64_t blksize64 = 0;
++		if(!ioctl(dis_ctx->io_data.volume_fd, BLKGETSIZE64, &blksize64)) {
++			volume_size = blksize64;
++		}
++	}
++	//Windows 10 1903 exFAT
++
+ 	return volume_size;
+ }
+ 
+diff --git a/src/metadata/datums.c b/src/metadata/datums.c
+index 18a2278..8fe703b 100644
+--- a/src/metadata/datums.c
++++ b/src/metadata/datums.c
+@@ -259,7 +259,8 @@ void print_one_datum(DIS_LOGS level, void* datum)
+ 
+ 	dis_datums_value_type_t value_type = header->value_type;
+ 
+-	print_datum_tab[value_type](level, datum);
++	if (value_type < NB_DATUMS_VALUE_TYPES)
++		print_datum_tab[value_type](level, datum);
+ }
+ 
+ 
+diff --git a/src/metadata/metadata.c b/src/metadata/metadata.c
+index dc4e23f..0e4cb25 100644
+--- a/src/metadata/metadata.c
++++ b/src/metadata/metadata.c
+@@ -27,6 +27,7 @@
+ #include "dislocker/metadata/metadata_config.h"
+ #include "dislocker/metadata/print_metadata.h"
+ #include "dislocker/dislocker.priv.h"
++#include <sys/mount.h>
+ 
+ /*
+  * On Darwin and FreeBSD, files are opened using 64 bits offsets/variables
+@@ -160,6 +161,16 @@ int dis_metadata_initialize(dis_metadata_t dis_meta)
+ 		return DIS_RET_ERROR_VOLUME_HEADER_READ;
+ 	}
+ 
++	//Windows 10 1903 exFAT
++	if (!dis_meta->volume_header->sector_size) {
++		uint64_t nSectorSize = 0;
++		ioctl(dis_meta_cfg->fve_fd, BLKSSZGET, &nSectorSize);
++		if(!nSectorSize)
++			nSectorSize = 512;
++		dis_meta->volume_header->sector_size = (uint16_t)nSectorSize;
++	}
++	//Windows 10 1903 exFAT
++
+ 	/* For debug purpose, print the volume header retrieved */
+ 	print_volume_header(L_DEBUG, dis_meta);
+ 
+-- 
+2.17.1
+
