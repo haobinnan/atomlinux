@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.2.0 Kernel Configuration
+# Linux/x86 5.2.8 Kernel Configuration
 #
 
 #
@@ -3932,7 +3932,6 @@ CONFIG_MXM_WMI=y
 # CONFIG_I2C_MULTI_INSTANTIATE is not set
 # CONFIG_INTEL_ATOMISP2_PM is not set
 # CONFIG_HUAWEI_WMI is not set
-# CONFIG_PCENGINES_APU2 is not set
 CONFIG_PMC_ATOM=y
 # CONFIG_CHROME_PLATFORMS is not set
 # CONFIG_MELLANOX_PLATFORM is not set
