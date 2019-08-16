@@ -1,0 +1,28 @@
+From 8cdddb1370f72865412ccafbd186bad83681f838 Mon Sep 17 00:00:00 2001
+From: haobinnan <haobinnan@gmail.com>
+Date: Sat, 17 Aug 2019 05:44:42 +0800
+Subject: [PATCH] Fixed an issue that NTFS volume size was incorrect (one
+ sector smaller) after the drive was unlocked.
+
+---
+ src/inouts/inouts.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/inouts/inouts.c b/src/inouts/inouts.c
+index de44e7e..b0c8551 100644
+--- a/src/inouts/inouts.c
++++ b/src/inouts/inouts.c
+@@ -83,6 +83,10 @@ static uint64_t get_volume_size(dis_context_t dis_ctx)
+ 
+ 		old_vbr = dis_metadata_set_volume_header(dis_ctx->metadata, input);
+ 		volume_size = dis_metadata_volume_size_from_vbr(dis_ctx->metadata);
++		//NTFS + 1 Sector
++		if (volume_size && memcmp(NTFS_SIGNATURE, dis_ctx->metadata->volume_header->signature, NTFS_SIGNATURE_SIZE) == 0)
++			volume_size += dis_ctx->metadata->volume_header->sector_size;
++		//NTFS + 1 Sector
+ 		dis_metadata_set_volume_header(dis_ctx->metadata, old_vbr);
+ 
+ 		dis_free(input);
+-- 
+2.17.1
+
