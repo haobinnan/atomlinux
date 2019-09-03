@@ -1,7 +1,9 @@
-From 0c58134da5584f56f37719685c7cd67ade0ac67e Mon Sep 17 00:00:00 2001
+From f778706e72d9f7bac84a5a4cd37f0b56cebdef49 Mon Sep 17 00:00:00 2001
 From: haobinnan <haobinnan@gmail.com>
-Date: Thu, 25 Jul 2019 09:05:15 +0800
-Subject: [PATCH] Add Support Windows 10 1903
+Date: Wed, 24 Jul 2019 10:38:04 +0800
+Subject: [PATCH 1/4] Fixed an issue that dislocker corrupted when unlocking
+ BitLocker drive created in Windows 10 1903. Fixed an issue that it failed to
+ unlock exFAT BitLocker drive created in Windows 10 1903.
 
 ---
  include/dislocker/metadata/datums.h |  4 +++-
@@ -61,7 +63,7 @@ index de44e7e..a38cabb 100644
  }
  
 diff --git a/src/metadata/datums.c b/src/metadata/datums.c
-index 18a2278..8fe703b 100644
+index 807e0e0..3d5d9bc 100644
 --- a/src/metadata/datums.c
 +++ b/src/metadata/datums.c
 @@ -259,7 +259,8 @@ void print_one_datum(DIS_LOGS level, void* datum)
@@ -75,7 +77,7 @@ index 18a2278..8fe703b 100644
  
  
 diff --git a/src/metadata/metadata.c b/src/metadata/metadata.c
-index dc4e23f..0e4cb25 100644
+index abf5904..c963e34 100644
 --- a/src/metadata/metadata.c
 +++ b/src/metadata/metadata.c
 @@ -27,6 +27,7 @@

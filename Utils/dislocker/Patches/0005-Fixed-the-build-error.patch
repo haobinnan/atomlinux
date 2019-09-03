@@ -1,0 +1,43 @@
+From a77e97b7ab55fc8eaf12014364906b9184c532b4 Mon Sep 17 00:00:00 2001
+From: haobinnan <haobinnan@gmail.com>
+Date: Sat, 31 Aug 2019 07:28:58 +0800
+Subject: [PATCH 3/4] Fixed the build error
+
+---
+ src/inouts/inouts.c     | 4 +++-
+ src/metadata/metadata.c | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/inouts/inouts.c b/src/inouts/inouts.c
+index 48b61d5..a26cc64 100644
+--- a/src/inouts/inouts.c
++++ b/src/inouts/inouts.c
+@@ -25,7 +25,9 @@
+ #include "dislocker/inouts/inouts.priv.h"
+ #include "dislocker/dislocker.priv.h"
+ #include "dislocker/config.priv.h"
+-#include <sys/mount.h>
++
++#include <sys/ioctl.h>
++#include <linux/fs.h>
+ 
+ 
+ /**
+diff --git a/src/metadata/metadata.c b/src/metadata/metadata.c
+index c963e34..6eb8620 100644
+--- a/src/metadata/metadata.c
++++ b/src/metadata/metadata.c
+@@ -27,7 +27,9 @@
+ #include "dislocker/metadata/metadata_config.h"
+ #include "dislocker/metadata/print_metadata.h"
+ #include "dislocker/dislocker.priv.h"
+-#include <sys/mount.h>
++
++#include <sys/ioctl.h>
++#include <linux/fs.h>
+ 
+ /*
+  * On Darwin and FreeBSD, files are opened using 64 bits offsets/variables
+-- 
+2.17.1
+

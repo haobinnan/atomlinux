@@ -1,7 +1,7 @@
 From 05501181f18cdccdb0b3cec1d8cf59f0995504d7 Mon Sep 17 00:00:00 2001
 From: Pawel Baldysiak <pawel.baldysiak@intel.com>
 Date: Fri, 8 Mar 2019 12:19:11 +0100
-Subject: [PATCH 22/30] imsm: fix spare activation for old matrix arrays
+Subject: [PATCH 22/33] imsm: fix spare activation for old matrix arrays
 
 During spare activation get_extents() calculates metadata reserved space based
 on smallest active RAID member or it will take the defaults. Since patch

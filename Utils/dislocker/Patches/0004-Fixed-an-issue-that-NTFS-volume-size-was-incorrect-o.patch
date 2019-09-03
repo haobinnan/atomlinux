@@ -1,7 +1,7 @@
-From 8cdddb1370f72865412ccafbd186bad83681f838 Mon Sep 17 00:00:00 2001
+From 1bed40c7c8ff9419cfa14557f582b7d2670e2c5c Mon Sep 17 00:00:00 2001
 From: haobinnan <haobinnan@gmail.com>
-Date: Sat, 17 Aug 2019 05:44:42 +0800
-Subject: [PATCH] Fixed an issue that NTFS volume size was incorrect (one
+Date: Fri, 16 Aug 2019 10:21:31 +0800
+Subject: [PATCH 2/4] Fixed an issue that NTFS volume size was incorrect (one
  sector smaller) after the drive was unlocked.
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH] Fixed an issue that NTFS volume size was incorrect (one
  1 file changed, 4 insertions(+)
 
 diff --git a/src/inouts/inouts.c b/src/inouts/inouts.c
-index de44e7e..b0c8551 100644
+index a38cabb..48b61d5 100644
 --- a/src/inouts/inouts.c
 +++ b/src/inouts/inouts.c
-@@ -83,6 +83,10 @@ static uint64_t get_volume_size(dis_context_t dis_ctx)
+@@ -84,6 +84,10 @@ static uint64_t get_volume_size(dis_context_t dis_ctx)
  
  		old_vbr = dis_metadata_set_volume_header(dis_ctx->metadata, input);
  		volume_size = dis_metadata_volume_size_from_vbr(dis_ctx->metadata);
