@@ -1,0 +1,28 @@
+From 5af81dda04b4927b6b9fa7c018fa17b9d07ea606 Mon Sep 17 00:00:00 2001
+From: Peter Jones <pjones@redhat.com>
+Date: Tue, 10 Apr 2018 12:36:12 -0400
+Subject: [PATCH 01/55] Add some more TODOs for shim 16
+
+Signed-off-by: Peter Jones <pjones@redhat.com>
+---
+ TODO | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/TODO b/TODO
+index 845574b..e3c2315 100644
+--- a/TODO
++++ b/TODO
+@@ -17,5 +17,10 @@
+   - including vendor path that means "parent of this image's path"
+   - including vendor path that means "this image"
+   - including path that's like Fv() to embed images.
++- Make all build options be able to be set in 'git config --local shim.OPTION'
++- make debuginfo paths configurable
++- make arch dependent names configurable
++- Make it easier to avoid CryptPem
++- Make an easy strip+implant tool for our embedded cert lists
+ 
+ # vim:filetype=mail:tw=74
+-- 
+2.17.1
+

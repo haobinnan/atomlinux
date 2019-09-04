@@ -1,0 +1,25 @@
+From 852091d63f73011742c61c976e40f35edd74d598 Mon Sep 17 00:00:00 2001
+From: Nicholas Bishop <nicholasbishop@gmail.com>
+Date: Thu, 17 May 2018 19:28:53 -0400
+Subject: [PATCH 13/55] Fix typo
+
+---
+ BUILDING | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/BUILDING b/BUILDING
+index fb27821..533c646 100644
+--- a/BUILDING
++++ b/BUILDING
+@@ -27,7 +27,7 @@ Variables you should set to customize the build:
+ 
+ Variables you could set to customize the build:
+ - ENABLE_SHIM_CERT
+-  if this variable is defined one the make command line, shim will
++  if this variable is defined on the make command line, shim will
+   generate keys during the build and sign MokManager and fallback with
+   them, and the signed version will be what gets installed with the
+   install targets
+-- 
+2.17.1
+

@@ -1,0 +1,67 @@
+From 5d927fb9e5bb6d8f5ff40c0c7fe4ba718322e707 Mon Sep 17 00:00:00 2001
+From: Gary Lin <glin@suse.com>
+Date: Wed, 11 Oct 2017 17:13:50 +0800
+Subject: [PATCH 23/55] shim: Update shim.c for the changes from openssl 1.1.0e
+
+- Remove the obsolete OBJ_cleanup()
+
+- Update ossl_malloc() and ossl_free() due to the change of definition
+  of CRYPTO_set_mem_functions()
+
+- Include stdarg.h earlier to avoid redefining VA_LIST
+
+Signed-off-by: Gary Lin <glin@suse.com>
+---
+ shim.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/shim.c b/shim.c
+index 05fc650..6638a26 100644
+--- a/shim.c
++++ b/shim.c
+@@ -35,6 +35,8 @@
+ 
+ #include "shim.h"
+ 
++#include <stdarg.h>
++
+ #include <openssl/err.h>
+ #include <openssl/bn.h>
+ #include <openssl/dh.h>
+@@ -46,7 +48,7 @@
+ #include <openssl/x509.h>
+ #include <openssl/x509v3.h>
+ #include <openssl/rsa.h>
+-#include <openssl/dso.h>
++#include <internal/dso.h>
+ 
+ #include <Library/BaseCryptLib.h>
+ 
+@@ -401,8 +403,6 @@ static BOOLEAN verify_eku(UINT8 *Cert, UINTN CertSize)
+ 		X509_free(x509);
+ 	}
+ 
+-	OBJ_cleanup();
+-
+ 	return TRUE;
+ }
+ 
+@@ -2314,13 +2314,13 @@ EFI_STATUS set_second_stage (EFI_HANDLE image_handle)
+ }
+ 
+ static void *
+-ossl_malloc(size_t num)
++ossl_malloc(size_t num, const char *file, int line)
+ {
+ 	return AllocatePool(num);
+ }
+ 
+ static void
+-ossl_free(void *addr)
++ossl_free(void *addr, const char *file, int line)
+ {
+ 	FreePool(addr);
+ }
+-- 
+2.17.1
+

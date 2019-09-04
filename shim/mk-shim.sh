@@ -90,6 +90,22 @@ function build()
 
     cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}-${AtomLinux_ShimVNumber}
 
+    #Patches
+    if [ -d ../../Patches ]; then
+        for file in $(ls ../../Patches);
+        do
+            echo -e "\033[31m$file\033[0m"
+            patch -p1 < ../../Patches/$file
+            #Check patch
+            if [ ! $? -eq 0 ]; then
+                echo "Error: patch (shim) ."
+                exit 1
+            fi
+            #Check patch
+        done
+    fi
+    #Patches
+
     if [ $UseExistingCertificate = "yes" ]; then
         echo | $Make ARCH=$ARCH VENDOR_CERT_FILE=../../../certificate/$AtomLinux_cer 2>&1 | tee ../../shim_build_${NAME}.log
     else

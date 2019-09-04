@@ -1,0 +1,90 @@
+From cce5e4ce2f94e07730ac246ba9b47387da8d2016 Mon Sep 17 00:00:00 2001
+From: Gary Lin <glin@suse.com>
+Date: Thu, 12 Oct 2017 17:11:07 +0800
+Subject: [PATCH 26/55] Cryptlib: Apply the less strict CA check
+
+Since openssl < 1.1.0 didn't check the x509 v3 extension strictly, a CA
+certificate without the CA flag in the basic constraints or KeyCertSign
+in the key usage was still loaded to verify EFI images.
+
+We relax the check for now. In the future, the workaround should be
+removed.
+
+Signed-off-by: Gary Lin <glin@suse.com>
+---
+ Cryptlib/Include/CrtLibSupport.h |  3 +++
+ Cryptlib/Pk/CryptPkcs7Verify.c   | 39 ++++++++++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+)
+
+diff --git a/Cryptlib/Include/CrtLibSupport.h b/Cryptlib/Include/CrtLibSupport.h
+index 279956d..76d7351 100644
+--- a/Cryptlib/Include/CrtLibSupport.h
++++ b/Cryptlib/Include/CrtLibSupport.h
+@@ -382,4 +382,7 @@ extern FILE  *stdout;
+ #define gmtime_r(timer,result)            (result = NULL)
+ #define abort()
+ 
++void clear_ca_warning();
++BOOLEAN get_ca_warning();
++
+ #endif
+diff --git a/Cryptlib/Pk/CryptPkcs7Verify.c b/Cryptlib/Pk/CryptPkcs7Verify.c
+index bf24e92..cbd9669 100644
+--- a/Cryptlib/Pk/CryptPkcs7Verify.c
++++ b/Cryptlib/Pk/CryptPkcs7Verify.c
+@@ -30,6 +30,43 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+ 
+ UINT8 mOidValue[9] = { 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x07, 0x02 };
+ 
++BOOLEAN ca_warning;
++
++void
++clear_ca_warning()
++{
++  ca_warning = FALSE;
++}
++
++BOOLEAN
++get_ca_warning()
++{
++  return ca_warning;
++}
++
++int
++X509VerifyCb (
++  IN int            Status,
++  IN X509_STORE_CTX *Context
++  )
++{
++  INTN         Error;
++
++  Error = (INTN) X509_STORE_CTX_get_error (Context);
++
++  if (Error == X509_V_ERR_INVALID_CA) {
++    /* Due to the historical reason, we have to relax the the x509 v3 extension
++     * check to allow the CA certificates without the CA flag in the basic
++     * constraints or KeyCertSign in the key usage to be loaded. In the future,
++     * this callback should be removed to enforce the proper check. */
++    ca_warning = TRUE;
++
++    return 1;
++  }
++
++  return Status;
++}
++
+ /**
+   Check input P7Data is a wrapped ContentInfo structure or not. If not construct
+   a new structure to wrap P7Data.
+@@ -858,6 +895,8 @@ Pkcs7Verify (
+     goto _Exit;
+   }
+ 
++  X509_STORE_set_verify_cb (CertStore, X509VerifyCb);
++
+   //
+   // For generic PKCS#7 handling, InData may be NULL if the content is present
+   // in PKCS#7 structure. So ignore NULL checking here.
+-- 
+2.17.1
+

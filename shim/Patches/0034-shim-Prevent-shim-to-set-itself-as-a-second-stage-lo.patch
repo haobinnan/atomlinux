@@ -1,0 +1,76 @@
+From e563bc3dcd17d91861d3b363ed19d30228f409e1 Mon Sep 17 00:00:00 2001
+From: Javier Martinez Canillas <javierm@redhat.com>
+Date: Fri, 7 Sep 2018 15:10:51 +0200
+Subject: [PATCH 34/55] shim: Prevent shim to set itself as a second stage
+ loader
+
+When shim is invoked from a relative path (e.g: from the UEFI shell), the
+Loaded Image handle LoadOptions can be set to the binary relative path.
+
+But the is_our_path() function only checks if LoadOptions is set to the
+absolute path of shim to ignore it. So if a relative path is there, shim
+would set itself as the secondary loader and invoke itself in a loop.
+
+To prevent that, use the path in LoadOptions to calculate the absolute
+path and compare it with the one in the Loader Image handle FilePath.
+
+Resolves: bz#1622485
+
+Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Maran Wilson maran.wilson@oracle.com
+Tested-by: Maran Wilson maran.wilson@oracle.com
+---
+ shim.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/shim.c b/shim.c
+index 32d2772..8abc0c2 100644
+--- a/shim.c
++++ b/shim.c
+@@ -2116,21 +2116,32 @@ get_load_option_optional_data(UINT8 *data, UINTN data_size,
+ 	return EFI_SUCCESS;
+ }
+ 
+-static int is_our_path(EFI_LOADED_IMAGE *li, CHAR16 *path, UINTN len)
++static int is_our_path(EFI_LOADED_IMAGE *li, CHAR16 *path)
+ {
+ 	CHAR16 *dppath = NULL;
++	CHAR16 *PathName = NULL;
++	EFI_STATUS efi_status;
+ 	int ret = 1;
+ 
+ 	dppath = DevicePathToStr(li->FilePath);
+ 	if (!dppath)
+ 		return 0;
+ 
++	efi_status = generate_path_from_image_path(li, path, &PathName);
++	if (EFI_ERROR(efi_status)) {
++		perror(L"Unable to generate path %s: %r\n", path,
++		       efi_status);
++		goto done;
++	}
++
+ 	dprint(L"dppath: %s\n", dppath);
+ 	dprint(L"path:   %s\n", path);
+-	if (StrnCaseCmp(dppath, path, len))
++	if (StrnCaseCmp(dppath, PathName, strlen(dppath)))
+ 		ret = 0;
+ 
++done:
+ 	FreePool(dppath);
++	FreePool(PathName);
+ 	return ret;
+ }
+ 
+@@ -2319,7 +2330,7 @@ EFI_STATUS set_second_stage (EFI_HANDLE image_handle)
+ 
+ 	 * which is just cruel... So yeah, just don't use it.
+ 	 */
+-	if (strings == 1 && is_our_path(li, start, loader_len))
++	if (strings == 1 && is_our_path(li, start))
+ 		return EFI_SUCCESS;
+ 
+ 	/*
+-- 
+2.17.1
+

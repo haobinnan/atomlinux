@@ -1,0 +1,35 @@
+From 39b83455d683c3ede8b910a5721b55e008a14fd0 Mon Sep 17 00:00:00 2001
+From: TanMing <tanminger@TanMing-WorkPC.sh.intel.com>
+Date: Tue, 21 Aug 2018 02:25:52 -0400
+Subject: [PATCH 32/55] Fix the compile error of mkdir wrong directory.
+
+In Ubuntu 14.04, the following code in old Makefile:
+  mkdir -p Cryptlib/{Hash,Hmac,Cipher,Rand,Pk,Pem,SysCall}
+will create a directory named "{Hash,Hmac,Cipher,Rand,Pk,Pem,SysCall}".
+
+Signed-off-by: Ming Tan <ming.tan@intel.com>
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 115e7f0..3f21055 100644
+--- a/Makefile
++++ b/Makefile
+@@ -102,11 +102,11 @@ $(MMSONAME): $(MOK_OBJS) Cryptlib/libcryptlib.a Cryptlib/OpenSSL/libopenssl.a li
+ 	$(LD) -o $@ $(LDFLAGS) $^ $(EFI_LIBS) lib/lib.a
+ 
+ Cryptlib/libcryptlib.a:
+-	mkdir -p Cryptlib/{Hash,Hmac,Cipher,Rand,Pk,Pem,SysCall}
++	for i in Hash Hmac Cipher Rand Pk Pem SysCall; do mkdir -p Cryptlib/$$i; done
+ 	$(MAKE) VPATH=$(TOPDIR)/Cryptlib TOPDIR=$(TOPDIR)/Cryptlib -C Cryptlib -f $(TOPDIR)/Cryptlib/Makefile
+ 
+ Cryptlib/OpenSSL/libopenssl.a:
+-	mkdir -p Cryptlib/OpenSSL/crypto/{x509v3,x509,txt_db,stack,sha,rsa,rc4,rand,pkcs7,pkcs12,pem,ocsp,objects,modes,md5,lhash,kdf,hmac,evp,err,dso,dh,conf,comp,cmac,buffer,bn,bio,async{,/arch},asn1,aes}/
++	for i in x509v3 x509 txt_db stack sha rsa rc4 rand pkcs7 pkcs12 pem ocsp objects modes md5 lhash kdf hmac evp err dso dh conf comp cmac buffer bn bio async/arch asn1 aes; do mkdir -p Cryptlib/OpenSSL/crypto/$$i; done
+ 	$(MAKE) VPATH=$(TOPDIR)/Cryptlib/OpenSSL TOPDIR=$(TOPDIR)/Cryptlib/OpenSSL -C Cryptlib/OpenSSL -f $(TOPDIR)/Cryptlib/OpenSSL/Makefile
+ 
+ lib/lib.a: | $(TOPDIR)/lib/Makefile $(wildcard $(TOPDIR)/include/*.[ch])
+-- 
+2.17.1
+
