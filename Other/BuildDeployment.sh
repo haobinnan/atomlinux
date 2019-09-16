@@ -62,7 +62,7 @@ MyInstall_Base "wget vim git git-gui sbsigntool lcab python perl ruby flex bison
 
 MyInstall_Base "build-essential module-assistant gcc-multilib g++-multilib libtool libnss3-tools libpcre3"
 
-MyInstall "libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3-dev"
+MyInstall "libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3-dev libefivar-dev"
 
 #libssl
 apt list libssl1.0-dev | egrep 'libssl1.0-dev'

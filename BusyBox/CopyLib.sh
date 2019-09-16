@@ -12,6 +12,7 @@ AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut
 AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingLibnss="$(grep -i ^AtomLinux_UsingLibnss ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingLibefivar="$(grep -i ^AtomLinux_UsingLibefivar ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #mkdir lib
@@ -164,6 +165,13 @@ if [ ${AtomLinux_UsingLibnss} = "Yes" ]; then
     cp -dv ${MyCopy} ./MyConfig/lib/
 fi
 #libnss
+
+#libefivar
+if [ ${AtomLinux_UsingLibefivar} = "Yes" ]; then
+    MyCopy="/usr/lib/${Arch}-linux-gnu/libefivar.so*"
+    cp -v ${MyCopy} ./MyConfig/usr/lib/
+fi
+#libefivar
 
 #mv ld-linux to lib64
 if [ ${Arch} = "x86_64" ]; then

@@ -60,6 +60,10 @@ AtomLinux_UsingWeston=No
 AtomLinux_UsingLibnss=Yes
     #Using libnss: "Yes" | "No"
 
+    #Using libefivar: "Yes" | "No"
+AtomLinux_UsingLibefivar=No
+    #Using libefivar: "Yes" | "No"
+
 #Compile configuration
 
 #Variable
@@ -95,7 +99,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.2.11
+AtomLinux_LinuxKernelVNumber=5.2.15
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
