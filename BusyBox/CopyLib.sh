@@ -13,6 +13,7 @@ AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ../VariableSetting
 AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingLibnss="$(grep -i ^AtomLinux_UsingLibnss ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingLibefivar="$(grep -i ^AtomLinux_UsingLibefivar ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingNtfs3g="$(grep -i ^AtomLinux_UsingNtfs3g ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #mkdir lib
@@ -142,6 +143,12 @@ if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
 fi
 #Dropbear SSH
 
+#ntfs-3g
+if [ ${AtomLinux_UsingNtfs3g} = "Yes" ]; then
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libuuid.so.1"
+fi
+#ntfs-3g
+
 for var in ${ArrayLib[@]};
 do
     if [ -f $var ]; then
@@ -169,7 +176,7 @@ fi
 #libefivar
 if [ ${AtomLinux_UsingLibefivar} = "Yes" ]; then
     MyCopy="/usr/lib/${Arch}-linux-gnu/libefivar.so*"
-    cp -v ${MyCopy} ./MyConfig/usr/lib/
+    cp -dv ${MyCopy} ./MyConfig/usr/lib/
 fi
 #libefivar
 

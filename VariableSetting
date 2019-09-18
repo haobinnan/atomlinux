@@ -56,6 +56,18 @@ AtomLinux_UsingDropbearSSH=No
 AtomLinux_UsingWeston=No
     #Using weston: "Yes" | "No"
 
+    #Using hdparm: "Yes" | "No"
+AtomLinux_UsingHdparm=No
+    #Using hdparm: "Yes" | "No"
+
+    #Using exfat: "Yes" | "No"
+AtomLinux_UsingExfat=No
+    #Using exfat: "Yes" | "No"
+
+    #Using ntfs-3g: "Yes" | "No"
+AtomLinux_UsingNtfs3g=No
+    #Using ntfs-3g: "Yes" | "No"
+
     #Using libnss: "Yes" | "No"
 AtomLinux_UsingLibnss=Yes
     #Using libnss: "Yes" | "No"
@@ -139,6 +151,21 @@ AtomLinux_DislockerURL=https://codeload.github.com/Aorimn/dislocker/
 AtomLinux_DropbearSSHVNumber=2019.78
 AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
 #Utils - Dropbear SSH
+
+#Utils - hdparm
+AtomLinux_HdparmVNumber=9.58
+AtomLinux_HdparmURL=https://jaist.dl.sourceforge.net/project/hdparm/hdparm/
+#Utils - hdparm
+
+#Utils - exfat
+AtomLinux_ExfatVNumber=1.3.0
+AtomLinux_ExfatURL=https://codeload.github.com/relan/exfat/
+#Utils - exfat
+
+#Utils - ntfs-3g
+AtomLinux_Ntfs3gVNumber=2017.3.23
+AtomLinux_Ntfs3gURL=https://tuxera.com/opensource/
+#Utils - ntfs-3g
 
 #Lib - gnu-efi
 AtomLinux_GnuEFIVNumber=3.0.9

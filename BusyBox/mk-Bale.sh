@@ -14,6 +14,9 @@ AtomLinux_UsingIconvLib="$(grep -i ^AtomLinux_UsingIconvLib ../VariableSetting |
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingHdparm="$(grep -i ^AtomLinux_UsingHdparm ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingExfat="$(grep -i ^AtomLinux_UsingExfat ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingNtfs3g="$(grep -i ^AtomLinux_UsingNtfs3g ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_NetworkSupport="$(grep -i ^AtomLinux_NetworkSupport ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
@@ -116,6 +119,29 @@ if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
     cp -rv ../../Utils/dropbear/${ARCH}-dropbear/* ./usr/
 fi
 #Dropbear SSH Support
+
+#hdparm Support
+if [ ${AtomLinux_UsingHdparm} = "Yes" ]; then
+    mkdir -p ./usr/sbin/
+    cp -rv ../../Utils/hdparm/${ARCH}-hdparm/* ./usr/
+fi
+#hdparm Support
+
+#exfat Support
+if [ ${AtomLinux_UsingExfat} = "Yes" ]; then
+    mkdir -p ./usr/sbin/
+    cp -rv ../../Utils/exfat/${ARCH}-exfat/* ./usr/
+fi
+#exfat Support
+
+#ntfs-3g Support
+if [ ${AtomLinux_UsingNtfs3g} = "Yes" ]; then
+    mkdir -p ./usr/bin/
+    mkdir -p ./usr/lib/
+    mkdir -p ./usr/sbin/
+    cp -rv ../../Utils/ntfs-3g/${ARCH}-ntfs-3g/* ./usr/
+fi
+#ntfs-3g Support
 
 #Copy udhcpc script
 if [ ${AtomLinux_NetworkSupport} = "Yes" ]; then

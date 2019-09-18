@@ -18,6 +18,9 @@ AtomLinux_UsingGlibLib="$(grep -i ^AtomLinux_UsingGlibLib ./VariableSetting | cu
 AtomLinux_UsingMdadm="$(grep -i ^AtomLinux_UsingMdadm ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDislocker="$(grep -i ^AtomLinux_UsingDislocker ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingDropbearSSH="$(grep -i ^AtomLinux_UsingDropbearSSH ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingHdparm="$(grep -i ^AtomLinux_UsingHdparm ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingExfat="$(grep -i ^AtomLinux_UsingExfat ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_UsingNtfs3g="$(grep -i ^AtomLinux_UsingNtfs3g ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ./VariableSetting | cut -f2 -d'=')"
 
 AtomLinux_key="$(grep -i ^AtomLinux_key ./VariableSetting | cut -f2 -d'=')"
@@ -257,6 +260,60 @@ function Build_DropbearSSH()
 }
 Build_DropbearSSH &
 # ********************************** Dropbear SSH **********************************
+
+# ********************************** hdparm **********************************
+function Build_hdparm()
+{
+    if [ ${AtomLinux_UsingHdparm} = "Yes" ]; then
+        cd Utils/hdparm
+        ./mk-hdparm.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-hdparm.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
+    fi
+}
+Build_hdparm &
+# ********************************** hdparm **********************************
+
+# ********************************** exfat **********************************
+function Build_exfat()
+{
+    if [ ${AtomLinux_UsingExfat} = "Yes" ]; then
+        cd Utils/exfat
+        ./mk-exfat.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-exfat.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
+    fi
+}
+Build_exfat &
+# ********************************** exfat **********************************
+
+# ********************************** ntfs-3g **********************************
+function Build_Ntfs3g()
+{
+    if [ ${AtomLinux_UsingNtfs3g} = "Yes" ]; then
+        cd Utils/ntfs-3g
+        ./mk-ntfs-3g.sh
+        #Check
+        if [ ! $? -eq 0 ]; then
+            echo "Error: mk-ntfs-3g.sh ." >> ../../mk-CompileAll_Error.log
+            exit 1
+        fi
+        #Check
+        cd ../../
+    fi
+}
+Build_Ntfs3g &
+# ********************************** ntfs-3g **********************************
 
 # ********************************** weston **********************************
 function Build_weston()

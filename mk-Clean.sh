@@ -41,6 +41,18 @@ cd Utils/dropbear/
 ./mk-dropbear.sh clean
 cd ../..
 
+cd Utils/hdparm/
+./mk-hdparm.sh clean
+cd ../..
+
+cd Utils/exfat/
+./mk-exfat.sh clean
+cd ../..
+
+cd Utils/ntfs-3g/
+./mk-ntfs-3g.sh clean
+cd ../..
+
 cd BusyBox/
 ./mk-BusyBox.sh clean
 cd ..
@@ -67,6 +79,9 @@ if [ ! -n "$1" ]; then
         rm -f ./Utils/mdadm/mdadm-*.tar.xz
         rm -f ./Utils/dislocker/dislocker-*.tar.gz
         rm -f ./Utils/dropbear/dropbear-*.tar.bz2
+        rm -f ./Utils/hdparm/hdparm-*.tar.gz
+        rm -f ./Utils/exfat/exfat-*.tar.gz
+        rm -f ./Utils/ntfs-3g/ntfs-3g_*.tgz
         rm -f ./ovmf/*.tar.gz
         rm -f ./Grub2/grub*.tar.*
 
