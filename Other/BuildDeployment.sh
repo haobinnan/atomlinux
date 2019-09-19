@@ -57,10 +57,15 @@ function MyInstall()
 #function
 
 #tools
-MyInstall_Base "wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign automake nasm autogen m4 autoconf meson help2man xorriso texinfo gettext upx-ucl irpas"
+MyInstall_Base "wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign automake nasm autogen m4 autoconf help2man xorriso texinfo gettext upx-ucl irpas"
 #tools
 
 MyInstall_Base "build-essential module-assistant gcc-multilib g++-multilib libtool libnss3-tools libpcre3"
+
+#meson
+MyInstall_Base "python3 python3-pip python3-setuptools python3-wheel ninja-build"
+sudo pip3 install meson
+#meson
 
 MyInstall "libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3-dev libefivar-dev"
 
