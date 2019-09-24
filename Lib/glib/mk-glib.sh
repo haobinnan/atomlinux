@@ -13,7 +13,7 @@ AtomLinux_DownloadURL="$(grep -i ^AtomLinux_GlibURL ../../VariableSetting | cut 
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
-UsingMeson=Yes
+UsingMeson=No
 
 OBJ_PROJECT=glib
 FILENAME_DIR=${OBJ_PROJECT}-$AtomLinux_GlibVNumber
@@ -78,9 +78,21 @@ cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
     if [ ${UsingMeson} = "Yes" ]; then
         meson _build --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} -Ddefault_library=static
+        #Check meson
+        if [ ! $? -eq 0 ]; then
+            echo "Error: meson (glib) ."
+            exit 1
+        fi
+        #Check meson
     else
         ./autogen.sh
         ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static"
+        #Check configure
+        if [ ! $? -eq 0 ]; then
+            echo "Error: configure (glib) ."
+            exit 1
+        fi
+        #Check configure
     fi
 else
     if [ ${UsingMeson} = "Yes" ]; then
@@ -89,6 +101,12 @@ else
         else
             meson _build --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} -Ddefault_library=static
         fi
+        #Check meson
+        if [ ! $? -eq 0 ]; then
+            echo "Error: meson (glib) ."
+            exit 1
+        fi
+        #Check meson
     else
         if [ $(getconf LONG_BIT) = '64' ]; then
             ./autogen.sh
@@ -97,17 +115,17 @@ else
             ./autogen.sh
             ./configure --prefix=$PWD/../../${ARCH}-${OBJ_PROJECT} --enable-static --disable-shared CFLAGS="-static"
         fi
+        #Check configure
+        if [ ! $? -eq 0 ]; then
+            echo "Error: configure (glib) ."
+            exit 1
+        fi
+        #Check configure
     fi
 fi
 #configure | meson
 
 if [ ${UsingMeson} = "Yes" ]; then
-    #Check meson
-    if [ ! $? -eq 0 ]; then
-        echo "Error: meson (glib) ."
-        exit 1
-    fi
-    #Check meson
     ninja -C _build
     #Check ninja
     if [ ! $? -eq 0 ]; then
@@ -123,12 +141,6 @@ if [ ${UsingMeson} = "Yes" ]; then
     fi
     #Check ninja install
 else
-    #Check configure
-    if [ ! $? -eq 0 ]; then
-        echo "Error: configure (glib) ."
-        exit 1
-    fi
-    #Check configure
     echo | $Make
     #Check make
     if [ ! $? -eq 0 ]; then

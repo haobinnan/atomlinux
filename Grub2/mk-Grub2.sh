@@ -166,7 +166,7 @@ fi
 
 cd ../install_tmp/lib/grub/${ARCH}
 
-../../../bin/grub-mkimage --prefix=${AtomLinux_Grub2PrefixDirName} -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test linux cpuid scsi
+../../../bin/grub-mkimage --prefix=${AtomLinux_Grub2PrefixDirName} -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test probe linux cpuid scsi
 #Check grub-mkimage
 if [ ! $? -eq 0 ]; then
     echo "Error: grub-mkimage (Grub2) ."
@@ -247,7 +247,7 @@ function build_efi()
     # $(ls *.mod | cut -d '.' -f 1)
     #All mod
 
-    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test linux cpuid scsi linuxefi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video
+    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test probe linux cpuid scsi linuxefi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video
     #Check grub-mkimage
     if [ ! $? -eq 0 ]; then
         echo "Error: grub-mkimage (Grub2) ."

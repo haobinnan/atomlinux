@@ -173,8 +173,8 @@ AtomLinux_GnuEFIURL=https://jaist.dl.sourceforge.net/project/gnu-efi/
 #Lib - gnu-efi
 
 #Lib - glib
-AtomLinux_GlibVNumber=2.61.3
-AtomLinux_GlibURL=http://gemmei.ftp.acc.umu.se/pub/gnome/sources/glib/2.61/
+AtomLinux_GlibVNumber=2.58.3
+AtomLinux_GlibURL=http://gemmei.ftp.acc.umu.se/pub/gnome/sources/glib/2.58/
 #Lib - glib
 
 #Lib - iconv
