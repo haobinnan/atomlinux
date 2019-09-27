@@ -113,6 +113,24 @@ if [ $ApplicationPatches = "yes" ]; then
 fi
 #Application patches
 
+#Patches
+if [ -d ./Patches ]; then
+    cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+    for file in $(ls ../../Patches);
+    do
+        echo -e "\033[31m$file\033[0m"
+        patch -p1 < ../../Patches/$file
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (grub2) ."
+            exit 1
+        fi
+        #Check patch
+    done
+    cd ../../
+fi
+#Patches
+
 if [ ! -d ./style ]; then
     mkdir ./style
 fi
