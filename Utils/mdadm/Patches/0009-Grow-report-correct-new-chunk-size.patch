@@ -1,7 +1,7 @@
 From 76d505dec6c9f92564553596fc8350324be82463 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.com>
 Date: Thu, 6 Dec 2018 10:36:28 +1100
-Subject: [PATCH 09/33] Grow: report correct new chunk size.
+Subject: [PATCH 09/42] Grow: report correct new chunk size.
 
 When using "--grow --chunk=" to change chunk
 size, the old chunksize is reported instead of the new.

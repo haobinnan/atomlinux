@@ -8,19 +8,15 @@ fi
 #Load from VariableSetting file
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_SignatureMethod="$(grep -i ^AtomLinux_SignatureMethod ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_key="$(grep -i ^AtomLinux_key ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_crt="$(grep -i ^AtomLinux_crt ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_CertificatePath="$(grep -i ^AtomLinux_CertificatePath ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_CertificateName="$(grep -i ^AtomLinux_CertificateName ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #Check files
 if [ $AtomLinux_SignatureMethod = "CodeSgin" ]; then
-    if [ ! -f ../certificate/$AtomLinux_key ]; then
-        echo "Error: key file does not exist ."
-        exit 1
-    fi
-
-    if [ ! -f ../certificate/$AtomLinux_crt ]; then
-        echo "Error: crt file does not exist ."
+    certutil -L -d $AtomLinux_CertificatePath -n "$AtomLinux_CertificateName" > /dev/null
+    if [ ! $? -eq 0 ]; then
+        echo "Error: Secure boot signature certificate does not exist."
         exit 1
     fi
 fi
@@ -49,13 +45,13 @@ function KernelSignature()
     if [ $AtomLinux_SignatureMethod = "CodeSgin" ]; then
         cd ./${ARCH}/
         mv ./bzImage ./bzImage.nosign
-        sbsign --key ../../certificate/${AtomLinux_key} --cert ../../certificate/${AtomLinux_crt} --output ./bzImage ./bzImage.nosign
-        #Check sbsign
+        pesign --in=./bzImage.nosign --out=./bzImage -n $AtomLinux_CertificatePath -c "$AtomLinux_CertificateName" -s
+        #Check pesign
         if [ ! $? -eq 0 ]; then
-            echo "Error: sbsign ."
+            echo "Error: pesign ."
             exit 1
         fi
-        #Check sbsign
+        #Check pesign
         rm ./bzImage.nosign
         cd ../
     elif [ ${AtomLinux_SignatureMethod} = "EVCodeSgin" ]; then

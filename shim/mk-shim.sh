@@ -14,13 +14,14 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_ShimVNumber="$(grep -i ^AtomLinux_ShimVNumber ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_cer="$(grep -i ^AtomLinux_cer ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_ShimURL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 #Use Existing Certificate  (yes | no)
 UseExistingCertificate=yes
 #Use Existing Certificate  (yes | no)
+
+CertFile=certs/CertFile.cer
 
 OBJ_PROJECT=shim
 FILENAME=${AtomLinux_ShimVNumber}.tar.gz
@@ -42,7 +43,7 @@ fi
 #Clean
 
 if [ $UseExistingCertificate = "yes" ]; then
-    if [ ! -f ../certificate/$AtomLinux_cer ]; then
+    if [ ! -f ./$CertFile ]; then
         echo "Error: VendorCertfile does not exist ."
         exit 1
     fi
@@ -107,7 +108,7 @@ function build()
     #Patches
 
     if [ $UseExistingCertificate = "yes" ]; then
-        echo | $Make ARCH=$ARCH VENDOR_CERT_FILE=../../../certificate/$AtomLinux_cer 2>&1 | tee ../../shim_build_${NAME}.log
+        echo | $Make ARCH=$ARCH VENDOR_CERT_FILE=../../$CertFile 2>&1 | tee ../../shim_build_${NAME}.log
     else
         echo | $Make ARCH=$ARCH ENABLE_SHIM_CERT=1
     fi

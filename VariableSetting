@@ -93,9 +93,8 @@ AtomLinux_LinuxKernelParameter=""
 #Variable
 
 #Certificate Variable
-AtomLinux_key=Private.key
-AtomLinux_crt=Certificate.crt
-AtomLinux_cer=Certificate.cer
+AtomLinux_CertificatePath=null
+AtomLinux_CertificateName=null
 #Certificate Variable
 
 #Shim
@@ -111,7 +110,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/repository/debian%2F
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.2.15
+AtomLinux_LinuxKernelVNumber=5.2.20
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 

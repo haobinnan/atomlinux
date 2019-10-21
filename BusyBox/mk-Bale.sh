@@ -181,6 +181,7 @@ echo "Git Commit ID:"${strGitRevParse} >> ./etc/version
 
 #find . | cpio -o -H newc | gzip > ../${RAMDISK_NAME}
 #find . | cpio -o -H newc | lzma -9 -v > ../${RAMDISK_NAME}
+#Note: xz --threads=4 --block-size=8MiB
 find . | cpio -R root:root -H newc -o | xz -9 -v --check=none > ../${RAMDISK_NAME}
 cd ..
 rm -rf ${ARCH}-${ROOTFS_NAME}

@@ -90,13 +90,10 @@ if [ ! -n "$1" ]; then
         ./mk-shim.sh clean
         cd ..
         rm -f ./shim/*.tar.gz
+            #certificate
+        rm -f ./shim/certs/*.cer
+            #certificate
         #shim
-
-        #certificate
-        cd certificate/
-        rm -f ./*.cer *.crt *.key
-        cd ..
-        #certificate
     fi
 fi
 

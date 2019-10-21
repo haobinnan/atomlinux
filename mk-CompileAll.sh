@@ -23,19 +23,15 @@ AtomLinux_UsingExfat="$(grep -i ^AtomLinux_UsingExfat ./VariableSetting | cut -f
 AtomLinux_UsingNtfs3g="$(grep -i ^AtomLinux_UsingNtfs3g ./VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingWeston="$(grep -i ^AtomLinux_UsingWeston ./VariableSetting | cut -f2 -d'=')"
 
-AtomLinux_key="$(grep -i ^AtomLinux_key ./VariableSetting | cut -f2 -d'=')"
-AtomLinux_crt="$(grep -i ^AtomLinux_crt ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_CertificatePath="$(grep -i ^AtomLinux_CertificatePath ./VariableSetting | cut -f2 -d'=')"
+AtomLinux_CertificateName="$(grep -i ^AtomLinux_CertificateName ./VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
     if [ ${AtomLinux_SignatureMethod} = "CodeSgin" ]; then
-        if [ ! -f ./certificate/$AtomLinux_key ]; then
-            echo "Error: key file does not exist ."
-            exit 1
-        fi
-
-        if [ ! -f ./certificate/$AtomLinux_crt ]; then
-            echo "Error: crt file does not exist ."
+        certutil -L -d $AtomLinux_CertificatePath -n "$AtomLinux_CertificateName" > /dev/null
+        if [ ! $? -eq 0 ]; then
+            echo "Error: Secure boot signature certificate does not exist."
             exit 1
         fi
     fi
