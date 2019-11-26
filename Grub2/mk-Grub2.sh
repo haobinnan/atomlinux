@@ -160,7 +160,7 @@ fi
 #Check autogen
 
 # --disable-werror
-./configure --with-platform=pc --target=i386 --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount
+./configure --with-platform=pc --target=i386 --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount enable_quiet_boot=yes
 #Check configure
 if [ ! $? -eq 0 ]; then
     echo "Error: configure (Grub2) ."
@@ -237,7 +237,7 @@ function build_efi()
     #Check autogen
 
     # --disable-werror
-    ./configure --with-platform=efi --target=${ARCH} --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount
+    ./configure --with-platform=efi --target=${ARCH} --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount enable_quiet_boot=yes
     #Check configure
     if [ ! $? -eq 0 ]; then
         echo "Error: configure (Grub2) ."

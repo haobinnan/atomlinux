@@ -15,7 +15,12 @@ echo "Press Enter to continue."
 
 read answer
 
-QEMURunParameter="-smp 2 -m 256M -vga qxl -hda ./EnrollDefaultKeys.img -boot d"
+QEMURunParameter="-smp 2 -m 256M -vga qxl -drive format=raw,file=./EnrollDefaultKeys.img"
+if [ -c /dev/kvm ]; then
+    QEMURunParameter=${QEMURunParameter}" -enable-kvm"
+else
+    echo -e "\033[31mKVM is not supported.\033[0m"
+fi
 
 # 32Bit
 OVMFPath="./OVMF_IA32.fd"
