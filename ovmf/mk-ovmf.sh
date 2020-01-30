@@ -101,6 +101,24 @@ if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
 fi
 #OpenSSL
 
+#Patches
+if [ -d ./Patches ]; then
+    cd ./${OBJ_PROJECT}-tmp/*-${AtomLinux_OvmfVNumber}
+    for file in $(ls ../../Patches);
+    do
+        echo -e "\033[31m$file\033[0m"
+        patch -p1 < ../../Patches/$file
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (ovmf) ."
+            exit 1
+        fi
+        #Check patch
+    done
+    cd ../../
+fi
+#Patches
+
 cd ./${OBJ_PROJECT}-tmp/*-${AtomLinux_OvmfVNumber}
 
 #IA32

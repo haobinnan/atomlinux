@@ -1,7 +1,7 @@
 From 9f4218274cd4a1e1f356a1617f9a1d09960cf255 Mon Sep 17 00:00:00 2001
 From: Pawel Baldysiak <pawel.baldysiak@intel.com>
 Date: Mon, 28 Jan 2019 17:10:41 +0100
-Subject: [PATCH 13/42] imsm: fix reshape for >2TB drives
+Subject: [PATCH 13/55] imsm: fix reshape for >2TB drives
 
 If reshape is performed on drives larger then 2 TB,
 migration checkpoint area that is calculated exeeds 32-bit value.

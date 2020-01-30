@@ -1,7 +1,7 @@
 From d7a1fda2769ba272d89de6caeab35d52b73a9c3c Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Wed, 17 Oct 2018 12:11:41 +0200
-Subject: [PATCH 06/42] imsm: update metadata correctly while raid10 double
+Subject: [PATCH 06/55] imsm: update metadata correctly while raid10 double
  degradation
 
 Mdmon calls end_migration() when map state changes from normal to

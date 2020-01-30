@@ -1,7 +1,7 @@
 From 486720e0c2418e7e2e0a16221f7c42a308622254 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Tue, 9 Jul 2019 14:49:22 -0400
-Subject: [PATCH 29/42] super-intel: Use put_unaligned in split_ull
+Subject: [PATCH 29/55] super-intel: Use put_unaligned in split_ull
 
 Shut up some gcc9 errors by using put_unaligned() accessors. Not pretty,
 but better than it was.

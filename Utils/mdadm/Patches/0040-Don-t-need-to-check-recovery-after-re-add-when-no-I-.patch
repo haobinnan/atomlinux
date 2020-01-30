@@ -1,7 +1,7 @@
 From 611093148574164fcf4f24f8c076d09473f655d7 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Mon, 30 Sep 2019 19:48:00 +0800
-Subject: [PATCH 40/42] Don't need to check recovery after re-add when no I/O
+Subject: [PATCH 40/55] Don't need to check recovery after re-add when no I/O
  writes to raid
 
 If there is no write I/O between removing member disk and re-add it, there is no

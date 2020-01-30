@@ -1,7 +1,7 @@
 From 4ec389e3f0c1233f5aa2d5b4e63d96e33d2a37f0 Mon Sep 17 00:00:00 2001
 From: Roman Sobanski <roman.sobanski@intel.com>
 Date: Tue, 2 Jul 2019 13:29:27 +0200
-Subject: [PATCH 26/42] Enable probe_roms to scan more than 6 roms.
+Subject: [PATCH 26/55] Enable probe_roms to scan more than 6 roms.
 
 In some cases if more than 6 oroms exist, resource for particular
 controller may not be found. Change method for storing
