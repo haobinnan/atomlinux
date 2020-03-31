@@ -1,7 +1,7 @@
 From d2e11da4b7fd0453e942f43e4196dc63b3dbd708 Mon Sep 17 00:00:00 2001
 From: Pawel Baldysiak <pawel.baldysiak@intel.com>
 Date: Fri, 22 Feb 2019 13:30:27 +0100
-Subject: [PATCH 19/55] mdmon: wait for previous mdmon to exit during takeover
+Subject: [PATCH 19/65] mdmon: wait for previous mdmon to exit during takeover
 
 Since the patch c76242c5("mdmon: get safe mode delay file descriptor
 early"), safe_mode_dalay is set properly by initrd mdmon.  But in some

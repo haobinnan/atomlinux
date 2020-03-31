@@ -1,7 +1,7 @@
 From 8063fd0f9e8abd718bd65928c19bc607cee5acd8 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Mon, 30 Sep 2019 19:47:59 +0800
-Subject: [PATCH 39/55] Init devlist as an array
+Subject: [PATCH 39/65] Init devlist as an array
 
 devlist is an string. It will change to an array if there is disk that
 is sbd disk. If one device is sbd, it runs devlist=().

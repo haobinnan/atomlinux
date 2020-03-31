@@ -1,7 +1,7 @@
 From 2c2d9c48d2daf0d78d20494c3779c0f6dc4bfa75 Mon Sep 17 00:00:00 2001
 From: Nigel Croxon <ncroxon@redhat.com>
 Date: Tue, 24 Sep 2019 11:39:24 -0400
-Subject: [PATCH 37/55] mdadm: force a uuid swap on big endian
+Subject: [PATCH 37/65] mdadm: force a uuid swap on big endian
 
 The code path for metadata 0.90 calls a common routine
 fname_from_uuid that uses metadata 1.2. The code expects member

@@ -1,7 +1,7 @@
 From b771faef931c798a4553db0a8c1366aff90079c6 Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Fri, 29 Nov 2019 15:21:08 +0100
-Subject: [PATCH 52/55] imsm: return correct uuid for volume in detail
+Subject: [PATCH 52/65] imsm: return correct uuid for volume in detail
 
 Fixes the side effect of the patch b6180160f ("imsm: save current_vol number")
 - wrong UUID is printed in detail for each volume.

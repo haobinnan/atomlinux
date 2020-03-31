@@ -1,7 +1,7 @@
 From cab114c5ca870e5f1b57fb2602cd9a038271c2e0 Mon Sep 17 00:00:00 2001
 From: Corey Hickey <bugfood-c@fatooh.org>
 Date: Mon, 11 Feb 2019 17:18:38 -0800
-Subject: [PATCH 16/55] Fix reshape for decreasing data offset
+Subject: [PATCH 16/65] Fix reshape for decreasing data offset
 
 ...when not changing the number of disks.
 

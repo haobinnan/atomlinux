@@ -68,7 +68,8 @@ export XDG_RUNTIME_DIR=/tmp/$USER-weston
 alias ll='ls -l'
 
 # read user profile
-if [ -f /etc/profile.user ]; then
+grep "enterterminal" /proc/cmdline > /dev/null
+if [ $? -ne 0 ] && [ -f /etc/profile.user ]; then
     . /etc/profile.user
 else
     clear

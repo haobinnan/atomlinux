@@ -1,7 +1,7 @@
 From 027c099fd1a31fb3815e592de75d0791a22353b4 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Mon, 4 Nov 2019 14:27:49 +1100
-Subject: [PATCH 55/55] Assemble: add support for RAID0 layouts.
+Subject: [PATCH 55/65] Assemble: add support for RAID0 layouts.
 
 If you have a RAID0 array with varying sized devices
 on a kernel before 5.4, you cannot assembling it on

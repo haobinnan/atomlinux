@@ -1,7 +1,7 @@
 From 1a52f1fc0266d438c996789d4addbfac999a6139 Mon Sep 17 00:00:00 2001
 From: Coly Li <colyli@suse.de>
 Date: Wed, 31 Jul 2019 13:29:30 +0800
-Subject: [PATCH 33/55] udev: add --no-devices option for calling 'mdadm
+Subject: [PATCH 33/65] udev: add --no-devices option for calling 'mdadm
  --detail'
 
 When creating symlink of a md raid device, the detailed information of
