@@ -84,6 +84,20 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb.so.1"
     ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXau.so.6"
     ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXdmcp.so.6"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxkbcommon.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libmtdev.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libinput.so.10"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libevdev.so.2"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwacom.so.2"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libdbus-1.so.3"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgudev-1.0.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgobject-2.0.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libsystemd.so.0"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libffi.so.7"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/liblzma.so.5"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/liblz4.so.1"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgcrypt.so.20"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgpg-error.so.0"
 elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     :
 fi

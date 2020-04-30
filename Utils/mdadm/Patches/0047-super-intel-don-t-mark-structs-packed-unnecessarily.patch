@@ -1,7 +1,7 @@
 From 761e3bd9f5e3aafa95ad3ae50a637dc67c8774f0 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Thu, 31 Oct 2019 15:15:38 +1100
-Subject: [PATCH 47/65] super-intel: don't mark structs 'packed' unnecessarily
+Subject: [PATCH 47/73] super-intel: don't mark structs 'packed' unnecessarily
 
 super-intel marks a number of structures 'packed', but this
 doesn't change the layout - they are already well organized.
@@ -117,5 +117,5 @@ index 713058c..a7fbed4 100644
  struct md_list {
  	/* usage marker:
 -- 
-2.17.1
+2.25.1
 

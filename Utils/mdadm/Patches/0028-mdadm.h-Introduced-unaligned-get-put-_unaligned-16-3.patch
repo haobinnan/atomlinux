@@ -1,7 +1,7 @@
 From 7039d1f8200b9599b23db5953934fdb43b0442e0 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Tue, 9 Jul 2019 14:15:38 -0400
-Subject: [PATCH 28/65] mdadm.h: Introduced unaligned
+Subject: [PATCH 28/73] mdadm.h: Introduced unaligned
  {get,put}_unaligned{16,32}()
 
 We need these to avoid gcc9 going all crazy on us.
@@ -53,5 +53,5 @@ index 427cc52..0fa9e1b 100644
    * Check at compile time that something is of a particular type.
    * Always evaluates to 1 so you may use it easily in comparisons.
 -- 
-2.17.1
+2.25.1
 

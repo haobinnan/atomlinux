@@ -1,7 +1,7 @@
 From 91c97c5432028875db5f8abeddb5cb5f31902001 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Mon, 15 Jul 2019 09:25:35 +0200
-Subject: [PATCH 34/65] imsm: close removed drive fd.
+Subject: [PATCH 34/73] imsm: close removed drive fd.
 
 When member drive fails, managemon prepares metadata update and adds
 the drive to disk_mgmt_list with DISK_REMOVE flag. It fills only
@@ -40,5 +40,5 @@ index d7e8a65..a103a3f 100644
  			}
  			/* release allocate disk structure */
 -- 
-2.17.1
+2.25.1
 

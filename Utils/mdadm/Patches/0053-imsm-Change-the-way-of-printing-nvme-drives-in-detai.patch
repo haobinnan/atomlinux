@@ -1,7 +1,7 @@
 From 6da53c0e2aab200605722795798b1e4f2352cd64 Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Mon, 2 Dec 2019 10:52:05 +0100
-Subject: [PATCH 53/65] imsm: Change the way of printing nvme drives in
+Subject: [PATCH 53/73] imsm: Change the way of printing nvme drives in
  detail-platform.
 
 Change NVMe controller path to device node path
@@ -204,5 +204,5 @@ index 86dcb69..5c1f759 100644
  		pr_err("failed to retrieve scsi serial, aborting\n");
  		if (dd->devname)
 -- 
-2.17.1
+2.25.1
 

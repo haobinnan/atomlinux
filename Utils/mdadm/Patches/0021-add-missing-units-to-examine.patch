@@ -1,7 +1,7 @@
 From 227aeaa872d4898273cf87a4253898823d556c43 Mon Sep 17 00:00:00 2001
 From: Corey Hickey <bugfood-c@fatooh.org>
 Date: Mon, 11 Feb 2019 17:42:27 -0800
-Subject: [PATCH 21/65] add missing units to --examine
+Subject: [PATCH 21/73] add missing units to --examine
 
 Within the output of "mdadm --examine", there are three sizes reported
 on adjacent lines. For example:
@@ -55,5 +55,5 @@ index 636a286..b85dc20 100644
  			       human_size(__le64_to_cpu(sb->size)<<9));
  	}
 -- 
-2.17.1
+2.25.1
 

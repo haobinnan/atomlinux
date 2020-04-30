@@ -1,7 +1,7 @@
 From 2551061c253b8fd45ee93d1aab3e91d2c7ac9c20 Mon Sep 17 00:00:00 2001
 From: Coly Li <colyli@suse.de>
 Date: Mon, 24 Feb 2020 12:34:09 +0100
-Subject: [PATCH 62/65] mdadm.8: add note information for raid0 growing
+Subject: [PATCH 62/73] mdadm.8: add note information for raid0 growing
  operation
 
 When growing a raid0 device, if the new component disk size is not
@@ -51,5 +51,5 @@ index 5d00faf..a3494a1 100644
  .SS SIZE CHANGES
  Normally when an array is built the "size" is taken from the smallest
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
 From ae7d61e35ec2ab6361c3e509a8db00698ef3396f Mon Sep 17 00:00:00 2001
 From: Artur Paszkiewicz <artur.paszkiewicz@intel.com>
 Date: Tue, 7 May 2019 16:08:47 +0200
-Subject: [PATCH 25/65] mdmon: fix wrong array state when disk fails during
+Subject: [PATCH 25/73] mdmon: fix wrong array state when disk fails during
  mdmon startup
 
 If a member drive disappears and is set faulty by the kernel during
@@ -105,5 +105,5 @@ index df6fdda..2dd9ab6 100644
  
  		/* finally add this disk to the array */
 -- 
-2.17.1
+2.25.1
 

@@ -89,6 +89,24 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
+#Patches
+cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}/
+if [ -d ../../Patches_Qt4 ]; then
+    for file in $(ls ../../Patches_Qt4);
+    do
+        echo -e "\033[31m$file\033[0m"
+        patch -p1 < ../../Patches_Qt4/$file
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (qt4) ."
+            exit 1
+        fi
+        #Check patch
+    done
+fi
+cd ../../
+#Patches
+
 #64bit system usage
 if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
     if [ $(getconf LONG_BIT) = '64' ]; then

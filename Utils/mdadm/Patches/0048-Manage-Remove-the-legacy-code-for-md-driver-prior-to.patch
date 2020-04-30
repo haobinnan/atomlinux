@@ -1,7 +1,7 @@
 From 1cc3965d48deb0fb3e0657159c608ffb124643c1 Mon Sep 17 00:00:00 2001
 From: Xiao Yang <ice_yangxiao@163.com>
 Date: Wed, 27 Nov 2019 11:59:24 +0800
-Subject: [PATCH 48/65] Manage: Remove the legacy code for md driver prior to
+Subject: [PATCH 48/73] Manage: Remove the legacy code for md driver prior to
  0.90.03
 
 Previous re-add operation only calls ioctl(HOT_ADD_DISK) for array without
@@ -48,5 +48,5 @@ index 21536f5..ffe55f8 100644
  	if (array->not_persistent == 0 || tst->ss->external) {
  
 -- 
-2.17.1
+2.25.1
 

@@ -63,6 +63,7 @@ elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5Core.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5Gui.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5Widgets.so* ./usr/lib/
+    cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5DBus.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_qt5_release/plugins ./usr/qt5
     cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/qt5/fonts/
 elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then

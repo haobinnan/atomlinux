@@ -1,7 +1,7 @@
 From 45c43276d02a32876c7e1f9f0d04580595141b3d Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Wed, 19 Feb 2020 11:13:17 +0100
-Subject: [PATCH 65/65] imsm: Remove --dump/--restore implementation
+Subject: [PATCH 65/73] imsm: Remove --dump/--restore implementation
 
 Functionalities --dump and --restore are not supported.
 Remove dead code from imsm.
@@ -87,5 +87,5 @@ index e4d2122..c9a1af5 100644
  	.match_home	= match_home_imsm,
  	.uuid_from_super= uuid_from_super_imsm,
 -- 
-2.17.1
+2.25.1
 

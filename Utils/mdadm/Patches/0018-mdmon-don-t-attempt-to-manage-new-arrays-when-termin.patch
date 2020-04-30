@@ -1,7 +1,7 @@
 From 69d084784de196acec8ab703cd1b379af211d624 Mon Sep 17 00:00:00 2001
 From: Artur Paszkiewicz <artur.paszkiewicz@intel.com>
 Date: Fri, 22 Feb 2019 10:15:45 +0100
-Subject: [PATCH 18/65] mdmon: don't attempt to manage new arrays when
+Subject: [PATCH 18/73] mdmon: don't attempt to manage new arrays when
  terminating
 
 When mdmon gets a SIGTERM, it stops managing arrays that are clean. If
@@ -46,5 +46,5 @@ index 101231c..29b91ba 100644
  	}
  }
 -- 
-2.17.1
+2.25.1
 

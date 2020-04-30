@@ -57,7 +57,7 @@ function MyInstall()
 #function
 
 #tools
-MyInstall_Base "wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign libnss3-tools openssl automake nasm autogen m4 autoconf help2man xorriso texinfo gettext upx-ucl irpas"
+MyInstall_Base "wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign libnss3-tools openssl automake nasm autogen m4 autoconf autopoint help2man xorriso texinfo gettext upx-ucl irpas"
 #tools
 
 MyInstall_Base "build-essential module-assistant gcc-multilib g++-multilib libtool libpcre3"
@@ -92,6 +92,10 @@ MyInstall "libx11-dev libxext-dev libxtst-dev libfontconfig1-dev"
 #What you need to build 'Qt4 x11 version'
 
 #What you need to build 'Qt5'
+#QDoc
+MyInstall "libclang-dev"
+#QDoc
+
 # Libxcb
 MyInstall "^libxcb.*-dev libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev"
 # Libxcb
@@ -102,7 +106,7 @@ MyInstall "libicu-dev libxslt1-dev"
 
 # Qt WebEngine	
 MyInstall "libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libdbus-1-dev libfontconfig1-dev libcap-dev libxtst-dev libpulse-dev libudev-dev libpci-dev libnspr4-dev libnss3-dev libasound2-dev libxss-dev libegl1-mesa-dev"
-MyInstall "libbz2-dev libgcrypt11-dev libdrm-dev libcupsimage2-dev libtiff-dev libcups2-dev libatkmm-1.6-dev"
+MyInstall "libbz2-dev libgcrypt20-dev libdrm-dev libcupsimage2-dev libtiff-dev libcups2-dev libatkmm-1.6-dev"
 # Qt WebEngine
 #What you need to build 'Qt5'
 
@@ -132,16 +136,12 @@ if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
 fi
 #What you need to build 'OVMF'
 
-#Install Qt Creator
-MyInstall_Base "qtcreator"
-#Install Qt Creator
-
 #What you need to build 'glib'
 MyInstall "libffi-dev libfam-dev libmount-dev"
 #What you need to build 'glib'
 
 #Install qemu
-MyInstall_Base "qemu"
+MyInstall_Base "aqemu"
 #Install qemu
 
 echo y | sudo apt autoremove

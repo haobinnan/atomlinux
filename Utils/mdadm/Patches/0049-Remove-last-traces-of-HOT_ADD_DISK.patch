@@ -1,7 +1,7 @@
 From 02af379337c73e751ad97c0fed9123121f8b4289 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Wed, 27 Nov 2019 10:19:54 -0500
-Subject: [PATCH 49/65] Remove last traces of HOT_ADD_DISK
+Subject: [PATCH 49/73] Remove last traces of HOT_ADD_DISK
 
 This ioctl is no longer used, so remove all references to it.
 
@@ -37,5 +37,5 @@ index 2d66d52..b30893c 100644
  #define SET_BITMAP_FILE		_IOW (MD_MAJOR, 0x2b, int)
  
 -- 
-2.17.1
+2.25.1
 

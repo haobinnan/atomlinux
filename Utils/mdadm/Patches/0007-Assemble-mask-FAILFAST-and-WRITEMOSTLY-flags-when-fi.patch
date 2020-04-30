@@ -1,7 +1,7 @@
 From 563ac108659980b3d1e226fe416254a86656235f Mon Sep 17 00:00:00 2001
 From: Gioh Kim <gi-oh.kim@cloud.ionos.com>
 Date: Tue, 6 Nov 2018 16:20:17 +0100
-Subject: [PATCH 07/65] Assemble: mask FAILFAST and WRITEMOSTLY flags when
+Subject: [PATCH 07/73] Assemble: mask FAILFAST and WRITEMOSTLY flags when
  finding the most recent device
 
 If devices[].i.disk.state has MD_DISK_FAILFAST or MD_DISK_WRITEMOSTLY
@@ -39,5 +39,5 @@ index f39c9e1..9f75c68 100644
  			    devices[devcnt].i.events
  			    > devices[most_recent].i.events) {
 -- 
-2.17.1
+2.25.1
 

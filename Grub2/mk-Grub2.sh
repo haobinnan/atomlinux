@@ -61,7 +61,7 @@ if [ $CodeAcquisitionMethod = "wget" ]; then
             exit 1
         fi
         #Check if necessary tools are installed
-        wget ${AtomLinux_DownloadURL}${AtomLinux_Grub2VNumber}/archive.tar.bz2 -O ${FILENAME}
+        wget ${AtomLinux_DownloadURL}${AtomLinux_Grub2VNumber}/grub-debian-${AtomLinux_Grub2VNumber}.tar.bz2 -O ${FILENAME}
         if [ ! $? -eq 0 ]; then
             echo "Error: Download grub2 ."
             exit 1

@@ -1,7 +1,7 @@
 From 1a52f1fc0266d438c996789d4addbfac999a6139 Mon Sep 17 00:00:00 2001
 From: Coly Li <colyli@suse.de>
 Date: Wed, 31 Jul 2019 13:29:30 +0800
-Subject: [PATCH 33/65] udev: add --no-devices option for calling 'mdadm
+Subject: [PATCH 33/73] udev: add --no-devices option for calling 'mdadm
  --detail'
 
 When creating symlink of a md raid device, the detailed information of
@@ -38,5 +38,5 @@ index 5b99d58..d391665 100644
  ENV{DEVTYPE}=="disk", ENV{MD_UUID}=="?*", SYMLINK+="disk/by-id/md-uuid-$env{MD_UUID}"
  ENV{DEVTYPE}=="disk", ENV{MD_DEVNAME}=="?*", SYMLINK+="md/$env{MD_DEVNAME}"
 -- 
-2.17.1
+2.25.1
 

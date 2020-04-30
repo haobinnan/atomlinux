@@ -27,7 +27,7 @@ OBJ_PROJECT=qt5
 
 QtVNumber=$AtomLinux_QtVNumber5
 
-FILENAME_DIR=qt-everywhere-opensource-src-${QtVNumber}
+FILENAME_DIR=qt-everywhere-src-${QtVNumber}
 FILENAME=${FILENAME_DIR}.tar.xz
 
 #Clean
@@ -81,9 +81,26 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check Decompression
 
+function Get_LLVM_Install_DIR()
+{
+    LLVMPath="/usr/lib/"
+    lsData=$(ls $LLVMPath)
+    for filename in $lsData
+    do
+        if [[ $filename =~ "llvm-" ]]; then
+            if [ -d $LLVMPath$filename/lib ] && [ -d $LLVMPath$filename/include ] && [ -d $LLVMPath$filename/bin ]; then
+                export LLVM_INSTALL_DIR=$LLVMPath$filename
+                break
+            fi
+        fi
+    done
+}
+
+Get_LLVM_Install_DIR
+
 cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
-# ***************** Compiling "opengl" and "qtwebengine" requires a large amount of memory (8GB). *****************
+# ***************** Compiling "opengl" and "qtwebengine" requires a large amount of memory. *****************
 
 # ****** Desktop ******
 
@@ -101,7 +118,7 @@ echo yes | ./configure -v -prefix ${CurrentDIR}/${ARCH} \
 -${VERSION} \
 -opensource -confirm-license -shared -optimize-size \
 -no-icu -no-glib -no-cups -no-journald -no-fontconfig \
--qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -qt-xkbcommon \
+-qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -xkbcommon \
 -xcb -evdev \
 -skip qtwebengine \
 -platform ${MyPlatform}

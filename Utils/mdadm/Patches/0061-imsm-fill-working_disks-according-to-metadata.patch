@@ -1,7 +1,7 @@
 From 1e93d0d15913c3fa6d0de5af3fb5e4e3b3f068da Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Fri, 17 Jan 2020 15:24:04 +0100
-Subject: [PATCH 61/65] imsm: fill working_disks according to metadata.
+Subject: [PATCH 61/73] imsm: fill working_disks according to metadata.
 
 Imsm tracks as "working_disk" each visible drive.
 Assemble routine expects that the value will return count
@@ -61,5 +61,5 @@ index 5c1f759..47809bc 100644
  			info_d->events = __le32_to_cpu(mpb->generation_num);
  			info_d->data_offset = pba_of_lba0(map);
 -- 
-2.17.1
+2.25.1
 

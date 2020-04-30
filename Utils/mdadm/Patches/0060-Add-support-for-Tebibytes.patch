@@ -1,7 +1,7 @@
 From 42e641abeb312a91b841f1b1ea73661e4bd5a31c Mon Sep 17 00:00:00 2001
 From: Kinga Tanska <kinga.tanska@intel.com>
 Date: Tue, 21 Jan 2020 10:38:52 +0100
-Subject: [PATCH 60/65] Add support for Tebibytes
+Subject: [PATCH 60/73] Add support for Tebibytes
 
 Adding support for Tebibytes enables display size of
 volumes in Tebibytes and Terabytes when they are
@@ -188,5 +188,5 @@ index 64dd409..07f9dc3 100644
  	}
  	else
 -- 
-2.17.1
+2.25.1
 

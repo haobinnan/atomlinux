@@ -1,7 +1,7 @@
 From 1a87493014050e3bd94000cd36122c3cadf21270 Mon Sep 17 00:00:00 2001
 From: Kinga Tanska <kinga.tanska@intel.com>
 Date: Tue, 10 Dec 2019 12:21:21 +0100
-Subject: [PATCH 57/65] Change warning message
+Subject: [PATCH 57/73] Change warning message
 
 In commit 039b7225e6 ("md: allow creation of mdNNN arrays via
 md_mod/parameters/new_array") support for name like mdNNN
@@ -35,5 +35,5 @@ index 98c54e4..245be53 100644
  	}
  
 -- 
-2.17.1
+2.25.1
 

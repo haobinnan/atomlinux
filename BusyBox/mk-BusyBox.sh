@@ -96,6 +96,23 @@ mkdir $AtomLinux_InitramfsLinuxAppFontDirName
 #mkdir
 
 cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+
+#Patches
+if [ -d ../../Patches ]; then
+    for file in $(ls ../../Patches);
+    do
+        echo -e "\033[31m$file\033[0m"
+        patch -p1 < ../../Patches/$file
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (busybox) ."
+            exit 1
+        fi
+        #Check patch
+    done
+fi
+#Patches
+
 make defconfig
 #Check make defconfig
 if [ ! $? -eq 0 ]; then
