@@ -67,7 +67,7 @@ MyInstall_Base "python3 python3-pip python3-setuptools python3-wheel ninja-build
 sudo pip3 install meson
 #meson
 
-MyInstall "libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3-dev libefivar-dev"
+MyInstall "libncurses5-dev zlib1g-dev libpng-dev libjpeg-dev libpcre3-dev libefivar-dev libwayland-dev"
 
 #libssl
 apt list libssl1.0-dev | egrep 'libssl1.0-dev'

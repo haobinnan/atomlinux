@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-Make="make -j$(cat /proc/cpuinfo | grep "cpu cores" | wc -l)"
+# Make="make -j$(cat /proc/cpuinfo | grep "cpu cores" | wc -l)"
 
 if [ ! -f ../../VariableSetting ]; then
     echo "Error: VariableSetting file does not exist ."
@@ -43,46 +43,51 @@ fi
 clean_weston
 mkdir -p ${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 git clone --branch ${AtomLinux_WestonVNumber} ${AtomLinux_DownloadURL} ${OBJ_PROJECT}-tmp/${FILENAME_DIR}
+# cp -r ./${FILENAME_DIR} ./${OBJ_PROJECT}-tmp
 cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
-WESTONPARAM="--disable-setuid-install --disable-weston-launch --enable-fbdev-compositor --disable-x11-compositor --disable-drm-compositor --disable-wayland-compositor --disable-rdp-compositor --disable-headless-compositor --disable-egl --disable-xwayland WESTON_NATIVE_BACKEND=fbdev-backend.so"
+WESTONPARAM="-Dlauncher-logind=false -Dcolor-management-colord=false -Dremoting=false -Dpipewire=false -Dcolor-management-lcms=false"
 
-#autogen
+WESTONPARAM=${WESTONPARAM}" -Dbackend-fbdev=true -Dbackend-drm=true -Dbackend-default=fbdev -Dbackend-x11=false -Dbackend-headless=false -Dbackend-drm-screencast-vaapi=false -Dbackend-rdp=false -Dbackend-wayland=false -Drenderer-gl=false -Dxwayland=false -Dscreenshare=false -Dweston-launch=false -Dsystemd=false -Dimage-webp=false -Ddemo-clients=false -Dwcap-decode=false -Dsimple-clients=`` -Dtools=``"
+
+#meson
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    ./autogen.sh --prefix=/usr ${WESTONPARAM}
+    meson _build --prefix=/usr ${WESTONPARAM}
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
-        export PKG_CONFIG_PATH=/usr/lib/i386-linux-gnu/pkgconfig/
-        ./autogen.sh --prefix=/usr ${WESTONPARAM} --build=i386-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
-        export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/
+        meson _build --prefix=/usr ${WESTONPARAM} --cross-file ../../meson_x86-linux
     else
-        ./autogen.sh --prefix=/usr ${WESTONPARAM}
+        meson _build --prefix=/usr ${WESTONPARAM}
     fi
 fi
-#autogen
-#Check autogen
+#meson
+#Check meson
 if [ ! $? -eq 0 ]; then
-    echo "Error: autogen (weston) ."
+    echo "Error: meson (weston) ."
     exit 1
 fi
-#Check autogen
+#Check meson
 
-echo | $Make
-#Check make
+ninja -C _build
+#Check ninja
 if [ ! $? -eq 0 ]; then
-    echo "Error: make (weston) ."
+    echo "Error: ninja (weston) ."
     exit 1
 fi
-#Check make
+#Check ninja
 
-make install DESTDIR=${CurrentDIR}/${ARCH}-${OBJ_PROJECT}
-#Check make install
+DESTDIR=${CurrentDIR}/${ARCH}-${OBJ_PROJECT} ninja -C _build install
+#Check ninja install
 if [ ! $? -eq 0 ]; then
-    echo "Error: make install (weston) ."
+    echo "Error: ninja install (weston) ."
     exit 1
 fi
-#Check make install
-cp ./weston.ini ${CurrentDIR}/
+#Check ninja install
+
+#weston.ini
+sed -i 's/--backend=rdp-backend.so/--backend=fbdev-backend.so/' ./_build/compositor/weston.ini
+cp ./_build/compositor/weston.ini ${CurrentDIR}/
+#weston.ini
 
 cd ../../
 rm -rf ${OBJ_PROJECT}-tmp
@@ -90,8 +95,9 @@ rm -rf ${OBJ_PROJECT}-tmp
 #Delete useless files
 rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/include
 rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/share/man
-rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/lib/pkgconfig
-find ./${ARCH}-${OBJ_PROJECT}/usr/ -name '*.la' -type f -print -exec rm -rf {} \;
+rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/share/pkgconfig
+rm -rf ./${ARCH}-${OBJ_PROJECT}/usr/lib/${ARCH}-linux-gnu/pkgconfig
+# find ./${ARCH}-${OBJ_PROJECT}/usr/ -name '*.la' -type f -print -exec rm -rf {} \;
 #Delete useless files
 
 echo "Complete."

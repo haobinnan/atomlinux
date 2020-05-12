@@ -55,17 +55,20 @@ if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtGui.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/libQtNetwork.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_release_Emb/lib/fonts/fixed_120_50.qpf ./usr/fonts/
-    cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/fonts/
+    if [ -d ../$AtomLinux_InitramfsLinuxAppFontDirName ] && [ "`ls -A ../$AtomLinux_InitramfsLinuxAppFontDirName`" != "" ]; then
+        cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/fonts/
+    fi
 elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
     mkdir -p ./usr/lib/
     mkdir -p ./usr/qt5/fonts/
 
+    cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5Widgets.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5Core.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5Gui.so* ./usr/lib/
-    cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5Widgets.so* ./usr/lib/
-    cp -rv ../../Qt/${ARCH}_qt5_release/lib/libQt5DBus.so* ./usr/lib/
     cp -rv ../../Qt/${ARCH}_qt5_release/plugins ./usr/qt5
-    cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/qt5/fonts/
+    if [ -d ../$AtomLinux_InitramfsLinuxAppFontDirName ] && [ "`ls -A ../$AtomLinux_InitramfsLinuxAppFontDirName`" != "" ]; then
+        cp -rv ../$AtomLinux_InitramfsLinuxAppFontDirName/* ./usr/qt5/fonts/
+    fi
 elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     mkdir -p ./usr/lib/
     mkdir -p ./usr/share/terminfo/
@@ -161,10 +164,14 @@ mkdir $AtomLinux_InitramfsLinuxAppDirName
 if test $1 && [ $1 = "cd" ]; then
     if [ -f ../mk-Bale-customize.sh ]; then
         ../mk-Bale-customize.sh
+    else
+        if [ -d ../$AtomLinux_InitramfsLinuxAppDirName ] && [ "`ls -A ../$AtomLinux_InitramfsLinuxAppDirName`" != "" ]; then
+            cp -rv ../$AtomLinux_InitramfsLinuxAppDirName/* ./$AtomLinux_InitramfsLinuxAppDirName/
+        fi
     fi
     echo "cpio For CD"
 else
-    if [ $(ls ../$AtomLinux_InitramfsLinuxAppDirName/ -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then
+    if [ -d ../$AtomLinux_InitramfsLinuxAppDirName ] && [ "`ls -A ../$AtomLinux_InitramfsLinuxAppDirName`" != "" ]; then
         cp -rv ../$AtomLinux_InitramfsLinuxAppDirName/* ./$AtomLinux_InitramfsLinuxAppDirName/
     fi
 fi

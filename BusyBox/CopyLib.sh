@@ -46,58 +46,34 @@ iIndex=0
 
 #Basic lib
 if [ ${Arch} = "x86_64" ]; then
-    ArrayLib[$((iIndex++))]="/lib64/ld-linux-x86-64.so.2"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/ld-*"
 else
-    ArrayLib[$((iIndex++))]="/lib/ld-linux.so.2"
+    ArrayLib[$((iIndex++))]="/lib/ld-*"
 fi
-ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libc.so.6"
-ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libm.so.6"
-ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libdl.so.2"
-ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libpthread.so.0"
-ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libresolv.so.2"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libc.so.*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libc-*.so*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libm.so.*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libm-*.so*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libdl.so.*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libdl-*.so*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libpthread.so.*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libpthread-*.so*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libresolv.so.*"
+ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libresolv-*.so*"
 #Basic lib
 
 #GraphicsLibrary
 if [ ${AtomLinux_GraphicsLibrary} = "Qt" ]; then
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/librt.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libz.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libgcc_s.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libstdc++.so.6"
+#    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/librt.so.*"
+#    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/librt-*.so*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libz.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libgcc_s.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libstdc++.so.*"
 elif [ ${AtomLinux_GraphicsLibrary} = "Qt5" ]; then
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/librt.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libz.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libgcc_s.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libudev.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libpcre.so.3"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libbsd.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libstdc++.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libdrm.so.2"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libpng16.so.16"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libGL.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libharfbuzz.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libGLX.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libGLdispatch.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libglib-2.0.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libfreetype.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgraphite2.so.3"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libX11.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXau.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXdmcp.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxkbcommon.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libmtdev.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libinput.so.10"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libevdev.so.2"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwacom.so.2"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libdbus-1.so.3"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgudev-1.0.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgobject-2.0.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libsystemd.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libffi.so.7"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/liblzma.so.5"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/liblz4.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgcrypt.so.20"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgpg-error.so.0"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libgcc_s.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libz.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libstdc++.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libdrm.so.*"
 elif [ ${AtomLinux_GraphicsLibrary} = "Ncurses" ]; then
     :
 fi
@@ -105,98 +81,99 @@ fi
 
 #weston
 if [ ${AtomLinux_UsingWeston} = "Yes" ]; then
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/librt.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libudev.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libpcre.so.3"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libexpat.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libz.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libbsd.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwayland-server.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwayland-client.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwayland-cursor.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libinput.so.10"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libpixman-1.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxkbcommon.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libffi.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libmtdev.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libevdev.so.2"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwacom.so.2"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgudev-1.0.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgobject-2.0.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libglib-2.0.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libcairo.so.2"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libjpeg.so.8"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libfontconfig.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb-shm.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb-render.so.0"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXrender.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXext.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libpng16.so.16"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libfreetype.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libX11.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXau.so.6"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXdmcp.so.6"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libudev.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libpcre.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libexpat.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libbsd.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libz.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwayland-client.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwayland-server.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwayland-cursor.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libinput.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libevdev.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libpixman-1.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxkbcommon.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libffi.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libmtdev.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libwacom.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgudev-1.0.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgobject-2.0.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libglib-2.0.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libcairo.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libpng16.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libjpeg.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libfontconfig.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libfreetype.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb-shm.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libxcb-render.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXrender.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libX11.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXext.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libuuid.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXau.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libXdmcp.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libdrm.so.*"
 fi
 #weston
 
 #dislocker
 if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libfuse.so.2"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libcrypt.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libmbedcrypto.so.1"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libruby-2.5.so.2.5"
-    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgmp.so.10"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libfuse.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libcrypt.so.*"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libmbedcrypto.so.*"
+#    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libruby-2.5.so.2.5"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgmp.so.*"
 fi
 #dislocker
 
 #Dropbear SSH
 if [ ${AtomLinux_UsingDropbearSSH} = "Yes" ]; then
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libutil.so.1"
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libcrypt.so.1"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libutil.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libutil-*.so*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libcrypt.so.*"
 fi
 #Dropbear SSH
 
 #ntfs-3g
 if [ ${AtomLinux_UsingNtfs3g} = "Yes" ]; then
-    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libuuid.so.1"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libuuid.so.*"
 fi
 #ntfs-3g
+
+#libnss
+if [ ${AtomLinux_UsingLibnss} = "Yes" ]; then
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libnss_files.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libnss_files-*.so*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libnss_dns.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libnss_dns-*.so*"
+fi
+#libnss
+
+#libefivar
+if [ ${AtomLinux_UsingLibefivar} = "Yes" ]; then
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libefivar.so*"
+fi
+#libefivar
 
 for var in ${ArrayLib[@]};
 do
     if [ -f $var ]; then
         if [ ${var:0:9} = "/usr/lib/" ]; then
             if [ ! -f ./MyConfig/usr/lib/${var##*/} ]; then
-                cp -v $var ./MyConfig/usr/lib/
+                cp -dv $var ./MyConfig/usr/lib/
             fi
         else
             if [ ! -f ./MyConfig/lib/${var##*/} ]; then
-                cp -v $var ./MyConfig/lib/
+                cp -dv $var ./MyConfig/lib/
             fi
         fi
     fi
 done
 
-#libnss
-if [ ${AtomLinux_UsingLibnss} = "Yes" ]; then
-    MyCopy="/lib/${Arch}-linux-gnu/libnss_files*"
-    cp -dv ${MyCopy} ./MyConfig/lib/
-    MyCopy="/lib/${Arch}-linux-gnu/libnss_dns*"
-    cp -dv ${MyCopy} ./MyConfig/lib/
-fi
-#libnss
-
-#libefivar
-if [ ${AtomLinux_UsingLibefivar} = "Yes" ]; then
-    MyCopy="/usr/lib/${Arch}-linux-gnu/libefivar.so*"
-    cp -dv ${MyCopy} ./MyConfig/usr/lib/
-fi
-#libefivar
-
 #mv ld-linux to lib64
 if [ ${Arch} = "x86_64" ]; then
-    mv -v ./MyConfig/lib/ld-linux* ./MyConfig/lib64/
+    mv -v ./MyConfig/lib/ld-* ./MyConfig/lib64/
 fi
 #mv ld-linux to lib64
 

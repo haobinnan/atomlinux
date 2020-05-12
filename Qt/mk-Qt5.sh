@@ -54,7 +54,7 @@ if [ ! -f ./${FILENAME} ]; then
     fi
     #Check if necessary tools are installed
     wget ${AtomLinux_DownloadURL}${QtVNumber}/single/${FILENAME}
-    if [ ! $? -eq 0 ]; then
+    if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
         echo "Error: Download Qt ."
         exit 1
     fi
@@ -75,7 +75,7 @@ mkdir ${OBJ_PROJECT}-tmp
 
 tar xvJf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
 #Check Decompression
-if [ ! $? -eq 0 ]; then
+if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
     echo "Error: Decompression Qt ."
     exit 1
 fi
@@ -114,31 +114,31 @@ cd ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
 
 # ****** Desktop ******
 
-echo yes | ./configure -v -prefix ${CurrentDIR}/${ARCH} \
+./configure -v -prefix ${CurrentDIR}/${ARCH} \
 -${VERSION} \
 -opensource -confirm-license -shared -optimize-size \
--no-icu -no-glib -no-cups -no-journald -no-fontconfig \
--qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -xkbcommon \
--xcb -evdev \
+-no-icu -no-glib -no-cups -no-journald -no-fontconfig -no-dbus -no-mtdev -no-tslib -no-libudev -no-opengl -no-egl -no-pulseaudio -no-alsa -no-gstreamer -no-libinput \
+-qt-pcre -qt-libpng -qt-libjpeg -qt-freetype -qt-harfbuzz \
+-xkbcommon -evdev \
+-xcb -linuxfb -kms \
 -skip qtwebengine \
--platform ${MyPlatform}
-#-mtdev
+-platform ${MyPlatform} 2>&1 | tee ${CurrentDIR}/${ARCH}/configure.log
 #Check configure
-if [ ! $? -eq 0 ]; then
+if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
     echo "Error: configure (Qt) ."
     exit 1
 fi
 #Check configure
-echo | $Make
+echo | $Make | tee ${CurrentDIR}/${ARCH}/make.log
 #Check make
-if [ ! $? -eq 0 ]; then
+if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
     echo "Error: make (Qt) ."
     exit 1
 fi
 #Check make
-make install
+make install | tee ${CurrentDIR}/${ARCH}/make_install.log
 #Check make install
-if [ ! $? -eq 0 ]; then
+if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
     echo "Error: make install (Qt) ."
     exit 1
 fi
@@ -149,16 +149,16 @@ cp -rv ./qtbase/lib/fonts ../../${ARCH}/lib
 # Copy Font
 
 # Install docs
-make docs
+make docs | tee ${CurrentDIR}/${ARCH}/make_docs.log
 #Check make docs
-if [ ! $? -eq 0 ]; then
+if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
     echo "Error: make docs (Qt) ."
     exit 1
 fi
 #Check make docs
-make install_docs
+make install_docs | tee ${CurrentDIR}/${ARCH}/make_docs_install.log
 #Check make install_docs
-if [ ! $? -eq 0 ]; then
+if [ ! ${PIPESTATUS[0]} -eq 0 ]; then
     echo "Error: make install_docs (Qt) ."
     exit 1
 fi

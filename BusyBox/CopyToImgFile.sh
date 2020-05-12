@@ -44,12 +44,12 @@ fi
 #Update file of Linux_sample
 if [ ${AtomLinux_BCDDeploymentMethod} = "No" ]; then
     rm -rf ../Linux_sample/$AtomLinux_LinuxSoftwareDirName
-    if [ $(ls ./$AtomLinux_LinuxSoftwareDirName/ -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then
+    if [ -d ./$AtomLinux_LinuxSoftwareDirName ] && [ "`ls -A ./$AtomLinux_LinuxSoftwareDirName`" != "" ]; then
         mkdir ../Linux_sample/$AtomLinux_LinuxSoftwareDirName
         cp -rRv ./$AtomLinux_LinuxSoftwareDirName/* ../Linux_sample/$AtomLinux_LinuxSoftwareDirName/
     fi
     rm -rf ../Linux_sample/${AtomLinux_Grub2DirName}
-    if [ $(ls ../Grub2/style -A $1|wc -w | awk '{print int($0)}') -gt 0 ]; then
+    if [ -d ../Grub2/style ] && [ "`ls -A ../Grub2/style`" != "" ]; then
         mkdir -p ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
         cp -rv ../Grub2/style/* ../Linux_sample/${AtomLinux_Grub2DirName}/${AtomLinux_Grub2StyleDirName}/
     fi

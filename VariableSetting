@@ -68,9 +68,9 @@ AtomLinux_UsingExfat=No
 AtomLinux_UsingNtfs3g=No
     #Using ntfs-3g: "Yes" | "No"
 
-    #Using libnss: "Yes" | "No"
+    #Using libnss: "Yes" | "No"  [ Dropbear SSH ]
 AtomLinux_UsingLibnss=Yes
-    #Using libnss: "Yes" | "No"
+    #Using libnss: "Yes" | "No"  [ Dropbear SSH ]
 
     #Using libefivar: "Yes" | "No"
 AtomLinux_UsingLibefivar=No
@@ -110,7 +110,7 @@ AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.6.7
+AtomLinux_LinuxKernelVNumber=5.6.12
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
@@ -137,7 +137,7 @@ AtomLinux_MdadmURL=https://cdn.kernel.org/pub/linux/utils/raid/mdadm/
 #Utils - mdadm
 
 #Utils - weston
-AtomLinux_WestonVNumber=5.0.0
+AtomLinux_WestonVNumber=7.0.93
 AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
 #Utils - weston
 

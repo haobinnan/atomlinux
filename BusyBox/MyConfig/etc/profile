@@ -49,8 +49,9 @@ export QT_PLUGIN_PATH=$QT5DIR/plugins
 export QT_QPA_FONTDIR=$QT5DIR/fonts
 export QT_QPA_PLATFORM_PLUGIN_PATH=$QT5DIR/plugins/platforms
 export QT_QPA_PLATFORM=linuxfb:fb=/dev/${DefaultGC}:size=1024x768
-export QT_QPA_EVDEV_MOUSE_PARAMETERS=/dev/input/mouse0
-export QT_QPA_EVDEV_KEYBOARD_PARAMETERS=/dev/input/event1
+# export QT_QPA_GENERIC_PLUGINS=evdevmouse
+# export QT_QPA_EVDEV_MOUSE_PARAMETERS=/dev/input/mouse0
+# export QT_QPA_EVDEV_KEYBOARD_PARAMETERS=/dev/input/event1
 # * * * * * * Qt5 Config * * * * * *
 
 # * * * * * * ncurses * * * * * *
