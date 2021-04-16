@@ -57,7 +57,7 @@ function MyInstall()
 #function
 
 #tools
-MyInstall_Base "wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign libnss3-tools openssl automake nasm autogen m4 autoconf autopoint help2man xorriso texinfo gettext upx-ucl irpas"
+MyInstall_Base "wget vim git git-gui sbsigntool lcab python perl ruby flex bison cmake gperf pesign libnss3-tools openssl automake nasm autogen m4 autoconf autopoint help2man xorriso texinfo gettext upx-ucl irpas dos2unix"
 #tools
 
 MyInstall_Base "build-essential module-assistant gcc-multilib g++-multilib libtool libpcre3"

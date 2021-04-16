@@ -1,7 +1,7 @@
 From 9e4494051de3f53228fabae56c116879bff5a0c8 Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Mon, 16 Mar 2020 10:16:49 +0800
-Subject: [PATCH 67/73] Detail: show correct bitmap info for cluster raid
+Subject: [PATCH 067/131] Detail: show correct bitmap info for cluster raid
  device
 
 Signed-off-by: Lidong Zhong <lidong.zhong@suse.com>

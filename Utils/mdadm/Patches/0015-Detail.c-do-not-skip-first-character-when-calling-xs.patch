@@ -1,7 +1,7 @@
 From e3615ecb5b6ad8eb408296878aad5628e0e27166 Mon Sep 17 00:00:00 2001
 From: Coly Li <colyli@suse.de>
 Date: Tue, 12 Feb 2019 12:53:18 +0800
-Subject: [PATCH 15/73] Detail.c: do not skip first character when calling
+Subject: [PATCH 015/131] Detail.c: do not skip first character when calling
  xstrdup in Detail()
 
 'Commit b9c9bd9bacaa ("Detail: ensure --export names are acceptable as

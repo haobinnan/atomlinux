@@ -13,6 +13,11 @@ AtomLinux_Grub2PrefixDirName="$(grep -i ^AtomLinux_Grub2PrefixDirName ../Variabl
 AtomLinux_Grub2VNumber="$(grep -i ^AtomLinux_Grub2VNumber ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ../VariableSetting | cut -f2 -d'=')"
+
+AtomLinux_Grub2UPSTREAMVNumber="$(grep -i ^AtomLinux_Grub2UPSTREAMVNumber ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_SBAT_DISTRO_ID="$(grep -i ^AtomLinux_SBAT_DISTRO_ID ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_SBAT_DISTRO_NAME="$(grep -i ^AtomLinux_SBAT_DISTRO_NAME ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_SBAT_URL="$(grep -i ^AtomLinux_SBAT_URL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=grub2
@@ -45,10 +50,10 @@ fi
 RemoveModuleCompiledMode=yes
 
 #Code acquisition method		[ git | wget ]
-CodeAcquisitionMethod=wget
+CodeAcquisitionMethod=git
 
 #Application patches(debian)		[ yes | no ]
-ApplicationPatches=no
+ApplicationPatches=yes
 
 CurrentDIR=$(pwd)
 
@@ -95,6 +100,12 @@ else
 
     cd ./${OBJ_PROJECT}-tmp/
     git clone --branch ${AtomLinux_Grub2VNumber} ${AtomLinux_DownloadURL}
+    #Check git clone
+    if [ ! $? -eq 0 ]; then
+        echo "Error: git clone grub2 ."
+        exit 1
+    fi
+    #Check git clone
     cd ..
 fi
 
@@ -160,7 +171,7 @@ fi
 #Check autogen
 
 # --disable-werror
-./configure --with-platform=pc --target=i386 --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount enable_quiet_boot=yes
+./configure --with-platform=pc --target=i386 --disable-grub-mount enable_quiet_boot=yes
 #Check configure
 if [ ! $? -eq 0 ]; then
     echo "Error: configure (Grub2) ."
@@ -174,7 +185,7 @@ if [ ! $? -eq 0 ]; then
     exit 1
 fi
 #Check make
-make install
+make DESTDIR=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" install
 #Check make install
 if [ ! $? -eq 0 ]; then
     echo "Error: make install (Grub2) ."
@@ -182,7 +193,7 @@ if [ ! $? -eq 0 ]; then
 fi
 #Check make install
 
-cd ../install_tmp/lib/grub/${ARCH}
+cd ../install_tmp/usr/local/lib/grub/${ARCH}
 
 ../../../bin/grub-mkimage --prefix=${AtomLinux_Grub2PrefixDirName} -O i386-pc -d . -o ${LDRNAME}.img biosdisk newc blocklist iso9660 udf memdisk cpio minicmd part_msdos part_gpt msdospart fat ntfs exfat loopback gfxmenu gfxterm reboot normal romfs procfs sleep ls cat echo search configfile halt chain png all_video test probe linux cpuid scsi
 #Check grub-mkimage
@@ -195,13 +206,13 @@ fi
 cat lnxboot.img ${LDRNAME}.img > ${LDRNAME}
 cat cdboot.img ${LDRNAME}.img > ${LDRNAME}_cd
 
-mv ${LDRNAME} ../../../
-mv ${LDRNAME}_cd ../../../
+mv ${LDRNAME} ../../../../../
+mv ${LDRNAME}_cd ../../../../../
 
-mkdir -p ../../../../../${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}
-cp -v *.mod *.lst ../../../../../${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}
+mkdir -p ../../../../../../../${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}
+cp -v *.mod *.lst ../../../../../../../${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}
 
-cd ../../../../../
+cd ../../../../../../../
 
 cp -v ./font.pf2 ./${ARCH}${AtomLinux_Grub2PrefixDirName}
 
@@ -237,7 +248,7 @@ function build_efi()
     #Check autogen
 
     # --disable-werror
-    ./configure --with-platform=efi --target=${ARCH} --prefix=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" --disable-grub-mount enable_quiet_boot=yes
+    ./configure --with-platform=efi --target=${ARCH} --disable-grub-mount enable_quiet_boot=yes
     #Check configure
     if [ ! $? -eq 0 ]; then
         echo "Error: configure (Grub2) ."
@@ -251,7 +262,7 @@ function build_efi()
         exit 1
     fi
     #Check make
-    make install
+    make DESTDIR=${CurrentDIR}/${OBJ_PROJECT}-tmp"/install_tmp" install
     #Check make install
     if [ ! $? -eq 0 ]; then
         echo "Error: make install (Grub2) ."
@@ -259,13 +270,19 @@ function build_efi()
     fi
     #Check make install
 
-    cd ../install_tmp/lib/grub/${ARCH}-efi
+    cd ../install_tmp/usr/local/lib/grub/${ARCH}-efi
 
     #All mod
     # $(ls *.mod | cut -d '.' -f 1)
     #All mod
 
-    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test probe linux cpuid scsi linuxefi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video
+    #sbat.csv
+    echo 'sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+grub,1,Free Software Foundation,grub,'${AtomLinux_Grub2UPSTREAMVNumber}',https://www.gnu.org/software/grub/
+grub.'${AtomLinux_SBAT_DISTRO_ID}',1,'${AtomLinux_SBAT_DISTRO_NAME}','${OBJ_PROJECT}','${AtomLinux_Grub2VNumber}','${AtomLinux_SBAT_URL} > ./sbat-${ARCH}.csv
+    #sbat.csv
+
+    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test probe linux cpuid scsi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video --sbat ./sbat-${ARCH}.csv
     #Check grub-mkimage
     if [ ! $? -eq 0 ]; then
         echo "Error: grub-mkimage (Grub2) ."
@@ -273,12 +290,12 @@ function build_efi()
     fi
     #Check grub-mkimage
 
-    mv ${LDRNAME} ../../../
+    mv ${LDRNAME} ../../../../../
 
-    mkdir -p ../../../../../efi-${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}-efi
-    cp -v *.mod *.lst ../../../../../efi-${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}-efi
+    mkdir -p ../../../../../../../efi-${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}-efi
+    cp -v *.mod *.lst ../../../../../../../efi-${ARCH}${AtomLinux_Grub2PrefixDirName}/${ARCH}-efi
 
-    cd ../../../../../
+    cd ../../../../../../../
 
     cp -v ./font.pf2 ./efi-${ARCH}${AtomLinux_Grub2PrefixDirName}
 

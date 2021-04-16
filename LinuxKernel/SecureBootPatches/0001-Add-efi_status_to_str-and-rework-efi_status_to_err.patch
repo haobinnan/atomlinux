@@ -1,20 +1,21 @@
-From 4c56674759c25b004333661acb37c3dc1ca6e974 Mon Sep 17 00:00:00 2001
+From f81eac7d72c56824b2128e049205b09b8ffef67e Mon Sep 17 00:00:00 2001
 From: Peter Jones <pjones@redhat.com>
 Date: Mon, 2 Oct 2017 18:22:13 -0400
-Subject: [PATCH 01/73] Add efi_status_to_str() and rework efi_status_to_err().
+Subject: [PATCH 13/40] Add efi_status_to_str() and rework efi_status_to_err().
 
 This adds efi_status_to_str() for use when printing efi_status_t
 messages, and reworks efi_status_to_err() so that the two use a common
 list of errors.
 
+Upstream Status: RHEL only
 Signed-off-by: Peter Jones <pjones@redhat.com>
 ---
- drivers/firmware/efi/efi.c |  124 +++++++++++++++++++++++++++++++++-----------
- include/linux/efi.h        |    3 +
+ drivers/firmware/efi/efi.c | 124 +++++++++++++++++++++++++++++++++------------
+ include/linux/efi.h        |   3 ++
  2 files changed, 96 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
-index 21ea99f..6f96bcd 100644
+index df3f9bc..8d5b6eb 100644
 --- a/drivers/firmware/efi/efi.c
 +++ b/drivers/firmware/efi/efi.c
 @@ -31,6 +31,7 @@
@@ -25,7 +26,7 @@ index 21ea99f..6f96bcd 100644
  
  #include <asm/early_ioremap.h>
  
-@@ -927,40 +928,101 @@ int efi_mem_type(unsigned long phys_addr)
+@@ -841,40 +842,101 @@ int efi_mem_type(unsigned long phys_addr)
  }
  #endif
  
@@ -159,10 +160,10 @@ index 21ea99f..6f96bcd 100644
  
  static DEFINE_SPINLOCK(efi_mem_reserve_persistent_lock);
 diff --git a/include/linux/efi.h b/include/linux/efi.h
-index 7efd707..5062683 100644
+index d7c0e73..6359978 100644
 --- a/include/linux/efi.h
 +++ b/include/linux/efi.h
-@@ -42,6 +42,8 @@
+@@ -43,6 +43,8 @@
  #define EFI_ABORTED		(21 | (1UL << (BITS_PER_LONG-1)))
  #define EFI_SECURITY_VIOLATION	(26 | (1UL << (BITS_PER_LONG-1)))
  
@@ -171,7 +172,7 @@ index 7efd707..5062683 100644
  typedef unsigned long efi_status_t;
  typedef u8 efi_bool_t;
  typedef u16 efi_char16_t;		/* UNICODE character */
-@@ -1163,6 +1165,7 @@ static inline bool efi_soft_reserve_enabled(void)
+@@ -835,6 +837,7 @@ static inline bool efi_rt_services_supported(unsigned int mask)
  #endif
  
  extern int efi_status_to_err(efi_status_t status);
@@ -180,5 +181,5 @@ index 7efd707..5062683 100644
  /*
   * Variable Attributes
 -- 
-1.7.1
+1.8.3.1
 

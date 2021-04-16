@@ -1,7 +1,7 @@
 From d11abe4bd5cad39803726ddff1888674e417bda5 Mon Sep 17 00:00:00 2001
 From: Coly Li <colyli@suse.de>
 Date: Wed, 31 Jul 2019 13:29:29 +0800
-Subject: [PATCH 32/73] mdadm: add --no-devices to avoid component devices
+Subject: [PATCH 032/131] mdadm: add --no-devices to avoid component devices
  detail information
 
 When people assemble a md raid device with a large number of

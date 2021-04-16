@@ -1,0 +1,33 @@
+From 848d71c91dc249098bdbbf319e25d319eb1d8e23 Mon Sep 17 00:00:00 2001
+From: Jakub Radtke <jakub.radtke@intel.com>
+Date: Fri, 15 Jan 2021 00:47:00 -0500
+Subject: [PATCH 125/131] Create: Block automatic enabling bitmap for external
+ metadata
+
+For external metadata, bitmap should be added only when
+explicitly set by the administrator.
+They could be additional requirements to consider before
+enabling the external metadata's functionality
+(e.g., kernel support).
+
+Signed-off-by: Jakub Radtke <jakub.radtke@intel.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ Create.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Create.c b/Create.c
+index b50cb24..18b5e64 100644
+--- a/Create.c
++++ b/Create.c
+@@ -540,6 +540,7 @@ int Create(struct supertype *st, char *mddev,
+ 	}
+ 
+ 	if (!s->bitmap_file &&
++	    !st->ss->external &&
+ 	    s->level >= 1 &&
+ 	    st->ss->add_internal_bitmap &&
+ 	    s->journaldisks == 0 &&
+-- 
+2.25.1
+

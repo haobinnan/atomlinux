@@ -1,7 +1,7 @@
 From f778706e72d9f7bac84a5a4cd37f0b56cebdef49 Mon Sep 17 00:00:00 2001
 From: haobinnan <haobinnan@gmail.com>
 Date: Wed, 24 Jul 2019 10:38:04 +0800
-Subject: [PATCH 1/4] Fixed an issue that dislocker corrupted when unlocking
+Subject: [PATCH 1/6] Fixed an issue that dislocker corrupted when unlocking
  BitLocker drive created in Windows 10 1903. Fixed an issue that it failed to
  unlock exFAT BitLocker drive created in Windows 10 1903.
 
@@ -106,5 +106,5 @@ index abf5904..c963e34 100644
  	print_volume_header(L_DEBUG, dis_meta);
  
 -- 
-2.17.1
+2.25.1
 

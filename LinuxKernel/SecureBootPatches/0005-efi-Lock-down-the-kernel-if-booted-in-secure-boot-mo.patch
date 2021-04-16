@@ -1,7 +1,7 @@
-From 98121d32476d319b656d469dce25cbc57f0c9bf0 Mon Sep 17 00:00:00 2001
+From ea604e7e059fda4ee4258621d2e45f6c7fa88ddf Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Mon, 30 Sep 2019 21:28:16 +0000
-Subject: [PATCH 05/73] efi: Lock down the kernel if booted in secure boot mode
+Subject: [PATCH 17/40] efi: Lock down the kernel if booted in secure boot mode
 
 UEFI Secure Boot provides a mechanism for ensuring that the firmware
 will only load signed bootloaders and kernels.  Certain use cases may
@@ -9,26 +9,27 @@ also require that all kernel modules also be signed.  Add a
 configuration option that to lock down the kernel - which includes
 requiring validly signed modules - if the kernel is secure-booted.
 
+Upstream Status: RHEL only
 Signed-off-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Jeremy Cline <jcline@redhat.com>
 ---
- arch/x86/kernel/setup.c   |    8 ++++++++
- security/lockdown/Kconfig |   13 +++++++++++++
- 2 files changed, 21 insertions(+), 0 deletions(-)
+ arch/x86/kernel/setup.c   |  8 ++++++++
+ security/lockdown/Kconfig | 13 +++++++++++++
+ 2 files changed, 21 insertions(+)
 
 diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 04100a9..954d526 100644
+index 0ff0feb..4e34dec 100644
 --- a/arch/x86/kernel/setup.c
 +++ b/arch/x86/kernel/setup.c
-@@ -17,6 +17,7 @@
- #include <linux/root_dev.h>
+@@ -19,6 +19,7 @@
  #include <linux/sfi.h>
+ #include <linux/hugetlb.h>
  #include <linux/tboot.h>
 +#include <linux/security.h>
  #include <linux/usb/xhci-dbgp.h>
- 
- #include <uapi/linux/mount.h>
-@@ -973,6 +974,13 @@ void __init setup_arch(char **cmdline_p)
+ #include <linux/static_call.h>
+ #include <linux/swiotlb.h>
+@@ -960,6 +961,13 @@ void __init setup_arch(char **cmdline_p)
  	if (efi_enabled(EFI_BOOT))
  		efi_init();
  
@@ -67,5 +68,5 @@ index e84ddf4..d050135 100644
  	prompt "Kernel default lockdown mode"
  	default LOCK_DOWN_KERNEL_FORCE_NONE
 -- 
-1.7.1
+1.8.3.1
 

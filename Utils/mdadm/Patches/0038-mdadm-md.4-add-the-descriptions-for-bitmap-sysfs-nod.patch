@@ -1,7 +1,8 @@
 From e53cb968691d9e40d83caf5570da3bb7b83c64e1 Mon Sep 17 00:00:00 2001
 From: Guoqing Jiang <gqjiang@suse.com>
 Date: Fri, 31 May 2019 10:10:00 +0800
-Subject: [PATCH 38/73] mdadm/md.4: add the descriptions for bitmap sysfs nodes
+Subject: [PATCH 038/131] mdadm/md.4: add the descriptions for bitmap sysfs
+ nodes
 
 The sysfs nodes under bitmap are not recorded in md.4,
 add them based on md.rst and kernel source code.

@@ -92,30 +92,38 @@ AtomLinux_Grub2LdrName=alldr
 AtomLinux_LinuxKernelParameter=""
 #Variable
 
+#SBAT Variable
+AtomLinux_SBAT_DISTRO_ID=atomlinux
+AtomLinux_SBAT_DISTRO_NAME=The aton linux project
+AtomLinux_SBAT_URL=https://github.com/haobinnan
+#SBAT Variable
+
 #Certificate Variable
 AtomLinux_CertificatePath=null
 AtomLinux_CertificateName=null
 #Certificate Variable
 
 #Shim
-AtomLinux_ShimVNumber=15
-AtomLinux_ShimURL=https://github.com/rhboot/shim/archive/
+AtomLinux_ShimVNumber=15.4
+AtomLinux_ShimURL=https://github.com/rhboot/shim.git
 #Shim
 
 #Grub2
-AtomLinux_Grub2VNumber=2.04-7
-AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
-#AtomLinux_Grub2VNumber=import/2.02+dfsg1-5ubuntu4
-#AtomLinux_Grub2URL=git://git.launchpad.net/ubuntu/+source/grub2
+AtomLinux_Grub2UPSTREAMVNumber=2.04
+
+#AtomLinux_Grub2VNumber=2.04-8
+#AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
+AtomLinux_Grub2VNumber=import/2.04-1ubuntu45
+AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.6.12
+AtomLinux_LinuxKernelVNumber=5.10.29
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
 #BusyBox
-AtomLinux_BusyBoxVNumber=1.31.1
+AtomLinux_BusyBoxVNumber=1.32.1
 AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 #BusyBox
 
@@ -147,12 +155,12 @@ AtomLinux_DislockerURL=https://codeload.github.com/Aorimn/dislocker/
 #Utils - dislocker
 
 #Utils - Dropbear SSH
-AtomLinux_DropbearSSHVNumber=2019.78
+AtomLinux_DropbearSSHVNumber=2020.81
 AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
 #Utils - Dropbear SSH
 
 #Utils - hdparm
-AtomLinux_HdparmVNumber=9.58
+AtomLinux_HdparmVNumber=9.60
 AtomLinux_HdparmURL=https://jaist.dl.sourceforge.net/project/hdparm/hdparm/
 #Utils - hdparm
 
@@ -167,7 +175,7 @@ AtomLinux_Ntfs3gURL=https://tuxera.com/opensource/
 #Utils - ntfs-3g
 
 #Lib - gnu-efi
-AtomLinux_GnuEFIVNumber=3.0.9
+AtomLinux_GnuEFIVNumber=3.0.13
 AtomLinux_GnuEFIURL=https://jaist.dl.sourceforge.net/project/gnu-efi/
 #Lib - gnu-efi
 
@@ -182,8 +190,5 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=edk2-stable202002
-AtomLinux_OvmfURL=https://github.com/tianocore/edk2/archive/
-AtomLinux_OvmfOpenSSLVNumber=OpenSSL_1_1_1c
-AtomLinux_OvmfOpenSSLURL=https://github.com/openssl/openssl/archive/
+AtomLinux_OvmfVNumber=edk2-stable202102
 #ovmf

@@ -1,7 +1,7 @@
 From 12724c018c964596aa277489fd287d5c3506361a Mon Sep 17 00:00:00 2001
 From: Tkaczyk Mariusz <mariusz.tkaczyk@intel.com>
 Date: Fri, 17 Apr 2020 13:55:55 +0200
-Subject: [PATCH 73/73] Manage, imsm: Write metadata before add
+Subject: [PATCH 073/131] Manage, imsm: Write metadata before add
 
 New drive in container always appears as spare. Manager is able to
 handle that, and queues appropriative update to monitor.

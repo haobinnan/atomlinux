@@ -1,7 +1,7 @@
 From 1a1ced1e2e64a6b4b349a3fb559f6b39e4cf7103 Mon Sep 17 00:00:00 2001
 From: Krzysztof Smolinski <krzysztof.smolinski@intel.com>
 Date: Fri, 8 Nov 2019 11:59:11 +0100
-Subject: [PATCH 43/73] imsm: allow to specify second volume size
+Subject: [PATCH 043/131] imsm: allow to specify second volume size
 
 Removed checks which limited second volume size only to max value (the
 largest size that fits on all current drives). It is now permitted

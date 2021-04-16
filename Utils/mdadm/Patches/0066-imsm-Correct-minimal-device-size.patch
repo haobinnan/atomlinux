@@ -1,7 +1,7 @@
 From 06a6101c0a4d2658798dc42f461ace8e6900f840 Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Wed, 11 Mar 2020 15:40:13 +0100
-Subject: [PATCH 66/73] imsm: Correct minimal device size.
+Subject: [PATCH 066/131] imsm: Correct minimal device size.
 
 Check if given size of member drive is not less than 1 MibiByte.
 

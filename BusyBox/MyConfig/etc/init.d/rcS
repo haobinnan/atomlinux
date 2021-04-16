@@ -1,6 +1,6 @@
 #! /bin/sh
 
-mount -a
+/bin/mount -a
 
 #echo 0 > /proc/sys/kernel/printk
 

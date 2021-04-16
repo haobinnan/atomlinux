@@ -7,15 +7,11 @@ fi
 
 #Load from VariableSetting file
 AtomLinux_OvmfVNumber="$(grep -i ^AtomLinux_OvmfVNumber ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_DownloadURL="$(grep -i ^AtomLinux_OvmfURL ../VariableSetting | cut -f2 -d'=')"
 
 AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_OvmfOpenSSLVNumber="$(grep -i ^AtomLinux_OvmfOpenSSLVNumber ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_OvmfOpenSSLURL="$(grep -i ^AtomLinux_OvmfOpenSSLURL ../VariableSetting | cut -f2 -d'=')"
 #Load from VariableSetting file
 
 OBJ_PROJECT=ovmf
-FILENAME=${AtomLinux_OvmfVNumber}.tar.gz
 
 #Clean
 function clean_ovmf()
@@ -32,94 +28,29 @@ if test $1 && [ $1 = "clean" ]; then
 fi
 #Clean
 
-#Download Source Code
-if [ ! -f ./${FILENAME} ]; then
-    #Check if necessary tools are installed
-    if [ -z $(which wget) ]; then
-        echo "wget is not installed."
-        exit 1
-    fi
-    #Check if necessary tools are installed
-    wget ${AtomLinux_DownloadURL}${FILENAME}
-    if [ ! $? -eq 0 ]; then
-        echo "Error: Download ovmf ."
-        exit 1
-    fi
-    #Check if it is downloaded successfully
-    if [ ! -f ./${FILENAME} ]; then
-        echo "Error: Download ovmf ."
-        exit 1
-    fi
-fi
-#Download Source Code
-
 clean_ovmf
+
 mkdir ${OBJ_PROJECT}-tmp
-tar xzvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
-#Check Decompression
+cd ./${OBJ_PROJECT}-tmp
+
+git clone --branch ${AtomLinux_OvmfVNumber} https://github.com/tianocore/edk2.git
+#Check git clone
 if [ ! $? -eq 0 ]; then
-    echo "Error: Decompression ovmf ."
+    echo "Error: git clone ovmf ."
     exit 1
 fi
-#Check Decompression
-
-#OpenSSL
-if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
-    FILENAME=${AtomLinux_OvmfOpenSSLVNumber}.tar.gz
-
-    #Download Source Code
-    if [ ! -f ./${FILENAME} ]; then
-        #Check if necessary tools are installed
-        if [ -z $(which wget) ]; then
-            echo "wget is not installed."
-            exit 1
-        fi
-        #Check if necessary tools are installed
-        wget ${AtomLinux_OvmfOpenSSLURL}${FILENAME}
-        if [ ! $? -eq 0 ]; then
-            echo "Error: Download ovmf_openssl ."
-            exit 1
-        fi
-        #Check if it is downloaded successfully
-        if [ ! -f ./${FILENAME} ]; then
-            echo "Error: Download ovmf_openssl ."
-            exit 1
-        fi
-    fi
-    #Download Source Code
-
-    tar xzvf ./${FILENAME} -C ./${OBJ_PROJECT}-tmp
-    #Check Decompression
-    if [ ! $? -eq 0 ]; then
-        echo "Error: Decompression ovmf_openssl ."
-        exit 1
-    fi
-    #Check Decompression
-
-    rm -rf ./${OBJ_PROJECT}-tmp/*-${AtomLinux_OvmfVNumber}/CryptoPkg/Library/OpensslLib/openssl
-    mv ./${OBJ_PROJECT}-tmp/openssl-*/ ./${OBJ_PROJECT}-tmp/edk2-${AtomLinux_OvmfVNumber}/CryptoPkg/Library/OpensslLib/openssl/
+#Check git clone
+cd edk2
+git submodule update --init
+#Check git clone
+if [ ! $? -eq 0 ]; then
+    echo "Error: git clone ovmf - submodule ."
+    exit 1
 fi
-#OpenSSL
+#Check git clone
+cd ../../
 
-#Patches
-if [ -d ./Patches ]; then
-    cd ./${OBJ_PROJECT}-tmp/*-${AtomLinux_OvmfVNumber}
-    for file in $(ls ../../Patches);
-    do
-        echo -e "\033[31m$file\033[0m"
-        patch -p1 < ../../Patches/$file
-        #Check patch
-        if [ ! $? -eq 0 ]; then
-            echo "Error: patch (ovmf) ."
-            exit 1
-        fi
-        #Check patch
-    done
-    cd ../../
-fi
-#Patches
-
-cd ./${OBJ_PROJECT}-tmp/*-${AtomLinux_OvmfVNumber}
+cd ./${OBJ_PROJECT}-tmp/edk2
 
 #IA32
 if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then

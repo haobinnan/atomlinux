@@ -1,0 +1,75 @@
+From dc95f821ec58be8bccffc0858edca2d12fecef72 Mon Sep 17 00:00:00 2001
+From: Jakub Radtke <jakub.radtke@intel.com>
+Date: Fri, 15 Jan 2021 00:46:58 -0500
+Subject: [PATCH 123/131] Add "bitmap" to allowed command-line values
+
+Currently, the sysfs interface allows bitmap setup only when volume
+is in an inactive state.
+For external metadata to add bitmap to existing volume instead of
+GROW, the UPDATE operation can be done.
+The patch adds a "bitmap" argument to the allowed values for UPDATE.
+
+Signed-off-by: Jakub Radtke <jakub.radtke@intel.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ mdadm.8.in | 13 +++++++++++--
+ mdadm.c    |  4 +++-
+ 2 files changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/mdadm.8.in b/mdadm.8.in
+index 34a93a8..c89d901 100644
+--- a/mdadm.8.in
++++ b/mdadm.8.in
+@@ -2408,9 +2408,11 @@ or
+ .B \-\-update=
+ option. The supported options are
+ .BR name ,
+-.B ppl
++.BR ppl ,
++.BR no\-ppl ,
++.BR bitmap
+ and
+-.BR no\-ppl .
++.BR no\-bitmap .
+ 
+ The
+ .B name
+@@ -2428,6 +2430,13 @@ and
+ options enable and disable PPL in the metadata. Currently supported only for
+ IMSM subarrays.
+ 
++The
++.B bitmap
++and
++.B no\-bitmap
++options enable and disable write-intent bitmap in the metadata. Currently supported only for
++IMSM subarrays.
++
+ .TP
+ .B \-\-examine
+ The device should be a component of an md array.
+diff --git a/mdadm.c b/mdadm.c
+index 493d70e..9a4317d 100644
+--- a/mdadm.c
++++ b/mdadm.c
+@@ -779,6 +779,8 @@ int main(int argc, char *argv[])
+ 				continue;
+ 			if (strcmp(c.update, "devicesize") == 0)
+ 				continue;
++			if (strcmp(c.update, "bitmap") == 0)
++				continue;
+ 			if (strcmp(c.update, "no-bitmap") == 0)
+ 				continue;
+ 			if (strcmp(c.update, "bbl") == 0)
+@@ -827,7 +829,7 @@ int main(int argc, char *argv[])
+ 			fprintf(outf, "Valid --update options are:\n"
+ 		"     'sparc2.2', 'super-minor', 'uuid', 'name', 'nodes', 'resync',\n"
+ 		"     'summaries', 'homehost', 'home-cluster', 'byteorder', 'devicesize',\n"
+-		"     'no-bitmap', 'metadata', 'revert-reshape'\n"
++		"     'bitmap', 'no-bitmap', 'metadata', 'revert-reshape'\n"
+ 		"     'bbl', 'no-bbl', 'force-no-bbl', 'ppl', 'no-ppl'\n"
+ 		"     'layout-original', 'layout-alternate', 'layout-unspecified'\n"
+ 				);
+-- 
+2.25.1
+

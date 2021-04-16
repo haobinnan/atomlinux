@@ -1,7 +1,7 @@
 From 1bed40c7c8ff9419cfa14557f582b7d2670e2c5c Mon Sep 17 00:00:00 2001
 From: haobinnan <haobinnan@gmail.com>
 Date: Fri, 16 Aug 2019 10:21:31 +0800
-Subject: [PATCH 2/4] Fixed an issue that NTFS volume size was incorrect (one
+Subject: [PATCH 2/6] Fixed an issue that NTFS volume size was incorrect (one
  sector smaller) after the drive was unlocked.
 
 ---
@@ -24,5 +24,5 @@ index a38cabb..48b61d5 100644
  
  		dis_free(input);
 -- 
-2.17.1
+2.25.1
 

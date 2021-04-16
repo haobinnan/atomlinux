@@ -1,0 +1,51 @@
+From db5377883fef8655aac56b5d7ce5408f8ae494e0 Mon Sep 17 00:00:00 2001
+From: Xiao Ni <xni@redhat.com>
+Date: Tue, 9 Feb 2021 17:39:51 +0800
+Subject: [PATCH 118/131] It should be FAILED when raid has not enough active
+ disks
+
+It can't remove the disk if there are not enough disks. For example, raid5 can't remove the
+second disk. If the second disk is unplug from machine, it's better show missing and the raid
+should be FAILED. It's better for administrator to monitor the raid.
+
+Signed-off-by: Xiao Ni <xni@redhat.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ Detail.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/Detail.c b/Detail.c
+index f8dea6f..cd26fb0 100644
+--- a/Detail.c
++++ b/Detail.c
+@@ -355,9 +355,14 @@ int Detail(char *dev, struct context *c)
+ 	avail = xcalloc(array.raid_disks, 1);
+ 
+ 	for (d = 0; d < array.raid_disks; d++) {
+-
+-		if ((disks[d*2].state & (1<<MD_DISK_SYNC)) ||
+-		    (disks[d*2+1].state & (1<<MD_DISK_SYNC))) {
++		char *dv, *dv_rep;
++		dv = map_dev_preferred(disks[d*2].major,
++				disks[d*2].minor, 0, c->prefer);
++		dv_rep = map_dev_preferred(disks[d*2+1].major,
++				disks[d*2+1].minor, 0, c->prefer);
++
++		if ((dv && (disks[d*2].state & (1<<MD_DISK_SYNC))) ||
++		    (dv_rep && (disks[d*2+1].state & (1<<MD_DISK_SYNC)))) {
+ 			avail_disks ++;
+ 			avail[d] = 1;
+ 		} else
+@@ -789,7 +794,8 @@ This is pretty boring
+ 						       &max_devices, n_devices);
+ 			else
+ 				printf("   %s", dv);
+-		}
++		} else if (disk.major | disk.minor)
++			printf("   missing");
+ 		if (!c->brief)
+ 			printf("\n");
+ 	}
+-- 
+2.25.1
+

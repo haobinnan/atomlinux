@@ -1,7 +1,8 @@
-From 8c677d3ee7cf471abf80a7ca9ec01e98b0b29fd6 Mon Sep 17 00:00:00 2001
+From b80ef55b74a07a01d3a0808af89bb62b1b70362c Mon Sep 17 00:00:00 2001
 From: David Howells <dhowells@redhat.com>
 Date: Tue, 27 Feb 2018 10:04:55 +0000
-Subject: [PATCH 04/73] efi: Add an EFI_SECURE_BOOT flag to indicate secure boot mode
+Subject: [PATCH 16/40] efi: Add an EFI_SECURE_BOOT flag to indicate secure
+ boot mode
 
 UEFI machines can be booted in Secure Boot mode.  Add an EFI_SECURE_BOOT
 flag that can be passed to efi_enabled() to find out whether secure boot is
@@ -10,6 +11,7 @@ enabled.
 Move the switch-statement in x86's setup_arch() that inteprets the
 secure_boot boot parameter to generic code and set the bit there.
 
+Upstream Status: RHEL only
 Suggested-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 Signed-off-by: David Howells <dhowells@redhat.com>
 Reviewed-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
@@ -17,18 +19,18 @@ cc: linux-efi@vger.kernel.org
 [Rebased for context; efi_is_table_address was moved to arch/x86]
 Signed-off-by: Jeremy Cline <jcline@redhat.com>
 ---
- arch/x86/kernel/setup.c           |   14 +------------
- drivers/firmware/efi/Makefile     |    1 +
- drivers/firmware/efi/secureboot.c |   38 +++++++++++++++++++++++++++++++++++++
- include/linux/efi.h               |   18 +++++++++++-----
+ arch/x86/kernel/setup.c           | 14 +-------------
+ drivers/firmware/efi/Makefile     |  1 +
+ drivers/firmware/efi/secureboot.c | 38 ++++++++++++++++++++++++++++++++++++++
+ include/linux/efi.h               | 18 ++++++++++++------
  4 files changed, 52 insertions(+), 19 deletions(-)
  create mode 100644 drivers/firmware/efi/secureboot.c
 
 diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index a74262c..04100a9 100644
+index 84f581c..0ff0feb 100644
 --- a/arch/x86/kernel/setup.c
 +++ b/arch/x86/kernel/setup.c
-@@ -1124,19 +1124,7 @@ void __init setup_arch(char **cmdline_p)
+@@ -1112,19 +1112,7 @@ void __init setup_arch(char **cmdline_p)
  	/* Allocate bigger log buffer */
  	setup_log_buf(1);
  
@@ -50,20 +52,20 @@ index a74262c..04100a9 100644
  	reserve_initrd();
  
 diff --git a/drivers/firmware/efi/Makefile b/drivers/firmware/efi/Makefile
-index 554d795..d2e17e2 100644
+index d6ca2da..7c30a62 100644
 --- a/drivers/firmware/efi/Makefile
 +++ b/drivers/firmware/efi/Makefile
-@@ -24,6 +24,7 @@ obj-$(CONFIG_EFI_FAKE_MEMMAP)		+= fake_map.o
+@@ -25,6 +25,7 @@ obj-$(CONFIG_EFI_FAKE_MEMMAP)		+= fake_map.o
  obj-$(CONFIG_EFI_BOOTLOADER_CONTROL)	+= efibc.o
  obj-$(CONFIG_EFI_TEST)			+= test/
  obj-$(CONFIG_EFI_DEV_PATH_PARSER)	+= dev-path-parser.o
 +obj-$(CONFIG_EFI)			+= secureboot.o
  obj-$(CONFIG_APPLE_PROPERTIES)		+= apple-properties.o
  obj-$(CONFIG_EFI_RCI2_TABLE)		+= rci2-table.o
- 
+ obj-$(CONFIG_EFI_EMBEDDED_FIRMWARE)	+= embedded-firmware.o
 diff --git a/drivers/firmware/efi/secureboot.c b/drivers/firmware/efi/secureboot.c
 new file mode 100644
-index 0000000..de0a371
+index 00000000..de0a371
 --- /dev/null
 +++ b/drivers/firmware/efi/secureboot.c
 @@ -0,0 +1,38 @@
@@ -106,14 +108,14 @@ index 0000000..de0a371
 +	}
 +}
 diff --git a/include/linux/efi.h b/include/linux/efi.h
-index 5062683..6ae0e02 100644
+index 6359978..c2af576 100644
 --- a/include/linux/efi.h
 +++ b/include/linux/efi.h
-@@ -1126,6 +1126,14 @@ static inline int efi_range_is_wc(unsigned long start, unsigned long len)
- #define EFI_NX_PE_DATA		9	/* Can runtime data regions be mapped non-executable? */
+@@ -788,6 +788,14 @@ static inline int efi_range_is_wc(unsigned long start, unsigned long len)
  #define EFI_MEM_ATTR		10	/* Did firmware publish an EFI_MEMORY_ATTRIBUTES table? */
  #define EFI_MEM_NO_SOFT_RESERVE	11	/* Is the kernel configured to ignore soft reservations? */
-+#define EFI_SECURE_BOOT		12	/* Are we in Secure Boot mode? */
+ #define EFI_PRESERVE_BS_REGIONS	12	/* Are EFI boot-services memory segments available? */
++#define EFI_SECURE_BOOT		13	/* Are we in Secure Boot mode? */
 +
 +enum efi_secureboot_mode {
 +	efi_secureboot_mode_unset,
@@ -124,7 +126,7 @@ index 5062683..6ae0e02 100644
  
  #ifdef CONFIG_EFI
  /*
-@@ -1137,6 +1145,8 @@ static inline bool efi_enabled(int feature)
+@@ -799,6 +807,8 @@ static inline bool efi_enabled(int feature)
  }
  extern void efi_reboot(enum reboot_mode reboot_mode, const char *__unused);
  
@@ -133,7 +135,7 @@ index 5062683..6ae0e02 100644
  bool __pure __efi_soft_reserve_enabled(void);
  
  static inline bool __pure efi_soft_reserve_enabled(void)
-@@ -1158,6 +1168,8 @@ static inline bool efi_enabled(int feature)
+@@ -825,6 +835,8 @@ static inline bool efi_enabled(int feature)
  	return false;
  }
  
@@ -142,7 +144,7 @@ index 5062683..6ae0e02 100644
  static inline bool efi_soft_reserve_enabled(void)
  {
  	return false;
-@@ -1541,12 +1553,6 @@ efi_status_t efi_setup_gop(struct screen_info *si, efi_guid_t *proto,
+@@ -1086,12 +1098,6 @@ static inline int efi_runtime_map_copy(void *buf, size_t bufsz)
  extern void efi_call_virt_check_flags(unsigned long flags, const char *call);
  extern unsigned long efi_call_virt_save_flags(void);
  
@@ -156,5 +158,5 @@ index 5062683..6ae0e02 100644
  
  #ifdef CONFIG_RESET_ATTACK_MITIGATION
 -- 
-1.7.1
+1.8.3.1
 

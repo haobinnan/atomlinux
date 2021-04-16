@@ -1,8 +1,8 @@
 From 0833f9c3dbaaee202b92ea956f9e2decc7b9593a Mon Sep 17 00:00:00 2001
 From: Gioh Kim <gi-oh.kim@profitbricks.com>
 Date: Tue, 6 Nov 2018 15:27:42 +0100
-Subject: [PATCH 01/73] Assemble: keep MD_DISK_FAILFAST and MD_DISK_WRITEMOSTLY
- flag
+Subject: [PATCH 001/131] Assemble: keep MD_DISK_FAILFAST and
+ MD_DISK_WRITEMOSTLY flag
 
 Before updating superblock of slave disks, desired_state value
 is set for the target state of the slave disks. But it forgets

@@ -1,7 +1,7 @@
 From 4431efebabd0dd39f33dc1dd8ada312b8da1c9d8 Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Thu, 16 Jan 2020 09:34:44 +0100
-Subject: [PATCH 59/73] imsm: Update grow manual.
+Subject: [PATCH 059/131] imsm: Update grow manual.
 
 Update --grow option description in manual, according to
 the supported grow operations by IMSM.
