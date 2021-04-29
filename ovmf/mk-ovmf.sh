@@ -54,7 +54,7 @@ cd ./${OBJ_PROJECT}-tmp/edk2
 
 #IA32
 if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
-    OvmfPkg/build.sh -a IA32 -b RELEASE -DSECURE_BOOT_ENABLE=TRUE
+    OvmfPkg/build.sh -a IA32 -b RELEASE -DSECURE_BOOT_ENABLE
 else
     OvmfPkg/build.sh -a IA32 -b RELEASE
 fi
@@ -67,7 +67,7 @@ cp -v Build/OvmfIa32/RELEASE_GCC*/FV/OVMF_VARS.fd ../../OVMF_VARS_IA32.fd
 
 #X64
 if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
-    OvmfPkg/build.sh -a X64 -b RELEASE -DSECURE_BOOT_ENABLE=TRUE
+    OvmfPkg/build.sh -a X64 -b RELEASE -DSECURE_BOOT_ENABLE
 else
     OvmfPkg/build.sh -a X64 -b RELEASE
 fi

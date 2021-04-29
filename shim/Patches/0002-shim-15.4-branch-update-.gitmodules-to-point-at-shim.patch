@@ -1,0 +1,29 @@
+From a0f701501f73a0aabd1ef8d568183d05611b0a52 Mon Sep 17 00:00:00 2001
+From: Peter Jones <pjones@redhat.com>
+Date: Wed, 31 Mar 2021 09:44:53 -0400
+Subject: [PATCH 2/4] shim-15.4 branch: update .gitmodules to point at
+ shim-15.4 in gnu-efi
+
+This is purely superficial, as the commit points at the shim-15.4 branch
+already, but some people have found it confusing.
+
+This fixes issue #356.
+
+Signed-off-by: Peter Jones <pjones@redhat.com>
+---
+ .gitmodules | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/.gitmodules b/.gitmodules
+index 2ad8bb8..8fc92a7 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -1,4 +1,4 @@
+ [submodule "gnu-efi"]
+ 	path = gnu-efi
+ 	url = https://github.com/rhboot/gnu-efi.git
+-	branch = shim-15.3
++	branch = shim-15.4
+-- 
+2.25.1
+

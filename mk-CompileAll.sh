@@ -341,7 +341,7 @@ function Build_ovmf()
     fi
     #Check
 
-    gnome-terminal --tab --title="QEMU EnrollDefaultKeys" -- ./EnrollDefaultKeys.sh
+    gnome-terminal --tab --title="QEMU - Import Secure Boot Keys" -- ./ImportSecureBootKeys.sh
 
     cd ../
 }

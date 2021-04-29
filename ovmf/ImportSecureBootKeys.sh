@@ -15,7 +15,8 @@ echo "Press Enter to continue."
 
 read answer
 
-QEMURunParameter="-smp 2 -m 256M -vga qxl -drive format=raw,file=./EnrollDefaultKeys.img"
+QEMURunParameter="-smp 2 -m 256M -vga qxl -drive format=raw,file=fat:rw:SecureBootKeys"
+
 if [ -c /dev/kvm ]; then
     QEMURunParameter=${QEMURunParameter}" -enable-kvm"
 else

@@ -33,7 +33,7 @@ OBJ_PROJECT=shim
 function clean_shim()
 {
     rm -f ./*.log
-    rm -rf ./shim_result
+    rm -rf ./${OBJ_PROJECT}_result
 
     rm -rf ${OBJ_PROJECT}-tmp
 }
@@ -76,18 +76,33 @@ fi
 cd ../../
 #git clone Source Code
 
+#Patches
+if [ -d ./Patches ]; then
+    cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}
+    for file in $(ls ../../Patches);
+    do
+        echo -e "\033[31m$file\033[0m"
+        patch -p1 < ../../Patches/$file
+        #Check patch
+        if [ ! $? -eq 0 ]; then
+            echo "Error: patch (shim) ."
+            exit 1
+        fi
+        #Check patch
+    done
+    cd ../../
+fi
+#Patches
+
 #function
 function build()
 {
     ARCH=$1
     NAME=$2
-    DEL=$3
 
     cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}
 
-    if [ ${DEL} = "TRUE" ]; then
-        make clean
-    fi
+    make clean
 
     #sbat.csv
     echo 'shim.'${AtomLinux_SBAT_DISTRO_ID}',1,'${AtomLinux_SBAT_DISTRO_NAME}','${OBJ_PROJECT}','${AtomLinux_ShimVNumber}','${AtomLinux_SBAT_URL} > ./data/sbat.${AtomLinux_SBAT_DISTRO_ID}.csv
@@ -108,12 +123,10 @@ function build()
     cp -v ./*${NAME}.efi ../../${OBJ_PROJECT}_result/
     cp -v ./*${NAME}.efi.* ../../${OBJ_PROJECT}_result/
 
-    #cab & sha256sum
-    DATE=`date --date='0 days ago' +%Y%m%d`
-    lcab shim${NAME}.efi ../../${OBJ_PROJECT}_result/shim${NAME}_v${AtomLinux_ShimVNumber}_${DATE}.cab
+    #sha256sum
     SHA256SUM=$(sha256sum -b ./shim${NAME}.efi | awk '{print $1}')
     echo ${SHA256SUM} > ../../${OBJ_PROJECT}_result/shim${NAME}.efi.sha256sum
-    #cab & sha256sum
+    #sha256sum
 
     #Copy Certificate
     if [ $UseExistingCertificate = "no" ]; then
@@ -131,15 +144,22 @@ function build()
 #function
 
 #x86
-build ia32 ia32 FALSE
+build ia32 ia32
 #x86
 
 echo "-------------------------------------------------------------"
 
 #x86_64
-build x86_64 x64 TRUE
+build x86_64 x64
 #x86_64
 
 rm -rf ${OBJ_PROJECT}-tmp
+
+#cab
+DATE=`date --date='0 days ago' +%Y%m%d`
+cd ./${OBJ_PROJECT}_result
+lcab shim*.efi shim_v${AtomLinux_ShimVNumber}_${DATE}.cab
+cd ..
+#cab
 
 echo "Complete."

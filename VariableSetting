@@ -118,7 +118,7 @@ AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.10.29
+AtomLinux_LinuxKernelVNumber=5.10.32
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
@@ -160,7 +160,7 @@ AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
 #Utils - Dropbear SSH
 
 #Utils - hdparm
-AtomLinux_HdparmVNumber=9.60
+AtomLinux_HdparmVNumber=9.61
 AtomLinux_HdparmURL=https://jaist.dl.sourceforge.net/project/hdparm/hdparm/
 #Utils - hdparm
 
