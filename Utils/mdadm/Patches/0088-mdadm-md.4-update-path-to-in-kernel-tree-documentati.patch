@@ -1,7 +1,7 @@
 From 5e592e1ed809b94670872b7a4629317fc1c8a5c1 Mon Sep 17 00:00:00 2001
 From: Winston Weinert <winston@ml1.net>
 Date: Wed, 22 Jul 2020 08:33:22 -0500
-Subject: [PATCH 088/131] mdadm/md.4: update path to in-kernel-tree
+Subject: [PATCH 088/136] mdadm/md.4: update path to in-kernel-tree
  documentation
 
 Documentation/md.txt was renamed to Documentation/admin-guide/md.rst
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/md.4 b/md.4
-index 0712af2..aecff38 100644
+index 0712af25..aecff38a 100644
 --- a/md.4
 +++ b/md.4
 @@ -1061,7 +1061,7 @@ which contains various files for providing access to information about

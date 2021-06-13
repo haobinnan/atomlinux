@@ -1,7 +1,7 @@
 From b4a5ad4958cb3ad87c3c5fa993e7572c38596d09 Mon Sep 17 00:00:00 2001
 From: Kinga Tanska <kinga.tanska@intel.com>
 Date: Thu, 22 Oct 2020 14:22:29 +0200
-Subject: [PATCH 105/131] Make target to install binaries only
+Subject: [PATCH 105/136] Make target to install binaries only
 
 Make install causes installation of binaries, udev and man.
 This commit contains new target make install-bin, which
@@ -13,7 +13,7 @@ Signed-off-by: Kinga Tanska <kinga.tanska@intel.com>
  1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 15d05d1..4cd4c9d 100644
+index 15d05d14..4cd4c9d8 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -245,9 +245,7 @@ $(MON_OBJS) : $(INCL) mdmon.h

@@ -1,7 +1,7 @@
 From d92cee7b374db9944b63bdd6c1784a2dd90ee9ca Mon Sep 17 00:00:00 2001
 From: Guoqing Jiang <guoqing.jiang@cloud.ionos.com>
 Date: Mon, 18 May 2020 23:53:36 +0200
-Subject: [PATCH 081/131] =?UTF-8?q?restripe:=20fix=20ignoring=20return=20v?=
+Subject: [PATCH 081/136] =?UTF-8?q?restripe:=20fix=20ignoring=20return=20v?=
  =?UTF-8?q?alue=20of=20=E2=80=98read=E2=80=99=20and=20lseek?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -26,7 +26,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/restripe.c b/restripe.c
-index 31b07e8..86e1d00 100644
+index 31b07e89..86e1d00b 100644
 --- a/restripe.c
 +++ b/restripe.c
 @@ -866,8 +866,16 @@ int test_stripes(int *source, unsigned long long *offsets,

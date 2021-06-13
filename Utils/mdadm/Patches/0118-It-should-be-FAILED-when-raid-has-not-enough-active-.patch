@@ -1,7 +1,7 @@
 From db5377883fef8655aac56b5d7ce5408f8ae494e0 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Tue, 9 Feb 2021 17:39:51 +0800
-Subject: [PATCH 118/131] It should be FAILED when raid has not enough active
+Subject: [PATCH 118/136] It should be FAILED when raid has not enough active
  disks
 
 It can't remove the disk if there are not enough disks. For example, raid5 can't remove the
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/Detail.c b/Detail.c
-index f8dea6f..cd26fb0 100644
+index f8dea6fd..cd26fb0f 100644
 --- a/Detail.c
 +++ b/Detail.c
 @@ -355,9 +355,14 @@ int Detail(char *dev, struct context *c)

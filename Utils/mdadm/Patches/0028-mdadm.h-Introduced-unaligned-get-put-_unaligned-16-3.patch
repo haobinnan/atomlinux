@@ -1,7 +1,7 @@
 From 7039d1f8200b9599b23db5953934fdb43b0442e0 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Tue, 9 Jul 2019 14:15:38 -0400
-Subject: [PATCH 028/131] mdadm.h: Introduced unaligned
+Subject: [PATCH 028/136] mdadm.h: Introduced unaligned
  {get,put}_unaligned{16,32}()
 
 We need these to avoid gcc9 going all crazy on us.
@@ -12,7 +12,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 30 insertions(+)
 
 diff --git a/mdadm.h b/mdadm.h
-index 427cc52..0fa9e1b 100644
+index 427cc523..0fa9e1bd 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -191,6 +191,36 @@ struct dlm_lksb {

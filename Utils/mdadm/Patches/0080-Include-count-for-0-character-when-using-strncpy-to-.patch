@@ -1,7 +1,7 @@
 From 7d90f7603af6b59e7144cef6617a1e9dd42161bd Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Mon, 18 May 2020 20:19:53 -0400
-Subject: [PATCH 080/131] Include count for \0 character when using strncpy to
+Subject: [PATCH 080/136] Include count for \0 character when using strncpy to
  implement strdup.
 
 We have to include the \0 character in the length when copying a
@@ -17,7 +17,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dlink.c b/dlink.c
-index 3efa94b..69aa7aa 100644
+index 3efa94b7..69aa7aa3 100644
 --- a/dlink.c
 +++ b/dlink.c
 @@ -63,7 +63,7 @@ char *dl_strndup(char *s, int l)

@@ -1,7 +1,7 @@
 From 3c9b46cf9ae15a9be98fc47e2080bd9494496246 Mon Sep 17 00:00:00 2001
 From: Liwei Song <liwei.song@windriver.com>
 Date: Tue, 19 Mar 2019 23:51:05 -0400
-Subject: [PATCH 024/131] udev: Add udev rules to create by-partuuid for md
+Subject: [PATCH 024/136] udev: Add udev rules to create by-partuuid for md
  device
 
 This rules will create link under /dev/disk/by-partuuid/ for
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/udev-md-raid-arrays.rules b/udev-md-raid-arrays.rules
-index c95ec7b..5b99d58 100644
+index c95ec7b1..5b99d587 100644
 --- a/udev-md-raid-arrays.rules
 +++ b/udev-md-raid-arrays.rules
 @@ -30,6 +30,7 @@ IMPORT{builtin}="blkid"

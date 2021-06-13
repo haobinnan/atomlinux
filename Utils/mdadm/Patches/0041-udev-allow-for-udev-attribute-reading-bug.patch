@@ -1,7 +1,7 @@
 From 7bd59e7926c6921121087eb067befaa896c900a4 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Wed, 18 Sep 2019 15:12:55 +1000
-Subject: [PATCH 041/131] udev: allow for udev attribute reading bug.
+Subject: [PATCH 041/136] udev: allow for udev attribute reading bug.
 
 There is a bug in udev (which will hopefully get fixed, but
 we should allow for it anways).
@@ -30,7 +30,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/udev-md-raid-arrays.rules b/udev-md-raid-arrays.rules
-index d391665..c8fa8e8 100644
+index d3916651..c8fa8e89 100644
 --- a/udev-md-raid-arrays.rules
 +++ b/udev-md-raid-arrays.rules
 @@ -14,7 +14,7 @@ ENV{DEVTYPE}=="partition", GOTO="md_ignore_state"

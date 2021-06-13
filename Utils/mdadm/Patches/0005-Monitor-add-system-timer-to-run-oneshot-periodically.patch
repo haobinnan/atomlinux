@@ -1,7 +1,7 @@
 From 7cd7e91ab3de5aa75dc963cb08b0618c1885cf0d Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.com>
 Date: Wed, 5 Dec 2018 16:35:00 +1100
-Subject: [PATCH 005/131] Monitor: add system timer to run --oneshot
+Subject: [PATCH 005/136] Monitor: add system timer to run --oneshot
  periodically
 
 "mdadm --monitor --oneshot" can be used to get a warning
@@ -25,7 +25,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  create mode 100644 systemd/mdmonitor-oneshot.timer
 
 diff --git a/Makefile b/Makefile
-index afb62cc..dfe00b0 100644
+index afb62cc6..dfe00b0a 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -279,6 +279,7 @@ install-systemd: systemd/mdmon@.service
@@ -38,7 +38,7 @@ index afb62cc..dfe00b0 100644
  	   $(ECHO) $(INSTALL) -D -m 644 systemd/$$file $(DESTDIR)$(SYSTEMD_DIR)/$$file ; \
 diff --git a/systemd/mdmonitor-oneshot.service b/systemd/mdmonitor-oneshot.service
 new file mode 100644
-index 0000000..fd469b1
+index 00000000..fd469b12
 --- /dev/null
 +++ b/systemd/mdmonitor-oneshot.service
 @@ -0,0 +1,15 @@
@@ -59,7 +59,7 @@ index 0000000..fd469b1
 +ExecStart=BINDIR/mdadm --monitor --oneshot $MDADM_MONITOR_ARGS
 diff --git a/systemd/mdmonitor-oneshot.timer b/systemd/mdmonitor-oneshot.timer
 new file mode 100644
-index 0000000..cb54bda
+index 00000000..cb54bdaa
 --- /dev/null
 +++ b/systemd/mdmonitor-oneshot.timer
 @@ -0,0 +1,15 @@

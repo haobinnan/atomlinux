@@ -1,7 +1,7 @@
 From 757e55435997e355ee9b03e5d913b5496a3c39a8 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Tue, 11 Dec 2018 15:04:07 +0100
-Subject: [PATCH 011/131] policy.c: Fix for compiler error
+Subject: [PATCH 011/136] policy.c: Fix for compiler error
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -19,7 +19,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/policy.c b/policy.c
-index e3a0671..3c53bd3 100644
+index e3a0671f..3c53bd35 100644
 --- a/policy.c
 +++ b/policy.c
 @@ -268,7 +268,7 @@ static int pol_match(struct rule *rule, char **paths, char *type, char **part)

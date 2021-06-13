@@ -1,7 +1,7 @@
 From a64f1263a56bd8653267c1a9800daa0bc993a743 Mon Sep 17 00:00:00 2001
 From: Tkaczyk Mariusz <mariusz.tkaczyk@intel.com>
 Date: Thu, 15 Oct 2020 10:45:29 +0200
-Subject: [PATCH 106/131] udev: start grow service automatically
+Subject: [PATCH 106/136] udev: start grow service automatically
 
 Grow continue via service or fork is started during raid assembly.
 If raid was assembled in initrd it will be newer restarted after
@@ -14,7 +14,7 @@ Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/udev-md-raid-arrays.rules b/udev-md-raid-arrays.rules
-index c8fa8e8..13c9076 100644
+index c8fa8e89..13c9076e 100644
 --- a/udev-md-raid-arrays.rules
 +++ b/udev-md-raid-arrays.rules
 @@ -15,6 +15,7 @@ ENV{DEVTYPE}=="partition", GOTO="md_ignore_state"

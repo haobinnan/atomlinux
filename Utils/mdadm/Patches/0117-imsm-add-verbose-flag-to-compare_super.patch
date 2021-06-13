@@ -1,7 +1,7 @@
 From c7b8547c70035395a02ae4f7a5ec76a46dedb3cb Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Fri, 5 Feb 2021 14:29:58 +0100
-Subject: [PATCH 117/131] imsm: add verbose flag to compare_super
+Subject: [PATCH 117/136] imsm: add verbose flag to compare_super
 
 IMSM does more than comparing metadata and errors reported directly
 from compare_super_imsm can be useful.
@@ -23,7 +23,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  8 files changed, 23 insertions(+), 16 deletions(-)
 
 diff --git a/Assemble.c b/Assemble.c
-index ed0ddfb..48556d8 100644
+index ed0ddfb1..48556d8c 100644
 --- a/Assemble.c
 +++ b/Assemble.c
 @@ -435,7 +435,7 @@ static int select_devices(struct mddev_dev *devlist,
@@ -36,7 +36,7 @@ index ed0ddfb..48556d8 100644
  				 * we can resolve on that one.
  				 * Or, if we are auto assembling, we just ignore the second
 diff --git a/Examine.c b/Examine.c
-index 7013480..4381cd5 100644
+index 7013480d..4381cd56 100644
 --- a/Examine.c
 +++ b/Examine.c
 @@ -130,7 +130,7 @@ int Examine(struct mddev_dev *devlist,
@@ -49,7 +49,7 @@ index 7013480..4381cd5 100644
  			}
  			if (!ap) {
 diff --git a/Incremental.c b/Incremental.c
-index e849bdd..cd9cc0f 100644
+index e849bdda..cd9cc0fc 100644
 --- a/Incremental.c
 +++ b/Incremental.c
 @@ -400,7 +400,7 @@ int Incremental(struct mddev_dev *devlist, struct context *c,
@@ -62,7 +62,7 @@ index e849bdd..cd9cc0f 100644
  				       devname, chosen_name);
  				close(dfd2);
 diff --git a/mdadm.h b/mdadm.h
-index 1ee6c92..60575af 100644
+index 1ee6c92e..60575af0 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -966,7 +966,8 @@ extern struct superswitch {
@@ -76,7 +76,7 @@ index 1ee6c92..60575af 100644
  	 * print error messages as appropriate */
  	int (*load_super)(struct supertype *st, int fd, char *devname);
 diff --git a/super-ddf.c b/super-ddf.c
-index 7cd5702..2314762 100644
+index 7cd5702d..23147620 100644
 --- a/super-ddf.c
 +++ b/super-ddf.c
 @@ -3914,7 +3914,8 @@ static int store_super_ddf(struct supertype *st, int fd)
@@ -90,7 +90,7 @@ index 7cd5702..2314762 100644
  	/*
  	 * return:
 diff --git a/super-intel.c b/super-intel.c
-index c3466d0..98af3b5 100644
+index c3466d0c..98af3b5e 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -3815,7 +3815,8 @@ static void imsm_copy_dev(struct imsm_dev *dest, struct imsm_dev *src)
@@ -141,7 +141,7 @@ index c3466d0..98af3b5 100644
  				 * we can resolve on that one.
  				 * Or, if we are auto assembling, we just ignore the second
 diff --git a/super0.c b/super0.c
-index 6af140b..b79b97a 100644
+index 6af140bb..b79b97a9 100644
 --- a/super0.c
 +++ b/super0.c
 @@ -926,7 +926,8 @@ static int write_init_super0(struct supertype *st)
@@ -155,7 +155,7 @@ index 6af140b..b79b97a 100644
  	/*
  	 * return:
 diff --git a/super1.c b/super1.c
-index 7b03329..c05e623 100644
+index 7b03329d..c05e6237 100644
 --- a/super1.c
 +++ b/super1.c
 @@ -2144,7 +2144,8 @@ out:

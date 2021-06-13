@@ -1,7 +1,7 @@
 From a4f7290c20c2ff78328c9db0b18029165cfb05b2 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Tue, 9 Jul 2019 13:26:08 -0400
-Subject: [PATCH 027/131] super-intel: Fix issue with abs() being irrelevant
+Subject: [PATCH 027/136] super-intel: Fix issue with abs() being irrelevant
 
 gcc9 complains about subtracting unsigned from unsigned and code
 assuming the result can be negative.
@@ -12,7 +12,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 4fd5e84..230e164 100644
+index 4fd5e84d..230e164a 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -2875,7 +2875,7 @@ static unsigned long long calc_component_size(struct imsm_map *map,

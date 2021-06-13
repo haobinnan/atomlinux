@@ -1,0 +1,48 @@
+From 83b3de7795d2a421eb6ae4ab97656a250bb898ea Mon Sep 17 00:00:00 2001
+From: Xiao Ni <xni@redhat.com>
+Date: Fri, 23 Apr 2021 14:01:30 +0800
+Subject: [PATCH 135/136] Fix some building errors
+
+There are some building errors if treating warning as errors.
+Fix them in this patch.
+
+Signed-off-by: Xiao Ni <xni@redhat.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ super-intel.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/super-intel.c b/super-intel.c
+index be0313d5..54699129 100644
+--- a/super-intel.c
++++ b/super-intel.c
+@@ -3192,7 +3192,7 @@ static int imsm_create_metadata_checkpoint_update(
+ 	}
+ 	(*u)->type = update_general_migration_checkpoint;
+ 	(*u)->curr_migr_unit = current_migr_unit(super->migr_rec);
+-	dprintf("prepared for %llu\n", (*u)->curr_migr_unit);
++	dprintf("prepared for %llu\n", (unsigned long long)(*u)->curr_migr_unit);
+ 
+ 	return update_memory_size;
+ }
+@@ -11127,7 +11127,7 @@ int recover_backup_imsm(struct supertype *st, struct mdinfo *info)
+ 			skipped_disks++;
+ 			continue;
+ 		}
+-		if (read(dl_disk->fd, buf, unit_len) != unit_len) {
++		if (read(dl_disk->fd, buf, unit_len) != (ssize_t)unit_len) {
+ 			pr_err("Cannot read copy area block: %s\n",
+ 			       strerror(errno));
+ 			skipped_disks++;
+@@ -11139,7 +11139,7 @@ int recover_backup_imsm(struct supertype *st, struct mdinfo *info)
+ 			skipped_disks++;
+ 			continue;
+ 		}
+-		if (write(dl_disk->fd, buf, unit_len) != unit_len) {
++		if (write(dl_disk->fd, buf, unit_len) != (ssize_t)unit_len) {
+ 			pr_err("Cannot restore block: %s\n",
+ 			       strerror(errno));
+ 			skipped_disks++;
+-- 
+2.25.1
+

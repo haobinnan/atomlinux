@@ -1,7 +1,7 @@
 From 452dc4d13a012cdcb05088c0dbc699959c4d6c73 Mon Sep 17 00:00:00 2001
 From: Baruch Siach <baruch@tkos.co.il>
 Date: Tue, 6 Aug 2019 16:05:23 +0300
-Subject: [PATCH 031/131] mdadm.h: include sysmacros.h unconditionally
+Subject: [PATCH 031/136] mdadm.h: include sysmacros.h unconditionally
 
 musl libc now also requires sys/sysmacros.h for the major/minor macros.
 All supported libc implementations carry sys/sysmacros.h, including
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 2 deletions(-)
 
 diff --git a/mdadm.h b/mdadm.h
-index c36d7fd..d61a9ca 100644
+index c36d7fdb..d61a9ca8 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -45,10 +45,8 @@ extern __off64_t lseek64 __P ((int __fd, __off64_t __offset, int __whence));

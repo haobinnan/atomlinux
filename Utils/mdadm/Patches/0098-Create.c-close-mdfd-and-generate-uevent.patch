@@ -1,7 +1,7 @@
 From ce559078a5650afb9f635204b31a89a1fa0061e3 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Tue, 24 Nov 2020 13:39:49 +0100
-Subject: [PATCH 098/131] Create.c: close mdfd and generate uevent
+Subject: [PATCH 098/136] Create.c: close mdfd and generate uevent
 
 During mdfd closing change event is not generated because open() is
 called before start watching mddevice by udev.
@@ -14,7 +14,7 @@ Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/Create.c b/Create.c
-index 0efa19c..51f8826 100644
+index 0efa19ca..51f8826b 100644
 --- a/Create.c
 +++ b/Create.c
 @@ -1083,12 +1083,9 @@ int Create(struct supertype *st, char *mddev,

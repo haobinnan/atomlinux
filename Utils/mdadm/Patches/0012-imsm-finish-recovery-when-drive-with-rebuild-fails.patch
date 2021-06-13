@@ -1,7 +1,7 @@
 From a4e96fd8f3f0b5416783237c1cb6ee87e7eff23d Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Fri, 8 Feb 2019 11:07:10 +0100
-Subject: [PATCH 012/131] imsm: finish recovery when drive with rebuild fails
+Subject: [PATCH 012/136] imsm: finish recovery when drive with rebuild fails
 
 Commit d7a1fda2769b ("imsm: update metadata correctly while raid10 double
 degradation") resolves main Imsm double degradation problems but it
@@ -30,7 +30,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 11 insertions(+), 15 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index d2035cc..38a1b6c 100644
+index d2035ccd..38a1b6cc 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -8560,26 +8560,22 @@ static void imsm_set_disk(struct active_array *a, int n, int state)

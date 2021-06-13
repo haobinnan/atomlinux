@@ -118,12 +118,12 @@ AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.10.32
+AtomLinux_LinuxKernelVNumber=5.11.21
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
 #BusyBox
-AtomLinux_BusyBoxVNumber=1.32.1
+AtomLinux_BusyBoxVNumber=1.33.1
 AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 #BusyBox
 
@@ -160,7 +160,7 @@ AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
 #Utils - Dropbear SSH
 
 #Utils - hdparm
-AtomLinux_HdparmVNumber=9.61
+AtomLinux_HdparmVNumber=9.62
 AtomLinux_HdparmURL=https://jaist.dl.sourceforge.net/project/hdparm/hdparm/
 #Utils - hdparm
 
@@ -173,11 +173,6 @@ AtomLinux_ExfatURL=https://codeload.github.com/relan/exfat/
 AtomLinux_Ntfs3gVNumber=2017.3.23
 AtomLinux_Ntfs3gURL=https://tuxera.com/opensource/
 #Utils - ntfs-3g
-
-#Lib - gnu-efi
-AtomLinux_GnuEFIVNumber=3.0.13
-AtomLinux_GnuEFIURL=https://jaist.dl.sourceforge.net/project/gnu-efi/
-#Lib - gnu-efi
 
 #Lib - glib
 AtomLinux_GlibVNumber=2.58.3

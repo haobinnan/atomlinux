@@ -1,7 +1,7 @@
 From 6b6112842030309c297a521918d1a2e982426fa3 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.com>
 Date: Fri, 9 Nov 2018 17:12:33 +1100
-Subject: [PATCH 002/131] Document PART-POLICY lines
+Subject: [PATCH 002/136] Document PART-POLICY lines
 
 PART-POLICY has been accepted in mdadm.conf since the same
 time that POLICY was accepted, but it was never documented.
@@ -18,7 +18,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 24 insertions(+), 2 deletions(-)
 
 diff --git a/mdadm.conf.5 b/mdadm.conf.5
-index 18512cb..47c962a 100644
+index 18512cb0..47c962ab 100644
 --- a/mdadm.conf.5
 +++ b/mdadm.conf.5
 @@ -501,7 +501,7 @@ To update hot plug configuration it is necessary to execute
@@ -60,7 +60,7 @@ index 18512cb..47c962a 100644
  DEVICE /dev/sd[bcdjkl]1
  .br
 diff --git a/policy.c b/policy.c
-index c0d18a7..258f393 100644
+index c0d18a7e..258f3931 100644
 --- a/policy.c
 +++ b/policy.c
 @@ -300,7 +300,7 @@ static int path_has_part(char *path, char **part)

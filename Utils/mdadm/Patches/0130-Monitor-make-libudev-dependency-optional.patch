@@ -1,7 +1,7 @@
 From af3396dadfcd3b13480d021b8d3645c6d2420f79 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Thu, 18 Mar 2021 17:12:35 +0100
-Subject: [PATCH 130/131] Monitor: make libudev dependency optional
+Subject: [PATCH 130/136] Monitor: make libudev dependency optional
 
 Make -ludev configurable, enabled by default.
 To disable it, -DNO_LIBUDEV has to be set explicitly in CXFALGS.
@@ -18,7 +18,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 29 insertions(+), 6 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 1e6e1e1..2a51d81 100644
+index 1e6e1e12..2a51d813 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -119,7 +119,12 @@ endif
@@ -36,7 +36,7 @@ index 1e6e1e1..2a51d81 100644
  INSTALL = /usr/bin/install
  DESTDIR =
 diff --git a/Monitor.c b/Monitor.c
-index da1003b..f541229 100644
+index da1003b4..f5412299 100644
 --- a/Monitor.c
 +++ b/Monitor.c
 @@ -29,7 +29,9 @@

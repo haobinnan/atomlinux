@@ -1,7 +1,7 @@
 From 8e41153c91cdce696618c527906648625217470c Mon Sep 17 00:00:00 2001
 From: Paul Menzel <pmenzel@molgen.mpg.de>
 Date: Thu, 28 May 2020 16:52:24 +0200
-Subject: [PATCH 084/131] Use more secure HTTPS URLs
+Subject: [PATCH 084/136] Use more secure HTTPS URLs
 
 All URLs in the source are available over HTTPS, so convert all URLs to
 HTTPS with the command below.
@@ -24,7 +24,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  6 files changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/external-reshape-design.txt b/external-reshape-design.txt
-index 10c57cc..e4cf4e1 100644
+index 10c57ccb..e4cf4e16 100644
 --- a/external-reshape-design.txt
 +++ b/external-reshape-design.txt
 @@ -277,4 +277,4 @@ sync_action
@@ -34,7 +34,7 @@ index 10c57cc..e4cf4e1 100644
 -[1]: Linux kernel design patterns - part 3, Neil Brown http://lwn.net/Articles/336262/
 +[1]: Linux kernel design patterns - part 3, Neil Brown https://lwn.net/Articles/336262/
 diff --git a/mdadm.8.in b/mdadm.8.in
-index 9e7cb96..7f32762 100644
+index 9e7cb96d..7f327621 100644
 --- a/mdadm.8.in
 +++ b/mdadm.8.in
 @@ -367,7 +367,7 @@ Use the Intel(R) Matrix Storage Manager metadata format.  This creates a
@@ -65,7 +65,7 @@ index 9e7cb96..7f32762 100644
  Related man pages:
  .PP
 diff --git a/mdadm.spec b/mdadm.spec
-index 1c66894..506ea33 100644
+index 1c668948..506ea33e 100644
 --- a/mdadm.spec
 +++ b/mdadm.spec
 @@ -2,8 +2,8 @@ Summary:     mdadm is used for controlling Linux md devices (aka RAID arrays)
@@ -80,7 +80,7 @@ index 1c66894..506ea33 100644
  Group:       Utilities/System
  BuildRoot:   %{_tmppath}/%{name}-root
 diff --git a/raid6check.8 b/raid6check.8
-index 5003343..8999ca8 100644
+index 50033430..8999ca89 100644
 --- a/raid6check.8
 +++ b/raid6check.8
 @@ -86,7 +86,7 @@ The latest version of
@@ -93,7 +93,7 @@ index 5003343..8999ca8 100644
  Related man pages:
  .PP
 diff --git a/restripe.c b/restripe.c
-index 86e1d00..a7a7229 100644
+index 86e1d00b..a7a7229f 100644
 --- a/restripe.c
 +++ b/restripe.c
 @@ -333,7 +333,7 @@ void make_tables(void)
@@ -106,7 +106,7 @@ index 86e1d00..a7a7229 100644
  	b = 1;
  	raid6_gflog[0] = 0;
 diff --git a/udev-md-raid-safe-timeouts.rules b/udev-md-raid-safe-timeouts.rules
-index 13c23d8..12bdcaa 100644
+index 13c23d84..12bdcaa8 100644
 --- a/udev-md-raid-safe-timeouts.rules
 +++ b/udev-md-raid-safe-timeouts.rules
 @@ -13,7 +13,7 @@

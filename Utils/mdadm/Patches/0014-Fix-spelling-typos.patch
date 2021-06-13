@@ -1,7 +1,7 @@
 From ebf3be9931f31df54df52b1821479e6a80a4d9c6 Mon Sep 17 00:00:00 2001
 From: Dimitri John Ledkov <xnox@ubuntu.com>
 Date: Tue, 15 Jan 2019 19:08:37 +0000
-Subject: [PATCH 014/131] Fix spelling typos.
+Subject: [PATCH 014/136] Fix spelling typos.
 
 Signed-off-by: Dimitri John Ledkov <xnox@ubuntu.com>
 Signed-off-by: Jes Sorensen <jsorensen@fb.com>
@@ -14,7 +14,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  5 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/Assemble.c b/Assemble.c
-index 9f75c68..9f050c1 100644
+index 9f75c68c..9f050c1f 100644
 --- a/Assemble.c
 +++ b/Assemble.c
 @@ -879,7 +879,7 @@ static int force_array(struct mdinfo *content,
@@ -27,7 +27,7 @@ index 9f75c68..9f050c1 100644
  			       devices[chosen_drive].i.disk.raid_disk,
  			       (int)(devices[chosen_drive].i.events),
 diff --git a/Create.c b/Create.c
-index 04b1dfc..6f1b228 100644
+index 04b1dfc9..6f1b2288 100644
 --- a/Create.c
 +++ b/Create.c
 @@ -823,7 +823,7 @@ int Create(struct supertype *st, char *mddev,
@@ -40,7 +40,7 @@ index 04b1dfc..6f1b228 100644
  			goto abort_locked;
  		}
 diff --git a/Grow.c b/Grow.c
-index 363b209..6d32661 100644
+index 363b209d..6d326618 100644
 --- a/Grow.c
 +++ b/Grow.c
 @@ -446,7 +446,7 @@ int Grow_addbitmap(char *devname, int fd, struct context *c, struct shape *s)
@@ -71,7 +71,7 @@ index 363b209..6d32661 100644
  	}
  
 diff --git a/super-ddf.c b/super-ddf.c
-index 618542c..c095e8a 100644
+index 618542c4..c095e8a2 100644
 --- a/super-ddf.c
 +++ b/super-ddf.c
 @@ -1900,7 +1900,7 @@ static struct vd_config *find_vdcr(struct ddf_super *ddf, unsigned int inst,
@@ -84,7 +84,7 @@ index 618542c..c095e8a 100644
  }
  
 diff --git a/super-intel.c b/super-intel.c
-index 1cc7d5f..c399433 100644
+index 1cc7d5fa..c399433e 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -10034,7 +10034,7 @@ static void imsm_process_update(struct supertype *st,

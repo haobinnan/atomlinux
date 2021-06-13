@@ -1,7 +1,7 @@
 From c3129b39a7d467eec063681529f46f84a2a85308 Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Sun, 22 Nov 2020 23:12:29 +0800
-Subject: [PATCH 097/131] Detail: fix segfault during IMSM raid creation
+Subject: [PATCH 097/136] Detail: fix segfault during IMSM raid creation
 
 It can be reproduced with non IMSM hardware and IMSM_NO_PLATFORM
 environmental variable set. The array state is inactive when creating
@@ -16,7 +16,7 @@ Fixes: 64bf4dff3430 (Detail: show correct raid level when the array is inactive)
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Detail.c b/Detail.c
-index b6587c8..ea86884 100644
+index b6587c8c..ea868847 100644
 --- a/Detail.c
 +++ b/Detail.c
 @@ -224,7 +224,7 @@ int Detail(char *dev, struct context *c)

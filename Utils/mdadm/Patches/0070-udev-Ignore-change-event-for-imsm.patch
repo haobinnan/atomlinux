@@ -1,7 +1,7 @@
 From e1b92ee0de26576a33b20c9dd6ef6bd8cab8e283 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Wed, 8 Apr 2020 16:44:52 +0200
-Subject: [PATCH 070/131] udev: Ignore change event for imsm
+Subject: [PATCH 070/136] udev: Ignore change event for imsm
 
 When adding a device to a container mdadm has to close its file
 descriptor before sysfs_add_disk(). This generates change event.
@@ -18,7 +18,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/udev-md-raid-assembly.rules b/udev-md-raid-assembly.rules
-index 9f055ed..d668cdd 100644
+index 9f055ed0..d668cddd 100644
 --- a/udev-md-raid-assembly.rules
 +++ b/udev-md-raid-assembly.rules
 @@ -23,7 +23,7 @@ IMPORT{cmdline}="nodmraid"

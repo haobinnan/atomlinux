@@ -1,7 +1,7 @@
 From 329dfc28debb58ffe7bd1967cea00fc583139aca Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Mon, 4 Nov 2019 14:27:49 +1100
-Subject: [PATCH 054/131] Create: add support for RAID0 layouts.
+Subject: [PATCH 054/136] Create: add support for RAID0 layouts.
 
 Since Linux 5.4 a layout is needed for RAID0 arrays with
 varying device sizes.
@@ -27,7 +27,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  9 files changed, 121 insertions(+), 3 deletions(-)
 
 diff --git a/Create.c b/Create.c
-index 292f92a..6f84e5b 100644
+index 292f92a9..6f84e5b0 100644
 --- a/Create.c
 +++ b/Create.c
 @@ -51,6 +51,9 @@ static int default_layout(struct supertype *st, int level, int verbose)
@@ -63,7 +63,7 @@ index 292f92a..6f84e5b 100644
  					cont_err("Problem may be that chunk size is not a power of 2\n");
  				}
 diff --git a/Detail.c b/Detail.c
-index 24fa462..832485f 100644
+index 24fa462e..832485fe 100644
 --- a/Detail.c
 +++ b/Detail.c
 @@ -525,6 +525,11 @@ int Detail(char *dev, struct context *c)
@@ -79,7 +79,7 @@ index 24fa462..832485f 100644
  			str = map_num(r6layout, array.layout);
  			printf("            Layout : %s\n",
 diff --git a/maps.c b/maps.c
-index 49b7f2c..a4fd279 100644
+index 49b7f2c2..a4fd2797 100644
 --- a/maps.c
 +++ b/maps.c
 @@ -73,6 +73,18 @@ mapping_t r6layout[] = {
@@ -102,7 +102,7 @@ index 49b7f2c..a4fd279 100644
  	{ "linear", LEVEL_LINEAR},
  	{ "raid0", 0},
 diff --git a/md.4 b/md.4
-index e86707a..6fe2755 100644
+index e86707a2..6fe27554 100644
 --- a/md.4
 +++ b/md.4
 @@ -193,6 +193,20 @@ smallest device has been exhausted, the RAID0 driver starts
@@ -127,7 +127,7 @@ index e86707a..6fe2755 100644
  .SS RAID1
  
 diff --git a/mdadm.8.in b/mdadm.8.in
-index 9aec9f4..fc9b6a6 100644
+index 9aec9f4f..fc9b6a66 100644
 --- a/mdadm.8.in
 +++ b/mdadm.8.in
 @@ -593,6 +593,8 @@ to change the RAID level in some cases.  See LEVEL CHANGES below.
@@ -182,7 +182,7 @@ index 9aec9f4..fc9b6a6 100644
  RAID6 layout is used in which the second parity block (Q) is always on
  the last device.  To convert a RAID5 to RAID6 and leave it in this new
 diff --git a/mdadm.c b/mdadm.c
-index 1fb8086..e438f9c 100644
+index 1fb80860..e438f9c8 100644
 --- a/mdadm.c
 +++ b/mdadm.c
 @@ -550,6 +550,14 @@ int main(int argc, char *argv[])
@@ -201,7 +201,7 @@ index 1fb8086..e438f9c 100644
  				s.layout = map_name(r5layout, optarg);
  				if (s.layout == UnSet) {
 diff --git a/mdadm.h b/mdadm.h
-index 91f1338..9e98778 100644
+index 91f13386..9e987789 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -763,7 +763,8 @@ extern int restore_stripes(int *dest, unsigned long long *offsets,
@@ -227,7 +227,7 @@ index 91f1338..9e98778 100644
  #define ALGORITHM_LEFT_ASYMMETRIC	0
  #define ALGORITHM_RIGHT_ASYMMETRIC	1
 diff --git a/super0.c b/super0.c
-index 6b7c0e3..6af140b 100644
+index 6b7c0e3d..6af140bb 100644
 --- a/super0.c
 +++ b/super0.c
 @@ -1291,6 +1291,12 @@ static int validate_geometry0(struct supertype *st, int level,
@@ -244,7 +244,7 @@ index 6b7c0e3..6af140b 100644
  		return 1;
  
 diff --git a/super1.c b/super1.c
-index 929466d..cedbb53 100644
+index 929466d6..cedbb53b 100644
 --- a/super1.c
 +++ b/super1.c
 @@ -43,7 +43,7 @@ struct mdp_superblock_1 {

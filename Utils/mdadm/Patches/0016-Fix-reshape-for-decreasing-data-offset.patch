@@ -1,7 +1,7 @@
 From cab114c5ca870e5f1b57fb2602cd9a038271c2e0 Mon Sep 17 00:00:00 2001
 From: Corey Hickey <bugfood-c@fatooh.org>
 Date: Mon, 11 Feb 2019 17:18:38 -0800
-Subject: [PATCH 016/131] Fix reshape for decreasing data offset
+Subject: [PATCH 016/136] Fix reshape for decreasing data offset
 
 ...when not changing the number of disks.
 
@@ -51,7 +51,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Grow.c b/Grow.c
-index 6d32661..764374f 100644
+index 6d326618..764374fc 100644
 --- a/Grow.c
 +++ b/Grow.c
 @@ -2613,8 +2613,8 @@ static int set_new_data_offset(struct mdinfo *sra, struct supertype *st,

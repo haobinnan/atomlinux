@@ -1,7 +1,7 @@
 From 9f4218274cd4a1e1f356a1617f9a1d09960cf255 Mon Sep 17 00:00:00 2001
 From: Pawel Baldysiak <pawel.baldysiak@intel.com>
 Date: Mon, 28 Jan 2019 17:10:41 +0100
-Subject: [PATCH 013/131] imsm: fix reshape for >2TB drives
+Subject: [PATCH 013/136] imsm: fix reshape for >2TB drives
 
 If reshape is performed on drives larger then 2 TB,
 migration checkpoint area that is calculated exeeds 32-bit value.
@@ -21,7 +21,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 107 insertions(+), 42 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 38a1b6c..1cc7d5f 100644
+index 38a1b6cc..1cc7d5fa 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -296,7 +296,7 @@ struct migr_record {

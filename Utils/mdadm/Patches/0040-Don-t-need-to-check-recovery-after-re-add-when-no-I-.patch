@@ -1,7 +1,7 @@
 From 611093148574164fcf4f24f8c076d09473f655d7 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Mon, 30 Sep 2019 19:48:00 +0800
-Subject: [PATCH 040/131] Don't need to check recovery after re-add when no I/O
+Subject: [PATCH 040/136] Don't need to check recovery after re-add when no I/O
  writes to raid
 
 If there is no write I/O between removing member disk and re-add it, there is no
@@ -14,7 +14,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 2 deletions(-)
 
 diff --git a/clustermd_tests/02r1_Manage_re-add b/clustermd_tests/02r1_Manage_re-add
-index dd9c416..d0d13e5 100644
+index dd9c4166..d0d13e53 100644
 --- a/clustermd_tests/02r1_Manage_re-add
 +++ b/clustermd_tests/02r1_Manage_re-add
 @@ -9,8 +9,6 @@ check all state UU

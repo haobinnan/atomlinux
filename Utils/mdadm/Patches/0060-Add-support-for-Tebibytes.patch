@@ -1,7 +1,7 @@
 From 42e641abeb312a91b841f1b1ea73661e4bd5a31c Mon Sep 17 00:00:00 2001
 From: Kinga Tanska <kinga.tanska@intel.com>
 Date: Tue, 21 Jan 2020 10:38:52 +0100
-Subject: [PATCH 060/131] Add support for Tebibytes
+Subject: [PATCH 060/136] Add support for Tebibytes
 
 Adding support for Tebibytes enables display size of
 volumes in Tebibytes and Terabytes when they are
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 43 insertions(+), 24 deletions(-)
 
 diff --git a/mdadm.8.in b/mdadm.8.in
-index ca02a33..5d00faf 100644
+index ca02a338..5d00faf7 100644
 --- a/mdadm.8.in
 +++ b/mdadm.8.in
 @@ -467,8 +467,8 @@ If this is not specified
@@ -74,7 +74,7 @@ index ca02a33..5d00faf 100644
  Since Linux 3.4,
  .B \-\-data\-offset
 diff --git a/util.c b/util.c
-index 64dd409..07f9dc3 100644
+index 64dd409c..07f9dc34 100644
 --- a/util.c
 +++ b/util.c
 @@ -389,7 +389,7 @@ int mdadm_version(char *version)

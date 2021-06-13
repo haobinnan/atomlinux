@@ -1,7 +1,7 @@
 From fbc425562c5787b9aabb2d3b2d4fb6f18c553852 Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:46:56 -0500
-Subject: [PATCH 121/131] imsm: Write-intent bitmap support
+Subject: [PATCH 121/136] imsm: Write-intent bitmap support
 
 This patch enables the bitmap functionality with the IMSM metadata format.
 The functionality covers "internal" bitmap.
@@ -17,7 +17,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 617 insertions(+), 2 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 98af3b5..455bdd2 100644
+index 98af3b5e..455bdd26 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -96,6 +96,23 @@

@@ -1,7 +1,7 @@
 From 69d40de44b6b90c498323490b7310399a6833d0d Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:46:57 -0500
-Subject: [PATCH 122/131] imsm: Adding a spare to an existing array with bitmap
+Subject: [PATCH 122/136] imsm: Adding a spare to an existing array with bitmap
 
 When adding a spare to an existing array with bitmap, an additional
 initialization (adding bitmap header and preparing the bitmap area)
@@ -14,7 +14,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 36 insertions(+), 1 deletion(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 455bdd2..4284dde 100644
+index 455bdd26..4284ddea 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -9526,6 +9526,39 @@ static int apply_size_change_update(struct imsm_update_size_change *u,

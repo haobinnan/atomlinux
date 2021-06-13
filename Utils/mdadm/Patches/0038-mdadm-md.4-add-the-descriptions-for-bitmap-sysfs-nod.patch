@@ -1,7 +1,7 @@
 From e53cb968691d9e40d83caf5570da3bb7b83c64e1 Mon Sep 17 00:00:00 2001
 From: Guoqing Jiang <gqjiang@suse.com>
 Date: Fri, 31 May 2019 10:10:00 +0800
-Subject: [PATCH 038/131] mdadm/md.4: add the descriptions for bitmap sysfs
+Subject: [PATCH 038/136] mdadm/md.4: add the descriptions for bitmap sysfs
  nodes
 
 The sysfs nodes under bitmap are not recorded in md.4,
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 69 insertions(+)
 
 diff --git a/md.4 b/md.4
-index 3a1d677..e86707a 100644
+index 3a1d6777..e86707a2 100644
 --- a/md.4
 +++ b/md.4
 @@ -1101,6 +1101,75 @@ stripe that requires some "prereading".  For fairness this defaults to

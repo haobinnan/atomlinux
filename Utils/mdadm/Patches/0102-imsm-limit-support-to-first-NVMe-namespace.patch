@@ -1,7 +1,7 @@
 From a8f3cfd54e45c8aabc4a99cdc92b6b9080b26607 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Wed, 4 Nov 2020 10:01:28 +0100
-Subject: [PATCH 102/131] imsm: limit support to first NVMe namespace
+Subject: [PATCH 102/136] imsm: limit support to first NVMe namespace
 
 Due to metadata limitations NVMe multinamespace support has to be removed.
 
@@ -13,7 +13,7 @@ Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
  3 files changed, 42 insertions(+), 1 deletion(-)
 
 diff --git a/platform-intel.c b/platform-intel.c
-index 04bffc5..f1f6d4c 100644
+index 04bffc57..f1f6d4cd 100644
 --- a/platform-intel.c
 +++ b/platform-intel.c
 @@ -766,3 +766,34 @@ char *vmd_domain_to_controller(struct sys_dev *hba, char *buf)
@@ -52,7 +52,7 @@ index 04bffc5..f1f6d4c 100644
 +	return 1;
 +}
 diff --git a/platform-intel.h b/platform-intel.h
-index 7cb370e..7371478 100644
+index 7cb370ef..7371478e 100644
 --- a/platform-intel.h
 +++ b/platform-intel.h
 @@ -251,4 +251,5 @@ const struct orom_entry *get_orom_entry_by_device_id(__u16 dev_id);
@@ -62,7 +62,7 @@ index 7cb370e..7371478 100644
 +int imsm_is_nvme_supported(int disk_fd, int verbose);
  char *vmd_domain_to_controller(struct sys_dev *hba, char *buf);
 diff --git a/super-intel.c b/super-intel.c
-index 95f4eaf..715febf 100644
+index 95f4eaf8..715febf7 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -2364,7 +2364,9 @@ static int print_nvme_info(struct sys_dev *hba)

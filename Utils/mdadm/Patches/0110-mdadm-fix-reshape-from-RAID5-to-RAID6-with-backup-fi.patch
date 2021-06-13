@@ -1,7 +1,7 @@
 From 4ae96c802203ec3cfbb089240c56d61f7f4661b3 Mon Sep 17 00:00:00 2001
 From: Nigel Croxon <ncroxon@redhat.com>
 Date: Wed, 20 Jan 2021 15:05:42 -0500
-Subject: [PATCH 110/131] mdadm: fix reshape from RAID5 to RAID6 with backup
+Subject: [PATCH 110/136] mdadm: fix reshape from RAID5 to RAID6 with backup
  file
 
 Reshaping a 3-disk RAID5 to 4-disk RAID6 will cause a hang of
@@ -19,7 +19,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/Grow.c b/Grow.c
-index 6b8321c..5c2512f 100644
+index 6b8321c5..5c2512f6 100644
 --- a/Grow.c
 +++ b/Grow.c
 @@ -931,12 +931,15 @@ int start_reshape(struct mdinfo *sra, int already_running,

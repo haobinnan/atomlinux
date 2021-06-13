@@ -1,0 +1,133 @@
+From c11b1c3cede2e91988aaf36a6496ec1a5d6589a3 Mon Sep 17 00:00:00 2001
+From: Jes Sorensen <jsorensen@fb.com>
+Date: Wed, 14 Apr 2021 11:02:53 -0400
+Subject: [PATCH 133/136] Release mdadm-4.2-rc1
+
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ ANNOUNCE-4.2-rc1 | 15 +++++++++++++++
+ ReadMe.c         |  4 ++--
+ inventory        |  9 +++++++++
+ mdadm.8.in       |  2 +-
+ mdadm.spec       |  2 +-
+ mdmon.8          |  2 +-
+ 6 files changed, 29 insertions(+), 5 deletions(-)
+ create mode 100644 ANNOUNCE-4.2-rc1
+
+diff --git a/ANNOUNCE-4.2-rc1 b/ANNOUNCE-4.2-rc1
+new file mode 100644
+index 00000000..e2813fa8
+--- /dev/null
++++ b/ANNOUNCE-4.2-rc1
+@@ -0,0 +1,15 @@
++Subject: ANNOUNCE: mdadm 4.2-rc1 - A tool for managing md Soft RAID under Linux
++
++I am pleased to announce the availability of the first rc release of mdadm-4.2
++
++It is available at the usual places:
++   http://www.kernel.org/pub/linux/utils/raid/mdadm/
++and via git at
++   git://git.kernel.org/pub/scm/utils/mdadm/mdadm.git
++   http://git.kernel.org/cgit/utils/mdadm/
++
++The update constitutes more than one year of enhancements and bug fixes
++including for IMSM RAID, Partial Parity Log, clustered RAID support,
++improved testing, and gcc-8 support.
++
++Jes Sorensen, 2021-04-14
+diff --git a/ReadMe.c b/ReadMe.c
+index 06b8f7ee..33a92d18 100644
+--- a/ReadMe.c
++++ b/ReadMe.c
+@@ -28,10 +28,10 @@
+ #include "mdadm.h"
+ 
+ #ifndef VERSION
+-#define VERSION "4.1"
++#define VERSION "4.2-rc1"
+ #endif
+ #ifndef VERS_DATE
+-#define VERS_DATE "2018-10-01"
++#define VERS_DATE "2021-04-14"
+ #endif
+ #ifndef EXTRAVERSION
+ #define EXTRAVERSION ""
+diff --git a/inventory b/inventory
+index 8d9c104e..fb4cf412 100755
+--- a/inventory
++++ b/inventory
+@@ -25,6 +25,7 @@ ANNOUNCE-3.3.4
+ ANNOUNCE-3.4
+ ANNOUNCE-4.0
+ ANNOUNCE-4.1
++ANNOUNCE-4.2-rc1
+ Assemble.c
+ Build.c
+ COPYING
+@@ -131,7 +132,13 @@ systemd/mdadm-grow-continue@.service
+ systemd/mdadm-last-resort@.service
+ systemd/mdadm-last-resort@.timer
+ systemd/mdadm.shutdown
++systemd/mdcheck_continue.service
++systemd/mdcheck_continue.timer
++systemd/mdcheck_start.service
++systemd/mdcheck_start.timer
+ systemd/mdmon@.service
++systemd/mdmonitor-oneshot.service
++systemd/mdmonitor-oneshot.timer
+ systemd/mdmonitor.service
+ test
+ tests/
+@@ -170,6 +177,7 @@ tests/05r1-add-internalbitmap-v1a
+ tests/05r1-add-internalbitmap-v1b
+ tests/05r1-add-internalbitmap-v1c
+ tests/05r1-bitmapfile
++tests/05r1-failfast
+ tests/05r1-grow-external
+ tests/05r1-grow-internal
+ tests/05r1-grow-internal-1
+@@ -272,4 +280,5 @@ udev-md-raid-assembly.rules
+ udev-md-raid-creating.rules
+ udev-md-raid-safe-timeouts.rules
+ util.c
++uuid.c
+ xmalloc.c
+diff --git a/mdadm.8.in b/mdadm.8.in
+index c89d901e..7cdb465d 100644
+--- a/mdadm.8.in
++++ b/mdadm.8.in
+@@ -5,7 +5,7 @@
+ .\"   the Free Software Foundation; either version 2 of the License, or
+ .\"   (at your option) any later version.
+ .\" See file COPYING in distribution for details.
+-.TH MDADM 8 "" v4.1-rc2
++.TH MDADM 8 "" v4.2-rc1
+ .SH NAME
+ mdadm \- manage MD devices
+ .I aka
+diff --git a/mdadm.spec b/mdadm.spec
+index 506ea33e..0db5c43e 100644
+--- a/mdadm.spec
++++ b/mdadm.spec
+@@ -1,6 +1,6 @@
+ Summary:     mdadm is used for controlling Linux md devices (aka RAID arrays)
+ Name:        mdadm
+-Version:     4.1
++Version:     4.2_rc1
+ Release:     1
+ Source:      https://www.kernel.org/pub/linux/utils/raid/mdadm/mdadm-%{version}.tar.gz
+ URL:         https://neil.brown.name/blog/mdadm
+diff --git a/mdmon.8 b/mdmon.8
+index 4cbc2ba7..3b5acc29 100644
+--- a/mdmon.8
++++ b/mdmon.8
+@@ -1,5 +1,5 @@
+ .\" See file COPYING in distribution for details.
+-.TH MDMON 8 "" v4.1-rc2
++.TH MDMON 8 "" v4.2-rc1
+ .SH NAME
+ mdmon \- monitor MD external metadata arrays
+ 
+-- 
+2.25.1
+

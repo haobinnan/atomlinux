@@ -1,7 +1,7 @@
 From 1cc3965d48deb0fb3e0657159c608ffb124643c1 Mon Sep 17 00:00:00 2001
 From: Xiao Yang <ice_yangxiao@163.com>
 Date: Wed, 27 Nov 2019 11:59:24 +0800
-Subject: [PATCH 048/131] Manage: Remove the legacy code for md driver prior to
+Subject: [PATCH 048/136] Manage: Remove the legacy code for md driver prior to
  0.90.03
 
 Previous re-add operation only calls ioctl(HOT_ADD_DISK) for array without
@@ -25,7 +25,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 12 deletions(-)
 
 diff --git a/Manage.c b/Manage.c
-index 21536f5..ffe55f8 100644
+index 21536f5e..ffe55f80 100644
 --- a/Manage.c
 +++ b/Manage.c
 @@ -741,18 +741,6 @@ int Manage_add(int fd, int tfd, struct mddev_dev *dv,

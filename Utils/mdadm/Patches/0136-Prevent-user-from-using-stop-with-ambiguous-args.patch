@@ -1,0 +1,36 @@
+From 0530e2e0d8c9ecb5171e70bc48e1a6566f317378 Mon Sep 17 00:00:00 2001
+From: Norbert Szulc <norbert.szulc@intel.com>
+Date: Wed, 5 May 2021 13:01:02 +0200
+Subject: [PATCH 136/136] Prevent user from using --stop with ambiguous args
+
+When both --scan and device name is passed to --stop action,
+then is executed only for given device. Scan is ignored.
+
+Block the operation when both --scan and device name are passed.
+
+Signed-off-by: Norbert Szulc <norbert.szulc@intel.com>
+Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ mdadm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/mdadm.c b/mdadm.c
+index 9a4317d5..dcc26ba8 100644
+--- a/mdadm.c
++++ b/mdadm.c
+@@ -2041,6 +2041,11 @@ static int misc_list(struct mddev_dev *devlist,
+ 				rv |= Manage_run(dv->devname, mdfd, c);
+ 				break;
+ 			case 'S':
++				if (c->scan) {
++					pr_err("--stop not meaningful with both a --scan assembly and a device name.\n");
++					rv |= 1;
++					break;
++				}
+ 				rv |= Manage_stop(dv->devname, mdfd, c->verbose, 0);
+ 				break;
+ 			case 'o':
+-- 
+2.25.1
+

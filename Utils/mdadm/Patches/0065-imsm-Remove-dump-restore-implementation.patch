@@ -1,7 +1,7 @@
 From 45c43276d02a32876c7e1f9f0d04580595141b3d Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Wed, 19 Feb 2020 11:13:17 +0100
-Subject: [PATCH 065/131] imsm: Remove --dump/--restore implementation
+Subject: [PATCH 065/136] imsm: Remove --dump/--restore implementation
 
 Functionalities --dump and --restore are not supported.
 Remove dead code from imsm.
@@ -13,7 +13,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 56 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index e4d2122..c9a1af5 100644
+index e4d2122d..c9a1af5b 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -2128,61 +2128,6 @@ static void export_examine_super_imsm(struct supertype *st)

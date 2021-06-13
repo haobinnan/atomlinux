@@ -1,7 +1,7 @@
 From 3b7aae927bdb6e150d1aaf3aaf0d183a06abda0b Mon Sep 17 00:00:00 2001
 From: Donald Buczek <buczek@molgen.mpg.de>
 Date: Wed, 13 May 2020 15:16:46 +0200
-Subject: [PATCH 077/131] mdcheck: Log when done
+Subject: [PATCH 077/136] mdcheck: Log when done
 
 Currently mdcheck (when called with `--duration`) logs only the
 beginning of the check, the pausing and the continuation but not the
@@ -23,7 +23,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/misc/mdcheck b/misc/mdcheck
-index 42d4094..700c3e2 100644
+index 42d4094a..700c3e25 100644
 --- a/misc/mdcheck
 +++ b/misc/mdcheck
 @@ -125,11 +125,13 @@ do

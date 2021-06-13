@@ -1,7 +1,7 @@
 From 22dc741f63e6403d59c2c14f56fd4791265f9bbb Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Mon, 1 Apr 2019 16:53:41 +0200
-Subject: [PATCH 023/131] Create: Block rounding size to max
+Subject: [PATCH 023/136] Create: Block rounding size to max
 
 When passed size is smaller than chunk, mdadm rounds it to 0 but 0 there
 means max available space.
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 22 insertions(+), 6 deletions(-)
 
 diff --git a/Create.c b/Create.c
-index 6f1b228..292f92a 100644
+index 6f1b2288..292f92a9 100644
 --- a/Create.c
 +++ b/Create.c
 @@ -27,6 +27,18 @@
@@ -74,7 +74,7 @@ index 6f1b228..292f92a 100644
  			}
  		}
 diff --git a/super-intel.c b/super-intel.c
-index 5a7c9f8..2ba045a 100644
+index 5a7c9f80..2ba045aa 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -7455,9 +7455,8 @@ static int validate_geometry_imsm(struct supertype *st, int level, int layout,

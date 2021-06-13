@@ -1,7 +1,7 @@
 From 027c099fd1a31fb3815e592de75d0791a22353b4 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Mon, 4 Nov 2019 14:27:49 +1100
-Subject: [PATCH 055/131] Assemble: add support for RAID0 layouts.
+Subject: [PATCH 055/136] Assemble: add support for RAID0 layouts.
 
 If you have a RAID0 array with varying sized devices
 on a kernel before 5.4, you cannot assembling it on
@@ -22,7 +22,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  5 files changed, 47 insertions(+), 1 deletion(-)
 
 diff --git a/Assemble.c b/Assemble.c
-index b2e6914..6b5a7c8 100644
+index b2e69144..6b5a7c8e 100644
 --- a/Assemble.c
 +++ b/Assemble.c
 @@ -1031,6 +1031,11 @@ static int start_array(int mdfd,
@@ -48,7 +48,7 @@ index b2e6914..6b5a7c8 100644
  		if (!enough(content->array.level, content->array.raid_disks,
  			    content->array.layout, 1, avail))
 diff --git a/md.4 b/md.4
-index 6fe2755..0712af2 100644
+index 6fe27554..0712af25 100644
 --- a/md.4
 +++ b/md.4
 @@ -208,6 +208,13 @@ array,
@@ -66,7 +66,7 @@ index 6fe2755..0712af2 100644
  
  A RAID1 array is also known as a mirrored set (though mirrors tend to
 diff --git a/mdadm.8.in b/mdadm.8.in
-index fc9b6a6..6b63bb4 100644
+index fc9b6a66..6b63bb41 100644
 --- a/mdadm.8.in
 +++ b/mdadm.8.in
 @@ -1213,6 +1213,8 @@ argument given to this flag can be one of
@@ -101,7 +101,7 @@ index fc9b6a6..6b63bb4 100644
  .BR \-\-freeze\-reshape
  Option is intended to be used in start-up scripts during initrd boot phase.
 diff --git a/mdadm.c b/mdadm.c
-index e438f9c..256a97e 100644
+index e438f9c8..256a97ef 100644
 --- a/mdadm.c
 +++ b/mdadm.c
 @@ -795,6 +795,9 @@ int main(int argc, char *argv[])
@@ -123,7 +123,7 @@ index e438f9c..256a97e 100644
  			exit(outf == stdout ? 0 : 2);
  
 diff --git a/super1.c b/super1.c
-index cedbb53..e0d80be 100644
+index cedbb53b..e0d80be1 100644
 --- a/super1.c
 +++ b/super1.c
 @@ -1550,7 +1550,17 @@ static int update_super1(struct supertype *st, struct mdinfo *info,

@@ -1,7 +1,7 @@
 From b06815989179e0f153e44e4336290e655edce9a1 Mon Sep 17 00:00:00 2001
 From: Mariusz Dabrowski <mariusz.dabrowski@intel.com>
 Date: Wed, 10 Jul 2019 13:38:53 +0200
-Subject: [PATCH 030/131] mdadm: load default sysfs attributes after
+Subject: [PATCH 030/136] mdadm: load default sysfs attributes after
  assemblation
 
 Added new type of line to mdadm.conf which allows to specify values of
@@ -23,7 +23,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  6 files changed, 202 insertions(+), 4 deletions(-)
 
 diff --git a/Assemble.c b/Assemble.c
-index 420c7b3..b2e6914 100644
+index 420c7b39..b2e69144 100644
 --- a/Assemble.c
 +++ b/Assemble.c
 @@ -1063,9 +1063,12 @@ static int start_array(int mdfd,
@@ -64,7 +64,7 @@ index 420c7b3..b2e6914 100644
  			fprintf(stderr, " (%d new)", working);
  		if (expansion)
 diff --git a/Incremental.c b/Incremental.c
-index d4d3c35..98dbcd9 100644
+index d4d3c353..98dbcd92 100644
 --- a/Incremental.c
 +++ b/Incremental.c
 @@ -480,6 +480,7 @@ int Incremental(struct mddev_dev *devlist, struct context *c,
@@ -76,7 +76,7 @@ index d4d3c35..98dbcd9 100644
  		if (st->ss->external)
  			strcpy(devnm, fd2devnm(mdfd));
 diff --git a/config.c b/config.c
-index e14eae0..7592b2d 100644
+index e14eae0c..7592b2d7 100644
 --- a/config.c
 +++ b/config.c
 @@ -80,7 +80,8 @@ char DefaultAltConfFile[] = CONFFILE2;
@@ -108,7 +108,7 @@ index e14eae0..7592b2d 100644
  			pr_err("Unknown keyword %s\n", line);
  		}
 diff --git a/mdadm.conf.5 b/mdadm.conf.5
-index 47c962a..27dbab1 100644
+index 47c962ab..27dbab18 100644
 --- a/mdadm.conf.5
 +++ b/mdadm.conf.5
 @@ -587,6 +587,26 @@ be based on the domain, but with
@@ -151,7 +151,7 @@ index 47c962a..27dbab1 100644
  .SH SEE ALSO
  .BR mdadm (8),
 diff --git a/mdadm.h b/mdadm.h
-index 0fa9e1b..c36d7fd 100644
+index 0fa9e1bd..c36d7fdb 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -1322,6 +1322,9 @@ void domain_add(struct domainlist **domp, char *domain);
@@ -165,7 +165,7 @@ index 0fa9e1b..c36d7fd 100644
  struct stat64;
  #endif
 diff --git a/sysfs.c b/sysfs.c
-index 2dd9ab6..c313781 100644
+index 2dd9ab63..c3137818 100644
 --- a/sysfs.c
 +++ b/sysfs.c
 @@ -26,9 +26,22 @@

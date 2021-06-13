@@ -1,7 +1,7 @@
 From 05501181f18cdccdb0b3cec1d8cf59f0995504d7 Mon Sep 17 00:00:00 2001
 From: Pawel Baldysiak <pawel.baldysiak@intel.com>
 Date: Fri, 8 Mar 2019 12:19:11 +0100
-Subject: [PATCH 022/131] imsm: fix spare activation for old matrix arrays
+Subject: [PATCH 022/136] imsm: fix spare activation for old matrix arrays
 
 During spare activation get_extents() calculates metadata reserved space based
 on smallest active RAID member or it will take the defaults. Since patch
@@ -26,7 +26,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 10 insertions(+), 9 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index c399433..5a7c9f8 100644
+index c399433e..5a7c9f80 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -1313,7 +1313,8 @@ static unsigned long long per_dev_array_size(struct imsm_map *map)

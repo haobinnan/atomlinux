@@ -1,7 +1,7 @@
 From 64bf4dff34301a4b44883a8bc03f7835faef121e Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Mon, 14 Sep 2020 10:52:18 +0800
-Subject: [PATCH 090/131] Detail: show correct raid level when the array is
+Subject: [PATCH 090/136] Detail: show correct raid level when the array is
  inactive
 
 Sometimes the raid level in the output of `mdadm -D /dev/mdX` is
@@ -48,7 +48,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/Detail.c b/Detail.c
-index 24eeba0..b6587c8 100644
+index 24eeba0f..b6587c8c 100644
 --- a/Detail.c
 +++ b/Detail.c
 @@ -224,7 +224,10 @@ int Detail(char *dev, struct context *c)

@@ -1,7 +1,7 @@
 From 85b83a7920bca5b93d2458f093f2c640a130614c Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Wed, 30 Oct 2019 10:32:41 +1100
-Subject: [PATCH 046/131] SUSE-mdadm_env.sh: handle MDADM_CHECK_DURATION
+Subject: [PATCH 046/136] SUSE-mdadm_env.sh: handle MDADM_CHECK_DURATION
 
 The suse sysconfig/mdadm allows MDADM_CHECK_DURATION
 to be set, but it is currently ignored.
@@ -13,7 +13,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/systemd/SUSE-mdadm_env.sh b/systemd/SUSE-mdadm_env.sh
-index 10b2e74..c13b48a 100644
+index 10b2e749..c13b48ab 100644
 --- a/systemd/SUSE-mdadm_env.sh
 +++ b/systemd/SUSE-mdadm_env.sh
 @@ -43,3 +43,6 @@ fi

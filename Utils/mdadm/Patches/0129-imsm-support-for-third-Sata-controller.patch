@@ -1,7 +1,7 @@
 From f94df5cf83917df50a3436dd067c751504bfc665 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Wed, 17 Mar 2021 13:01:54 +0100
-Subject: [PATCH 129/131] imsm: support for third Sata controller
+Subject: [PATCH 129/136] imsm: support for third Sata controller
 
 Add new UEFI TSata variable. Remove CSata variable.
 This variable has been never exposed by UEFI.
@@ -14,7 +14,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 31 insertions(+), 27 deletions(-)
 
 diff --git a/platform-intel.c b/platform-intel.c
-index 0e1ec3d..2da152f 100644
+index 0e1ec3d5..2da152f3 100644
 --- a/platform-intel.c
 +++ b/platform-intel.c
 @@ -488,7 +488,7 @@ static const struct imsm_orom *find_imsm_hba_orom(struct sys_dev *hba)

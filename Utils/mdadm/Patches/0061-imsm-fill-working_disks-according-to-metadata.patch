@@ -1,7 +1,7 @@
 From 1e93d0d15913c3fa6d0de5af3fb5e4e3b3f068da Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Fri, 17 Jan 2020 15:24:04 +0100
-Subject: [PATCH 061/131] imsm: fill working_disks according to metadata.
+Subject: [PATCH 061/136] imsm: fill working_disks according to metadata.
 
 Imsm tracks as "working_disk" each visible drive.
 Assemble routine expects that the value will return count
@@ -18,7 +18,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/mdadm.c b/mdadm.c
-index 256a97e..13dc24e 100644
+index 256a97ef..13dc24e4 100644
 --- a/mdadm.c
 +++ b/mdadm.c
 @@ -1485,9 +1485,12 @@ int main(int argc, char *argv[])
@@ -38,7 +38,7 @@ index 256a97e..13dc24e 100644
  			struct mddev_ident *array_ident = conf_get_ident(devlist->devname);
  			if (array_ident == NULL) {
 diff --git a/super-intel.c b/super-intel.c
-index 5c1f759..47809bc 100644
+index 5c1f759f..47809bc2 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -7946,7 +7946,8 @@ static struct mdinfo *container_content_imsm(struct supertype *st, char *subarra

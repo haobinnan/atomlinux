@@ -1,7 +1,7 @@
 From 5cfb79dea26d9d7266f79c7c196a1a9f70c16a28 Mon Sep 17 00:00:00 2001
 From: Gioh Kim <gi-oh.kim@cloud.ionos.com>
 Date: Tue, 16 Apr 2019 18:08:17 +0200
-Subject: [PATCH 074/131] Assemble: print error message if mdadm fails
+Subject: [PATCH 074/136] Assemble: print error message if mdadm fails
  assembling with --uuid option
 
 When mdadm tries to assemble one working device and one zeroed-out device,
@@ -40,7 +40,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Assemble.c b/Assemble.c
-index 6b5a7c8..2ed5884 100644
+index 6b5a7c8e..2ed58849 100644
 --- a/Assemble.c
 +++ b/Assemble.c
 @@ -269,7 +269,7 @@ static int select_devices(struct mddev_dev *devlist,

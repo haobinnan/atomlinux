@@ -1,7 +1,7 @@
 From 2c2d9c48d2daf0d78d20494c3779c0f6dc4bfa75 Mon Sep 17 00:00:00 2001
 From: Nigel Croxon <ncroxon@redhat.com>
 Date: Tue, 24 Sep 2019 11:39:24 -0400
-Subject: [PATCH 037/131] mdadm: force a uuid swap on big endian
+Subject: [PATCH 037/136] mdadm: force a uuid swap on big endian
 
 The code path for metadata 0.90 calls a common routine
 fname_from_uuid that uses metadata 1.2. The code expects member
@@ -19,7 +19,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/util.c b/util.c
-index c26cf5f..64dd409 100644
+index c26cf5f3..64dd409c 100644
 --- a/util.c
 +++ b/util.c
 @@ -685,8 +685,12 @@ char *fname_from_uuid(struct supertype *st, struct mdinfo *info,

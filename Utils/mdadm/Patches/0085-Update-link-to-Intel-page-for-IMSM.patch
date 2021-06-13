@@ -1,7 +1,7 @@
 From bcf40dbb5bf7db9d55a877b805ebb95c2008a132 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Fri, 12 Jun 2020 10:49:11 -0400
-Subject: [PATCH 085/131] Update link to Intel page for IMSM
+Subject: [PATCH 085/136] Update link to Intel page for IMSM
 
 The old design page is gone, so update to the current overview page.
 
@@ -11,7 +11,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/mdadm.8.in b/mdadm.8.in
-index 7f32762..1474602 100644
+index 7f327621..14746024 100644
 --- a/mdadm.8.in
 +++ b/mdadm.8.in
 @@ -367,7 +367,7 @@ Use the Intel(R) Matrix Storage Manager metadata format.  This creates a

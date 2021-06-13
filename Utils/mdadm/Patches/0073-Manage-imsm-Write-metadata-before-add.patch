@@ -1,7 +1,7 @@
 From 12724c018c964596aa277489fd287d5c3506361a Mon Sep 17 00:00:00 2001
 From: Tkaczyk Mariusz <mariusz.tkaczyk@intel.com>
 Date: Fri, 17 Apr 2020 13:55:55 +0200
-Subject: [PATCH 073/131] Manage, imsm: Write metadata before add
+Subject: [PATCH 073/136] Manage, imsm: Write metadata before add
 
 New drive in container always appears as spare. Manager is able to
 handle that, and queues appropriative update to monitor.
@@ -28,7 +28,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 44 insertions(+), 28 deletions(-)
 
 diff --git a/Manage.c b/Manage.c
-index b22c396..0a5f09b 100644
+index b22c3969..0a5f09b3 100644
 --- a/Manage.c
 +++ b/Manage.c
 @@ -994,17 +994,13 @@ int Manage_add(int fd, int tfd, struct mddev_dev *dv,
@@ -51,7 +51,7 @@ index b22c396..0a5f09b 100644
  
  		sra = sysfs_read(container_fd, NULL, 0);
 diff --git a/super-intel.c b/super-intel.c
-index 562a58c..3a73d2b 100644
+index 562a58cc..3a73d2b3 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -5809,6 +5809,9 @@ int mark_spare(struct dl *disk)

@@ -1,7 +1,7 @@
 From 02af379337c73e751ad97c0fed9123121f8b4289 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Wed, 27 Nov 2019 10:19:54 -0500
-Subject: [PATCH 049/131] Remove last traces of HOT_ADD_DISK
+Subject: [PATCH 049/136] Remove last traces of HOT_ADD_DISK
 
 This ioctl is no longer used, so remove all references to it.
 
@@ -12,7 +12,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 3 deletions(-)
 
 diff --git a/Manage.c b/Manage.c
-index ffe55f8..deeba2b 100644
+index ffe55f80..deeba2b8 100644
 --- a/Manage.c
 +++ b/Manage.c
 @@ -1289,8 +1289,6 @@ int Manage_subdevs(char *devname, int fd,
@@ -25,7 +25,7 @@ index ffe55f8..deeba2b 100644
  	 *  'j' - add the device as a journal device
  	 *  'A' - re-add the device
 diff --git a/md_u.h b/md_u.h
-index 2d66d52..b30893c 100644
+index 2d66d529..b30893c0 100644
 --- a/md_u.h
 +++ b/md_u.h
 @@ -28,7 +28,6 @@

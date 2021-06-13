@@ -1,7 +1,7 @@
 From 19ad203ecbceca51120a8b8cabc202e1053f41b4 Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:46:59 -0500
-Subject: [PATCH 124/131] imsm: Update-subarray for write-intent bitmap
+Subject: [PATCH 124/136] imsm: Update-subarray for write-intent bitmap
 
 The patch updates the current bitmap functionality to handle adding
 the bitmap on existing volumes.
@@ -13,7 +13,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 4284dde..65b44e6 100644
+index 4284ddea..65b44e62 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -7772,6 +7772,19 @@ static int kill_subarray_imsm(struct supertype *st, char *subarray_id)

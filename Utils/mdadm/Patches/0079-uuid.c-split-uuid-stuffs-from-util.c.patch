@@ -1,7 +1,7 @@
 From f4c8a605d2467c0ed25fcba5d27dd56540660e55 Mon Sep 17 00:00:00 2001
 From: Guoqing Jiang <guoqing.jiang@cloud.ionos.com>
 Date: Mon, 18 May 2020 23:53:35 +0200
-Subject: [PATCH 079/131] uuid.c: split uuid stuffs from util.c
+Subject: [PATCH 079/136] uuid.c: split uuid stuffs from util.c
 
 Currently, 'make raid6check' is build broken since commit b06815989
 ("mdadm: load default sysfs attributes after assemblation").
@@ -28,7 +28,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  create mode 100644 uuid.c
 
 diff --git a/Makefile b/Makefile
-index 0a20b75..15d05d1 100644
+index 0a20b758..15d05d14 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -140,7 +140,7 @@ else
@@ -57,7 +57,7 @@ index 0a20b75..15d05d1 100644
  	Kill.o sg_io.o dlink.o ReadMe.o super-intel.o \
  	super-mbr.o super-gpt.o \
 diff --git a/util.c b/util.c
-index 07f9dc3..579dd42 100644
+index 07f9dc34..579dd423 100644
 --- a/util.c
 +++ b/util.c
 @@ -306,43 +306,6 @@ int md_get_disk_info(int fd, struct mdu_disk_info_s *disk)
@@ -163,7 +163,7 @@ index 07f9dc3..579dd42 100644
  	int i, j;
 diff --git a/uuid.c b/uuid.c
 new file mode 100644
-index 0000000..94b5abd
+index 00000000..94b5abd5
 --- /dev/null
 +++ b/uuid.c
 @@ -0,0 +1,112 @@

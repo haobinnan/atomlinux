@@ -1,7 +1,7 @@
 From b65c1f4a2340e24ae00babc4399fb4030ff99517 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Tue, 24 Nov 2020 15:58:53 +0100
-Subject: [PATCH 100/131] imsm: remove redundant calls to imsm_get_map
+Subject: [PATCH 100/136] imsm: remove redundant calls to imsm_get_map
 
 MAP_0 is gotten and the beginning, there is no need to get it again.
 
@@ -11,7 +11,7 @@ Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
  1 file changed, 2 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 9562064..95f4eaf 100644
+index 95620649..95f4eaf8 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -8598,7 +8598,6 @@ static void imsm_set_disk(struct active_array *a, int n, int state)

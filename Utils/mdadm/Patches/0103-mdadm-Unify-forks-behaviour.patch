@@ -1,7 +1,7 @@
 From ff6bb131a46e1bac84a26e5b2c4bf408c0e56926 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Wed, 4 Nov 2020 10:02:36 +0100
-Subject: [PATCH 103/131] mdadm: Unify forks behaviour
+Subject: [PATCH 103/136] mdadm: Unify forks behaviour
 
 If mdadm is run by udev or systemd, it gets a pipe as each stream.
 Forks in the background may run after an event or service has been
@@ -24,7 +24,7 @@ Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
  6 files changed, 100 insertions(+), 101 deletions(-)
 
 diff --git a/Grow.c b/Grow.c
-index 57db7d4..6b8321c 100644
+index 57db7d45..6b8321c5 100644
 --- a/Grow.c
 +++ b/Grow.c
 @@ -2982,47 +2982,6 @@ static void catch_term(int sig)
@@ -115,7 +115,7 @@ index 57db7d4..6b8321c 100644
  		break;
  	}
 diff --git a/Incremental.c b/Incremental.c
-index 98dbcd9..ad9ec1c 100644
+index 98dbcd92..ad9ec1cc 100644
 --- a/Incremental.c
 +++ b/Incremental.c
 @@ -1679,6 +1679,7 @@ static void run_udisks(char *arg1, char *arg2)
@@ -127,7 +127,7 @@ index 98dbcd9..ad9ec1c 100644
  		execl("/bin/udisks", "udisks", arg1, arg2, NULL);
  		exit(1);
 diff --git a/Monitor.c b/Monitor.c
-index a82e99d..3f3005b 100644
+index a82e99d6..3f3005b8 100644
 --- a/Monitor.c
 +++ b/Monitor.c
 @@ -323,10 +323,7 @@ static int make_daemon(char *pidfile)
@@ -143,7 +143,7 @@ index a82e99d..3f3005b 100644
  	return -1;
  }
 diff --git a/mdadm.h b/mdadm.h
-index 4961c0f..56b1b19 100644
+index 4961c0f9..56b1b197 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -129,6 +129,14 @@ struct dlm_lksb {
@@ -171,7 +171,7 @@ index 4961c0f..56b1b19 100644
  extern int parse_auto(char *str, char *msg, int config);
  extern struct mddev_ident *conf_get_ident(char *dev);
 diff --git a/mdmon.c b/mdmon.c
-index ff985d2..c71e62c 100644
+index ff985d29..c71e62c6 100644
 --- a/mdmon.c
 +++ b/mdmon.c
 @@ -546,14 +546,7 @@ static int mdmon(char *devnm, int must_fork, int takeover)
@@ -191,7 +191,7 @@ index ff985d2..c71e62c 100644
  	/* This silliness is to stop the compiler complaining
  	 * that we ignore 'ignore'
 diff --git a/util.c b/util.c
-index 579dd42..5879694 100644
+index 579dd423..58796947 100644
 --- a/util.c
 +++ b/util.c
 @@ -1915,7 +1915,7 @@ int mdmon_running(char *devnm)

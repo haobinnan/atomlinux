@@ -1,7 +1,7 @@
 From ae7d61e35ec2ab6361c3e509a8db00698ef3396f Mon Sep 17 00:00:00 2001
 From: Artur Paszkiewicz <artur.paszkiewicz@intel.com>
 Date: Tue, 7 May 2019 16:08:47 +0200
-Subject: [PATCH 025/131] mdmon: fix wrong array state when disk fails during
+Subject: [PATCH 025/136] mdmon: fix wrong array state when disk fails during
  mdmon startup
 
 If a member drive disappears and is set faulty by the kernel during
@@ -31,7 +31,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  4 files changed, 17 insertions(+), 11 deletions(-)
 
 diff --git a/managemon.c b/managemon.c
-index 29b91ba..200cf83 100644
+index 29b91bad..200cf83e 100644
 --- a/managemon.c
 +++ b/managemon.c
 @@ -678,7 +678,7 @@ static void manage_new(struct mdstat_ent *mdstat,
@@ -44,7 +44,7 @@ index 29b91ba..200cf83 100644
  	if (!mdi)
  		return;
 diff --git a/mdadm.h b/mdadm.h
-index 705bd9b..427cc52 100644
+index 705bd9b5..427cc523 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -647,6 +647,7 @@ enum sysfs_read_flags {
@@ -56,7 +56,7 @@ index 705bd9b..427cc52 100644
  
  /* If fd >= 0, get the array it is open on,
 diff --git a/super-intel.c b/super-intel.c
-index 2ba045a..4fd5e84 100644
+index 2ba045aa..4fd5e84d 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -8560,7 +8560,7 @@ static void imsm_set_disk(struct active_array *a, int n, int state)
@@ -69,7 +69,7 @@ index 2ba045a..4fd5e84 100644
  			super->updates_pending++;
  	}
 diff --git a/sysfs.c b/sysfs.c
-index df6fdda..2dd9ab6 100644
+index df6fdda3..2dd9ab63 100644
 --- a/sysfs.c
 +++ b/sysfs.c
 @@ -313,17 +313,22 @@ struct mdinfo *sysfs_read(int fd, char *devnm, unsigned long options)

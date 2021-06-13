@@ -146,6 +146,4 @@ MyInstall_Base "aqemu"
 
 echo y | sudo apt autoremove
 
-./mk-install-gnu-efi.sh
-
 echo "Complete."

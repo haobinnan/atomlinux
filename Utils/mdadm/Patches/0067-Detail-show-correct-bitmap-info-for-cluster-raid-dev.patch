@@ -1,7 +1,7 @@
 From 9e4494051de3f53228fabae56c116879bff5a0c8 Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Mon, 16 Mar 2020 10:16:49 +0800
-Subject: [PATCH 067/131] Detail: show correct bitmap info for cluster raid
+Subject: [PATCH 067/136] Detail: show correct bitmap info for cluster raid
  device
 
 Signed-off-by: Lidong Zhong <lidong.zhong@suse.com>
@@ -11,7 +11,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/Detail.c b/Detail.c
-index 832485f..daec4f1 100644
+index 832485fe..daec4f1a 100644
 --- a/Detail.c
 +++ b/Detail.c
 @@ -468,7 +468,9 @@ int Detail(char *dev, struct context *c)

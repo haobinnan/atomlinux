@@ -1,7 +1,7 @@
 From e1512e7b7d060f0346738b237ea34eac21b29a26 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Wed, 18 Dec 2019 14:46:21 +0800
-Subject: [PATCH 058/131] mdcheck service can't start succesfully because of
+Subject: [PATCH 058/136] mdcheck service can't start succesfully because of
  syntax error
 
 It reports error when starting mdcheck_start and mdcheck_continue service.
@@ -15,7 +15,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/systemd/mdcheck_continue.service b/systemd/mdcheck_continue.service
-index deac695..aa02dde 100644
+index deac6954..aa02dde4 100644
 --- a/systemd/mdcheck_continue.service
 +++ b/systemd/mdcheck_continue.service
 @@ -11,7 +11,7 @@ ConditionPathExistsGlob = /var/lib/mdcheck/MD_UUID_*
@@ -28,7 +28,7 @@ index deac695..aa02dde 100644
  ExecStartPre=-/usr/lib/mdadm/mdadm_env.sh
  ExecStart=/usr/share/mdadm/mdcheck --continue --duration ${MDADM_CHECK_DURATION}
 diff --git a/systemd/mdcheck_start.service b/systemd/mdcheck_start.service
-index f17f1aa..da62d5f 100644
+index f17f1aae..da62d5f9 100644
 --- a/systemd/mdcheck_start.service
 +++ b/systemd/mdcheck_start.service
 @@ -11,7 +11,7 @@ Wants=mdcheck_continue.timer

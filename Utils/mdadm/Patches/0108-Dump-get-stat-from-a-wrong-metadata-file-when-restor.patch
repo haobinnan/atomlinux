@@ -1,7 +1,7 @@
 From 75562b57d43bd252399b55d0004b8eac4b337a67 Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Mon, 14 Dec 2020 22:51:33 +0800
-Subject: [PATCH 108/131] Dump: get stat from a wrong metadata file when
+Subject: [PATCH 108/136] Dump: get stat from a wrong metadata file when
  restoring metadata
 
 The dumped metadata files are shown as below
@@ -28,7 +28,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/Dump.c b/Dump.c
-index 38e8f23..736bcb6 100644
+index 38e8f238..736bcb60 100644
 --- a/Dump.c
 +++ b/Dump.c
 @@ -272,6 +272,11 @@ int Restore_metadata(char *dev, char *dir, struct context *c,

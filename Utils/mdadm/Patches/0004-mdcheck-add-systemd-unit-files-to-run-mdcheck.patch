@@ -1,7 +1,7 @@
 From 4199d3c629c14866505923d19fa50017ee92d2e1 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.com>
 Date: Wed, 5 Dec 2018 16:35:00 +1100
-Subject: [PATCH 004/131] mdcheck: add systemd unit files to run mdcheck.
+Subject: [PATCH 004/136] mdcheck: add systemd unit files to run mdcheck.
 
 Having the mdcheck script is not use if is never run.
 This patch adds systemd unit files so that it can easily
@@ -30,7 +30,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  create mode 100644 systemd/mdcheck_start.timer
 
 diff --git a/Makefile b/Makefile
-index 2767ac6..afb62cc 100644
+index 2767ac68..afb62cc6 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -276,7 +276,10 @@ install-udev: udev-md-raid-arrays.rules udev-md-raid-assembly.rules udev-md-raid
@@ -47,7 +47,7 @@ index 2767ac6..afb62cc 100644
  	   $(INSTALL) -D -m 644 .install.tmp.2 $(DESTDIR)$(SYSTEMD_DIR)/$$file ; \
 diff --git a/systemd/mdcheck_continue.service b/systemd/mdcheck_continue.service
 new file mode 100644
-index 0000000..592c607
+index 00000000..592c6079
 --- /dev/null
 +++ b/systemd/mdcheck_continue.service
 @@ -0,0 +1,18 @@
@@ -71,7 +71,7 @@ index 0000000..592c607
 +
 diff --git a/systemd/mdcheck_continue.timer b/systemd/mdcheck_continue.timer
 new file mode 100644
-index 0000000..3ccfd78
+index 00000000..3ccfd785
 --- /dev/null
 +++ b/systemd/mdcheck_continue.timer
 @@ -0,0 +1,13 @@
@@ -90,7 +90,7 @@ index 0000000..3ccfd78
 +
 diff --git a/systemd/mdcheck_start.service b/systemd/mdcheck_start.service
 new file mode 100644
-index 0000000..812141b
+index 00000000..812141bb
 --- /dev/null
 +++ b/systemd/mdcheck_start.service
 @@ -0,0 +1,17 @@
@@ -113,7 +113,7 @@ index 0000000..812141b
 +ExecStart=/usr/share/mdadm/mdcheck --duration $MDADM_CHECK_DURATION
 diff --git a/systemd/mdcheck_start.timer b/systemd/mdcheck_start.timer
 new file mode 100644
-index 0000000..6480736
+index 00000000..64807362
 --- /dev/null
 +++ b/systemd/mdcheck_start.timer
 @@ -0,0 +1,15 @@

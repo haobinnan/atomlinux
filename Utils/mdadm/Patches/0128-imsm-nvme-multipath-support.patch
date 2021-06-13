@@ -1,7 +1,7 @@
 From d835518b6b5381da773e1ce1ae10614239017ecf Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Fri, 12 Mar 2021 10:30:16 +0100
-Subject: [PATCH 128/131] imsm: nvme multipath support
+Subject: [PATCH 128/136] imsm: nvme multipath support
 
 Add support for nvme devices which are represented
 via nvme-subsystem.
@@ -18,7 +18,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  3 files changed, 104 insertions(+), 15 deletions(-)
 
 diff --git a/platform-intel.c b/platform-intel.c
-index f1f6d4c..0e1ec3d 100644
+index f1f6d4cd..0e1ec3d5 100644
 --- a/platform-intel.c
 +++ b/platform-intel.c
 @@ -30,6 +30,8 @@
@@ -124,7 +124,7 @@ index f1f6d4c..0e1ec3d 100644
 +	return 0;
 +}
 diff --git a/platform-intel.h b/platform-intel.h
-index 7371478..8396a0f 100644
+index 7371478e..8396a0f1 100644
 --- a/platform-intel.h
 +++ b/platform-intel.h
 @@ -236,6 +236,7 @@ static inline char *guid_str(char *buf, struct efi_guid guid)
@@ -142,7 +142,7 @@ index 7371478..8396a0f 100644
 +int is_multipath_nvme(int disk_fd);
  char *vmd_domain_to_controller(struct sys_dev *hba, char *buf);
 diff --git a/super-intel.c b/super-intel.c
-index 2bfcad1..6617dd6 100644
+index 2bfcad15..6617dd6d 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -2386,9 +2386,9 @@ static int ahci_enumerate_ports(const char *hba_path, int port_count, int host_b

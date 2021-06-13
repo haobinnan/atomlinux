@@ -1,7 +1,7 @@
 From 5f4184557a98bb641a7889e280265109c73e2f43 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Thu, 6 Aug 2020 13:57:50 +0200
-Subject: [PATCH 089/131] manual: update --examine-badblocks
+Subject: [PATCH 089/136] manual: update --examine-badblocks
 
 IMSM also supports it.
 
@@ -12,7 +12,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/mdadm.8.in b/mdadm.8.in
-index 1474602..ab832e8 100644
+index 14746024..ab832e85 100644
 --- a/mdadm.8.in
 +++ b/mdadm.8.in
 @@ -1695,9 +1695,11 @@ does not report the bitmap for that array.

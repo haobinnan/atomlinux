@@ -1,7 +1,7 @@
 From e48aed3c81a75fa3f761fb5b84e5d16f2baee709 Mon Sep 17 00:00:00 2001
 From: Artur Paszkiewicz <artur.paszkiewicz@intel.com>
 Date: Tue, 17 Mar 2020 10:20:12 +0100
-Subject: [PATCH 068/131] imsm: support the Array Creation Time field in
+Subject: [PATCH 068/136] imsm: support the Array Creation Time field in
  metadata
 
 Also present its value in --examine and --examine --export.
@@ -13,7 +13,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 6680df2..8840fff 100644
+index 6680df29..8840fffe 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -260,8 +260,9 @@ struct imsm_super {

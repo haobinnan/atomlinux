@@ -1,7 +1,7 @@
 From 1fe2e1007310778d0551d5c34317e5318507399d Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Wed, 28 Oct 2020 14:04:24 +0800
-Subject: [PATCH 109/131] mdadm/bitmap: locate bitmap calcuate bitmap position
+Subject: [PATCH 109/136] mdadm/bitmap: locate bitmap calcuate bitmap position
  wrongly
 
 Now it only adds bitmap offset based on cluster nodes. It's not right. It needs to
@@ -14,7 +14,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/super1.c b/super1.c
-index 8b0d6ff..b5b379b 100644
+index 8b0d6ff3..b5b379b3 100644
 --- a/super1.c
 +++ b/super1.c
 @@ -2582,8 +2582,9 @@ add_internal_bitmap1(struct supertype *st,

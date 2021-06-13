@@ -1,7 +1,7 @@
 From 0d5839541223a93fd55578ff972192d16fc502bc Mon Sep 17 00:00:00 2001
 From: Oleksandr Shchirskyi <oleksandr.shchirskyi@intel.com>
 Date: Thu, 14 Jan 2021 13:59:20 +0100
-Subject: [PATCH 115/131] Document PPL in man md
+Subject: [PATCH 115/136] Document PPL in man md
 
 Partial Parity Log (PPL) was not documented in the man md.
 Added brief info about PPL.
@@ -13,7 +13,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 29 insertions(+), 15 deletions(-)
 
 diff --git a/md.4 b/md.4
-index 60fdd27..7a0bc7e 100644
+index 60fdd274..7a0bc7e6 100644
 --- a/md.4
 +++ b/md.4
 @@ -219,7 +219,7 @@ Once you have updated the layout you will not be able to mount the array

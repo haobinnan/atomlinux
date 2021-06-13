@@ -1,7 +1,7 @@
 From 69d084784de196acec8ab703cd1b379af211d624 Mon Sep 17 00:00:00 2001
 From: Artur Paszkiewicz <artur.paszkiewicz@intel.com>
 Date: Fri, 22 Feb 2019 10:15:45 +0100
-Subject: [PATCH 018/131] mdmon: don't attempt to manage new arrays when
+Subject: [PATCH 018/136] mdmon: don't attempt to manage new arrays when
  terminating
 
 When mdmon gets a SIGTERM, it stops managing arrays that are clean. If
@@ -22,7 +22,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/managemon.c b/managemon.c
-index 101231c..29b91ba 100644
+index 101231c5..29b91bad 100644
 --- a/managemon.c
 +++ b/managemon.c
 @@ -727,9 +727,7 @@ static void manage_new(struct mdstat_ent *mdstat,

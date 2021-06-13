@@ -1,7 +1,7 @@
 From cd72f9d114da206baa01fd56ff2d8ffcc08f3239 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.com>
 Date: Fri, 9 Nov 2018 17:12:33 +1100
-Subject: [PATCH 003/131] policy: support devices with multiple paths.
+Subject: [PATCH 003/136] policy: support devices with multiple paths.
 
 As new releases of Linux some time change the name of
 a path, some distros keep "legacy" names as well.  This
@@ -22,7 +22,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  3 files changed, 95 insertions(+), 75 deletions(-)
 
 diff --git a/Incremental.c b/Incremental.c
-index a4ff7d4..d4d3c35 100644
+index a4ff7d4b..d4d3c353 100644
 --- a/Incremental.c
 +++ b/Incremental.c
 @@ -1080,6 +1080,7 @@ static int partition_try_spare(char *devname, int *dfdp, struct dev_policy *pol,
@@ -45,7 +45,7 @@ index a4ff7d4..d4d3c35 100644
  		domain_merge(&domlist, pol2, st ? st->ss->name : NULL);
  		if (domain_test(domlist, pol, st ? st->ss->name : NULL) != 1)
 diff --git a/mdadm.h b/mdadm.h
-index 387e681..705bd9b 100644
+index 387e681a..705bd9b5 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -1247,7 +1247,7 @@ extern void policyline(char *line, char *type);
@@ -58,7 +58,7 @@ index 387e681..705bd9b 100644
  extern struct dev_policy *devid_policy(int devid);
  extern void dev_policy_free(struct dev_policy *p);
 diff --git a/policy.c b/policy.c
-index 258f393..fa67d55 100644
+index 258f3931..fa67d559 100644
 --- a/policy.c
 +++ b/policy.c
 @@ -189,15 +189,17 @@ struct dev_policy *pol_find(struct dev_policy *pol, char *name)

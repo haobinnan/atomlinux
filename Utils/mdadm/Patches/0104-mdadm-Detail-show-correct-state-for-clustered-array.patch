@@ -1,7 +1,7 @@
 From 9c030dadba89b90a4e52b6afe0290076c809684c Mon Sep 17 00:00:00 2001
 From: Zhao Heming <heming.zhao@suse.com>
 Date: Sat, 24 Oct 2020 17:43:12 +0800
-Subject: [PATCH 104/131] mdadm/Detail: show correct state for clustered array
+Subject: [PATCH 104/136] mdadm/Detail: show correct state for clustered array
 
 After kernel md module commit 480523feae581, in clustered env,
 mddev->in_sync always zero, it will make array.state never set
@@ -19,7 +19,7 @@ Signed-off-by: Zhao Heming <heming.zhao@suse.com>
  3 files changed, 86 insertions(+), 10 deletions(-)
 
 diff --git a/Detail.c b/Detail.c
-index ea86884..f8dea6f 100644
+index ea868847..f8dea6fd 100644
 --- a/Detail.c
 +++ b/Detail.c
 @@ -498,8 +498,26 @@ int Detail(char *dev, struct context *c)
@@ -51,7 +51,7 @@ index ea86884..f8dea6f 100644
  			printf("             State : %s%s%s%s%s%s%s \n",
  			       arrayst, st,
 diff --git a/bitmap.c b/bitmap.c
-index e38cb96..9a7ffe3 100644
+index e38cb965..9a7ffe3b 100644
 --- a/bitmap.c
 +++ b/bitmap.c
 @@ -180,13 +180,14 @@ out:
@@ -181,7 +181,7 @@ index e38cb96..9a7ffe3 100644
  
  int CreateBitmap(char *filename, int force, char uuid[16],
 diff --git a/mdadm.h b/mdadm.h
-index 56b1b19..1ee6c92 100644
+index 56b1b197..1ee6c92e 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -1455,6 +1455,7 @@ extern int CreateBitmap(char *filename, int force, char uuid[16],

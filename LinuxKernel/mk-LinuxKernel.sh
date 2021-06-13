@@ -11,7 +11,8 @@ fi
 AtomLinux_LinuxKernelVNumber="$(grep -i ^AtomLinux_LinuxKernelVNumber ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_DownloadURL="$(grep -i ^AtomLinux_LinuxKernelURL ../VariableSetting | cut -f2 -d'=')"
-AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ../VariableSetting | cut -f2 -d'=')"
+#AtomLinux_SecureBootSignature="$(grep -i ^AtomLinux_SecureBootSignature ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_SecureBootSignature="No"
 #Load from VariableSetting file
 
 OBJ_PROJECT=linuxkernel

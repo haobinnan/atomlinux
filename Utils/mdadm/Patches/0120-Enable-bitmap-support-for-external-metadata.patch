@@ -1,7 +1,7 @@
 From b554ab5c9bba537b4a282b3863ead6b3b52dd2e1 Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:46:55 -0500
-Subject: [PATCH 120/131] Enable bitmap support for external metadata
+Subject: [PATCH 120/136] Enable bitmap support for external metadata
 
 The patch enables the implementation of a write-intent bitmap for external
 metadata.
@@ -18,7 +18,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  3 files changed, 22 insertions(+)
 
 diff --git a/Assemble.c b/Assemble.c
-index 48556d8..5c6aca9 100644
+index 48556d8c..5c6aca92 100644
 --- a/Assemble.c
 +++ b/Assemble.c
 @@ -2094,6 +2094,13 @@ int assemble_container_content(struct supertype *st, int mdfd,
@@ -36,7 +36,7 @@ index 48556d8..5c6aca9 100644
  	if (start_reshape) {
  		int spare = content->array.raid_disks + expansion;
 diff --git a/Create.c b/Create.c
-index 51f8826..b50cb24 100644
+index 51f8826b..b50cb246 100644
 --- a/Create.c
 +++ b/Create.c
 @@ -989,6 +989,18 @@ int Create(struct supertype *st, char *mddev,
@@ -59,7 +59,7 @@ index 51f8826..b50cb24 100644
  			/* update parent container uuid */
  			if (me) {
 diff --git a/mdadm.h b/mdadm.h
-index 60575af..273fa50 100644
+index 60575af0..273fa509 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -1007,6 +1007,9 @@ extern struct superswitch {

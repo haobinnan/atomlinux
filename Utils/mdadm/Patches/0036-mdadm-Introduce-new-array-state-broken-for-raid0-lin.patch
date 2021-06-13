@@ -1,7 +1,7 @@
 From 43ebc9105e9dafe5145b3e801c05da4736bf6e02 Mon Sep 17 00:00:00 2001
 From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
 Date: Tue, 3 Sep 2019 16:49:01 -0300
-Subject: [PATCH 036/131] mdadm: Introduce new array state 'broken' for
+Subject: [PATCH 036/136] mdadm: Introduce new array state 'broken' for
  raid0/linear
 
 Currently if a md raid0/linear array gets one or more members removed while
@@ -40,7 +40,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  6 files changed, 23 insertions(+), 7 deletions(-)
 
 diff --git a/Detail.c b/Detail.c
-index ad60434..3e61e37 100644
+index ad60434f..3e61e372 100644
 --- a/Detail.c
 +++ b/Detail.c
 @@ -81,6 +81,7 @@ int Detail(char *dev, struct context *c)
@@ -73,7 +73,7 @@ index ad60434..3e61e37 100644
  				       e->percent != RESYNC_PENDING &&
  				       e->percent != RESYNC_DELAYED)) ?
 diff --git a/Monitor.c b/Monitor.c
-index 036103f..b527165 100644
+index 036103fb..b527165b 100644
 --- a/Monitor.c
 +++ b/Monitor.c
 @@ -1055,8 +1055,11 @@ int Wait(char *dev)
@@ -100,7 +100,7 @@ index 036103f..b527165 100644
  			rv = sysfs_wait(state_fd, &delay);
  			if (rv < 0 && errno != EINTR)
 diff --git a/maps.c b/maps.c
-index 02a0474..49b7f2c 100644
+index 02a04742..49b7f2c2 100644
 --- a/maps.c
 +++ b/maps.c
 @@ -150,6 +150,7 @@ mapping_t sysfs_array_states[] = {
@@ -112,7 +112,7 @@ index 02a0474..49b7f2c 100644
  };
  
 diff --git a/mdadm.h b/mdadm.h
-index 43b07d5..c88ceab 100644
+index 43b07d57..c88ceab0 100644
 --- a/mdadm.h
 +++ b/mdadm.h
 @@ -373,6 +373,7 @@ struct mdinfo {
@@ -124,7 +124,7 @@ index 43b07d5..c88ceab 100644
  	} array_state;
  	struct md_bb bb;
 diff --git a/mdmon.h b/mdmon.h
-index 818367c..b3d72ac 100644
+index 818367cb..b3d72ac3 100644
 --- a/mdmon.h
 +++ b/mdmon.h
 @@ -21,7 +21,7 @@
@@ -137,7 +137,7 @@ index 818367c..b3d72ac 100644
  enum sync_action { idle, reshape, resync, recover, check, repair, bad_action };
  
 diff --git a/monitor.c b/monitor.c
-index 81537ed..e0d3be6 100644
+index 81537ed3..e0d3be67 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -26,7 +26,7 @@

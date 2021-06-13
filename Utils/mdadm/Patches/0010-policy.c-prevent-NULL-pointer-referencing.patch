@@ -1,7 +1,7 @@
 From 467e6a1b4ece8e552ee638dab7f44a4d235ece1a Mon Sep 17 00:00:00 2001
 From: Gioh Kim <gi-oh.kim@cloud.ionos.com>
 Date: Fri, 7 Dec 2018 12:04:44 +0100
-Subject: [PATCH 010/131] policy.c: prevent NULL pointer referencing
+Subject: [PATCH 010/136] policy.c: prevent NULL pointer referencing
 
 paths could be NULL and paths[0] should be followed by NULL pointer
 checking.
@@ -14,7 +14,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/policy.c b/policy.c
-index fa67d55..e3a0671 100644
+index fa67d559..e3a0671f 100644
 --- a/policy.c
 +++ b/policy.c
 @@ -383,7 +383,7 @@ struct dev_policy *path_policy(char **paths, char *type)

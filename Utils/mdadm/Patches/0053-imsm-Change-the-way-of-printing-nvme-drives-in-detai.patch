@@ -1,7 +1,7 @@
 From 6da53c0e2aab200605722795798b1e4f2352cd64 Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Mon, 2 Dec 2019 10:52:05 +0100
-Subject: [PATCH 053/131] imsm: Change the way of printing nvme drives in
+Subject: [PATCH 053/136] imsm: Change the way of printing nvme drives in
  detail-platform.
 
 Change NVMe controller path to device node path
@@ -18,7 +18,7 @@ Signed-off-by: Jes Sorensen <jsorensen@fb.com>
  1 file changed, 46 insertions(+), 51 deletions(-)
 
 diff --git a/super-intel.c b/super-intel.c
-index 86dcb69..5c1f759 100644
+index 86dcb69c..5c1f759f 100644
 --- a/super-intel.c
 +++ b/super-intel.c
 @@ -2218,7 +2218,8 @@ static void brief_detail_super_imsm(struct supertype *st, char *subarray)
