@@ -150,7 +150,7 @@ AtomLinux_WestonURL=git://anongit.freedesktop.org/wayland/weston
 #Utils - weston
 
 #Utils - dislocker
-AtomLinux_DislockerVNumber=0.7.1
+AtomLinux_DislockerVNumber=0.7.3
 AtomLinux_DislockerURL=https://codeload.github.com/Aorimn/dislocker/
 #Utils - dislocker
 
@@ -185,5 +185,5 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=edk2-stable202102
+AtomLinux_OvmfVNumber=edk2-stable202105
 #ovmf
