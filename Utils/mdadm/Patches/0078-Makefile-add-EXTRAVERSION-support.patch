@@ -1,7 +1,7 @@
 From 03ab9763f51ddf2030f60f83e76cf9c1b50b726c Mon Sep 17 00:00:00 2001
 From: Tkaczyk Mariusz <mariusz.tkaczyk@intel.com>
 Date: Fri, 15 May 2020 11:23:14 +0200
-Subject: [PATCH 078/136] Makefile: add EXTRAVERSION support
+Subject: [PATCH 078/148] Makefile: add EXTRAVERSION support
 
 Add optional EXTRAVERSION parameter to Makefile and allow to mark version
 by user friendly label. It might be useful when creating custom

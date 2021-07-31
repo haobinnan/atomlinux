@@ -1,7 +1,7 @@
 From 4ca799c581703d4d0ad840833c037c2fff088ca7 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Wed, 30 Oct 2019 10:32:41 +1100
-Subject: [PATCH 045/136] mdcheck: use ${} to pass variable to mdcheck
+Subject: [PATCH 045/148] mdcheck: use ${} to pass variable to mdcheck
 
 $MDADM_CHECK_DURATION allows the value to be split on spaces.
 ${MDADM_CHECK_DURATION} avoids such splitting.

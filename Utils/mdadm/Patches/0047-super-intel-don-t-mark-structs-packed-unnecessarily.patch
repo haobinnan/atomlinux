@@ -1,7 +1,7 @@
 From 761e3bd9f5e3aafa95ad3ae50a637dc67c8774f0 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Thu, 31 Oct 2019 15:15:38 +1100
-Subject: [PATCH 047/136] super-intel: don't mark structs 'packed'
+Subject: [PATCH 047/148] super-intel: don't mark structs 'packed'
  unnecessarily
 
 super-intel marks a number of structures 'packed', but this

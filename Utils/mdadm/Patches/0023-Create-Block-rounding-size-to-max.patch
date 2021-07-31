@@ -1,7 +1,7 @@
 From 22dc741f63e6403d59c2c14f56fd4791265f9bbb Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Mon, 1 Apr 2019 16:53:41 +0200
-Subject: [PATCH 023/136] Create: Block rounding size to max
+Subject: [PATCH 023/148] Create: Block rounding size to max
 
 When passed size is smaller than chunk, mdadm rounds it to 0 but 0 there
 means max available space.

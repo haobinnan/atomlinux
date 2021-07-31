@@ -1,7 +1,7 @@
 From e1512e7b7d060f0346738b237ea34eac21b29a26 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Wed, 18 Dec 2019 14:46:21 +0800
-Subject: [PATCH 058/136] mdcheck service can't start succesfully because of
+Subject: [PATCH 058/148] mdcheck service can't start succesfully because of
  syntax error
 
 It reports error when starting mdcheck_start and mdcheck_continue service.

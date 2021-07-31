@@ -1,7 +1,7 @@
 From dc95f821ec58be8bccffc0858edca2d12fecef72 Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:46:58 -0500
-Subject: [PATCH 123/136] Add "bitmap" to allowed command-line values
+Subject: [PATCH 123/148] Add "bitmap" to allowed command-line values
 
 Currently, the sysfs interface allows bitmap setup only when volume
 is in an inactive state.

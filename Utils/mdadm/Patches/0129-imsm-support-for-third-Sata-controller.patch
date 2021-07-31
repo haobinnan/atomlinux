@@ -1,7 +1,7 @@
 From f94df5cf83917df50a3436dd067c751504bfc665 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Wed, 17 Mar 2021 13:01:54 +0100
-Subject: [PATCH 129/136] imsm: support for third Sata controller
+Subject: [PATCH 129/148] imsm: support for third Sata controller
 
 Add new UEFI TSata variable. Remove CSata variable.
 This variable has been never exposed by UEFI.

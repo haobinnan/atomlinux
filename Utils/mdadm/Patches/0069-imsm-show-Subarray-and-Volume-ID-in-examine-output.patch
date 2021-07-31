@@ -1,7 +1,7 @@
 From ba1b3bc80ea555c288f1119e69d9273249967081 Mon Sep 17 00:00:00 2001
 From: Artur Paszkiewicz <artur.paszkiewicz@intel.com>
 Date: Tue, 17 Mar 2020 10:21:03 +0100
-Subject: [PATCH 069/136] imsm: show Subarray and Volume ID in --examine output
+Subject: [PATCH 069/148] imsm: show Subarray and Volume ID in --examine output
 
 Show the index of the subarray as 'Subarray' and the value of the
 my_vol_raid_dev_num field as 'Volume ID'.

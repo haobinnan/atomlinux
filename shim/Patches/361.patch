@@ -1,7 +1,6 @@
-From 4068fd42c891ea6ebdec056f461babc6e4048844 Mon Sep 17 00:00:00 2001
 From: Gary Lin <glin@suse.com>
 Date: Thu, 8 Apr 2021 16:23:03 +0800
-Subject: [PATCH 4/4] mok: allocate MOK config table as BootServicesData
+Subject: [PATCH] mok: allocate MOK config table as BootServicesData
 
 Linux kernel is picky when reserving the memory for x86 and it only
 expects BootServicesData:
@@ -17,15 +16,17 @@ linux kernel reserves MOK config table when it detects the existence of
 the table, so it's fine to allocate the table as BootServicesData.
 
 Signed-off-by: Gary Lin <glin@suse.com>
+Origin: https://patch-diff.githubusercontent.com/raw/rhboot/shim/pull/361.patch
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/shim/+bug/1925139
 ---
  mok.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/mok.c b/mok.c
-index 9e37d6a..9b8fc2b 100644
+index 5ad9072..fc1ee04 100644
 --- a/mok.c
 +++ b/mok.c
-@@ -999,7 +999,7 @@ EFI_STATUS import_mok_state(EFI_HANDLE image_handle)
+@@ -1002,7 +1002,7 @@ EFI_STATUS import_mok_state(EFI_HANDLE image_handle)
  		npages = ALIGN_VALUE(config_sz, PAGE_SIZE) >> EFI_PAGE_SHIFT;
  		config_table = NULL;
  		efi_status = gBS->AllocatePages(AllocateAnyPages,
@@ -34,6 +35,3 @@ index 9e37d6a..9b8fc2b 100644
  						npages,
  						(EFI_PHYSICAL_ADDRESS *)&config_table);
  		if (EFI_ERROR(efi_status) || !config_table) {
--- 
-2.25.1
-

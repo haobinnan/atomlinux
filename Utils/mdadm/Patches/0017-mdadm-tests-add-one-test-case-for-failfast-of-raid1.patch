@@ -1,7 +1,7 @@
 From 76b906d2406cdf136f64de77e881eb2d180108d9 Mon Sep 17 00:00:00 2001
 From: Gioh Kim <gi-oh.kim@cloud.ionos.com>
 Date: Fri, 7 Dec 2018 14:30:09 +0100
-Subject: [PATCH 017/136] mdadm/tests: add one test case for failfast of raid1
+Subject: [PATCH 017/148] mdadm/tests: add one test case for failfast of raid1
 
 This creates raid1 device with the failfast option and check all
 slaves have the failfast flag. And it does assembling and growing

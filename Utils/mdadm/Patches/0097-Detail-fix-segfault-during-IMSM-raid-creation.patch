@@ -1,7 +1,7 @@
 From c3129b39a7d467eec063681529f46f84a2a85308 Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Sun, 22 Nov 2020 23:12:29 +0800
-Subject: [PATCH 097/136] Detail: fix segfault during IMSM raid creation
+Subject: [PATCH 097/148] Detail: fix segfault during IMSM raid creation
 
 It can be reproduced with non IMSM hardware and IMSM_NO_PLATFORM
 environmental variable set. The array state is inactive when creating

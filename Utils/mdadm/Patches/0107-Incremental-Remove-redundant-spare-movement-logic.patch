@@ -1,7 +1,7 @@
 From 69068584f9ed68b8b2736287a1c9863e11b741d5 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Fri, 11 Dec 2020 12:28:38 +0100
-Subject: [PATCH 107/136] Incremental: Remove redundant spare movement logic
+Subject: [PATCH 107/148] Incremental: Remove redundant spare movement logic
 
 If policy is set then mdmonitor is responsible for moving spares.
 This logic is reduntant and potentialy dangerus, spare could be moved at

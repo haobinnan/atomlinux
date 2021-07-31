@@ -1,0 +1,48 @@
+From dca80fcd5d15c37ecbd82763e6fe4aee8c077bf9 Mon Sep 17 00:00:00 2001
+From: Blazej Kucman <blazej.kucman@intel.com>
+Date: Tue, 15 Jun 2021 16:45:39 +0200
+Subject: [PATCH 142/148] Use dev_open in validate geometry container
+
+Fix regression caused by the patch 1f5d54a06
+("Manage: Call validate_geometry when adding drive to external container")
+- mdmonitor passes to Manage() routine dev name as min:mjr.
+The open() used in validate_geometry_container()
+in both ddf and imsm requires path, replace open calls by dev_open,
+which allows to use dev path and min:mjr.
+
+Signed-off-by: Blazej Kucman <blazej.kucman@intel.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ super-ddf.c   | 2 +-
+ super-intel.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/super-ddf.c b/super-ddf.c
+index 80a40f84..dc8e512f 100644
+--- a/super-ddf.c
++++ b/super-ddf.c
+@@ -3463,7 +3463,7 @@ validate_geometry_ddf_container(struct supertype *st,
+ 	if (!dev)
+ 		return 1;
+ 
+-	fd = open(dev, O_RDONLY|O_EXCL, 0);
++	fd = dev_open(dev, O_RDONLY|O_EXCL);
+ 	if (fd < 0) {
+ 		if (verbose)
+ 			pr_err("ddf: Cannot open %s: %s\n",
+diff --git a/super-intel.c b/super-intel.c
+index fe45d933..5356ca51 100644
+--- a/super-intel.c
++++ b/super-intel.c
+@@ -6668,7 +6668,7 @@ static int validate_geometry_imsm_container(struct supertype *st, int level,
+ 	if (!dev)
+ 		return 1;
+ 
+-	fd = open(dev, O_RDONLY|O_EXCL, 0);
++	fd = dev_open(dev, O_RDONLY|O_EXCL);
+ 	if (fd < 0) {
+ 		if (verbose > 0)
+ 			pr_err("imsm: Cannot open %s: %s\n",
+-- 
+2.25.1
+

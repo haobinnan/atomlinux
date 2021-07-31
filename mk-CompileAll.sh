@@ -58,8 +58,11 @@ if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
     echo -e "****************** \033[31mSignature Method\033[0m:{\033[33m"${AtomLinux_SignatureMethod}"\033[0m} ******************"
 fi
 
-echo "Proceed anyway? [y/n]"
-read answer
+read -p "Proceed anyway? [y/n]" answer
+if [ -z "${answer}" ]; then
+    answer="N"
+fi
+
 if [ $answer = "n" ] || [ $answer = "N" ]; then
     exit 1
 fi
@@ -374,8 +377,7 @@ if [ ${AtomLinux_SecureBootSignature} = "Yes" ]; then
         echo -e "****************** \033[31mPlease sign file\033[0m:\033[33m$(pwd)/Grub2/efi-i386/EFI/BOOT/grubia32.efi\033[0m ******************"
         echo -e "****************** \033[31mPlease sign file\033[0m:\033[33m$(pwd)/Grub2/efi-x86_64/EFI/BOOT/grubx64.efi\033[0m ******************"
 
-        echo "Press Enter to continue after signing completes."
-        read answer
+        read -p "Press Enter to continue after signing completes." answer
     fi
 fi
 #SecureBootSignature

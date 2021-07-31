@@ -1,7 +1,7 @@
 From 138a9e9bbe2622eafc90c976b82f3d84895dbebd Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Mon, 27 Jul 2020 09:14:20 +0800
-Subject: [PATCH 087/136] Specify nodes number when updating cluster nodes
+Subject: [PATCH 087/148] Specify nodes number when updating cluster nodes
 
 Now it allows updating cluster nodes without specify --nodes. It can write superblock
 with zero nodes. It can break the current cluster. Add this check to avoid this problem.

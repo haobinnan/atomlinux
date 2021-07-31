@@ -1,7 +1,7 @@
 From aced6fc9542077a69b00d05bc9cd66c12fc34950 Mon Sep 17 00:00:00 2001
 From: dann frazier <dann.frazier@canonical.com>
 Date: Mon, 9 Dec 2019 13:54:13 -0700
-Subject: [PATCH 056/136] Respect $(CROSS_COMPILE) when $(CC) is the default
+Subject: [PATCH 056/148] Respect $(CROSS_COMPILE) when $(CC) is the default
 
 Commit 1180ed5 told make to only respect $(CROSS_COMPILE) when $(CC)
 was unset. But that will never be the case, as make provides

@@ -1,7 +1,7 @@
 From 1c294b5d960abeeb9e0f188af294d019bc82b20e Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Tue, 14 Apr 2020 16:19:41 +0800
-Subject: [PATCH 072/136] Detail: adding sync status for cluster device
+Subject: [PATCH 072/148] Detail: adding sync status for cluster device
 
 On the node with /proc/mdstat is
 

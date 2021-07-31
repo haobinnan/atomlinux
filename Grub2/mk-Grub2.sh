@@ -14,7 +14,8 @@ AtomLinux_Grub2VNumber="$(grep -i ^AtomLinux_Grub2VNumber ../VariableSetting | c
 AtomLinux_Grub2LdrName="$(grep -i ^AtomLinux_Grub2LdrName ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_UsingPreviousBuildResults_SecureBoot="$(grep -i ^AtomLinux_UsingPreviousBuildResults_SecureBoot ../VariableSetting | cut -f2 -d'=')"
 
-AtomLinux_Grub2UPSTREAMVNumber="$(grep -i ^AtomLinux_Grub2UPSTREAMVNumber ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Grub2MAINUPSTREAMVNumber="$(grep -i ^AtomLinux_Grub2MAINUPSTREAMVNumber ../VariableSetting | cut -f2 -d'=')"
+AtomLinux_Grub2UPSTREAMSBAT="$(grep -i ^AtomLinux_Grub2UPSTREAMSBAT ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_SBAT_DISTRO_ID="$(grep -i ^AtomLinux_SBAT_DISTRO_ID ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_SBAT_DISTRO_NAME="$(grep -i ^AtomLinux_SBAT_DISTRO_NAME ../VariableSetting | cut -f2 -d'=')"
 AtomLinux_SBAT_URL="$(grep -i ^AtomLinux_SBAT_URL ../VariableSetting | cut -f2 -d'=')"
@@ -277,9 +278,8 @@ function build_efi()
     #All mod
 
     #sbat.csv
-    echo 'sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-grub,1,Free Software Foundation,grub,'${AtomLinux_Grub2UPSTREAMVNumber}',https://www.gnu.org/software/grub/
-grub.'${AtomLinux_SBAT_DISTRO_ID}',1,'${AtomLinux_SBAT_DISTRO_NAME}','${OBJ_PROJECT}','${AtomLinux_Grub2VNumber}','${AtomLinux_SBAT_URL} > ./sbat-${ARCH}.csv
+    echo -e 'sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+grub,1,Free Software Foundation,grub,'${AtomLinux_Grub2MAINUPSTREAMVNumber}',https://www.gnu.org/software/grub/\n'${AtomLinux_Grub2UPSTREAMSBAT}'\ngrub.'${AtomLinux_SBAT_DISTRO_ID}',1,'${AtomLinux_SBAT_DISTRO_NAME}','${OBJ_PROJECT}','${AtomLinux_Grub2MAINUPSTREAMVNumber}-${AtomLinux_SBAT_DISTRO_ID}','${AtomLinux_SBAT_URL} > ./sbat-${ARCH}.csv
     #sbat.csv
 
     ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test probe linux cpuid scsi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video --sbat ./sbat-${ARCH}.csv

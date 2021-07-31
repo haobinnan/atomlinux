@@ -1,7 +1,7 @@
 From aec016303bfa65ff5fac679698f3d47eeca3d823 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Wed, 14 Apr 2021 11:15:07 -0400
-Subject: [PATCH 132/136] super-intel.c: Handle errors from calls to
+Subject: [PATCH 132/148] super-intel.c: Handle errors from calls to
  get_dev_sector_size()
 
 The compiler gets rather upset if we do not take care of this.

@@ -1,7 +1,7 @@
 From fbc425562c5787b9aabb2d3b2d4fb6f18c553852 Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:46:56 -0500
-Subject: [PATCH 121/136] imsm: Write-intent bitmap support
+Subject: [PATCH 121/148] imsm: Write-intent bitmap support
 
 This patch enables the bitmap functionality with the IMSM metadata format.
 The functionality covers "internal" bitmap.

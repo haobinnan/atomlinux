@@ -1,7 +1,7 @@
 From 329dfc28debb58ffe7bd1967cea00fc583139aca Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Mon, 4 Nov 2019 14:27:49 +1100
-Subject: [PATCH 054/136] Create: add support for RAID0 layouts.
+Subject: [PATCH 054/148] Create: add support for RAID0 layouts.
 
 Since Linux 5.4 a layout is needed for RAID0 arrays with
 varying device sizes.

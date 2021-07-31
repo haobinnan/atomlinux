@@ -1,7 +1,7 @@
 From 4036e7ee350c60cb5ad7962ee037efc011eb0c41 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Thu, 11 Mar 2021 13:52:45 +0100
-Subject: [PATCH 127/136] imsm: extend curr_migr_unit to u64
+Subject: [PATCH 127/148] imsm: extend curr_migr_unit to u64
 
 Make it u64 to align it with curr_migr_init field from migration_area.
 

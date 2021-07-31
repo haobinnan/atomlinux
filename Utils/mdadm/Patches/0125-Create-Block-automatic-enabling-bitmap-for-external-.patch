@@ -1,7 +1,7 @@
 From 848d71c91dc249098bdbbf319e25d319eb1d8e23 Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:47:00 -0500
-Subject: [PATCH 125/136] Create: Block automatic enabling bitmap for external
+Subject: [PATCH 125/148] Create: Block automatic enabling bitmap for external
  metadata
 
 For external metadata, bitmap should be added only when

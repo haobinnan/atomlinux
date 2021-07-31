@@ -1,7 +1,7 @@
 From 4ae96c802203ec3cfbb089240c56d61f7f4661b3 Mon Sep 17 00:00:00 2001
 From: Nigel Croxon <ncroxon@redhat.com>
 Date: Wed, 20 Jan 2021 15:05:42 -0500
-Subject: [PATCH 110/136] mdadm: fix reshape from RAID5 to RAID6 with backup
+Subject: [PATCH 110/148] mdadm: fix reshape from RAID5 to RAID6 with backup
  file
 
 Reshaping a 3-disk RAID5 to 4-disk RAID6 will cause a hang of

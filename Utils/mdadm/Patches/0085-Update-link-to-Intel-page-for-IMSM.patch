@@ -1,7 +1,7 @@
 From bcf40dbb5bf7db9d55a877b805ebb95c2008a132 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Fri, 12 Jun 2020 10:49:11 -0400
-Subject: [PATCH 085/136] Update link to Intel page for IMSM
+Subject: [PATCH 085/148] Update link to Intel page for IMSM
 
 The old design page is gone, so update to the current overview page.
 

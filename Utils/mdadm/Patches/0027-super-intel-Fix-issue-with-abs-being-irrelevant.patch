@@ -1,7 +1,7 @@
 From a4f7290c20c2ff78328c9db0b18029165cfb05b2 Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Tue, 9 Jul 2019 13:26:08 -0400
-Subject: [PATCH 027/136] super-intel: Fix issue with abs() being irrelevant
+Subject: [PATCH 027/148] super-intel: Fix issue with abs() being irrelevant
 
 gcc9 complains about subtracting unsigned from unsigned and code
 assuming the result can be negative.

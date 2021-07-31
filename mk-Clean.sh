@@ -66,8 +66,10 @@ rm -f ./*.dat *.iso
 rm -rf Linux_sample
 
 if [ ! -n "$1" ]; then
-    echo "Do you want to clear source code compressed files downloaded during compiling? [y/n]"
-    read answer
+    read -p "Do you want to clear source code compressed files downloaded during compiling? [y/n]" answer
+    if [ -z "${answer}" ]; then
+        answer="N"
+    fi
     if [ $answer = "y" ] || [ $answer = "Y" ]; then
         rm -f ./BusyBox/busybox-*.tar.bz2
         rm -f ./Lib/glib/glib-*.tar.xz

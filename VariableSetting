@@ -109,16 +109,18 @@ AtomLinux_ShimURL=https://github.com/rhboot/shim.git
 #Shim
 
 #Grub2
-AtomLinux_Grub2UPSTREAMVNumber=2.04
+AtomLinux_Grub2MAINUPSTREAMVNumber=2.04
 
 #AtomLinux_Grub2VNumber=2.04-8
 #AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
-AtomLinux_Grub2VNumber=import/2.04-1ubuntu45
+
+AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.04-1ubuntu46,https://www.ubuntu.com/
+AtomLinux_Grub2VNumber=import/2.04-1ubuntu46
 AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.11.21
+AtomLinux_LinuxKernelVNumber=5.11.22
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 

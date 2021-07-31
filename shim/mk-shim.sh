@@ -77,20 +77,35 @@ cd ../../
 #git clone Source Code
 
 #Patches
+# if [ -d ./Patches ]; then
+#     cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}
+#     for file in $(ls ../../Patches);
+#     do
+#         echo -e "\033[31m$file\033[0m"
+#         patch -p1 < ../../Patches/$file
+#         #Check patch
+#         if [ ! $? -eq 0 ]; then
+#             echo "Error: patch (shim) ."
+#             exit 1
+#         fi
+#         #Check patch
+#     done
+#     cd ../../
+# fi
+#Patches
+
+#Patches
 if [ -d ./Patches ]; then
-    cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}
-    for file in $(ls ../../Patches);
-    do
-        echo -e "\033[31m$file\033[0m"
-        patch -p1 < ../../Patches/$file
-        #Check patch
-        if [ ! $? -eq 0 ]; then
-            echo "Error: patch (shim) ."
-            exit 1
-        fi
-        #Check patch
-    done
-    cd ../../
+    if [ -f ./Patches/series ]; then
+        cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}
+        cat ../../Patches/series | while read line
+        do
+            strfile="../../Patches/${line}"
+            echo -e "\033[31m$strfile\033[0m"
+            patch -p1 < $strfile
+        done
+        cd ../../
+    fi
 fi
 #Patches
 

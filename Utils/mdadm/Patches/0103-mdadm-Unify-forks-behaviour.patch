@@ -1,7 +1,7 @@
 From ff6bb131a46e1bac84a26e5b2c4bf408c0e56926 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Wed, 4 Nov 2020 10:02:36 +0100
-Subject: [PATCH 103/136] mdadm: Unify forks behaviour
+Subject: [PATCH 103/148] mdadm: Unify forks behaviour
 
 If mdadm is run by udev or systemd, it gets a pipe as each stream.
 Forks in the background may run after an event or service has been

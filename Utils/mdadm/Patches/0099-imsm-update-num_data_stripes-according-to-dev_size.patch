@@ -1,7 +1,7 @@
 From 895ffd992954069e4ea67efb8a85bb0fd72c3707 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Tue, 24 Nov 2020 14:15:15 +0100
-Subject: [PATCH 099/136] imsm: update num_data_stripes according to dev_size
+Subject: [PATCH 099/148] imsm: update num_data_stripes according to dev_size
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit

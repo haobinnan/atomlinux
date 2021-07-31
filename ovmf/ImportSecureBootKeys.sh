@@ -11,9 +11,8 @@ echo -e "\033[33mShell> fs0:\033[0m"
 echo -e "\033[33mFS0:\> EnrollDefaultKeys.efi\033[0m"
 echo -e "\033[31m-----------------------------\033[0m"
 echo ""
-echo "Press Enter to continue."
 
-read answer
+read -p "Press Enter to continue." answer
 
 QEMURunParameter="-smp 2 -m 256M -vga qxl -drive format=raw,file=fat:rw:SecureBootKeys"
 

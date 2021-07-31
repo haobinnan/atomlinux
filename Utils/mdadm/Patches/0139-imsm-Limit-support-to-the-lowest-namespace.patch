@@ -1,0 +1,329 @@
+From 8662f92d71f1f88589061272606b8b673d31de05 Mon Sep 17 00:00:00 2001
+From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
+Date: Mon, 17 May 2021 16:39:02 +0200
+Subject: [PATCH 139/148] imsm: Limit support to the lowest namespace
+
+First namespace existence is not quaranted by NVMe specification.
+Instead first the smallest one shall be chosen.
+
+Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ platform-intel.c |  81 +++++++++++++++++++++++--------
+ platform-intel.h |   2 +-
+ super-intel.c    | 124 +++++++++++++++++++++++------------------------
+ 3 files changed, 123 insertions(+), 84 deletions(-)
+
+diff --git a/platform-intel.c b/platform-intel.c
+index 94017841..5a8729e7 100644
+--- a/platform-intel.c
++++ b/platform-intel.c
+@@ -879,36 +879,75 @@ char *vmd_domain_to_controller(struct sys_dev *hba, char *buf)
+ 	closedir(dir);
+ 	return NULL;
+ }
+-/* Verify that NVMe drive is supported by IMSM
++
++/* Scan over all controller's namespaces and compare nsid value to verify if
++ * current one is supported. The routine doesn't check IMSM capabilities for
++ * namespace. Only one nvme namespace is supported by IMSM.
++ * Paramteres:
++ *	fd - open descriptor to the nvme namespace
++ *	verbose - error logging level
+  * Returns:
+- *	0 - not supported
+- *	1 - supported
++ *	1 - if namespace is supported
++ *	0 - otherwise
+  */
+-int imsm_is_nvme_supported(int disk_fd, int verbose)
++int imsm_is_nvme_namespace_supported(int fd, int verbose)
+ {
+-	char nsid_path[PATH_MAX];
+-	char buf[PATH_MAX];
+-	struct stat stb;
++	DIR *dir = NULL;
++	struct dirent *ent;
++	char cntrl_path[PATH_MAX];
++	char ns_path[PATH_MAX];
++	unsigned long long lowest_nsid = ULLONG_MAX;
++	unsigned long long this_nsid;
++	int rv = 0;
+ 
+-	if (disk_fd < 0)
+-		return 0;
+ 
+-	if (fstat(disk_fd, &stb))
+-		return 0;
++	if (!diskfd_to_devpath(fd, 1, cntrl_path) ||
++	    !diskfd_to_devpath(fd, 0, ns_path)) {
++		if (verbose)
++			pr_err("Cannot get device paths\n");
++		goto abort;
++	}
+ 
+-	snprintf(nsid_path, PATH_MAX-1, "/sys/dev/block/%d:%d/nsid",
+-		 major(stb.st_rdev), minor(stb.st_rdev));
+ 
+-	if (load_sys(nsid_path, buf, sizeof(buf))) {
+-		pr_err("Cannot read %s, rejecting drive\n", nsid_path);
+-		return 0;
+-	}
+-	if (strtoll(buf, NULL, 10) != 1) {
++	if (devpath_to_ll(ns_path, "nsid", &this_nsid)) {
+ 		if (verbose)
+-			pr_err("Only first namespace is supported by IMSM, aborting\n");
+-		return 0;
++			pr_err("Cannot read nsid value for %s",
++			       basename(ns_path));
++		goto abort;
+ 	}
+-	return 1;
++
++	dir = opendir(cntrl_path);
++	if (!dir)
++		goto abort;
++
++	/* The lowest nvme namespace is supported */
++	for (ent = readdir(dir); ent; ent = readdir(dir)) {
++		unsigned long long curr_nsid;
++		char curr_ns_path[PATH_MAX + 256];
++
++		if (!strstr(ent->d_name, "nvme"))
++			continue;
++
++		snprintf(curr_ns_path, sizeof(curr_ns_path), "%s/%s",
++			 cntrl_path, ent->d_name);
++
++		if (devpath_to_ll(curr_ns_path, "nsid", &curr_nsid))
++			goto abort;
++
++		if (lowest_nsid > curr_nsid)
++			lowest_nsid = curr_nsid;
++	}
++
++	if (this_nsid == lowest_nsid)
++		rv = 1;
++	else if (verbose)
++		pr_err("IMSM is supported on the lowest NVMe namespace\n");
++
++abort:
++	if (dir)
++		closedir(dir);
++
++	return rv;
+ }
+ 
+ /* Verify if multipath is supported by NVMe controller
+diff --git a/platform-intel.h b/platform-intel.h
+index 45d98cdd..6238d23f 100644
+--- a/platform-intel.h
++++ b/platform-intel.h
+@@ -254,6 +254,6 @@ const struct orom_entry *get_orom_entry_by_device_id(__u16 dev_id);
+ const struct imsm_orom *get_orom_by_device_id(__u16 device_id);
+ struct sys_dev *device_by_id(__u16 device_id);
+ struct sys_dev *device_by_id_and_path(__u16 device_id, const char *path);
+-int imsm_is_nvme_supported(int disk_fd, int verbose);
+ int is_multipath_nvme(int disk_fd);
++int imsm_is_nvme_namespace_supported(int disk_fd, int verbose);
+ char *vmd_domain_to_controller(struct sys_dev *hba, char *buf);
+diff --git a/super-intel.c b/super-intel.c
+index c352f50c..fdcefb61 100644
+--- a/super-intel.c
++++ b/super-intel.c
+@@ -2381,49 +2381,51 @@ static int ahci_enumerate_ports(const char *hba_path, int port_count, int host_b
+ 
+ static int print_nvme_info(struct sys_dev *hba)
+ {
+-	char buf[1024];
+-	char *device_path;
+ 	struct dirent *ent;
+ 	DIR *dir;
+-	int fd;
+ 
+ 	dir = opendir("/sys/block/");
+ 	if (!dir)
+ 		return 1;
+ 
+ 	for (ent = readdir(dir); ent; ent = readdir(dir)) {
+-		if (strstr(ent->d_name, "nvme")) {
+-			fd = open_dev(ent->d_name);
+-			if (fd < 0)
+-				continue;
++		char ns_path[PATH_MAX];
++		char cntrl_path[PATH_MAX];
++		char buf[PATH_MAX];
++		int fd = -1;
+ 
+-			if (!imsm_is_nvme_supported(fd, 0)) {
+-				if (fd >= 0)
+-					close(fd);
+-				continue;
+-			}
++		if (!strstr(ent->d_name, "nvme"))
++			goto skip;
+ 
+-			device_path = diskfd_to_devpath(fd, 1, NULL);
+-			if (!device_path) {
+-				close(fd);
+-				continue;
+-			}
++		fd = open_dev(ent->d_name);
++		if (fd < 0)
++			goto skip;
+ 
+-			if (path_attached_to_hba(device_path, hba->path)) {
+-				fd2devname(fd, buf);
+-				if (hba->type == SYS_DEV_VMD)
+-					printf(" NVMe under VMD : %s", buf);
+-				else if (hba->type == SYS_DEV_NVME)
+-					printf("    NVMe Device : %s", buf);
+-				if (!imsm_read_serial(fd, NULL, (__u8 *)buf,
+-						      sizeof(buf)))
+-					printf(" (%s)\n", buf);
+-				else
+-					printf("()\n");
+-			}
+-			free(device_path);
++		if (!diskfd_to_devpath(fd, 0, ns_path) ||
++		    !diskfd_to_devpath(fd, 1, cntrl_path))
++			goto skip;
++
++		if (!path_attached_to_hba(cntrl_path, hba->path))
++			goto skip;
++
++		if (!imsm_is_nvme_namespace_supported(fd, 0))
++			goto skip;
++
++		fd2devname(fd, buf);
++		if (hba->type == SYS_DEV_VMD)
++			printf(" NVMe under VMD : %s", buf);
++		else if (hba->type == SYS_DEV_NVME)
++			printf("    NVMe Device : %s", buf);
++
++		if (!imsm_read_serial(fd, NULL, (__u8 *)buf,
++				      sizeof(buf)))
++			printf(" (%s)\n", buf);
++		else
++			printf("()\n");
++
++skip:
++		if (fd > -1)
+ 			close(fd);
+-		}
+ 	}
+ 
+ 	closedir(dir);
+@@ -5933,14 +5935,8 @@ static int add_to_super_imsm(struct supertype *st, mdu_disk_info_t *dk,
+ 
+ 		if (!diskfd_to_devpath(fd, 2, pci_dev_path) ||
+ 		    !diskfd_to_devpath(fd, 1, cntrl_path)) {
+-			pr_err("failed to get dev_path, aborting\n");
+-			if (dd->devname)
+-				free(dd->devname);
+-			free(dd);
+-			return 1;
+-		}
++			pr_err("failed to get dev paths, aborting\n");
+ 
+-		if (!imsm_is_nvme_supported(dd->fd, 1)) {
+ 			if (dd->devname)
+ 				free(dd->devname);
+ 			free(dd);
+@@ -6665,7 +6661,7 @@ static int validate_geometry_imsm_container(struct supertype *st, int level,
+ {
+ 	int fd;
+ 	unsigned long long ldsize;
+-	struct intel_super *super;
++	struct intel_super *super = NULL;
+ 	int rv = 0;
+ 
+ 	if (level != LEVEL_CONTAINER)
+@@ -6680,24 +6676,18 @@ static int validate_geometry_imsm_container(struct supertype *st, int level,
+ 				dev, strerror(errno));
+ 		return 0;
+ 	}
+-	if (!get_dev_size(fd, dev, &ldsize)) {
+-		close(fd);
+-		return 0;
+-	}
++	if (!get_dev_size(fd, dev, &ldsize))
++		goto exit;
+ 
+ 	/* capabilities retrieve could be possible
+ 	 * note that there is no fd for the disks in array.
+ 	 */
+ 	super = alloc_super();
+-	if (!super) {
+-		close(fd);
+-		return 0;
+-	}
+-	if (!get_dev_sector_size(fd, NULL, &super->sector_size)) {
+-		close(fd);
+-		free_imsm(super);
+-		return 0;
+-	}
++	if (!super)
++		goto exit;
++
++	if (!get_dev_sector_size(fd, NULL, &super->sector_size))
++		goto exit;
+ 
+ 	rv = find_intel_hba_capability(fd, super, verbose > 0 ? dev : NULL);
+ 	if (rv != 0) {
+@@ -6708,32 +6698,42 @@ static int validate_geometry_imsm_container(struct supertype *st, int level,
+ 			fd, str, super->orom, rv, raiddisks);
+ #endif
+ 		/* no orom/efi or non-intel hba of the disk */
+-		close(fd);
+-		free_imsm(super);
+-		return 0;
++		rv = 0;
++		goto exit;
+ 	}
+-	close(fd);
+ 	if (super->orom) {
+ 		if (raiddisks > super->orom->tds) {
+ 			if (verbose)
+ 				pr_err("%d exceeds maximum number of platform supported disks: %d\n",
+ 					raiddisks, super->orom->tds);
+-			free_imsm(super);
+-			return 0;
++			goto exit;
+ 		}
+ 		if ((super->orom->attr & IMSM_OROM_ATTR_2TB_DISK) == 0 &&
+ 		    (ldsize >> 9) >> 32 > 0) {
+ 			if (verbose)
+ 				pr_err("%s exceeds maximum platform supported size\n", dev);
+-			free_imsm(super);
+-			return 0;
++			goto exit;
++		}
++
++		if (super->hba->type == SYS_DEV_VMD ||
++		    super->hba->type == SYS_DEV_NVME) {
++			if (!imsm_is_nvme_namespace_supported(fd, 1)) {
++				if (verbose)
++					pr_err("NVMe namespace %s is not supported by IMSM\n",
++						basename(dev));
++				goto exit;
++			}
+ 		}
+ 	}
+ 
+ 	*freesize = avail_size_imsm(st, ldsize >> 9, data_offset);
+-	free_imsm(super);
++	rv = 1;
++exit:
++	if (super)
++		free_imsm(super);
++	close(fd);
+ 
+-	return 1;
++	return rv;
+ }
+ 
+ static unsigned long long find_size(struct extent *e, int *idx, int num_extents)
+-- 
+2.25.1
+

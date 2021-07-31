@@ -12,8 +12,10 @@ AtomLinux_Only64Bit="$(grep -i ^AtomLinux_Only64Bit ../VariableSetting | cut -f2
 #Load from VariableSetting file
 
 #apt update
-echo "Do you want to execute apt update and apt dist-upgrade? [y/n]"
-read answer
+read -p "Do you want to execute apt update and apt dist-upgrade? [y/n]" answer
+if [ -z "${answer}" ]; then
+    answer="N"
+fi
 if [ $answer = "y" ] || [ $answer = "Y" ]; then
     if [ ${AtomLinux_Only64Bit} != "Yes" ]; then
         if [ $(getconf LONG_BIT) = '64' ]; then
@@ -24,8 +26,10 @@ if [ $answer = "y" ] || [ $answer = "Y" ]; then
     sudo apt update
     echo y | sudo apt dist-upgrade
 
-    echo "Update completed. Do you want to restart system? [y/n]"
-    read answer
+    read -p "Update completed. Do you want to restart system? [y/n]" answer
+    if [ -z "${answer}" ]; then
+        answer="N"
+    fi
     if [ $answer = "y" ] || [ $answer = "Y" ]; then
         sudo reboot
     fi

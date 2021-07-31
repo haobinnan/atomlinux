@@ -1,7 +1,7 @@
 From 7758ada9f3872cc9cb4c76c733dbc553562b3d7d Mon Sep 17 00:00:00 2001
 From: Kinga Tanska <kinga.tanska@intel.com>
 Date: Fri, 29 May 2020 08:31:36 +0200
-Subject: [PATCH 082/136] Block overwriting existing links while manual
+Subject: [PATCH 082/148] Block overwriting existing links while manual
  assembly
 
 Manual assembly with existing link caused overwriting

@@ -1,7 +1,7 @@
 From 78c93b006e6127e62ca62adfb107c13fe5429386 Mon Sep 17 00:00:00 2001
 From: Nigel Croxon <ncroxon@redhat.com>
 Date: Fri, 26 Mar 2021 07:56:10 -0400
-Subject: [PATCH 131/136] mdadm: fix growing containers
+Subject: [PATCH 131/148] mdadm: fix growing containers
 
 This fixes growing containers which was broken with
 commit 4ae96c802203ec3c (mdadm: fix reshape from RAID5 to RAID6 with

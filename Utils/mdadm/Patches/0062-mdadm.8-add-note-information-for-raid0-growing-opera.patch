@@ -1,7 +1,7 @@
 From 2551061c253b8fd45ee93d1aab3e91d2c7ac9c20 Mon Sep 17 00:00:00 2001
 From: Coly Li <colyli@suse.de>
 Date: Mon, 24 Feb 2020 12:34:09 +0100
-Subject: [PATCH 062/136] mdadm.8: add note information for raid0 growing
+Subject: [PATCH 062/148] mdadm.8: add note information for raid0 growing
  operation
 
 When growing a raid0 device, if the new component disk size is not
