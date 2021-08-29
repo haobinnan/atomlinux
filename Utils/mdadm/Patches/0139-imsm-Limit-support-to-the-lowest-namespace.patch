@@ -1,7 +1,7 @@
 From 8662f92d71f1f88589061272606b8b673d31de05 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Mon, 17 May 2021 16:39:02 +0200
-Subject: [PATCH 139/148] imsm: Limit support to the lowest namespace
+Subject: [PATCH 139/155] imsm: Limit support to the lowest namespace
 
 First namespace existence is not quaranted by NVMe specification.
 Instead first the smallest one shall be chosen.

@@ -115,6 +115,10 @@ function build()
     ARCH=$1
     NAME=$2
 
+    #dbx
+    ./generate_dbx_list ${NAME} dbx.hashes ${NAME}_dbx.esl
+    #dbx
+
     cd ./${OBJ_PROJECT}-tmp/${OBJ_PROJECT}
 
     make clean
@@ -124,9 +128,9 @@ function build()
     #sbat.csv
 
     if [ $UseExistingCertificate = "yes" ]; then
-        echo | $Make ARCH=$ARCH ENABLE_HTTBOOT=1 VENDOR_CERT_FILE=../../$CertFile 2>&1 | tee ../../shim_build_${NAME}.log
+        echo | $Make ARCH=$ARCH ENABLE_HTTPBOOT=true VENDOR_CERT_FILE=../../$CertFile VENDOR_DBX_FILE=../../${NAME}_dbx.esl 2>&1 | tee ../../shim_build_${NAME}.log
     else
-        echo | $Make ARCH=$ARCH ENABLE_HTTBOOT=1 ENABLE_SHIM_CERT=1
+        echo | $Make ARCH=$ARCH ENABLE_HTTPBOOT=true ENABLE_SHIM_CERT=true VENDOR_DBX_FILE=../../${NAME}_dbx.esl
     fi
     #Check make
     if [ ! -f ./shim${NAME}.efi ]; then

@@ -1,7 +1,7 @@
 From c7b8547c70035395a02ae4f7a5ec76a46dedb3cb Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Fri, 5 Feb 2021 14:29:58 +0100
-Subject: [PATCH 117/148] imsm: add verbose flag to compare_super
+Subject: [PATCH 117/155] imsm: add verbose flag to compare_super
 
 IMSM does more than comparing metadata and errors reported directly
 from compare_super_imsm can be useful.

@@ -1,7 +1,7 @@
 From 7c798f870900f6f4d4647dd3c88318524d7ccee4 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Mon, 17 May 2021 16:39:00 +0200
-Subject: [PATCH 137/148] imsm: add generic method to resolve "device" links
+Subject: [PATCH 137/155] imsm: add generic method to resolve "device" links
 
 Each virtual device is linked with parent by "device". This patch adds
 possibility to get previous device in sysfs tree.

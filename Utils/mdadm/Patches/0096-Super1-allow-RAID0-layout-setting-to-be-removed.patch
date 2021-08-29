@@ -1,7 +1,7 @@
 From 97b51a2c2d00b79a59f2a8e37134031b0c9e0223 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Wed, 14 Oct 2020 13:12:48 +1100
-Subject: [PATCH 096/148] Super1: allow RAID0 layout setting to be removed.
+Subject: [PATCH 096/155] Super1: allow RAID0 layout setting to be removed.
 
 Once the RAID0 layout has been set, the RAID0 array cannot be assembled
 on an older kernel which doesn't understand layouts.

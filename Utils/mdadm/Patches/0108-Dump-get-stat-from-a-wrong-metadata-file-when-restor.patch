@@ -1,7 +1,7 @@
 From 75562b57d43bd252399b55d0004b8eac4b337a67 Mon Sep 17 00:00:00 2001
 From: Lidong Zhong <lidong.zhong@suse.com>
 Date: Mon, 14 Dec 2020 22:51:33 +0800
-Subject: [PATCH 108/148] Dump: get stat from a wrong metadata file when
+Subject: [PATCH 108/155] Dump: get stat from a wrong metadata file when
  restoring metadata
 
 The dumped metadata files are shown as below

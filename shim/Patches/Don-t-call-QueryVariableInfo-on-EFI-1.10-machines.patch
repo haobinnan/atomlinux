@@ -1,3 +1,4 @@
+From 8b59591775a0412863aab9596ab87bdd493a9c1e Mon Sep 17 00:00:00 2001
 From: Peter Jones <pjones@redhat.com>
 Date: Sat, 10 Apr 2021 16:05:23 -0400
 Subject: [PATCH] Don't call QueryVariableInfo() on EFI 1.10 machines
@@ -11,13 +12,12 @@ EFI_RUNTIME_SERVICES table's major revision is less than two, and
 assumes our maximum variable size is 1024 in that case.
 
 Signed-off-by: Peter Jones <pjones@redhat.com>
-Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/shim/+bug/1925010
 ---
  mok.c | 23 ++++++++++++++++++-----
  1 file changed, 18 insertions(+), 5 deletions(-)
 
 diff --git a/mok.c b/mok.c
-index 9b8fc2b..beac0ff 100644
+index 9b8fc2bc..beac0ff6 100644
 --- a/mok.c
 +++ b/mok.c
 @@ -261,6 +261,9 @@ static const uint8_t null_sha256[32] = { 0, };
@@ -57,3 +57,6 @@ index 9b8fc2b..beac0ff 100644
  	}
  
  	/*
+-- 
+2.20.1
+

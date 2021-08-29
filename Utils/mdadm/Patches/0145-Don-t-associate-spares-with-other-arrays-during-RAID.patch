@@ -1,7 +1,7 @@
 From 601ffa784f03cea843b9b732e561ffea0b8c036f Mon Sep 17 00:00:00 2001
 From: Oleksandr Shchirskyi <oleksandr.shchirskyi@linux.intel.com>
 Date: Fri, 18 Jun 2021 15:53:32 +0200
-Subject: [PATCH 145/148] Don't associate spares with other arrays during RAID
+Subject: [PATCH 145/155] Don't associate spares with other arrays during RAID
  Examine
 
 Spares in imsm belong to containers, not volumes, and must go into

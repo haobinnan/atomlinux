@@ -1,7 +1,7 @@
 From dca80fcd5d15c37ecbd82763e6fe4aee8c077bf9 Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Tue, 15 Jun 2021 16:45:39 +0200
-Subject: [PATCH 142/148] Use dev_open in validate geometry container
+Subject: [PATCH 142/155] Use dev_open in validate geometry container
 
 Fix regression caused by the patch 1f5d54a06
 ("Manage: Call validate_geometry when adding drive to external container")

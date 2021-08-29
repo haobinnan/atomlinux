@@ -1,7 +1,7 @@
 From fcebeb77b18842876295b1a0dbc22d173a709434 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Mon, 17 May 2021 16:39:01 +0200
-Subject: [PATCH 138/148] imsm: add devpath_to_char method
+Subject: [PATCH 138/155] imsm: add devpath_to_char method
 
 Add method for reading sysfs attributes and propagate it across IMSM code.
 

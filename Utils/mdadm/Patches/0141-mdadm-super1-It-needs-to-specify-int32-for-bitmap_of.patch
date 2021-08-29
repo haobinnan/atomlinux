@@ -1,7 +1,7 @@
 From f421731c7e1de6608f8fafb551d199ff5f1d6b97 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Wed, 2 Jun 2021 09:17:19 +0800
-Subject: [PATCH 141/148] mdadm/super1: It needs to specify int32 for
+Subject: [PATCH 141/155] mdadm/super1: It needs to specify int32 for
  bitmap_offset
 
 For super1.0 bitmap offset is -16. So it needs to use int type for bitmap offset.

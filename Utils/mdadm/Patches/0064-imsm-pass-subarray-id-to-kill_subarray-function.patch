@@ -1,7 +1,7 @@
 From 3364781b929f571a3dc3a6afed09eb1b03ce607c Mon Sep 17 00:00:00 2001
 From: Blazej Kucman <blazej.kucman@intel.com>
 Date: Wed, 19 Feb 2020 10:54:49 +0100
-Subject: [PATCH 064/148] imsm: pass subarray id to kill_subarray function
+Subject: [PATCH 064/155] imsm: pass subarray id to kill_subarray function
 
 After patch b6180160f ("imsm: save current_vol number")
 current_vol for imsm is not set and kill_subarray()

@@ -1,7 +1,7 @@
 From db5377883fef8655aac56b5d7ce5408f8ae494e0 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Tue, 9 Feb 2021 17:39:51 +0800
-Subject: [PATCH 118/148] It should be FAILED when raid has not enough active
+Subject: [PATCH 118/155] It should be FAILED when raid has not enough active
  disks
 
 It can't remove the disk if there are not enough disks. For example, raid5 can't remove the

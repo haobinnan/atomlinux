@@ -1,7 +1,7 @@
 From ec7d7ceefc1c2b9ba82cac1ba0f6a34d41a4a913 Mon Sep 17 00:00:00 2001
 From: Nigel Croxon <ncroxon@redhat.com>
 Date: Mon, 4 May 2020 12:27:45 -0400
-Subject: [PATCH 075/148] clean up meaning of small typo
+Subject: [PATCH 075/155] clean up meaning of small typo
 
 Clean up the typo which leads to wrong understanding.
 

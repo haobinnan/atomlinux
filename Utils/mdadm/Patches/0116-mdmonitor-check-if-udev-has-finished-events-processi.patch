@@ -1,7 +1,7 @@
 From 49b69533e8a62573de987c45cb4469fc8e754723 Mon Sep 17 00:00:00 2001
 From: Oleksandr Shchirskyi <oleksandr.shchirskyi@intel.com>
 Date: Thu, 14 Jan 2021 15:14:16 +0100
-Subject: [PATCH 116/148] mdmonitor: check if udev has finished events
+Subject: [PATCH 116/155] mdmonitor: check if udev has finished events
  processing
 
 If mdmonitor is awaken by event, wait for udev to finish

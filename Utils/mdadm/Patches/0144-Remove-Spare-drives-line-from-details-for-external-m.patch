@@ -1,7 +1,7 @@
 From 8d69bf147ec77447c5d45c17bed7dc017808cc44 Mon Sep 17 00:00:00 2001
 From: Oleksandr Shchirskyi <oleksandr.shchirskyi@linux.intel.com>
 Date: Fri, 18 Jun 2021 15:53:31 +0200
-Subject: [PATCH 144/148] Remove Spare drives line from details for external
+Subject: [PATCH 144/155] Remove Spare drives line from details for external
  metadata
 
 Arrays with external metadata do not have spare disks directly

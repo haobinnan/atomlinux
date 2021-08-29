@@ -1,7 +1,7 @@
 From ebf3be9931f31df54df52b1821479e6a80a4d9c6 Mon Sep 17 00:00:00 2001
 From: Dimitri John Ledkov <xnox@ubuntu.com>
 Date: Tue, 15 Jan 2019 19:08:37 +0000
-Subject: [PATCH 014/148] Fix spelling typos.
+Subject: [PATCH 014/155] Fix spelling typos.
 
 Signed-off-by: Dimitri John Ledkov <xnox@ubuntu.com>
 Signed-off-by: Jes Sorensen <jsorensen@fb.com>

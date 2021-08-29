@@ -1,7 +1,7 @@
 From b6180160f78f0182b296bdceed6419b26a6fccc7 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@intel.com>
 Date: Fri, 4 Oct 2019 12:07:28 +0200
-Subject: [PATCH 042/148] imsm: save current_vol number
+Subject: [PATCH 042/155] imsm: save current_vol number
 
 The imsm container_content routine will set curr_volume index in super
 for getting volume information. This flag has never been restored to

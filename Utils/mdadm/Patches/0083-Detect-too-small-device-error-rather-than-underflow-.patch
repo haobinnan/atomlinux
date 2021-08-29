@@ -1,7 +1,7 @@
 From 2cf0433063203fca10d26629c9e090b51fb1d806 Mon Sep 17 00:00:00 2001
 From: David Favro <dfavro@meta-dynamic.com>
 Date: Sat, 23 May 2020 08:24:59 -0400
-Subject: [PATCH 083/148] Detect too-small device: error rather than
+Subject: [PATCH 083/155] Detect too-small device: error rather than
  underflow/crash
 
 For 1.x metadata, when the user requested creation of an array on

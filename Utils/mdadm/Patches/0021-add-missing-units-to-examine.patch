@@ -1,7 +1,7 @@
 From 227aeaa872d4898273cf87a4253898823d556c43 Mon Sep 17 00:00:00 2001
 From: Corey Hickey <bugfood-c@fatooh.org>
 Date: Mon, 11 Feb 2019 17:42:27 -0800
-Subject: [PATCH 021/148] add missing units to --examine
+Subject: [PATCH 021/155] add missing units to --examine
 
 Within the output of "mdadm --examine", there are three sizes reported
 on adjacent lines. For example:

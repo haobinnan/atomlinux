@@ -1,7 +1,7 @@
 From 3a85bf0e417d0977136efbade7c7ea269e24bc21 Mon Sep 17 00:00:00 2001
 From: Mateusz Grzonka <mateusz.grzonka@intel.com>
 Date: Mon, 28 Jun 2021 14:15:04 +0200
-Subject: [PATCH 147/148] imsm: Fix possible memory leaks and refactor freeing
+Subject: [PATCH 147/155] imsm: Fix possible memory leaks and refactor freeing
  struct dl
 
 Free memory allocated by structs dl and intel_super.

@@ -1,7 +1,7 @@
 From 5b30a34aa4b5ea7a8202314c1d737ec4a481c127 Mon Sep 17 00:00:00 2001
 From: Mateusz Grzonka <mateusz.grzonka@intel.com>
 Date: Thu, 15 Jul 2021 12:25:23 +0200
-Subject: [PATCH 148/148] Add error handling for chunk size in RAID1
+Subject: [PATCH 148/155] Add error handling for chunk size in RAID1
 
 Print error if chunk size is set as it is not supported.
 

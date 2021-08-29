@@ -1,7 +1,7 @@
 From 69d40de44b6b90c498323490b7310399a6833d0d Mon Sep 17 00:00:00 2001
 From: Jakub Radtke <jakub.radtke@intel.com>
 Date: Fri, 15 Jan 2021 00:46:57 -0500
-Subject: [PATCH 122/148] imsm: Adding a spare to an existing array with bitmap
+Subject: [PATCH 122/155] imsm: Adding a spare to an existing array with bitmap
 
 When adding a spare to an existing array with bitmap, an additional
 initialization (adding bitmap header and preparing the bitmap area)

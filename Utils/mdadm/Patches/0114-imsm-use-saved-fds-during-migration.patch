@@ -1,7 +1,7 @@
 From 2f86fda346e43f5bc1702a27653ff0418a8262dc Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Wed, 13 Jan 2021 09:58:45 +0100
-Subject: [PATCH 114/148] imsm: use saved fds during migration
+Subject: [PATCH 114/155] imsm: use saved fds during migration
 
 IMSM super keeps open descriptors in super->disks structure, they are
 reliable and should be chosen if possible. The repeatedly called open

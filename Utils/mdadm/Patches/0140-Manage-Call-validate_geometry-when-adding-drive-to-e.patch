@@ -1,7 +1,7 @@
 From 1f5d54a06df01ca3032ca2d29159584cab7d7509 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Mon, 17 May 2021 16:39:03 +0200
-Subject: [PATCH 140/148] Manage: Call validate_geometry when adding drive to
+Subject: [PATCH 140/155] Manage: Call validate_geometry when adding drive to
  external container
 
 When adding drive to container call validate_geometry to verify whether

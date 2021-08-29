@@ -1,7 +1,7 @@
 From af3396dadfcd3b13480d021b8d3645c6d2420f79 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Thu, 18 Mar 2021 17:12:35 +0100
-Subject: [PATCH 130/148] Monitor: make libudev dependency optional
+Subject: [PATCH 130/155] Monitor: make libudev dependency optional
 
 Make -ludev configurable, enabled by default.
 To disable it, -DNO_LIBUDEV has to be set explicitly in CXFALGS.

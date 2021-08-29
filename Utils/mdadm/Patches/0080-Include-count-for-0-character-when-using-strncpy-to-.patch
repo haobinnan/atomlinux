@@ -1,7 +1,7 @@
 From 7d90f7603af6b59e7144cef6617a1e9dd42161bd Mon Sep 17 00:00:00 2001
 From: Jes Sorensen <jsorensen@fb.com>
 Date: Mon, 18 May 2020 20:19:53 -0400
-Subject: [PATCH 080/148] Include count for \0 character when using strncpy to
+Subject: [PATCH 080/155] Include count for \0 character when using strncpy to
  implement strdup.
 
 We have to include the \0 character in the length when copying a

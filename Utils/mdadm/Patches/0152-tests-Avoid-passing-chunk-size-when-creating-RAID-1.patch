@@ -1,0 +1,115 @@
+From 2b2c5668fd291136174d3b1aad94d0def8642161 Mon Sep 17 00:00:00 2001
+From: Mateusz Grzonka <mateusz.grzonka@intel.com>
+Date: Wed, 28 Jul 2021 16:31:11 +0200
+Subject: [PATCH 152/155] tests: Avoid passing chunk size when creating RAID 1
+
+Tests fail because passing chunk size for RAID 1 is now forbidden.
+Failing tests:
+- 14imsm-r1_2d-grow-r1_3d
+- 14imsm-r1_2d-takeover-r0_2d
+- 18imsm-1d-takeover-r1_2d
+- 18imsm-r1_2d-takeover-r0_1d
+
+Correct tests to not pass chunk size when RAID level is 1.
+
+Signed-off-by: Mateusz Grzonka <mateusz.grzonka@intel.com>
+Signed-off-by: Jes Sorensen <jsorensen@fb.com>
+---
+ tests/14imsm-r1_2d-grow-r1_3d     |  1 -
+ tests/14imsm-r1_2d-takeover-r0_2d |  1 -
+ tests/18imsm-1d-takeover-r1_2d    |  2 +-
+ tests/18imsm-r1_2d-takeover-r0_1d |  1 -
+ tests/imsm-grow-template          | 18 +++++++++++++-----
+ 5 files changed, 14 insertions(+), 9 deletions(-)
+
+diff --git a/tests/14imsm-r1_2d-grow-r1_3d b/tests/14imsm-r1_2d-grow-r1_3d
+index 1edd50e4..be20ab81 100644
+--- a/tests/14imsm-r1_2d-grow-r1_3d
++++ b/tests/14imsm-r1_2d-grow-r1_3d
+@@ -10,7 +10,6 @@ spare_list="$dev4"
+ # Before: RAID 1 volume, 2 disks, 64k chunk size
+ vol0_level=1
+ vol0_comp_size=$((5 * 1024))
+-vol0_chunk=64
+ vol0_num_comps=$((num_disks - 1))
+ vol0_offset=0
+ 
+diff --git a/tests/14imsm-r1_2d-takeover-r0_2d b/tests/14imsm-r1_2d-takeover-r0_2d
+index d8296815..27002e1c 100644
+--- a/tests/14imsm-r1_2d-takeover-r0_2d
++++ b/tests/14imsm-r1_2d-takeover-r0_2d
+@@ -10,7 +10,6 @@ device_list="$dev0 $dev1"
+ # Before: RAID 1 volume, 2 disks, 64k chunk size
+ vol0_level=1
+ vol0_comp_size=$((5 * 1024))
+-vol0_chunk=64
+ vol0_num_comps=$((num_disks - 1))
+ vol0_offset=0
+ 
+diff --git a/tests/18imsm-1d-takeover-r1_2d b/tests/18imsm-1d-takeover-r1_2d
+index 72e4173e..e38ed89b 100644
+--- a/tests/18imsm-1d-takeover-r1_2d
++++ b/tests/18imsm-1d-takeover-r1_2d
+@@ -12,7 +12,7 @@ check wait
+ imsm_check container $vol0_num_comps
+ 
+ # Create RAID 1 volume
+-mdadm --create --run $member0 --auto=md --level=1 --size=$vol0_comp_size --chunk=64 --raid-disks=$((vol0_num_comps + 1)) $dev0 missing
++mdadm --create --run $member0 --auto=md --level=1 --size=$vol0_comp_size --raid-disks=$((vol0_num_comps + 1)) $dev0 missing
+ check wait
+ 
+ # Test the member0
+diff --git a/tests/18imsm-r1_2d-takeover-r0_1d b/tests/18imsm-r1_2d-takeover-r0_1d
+index fd5852ed..049f19c9 100644
+--- a/tests/18imsm-r1_2d-takeover-r0_1d
++++ b/tests/18imsm-r1_2d-takeover-r0_1d
+@@ -9,7 +9,6 @@ device_list="$dev0 $dev1"
+ # Before: RAID 1 volume, 2 disks
+ vol0_level=1
+ vol0_comp_size=$((5 * 1024))
+-vol0_chunk=64
+ vol0_num_comps=$(( $num_disks - 1 ))
+ vol0_offset=0
+ 
+diff --git a/tests/imsm-grow-template b/tests/imsm-grow-template
+index 428e448e..1a8676e0 100644
+--- a/tests/imsm-grow-template
++++ b/tests/imsm-grow-template
+@@ -42,13 +42,21 @@ check wait
+ imsm_check container $num_disks
+ 
+ # Create first volume inside the container
+-mdadm --create --run $member0 --auto=md --level=$vol0_level --size=$vol0_comp_size --chunk=$vol0_chunk --raid-disks=$num_disks $device_list
++if [[ ! -z $vol0_chunk ]]; then
++	mdadm --create --run $member0 --auto=md --level=$vol0_level --size=$vol0_comp_size --chunk=$vol0_chunk --raid-disks=$num_disks $device_list
++else
++	mdadm --create --run $member0 --auto=md --level=$vol0_level --size=$vol0_comp_size --raid-disks=$num_disks $device_list
++fi
+ check wait
+ 
+ # Create second volume inside the container (if defined)
+-if [ ! -z $vol1_chunk ]; then
+-    mdadm --create --run $member1 --auto=md --level=$vol1_level --size=$vol1_comp_size --chunk=$vol1_chunk --raid-disks=$num_disks $device_list
+-    check wait
++if [ ! -z $vol1_level ]; then
++	if [ ! -z $vol1_chunk ]; then
++		mdadm --create --run $member1 --auto=md --level=$vol1_level --size=$vol1_comp_size --chunk=$vol1_chunk --raid-disks=$num_disks $device_list
++	else
++		mdadm --create --run $member1 --auto=md --level=$vol1_level --size=$vol1_comp_size --raid-disks=$num_disks $device_list
++	fi
++	check wait
+ fi
+ 
+ # Wait for any RESYNC to complete
+@@ -59,7 +67,7 @@ imsm_check member $member0 $num_disks $vol0_level $vol0_comp_size $((vol0_comp_s
+ testdev $member0 $vol0_num_comps $vol0_comp_size $vol0_chunk
+ 
+ # Test second volume (if defined)
+-if [ ! -z $vol1_chunk ]; then
++if [ ! -z $vol1_level ]; then
+     imsm_check member $member1 $num_disks $vol1_level $vol1_comp_size $((vol1_comp_size * vol1_num_comps)) $vol1_offset $vol1_chunk
+     testdev $member1 $vol1_num_comps $vol1_comp_size $vol1_chunk
+ fi
+-- 
+2.25.1
+

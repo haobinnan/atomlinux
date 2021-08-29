@@ -1,7 +1,7 @@
 From ccd61ebfd97fde43768497c79e3d361b484b1520 Mon Sep 17 00:00:00 2001
 From: Xiao Ni <xni@redhat.com>
 Date: Tue, 22 Jun 2021 23:15:55 +0800
-Subject: [PATCH 146/148] mdadm: Fix building errors
+Subject: [PATCH 146/155] mdadm: Fix building errors
 
 In util.c, there is a building error:
 '/md/metadata_version' directive writing 20 bytes into a

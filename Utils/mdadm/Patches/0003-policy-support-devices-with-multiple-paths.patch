@@ -1,7 +1,7 @@
 From cd72f9d114da206baa01fd56ff2d8ffcc08f3239 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.com>
 Date: Fri, 9 Nov 2018 17:12:33 +1100
-Subject: [PATCH 003/148] policy: support devices with multiple paths.
+Subject: [PATCH 003/155] policy: support devices with multiple paths.
 
 As new releases of Linux some time change the name of
 a path, some distros keep "legacy" names as well.  This

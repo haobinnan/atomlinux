@@ -1,7 +1,7 @@
 From f7a6246bab1541d7208a5f0f9f0c6cac114e38da Mon Sep 17 00:00:00 2001
 From: Zhao Heming <heming.zhao@suse.com>
 Date: Wed, 3 Feb 2021 08:22:51 +0800
-Subject: [PATCH 113/148] super1.c: avoid useless sync when bitmap switches
+Subject: [PATCH 113/155] super1.c: avoid useless sync when bitmap switches
  from clustered to none
 
 With kernel commit 480523feae58 ("md: only call set_in_sync() when it

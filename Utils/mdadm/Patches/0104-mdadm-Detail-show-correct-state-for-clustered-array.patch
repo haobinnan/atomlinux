@@ -1,7 +1,7 @@
 From 9c030dadba89b90a4e52b6afe0290076c809684c Mon Sep 17 00:00:00 2001
 From: Zhao Heming <heming.zhao@suse.com>
 Date: Sat, 24 Oct 2020 17:43:12 +0800
-Subject: [PATCH 104/148] mdadm/Detail: show correct state for clustered array
+Subject: [PATCH 104/155] mdadm/Detail: show correct state for clustered array
 
 After kernel md module commit 480523feae581, in clustered env,
 mddev->in_sync always zero, it will make array.state never set

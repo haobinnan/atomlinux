@@ -1,7 +1,7 @@
 From 8818d4e7fe7cda900d5c00014b05cdde058bdd29 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Fri, 26 Feb 2021 12:02:36 +1100
-Subject: [PATCH 111/148] Grow: be careful of corrupt dev_roles list
+Subject: [PATCH 111/155] Grow: be careful of corrupt dev_roles list
 
 I've seen a case where the dev_roles list of a linear array
 was corrupt.  ->max_dev was > 128 and > raid_disks, and the

@@ -1,7 +1,7 @@
 From 0530e2e0d8c9ecb5171e70bc48e1a6566f317378 Mon Sep 17 00:00:00 2001
 From: Norbert Szulc <norbert.szulc@intel.com>
 Date: Wed, 5 May 2021 13:01:02 +0200
-Subject: [PATCH 136/148] Prevent user from using --stop with ambiguous args
+Subject: [PATCH 136/155] Prevent user from using --stop with ambiguous args
 
 When both --scan and device name is passed to --stop action,
 then is executed only for given device. Scan is ignored.

@@ -1,7 +1,7 @@
 From ff904202a4a6232e0f0dfea31a7c4a34ab08f76e Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Wed, 21 Apr 2021 16:50:08 +0200
-Subject: [PATCH 134/148] imsm: change wrong size verification
+Subject: [PATCH 134/155] imsm: change wrong size verification
 
 Expectation that size is always rounded is incorrect.
 Just confirm that size is smaller to be certain that update is safe.

@@ -1,7 +1,7 @@
 From b06815989179e0f153e44e4336290e655edce9a1 Mon Sep 17 00:00:00 2001
 From: Mariusz Dabrowski <mariusz.dabrowski@intel.com>
 Date: Wed, 10 Jul 2019 13:38:53 +0200
-Subject: [PATCH 030/148] mdadm: load default sysfs attributes after
+Subject: [PATCH 030/155] mdadm: load default sysfs attributes after
  assemblation
 
 Added new type of line to mdadm.conf which allows to specify values of

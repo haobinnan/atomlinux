@@ -1,7 +1,7 @@
 From 6636788aaf4ec0cacaefb6e77592e4a68e70a957 Mon Sep 17 00:00:00 2001
 From: NeilBrown <neilb@suse.de>
 Date: Wed, 30 Oct 2019 10:32:41 +1100
-Subject: [PATCH 044/148] mdcheck: when mdcheck_start is enabled, enable
+Subject: [PATCH 044/155] mdcheck: when mdcheck_start is enabled, enable
  mdcheck_continue too.
 
 mdcheck_continue continues a regular array scan that was started by

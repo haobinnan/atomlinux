@@ -1,7 +1,7 @@
 From 7d8935cbb0fdb2b776b736bffc00323a04e5f788 Mon Sep 17 00:00:00 2001
 From: Oleksandr Shchirskyi <oleksandr.shchirskyi@linux.intel.com>
 Date: Fri, 18 Jun 2021 15:53:30 +0200
-Subject: [PATCH 143/148] imsm: correct offset for 4k disks in --examine output
+Subject: [PATCH 143/155] imsm: correct offset for 4k disks in --examine output
 
 "Sector Offset" field in Examine output was always printed in 512
 byte sectors. Update it to support 4096 sector size.
