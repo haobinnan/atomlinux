@@ -187,5 +187,5 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=edk2-stable202105
+AtomLinux_OvmfVNumber=edk2-stable202108
 #ovmf
