@@ -1,0 +1,143 @@
+From 7744f87c75fcfeeb414d0957771042b10fb64e62 Mon Sep 17 00:00:00 2001
+From: midchildan <git@midchildan.org>
+Date: Sun, 28 Mar 2021 14:43:15 +0900
+Subject: [PATCH 04/14] feat: support the latest FUSE on macOS
+
+This drops osxfuse support in favor of macFUSE. macFUSE is a newer
+version of osxfuse that supports the latest release of macOS, and is a
+rebranded version of the same project.
+
+This also makes the build script locate libfuse more reliably by using
+pkg-config instead of searching in predetermined directories.
+---
+ .travis.yml          |  2 +-
+ INSTALL.md           |  3 ++-
+ cmake/FindFUSE.cmake | 25 +++----------------------
+ src/CMakeLists.txt   |  7 +++----
+ src/dislocker-fuse.c |  5 -----
+ 5 files changed, 9 insertions(+), 33 deletions(-)
+
+diff --git a/.travis.yml b/.travis.yml
+index d0ef13a..d587d4e 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -19,7 +19,7 @@ before_install:
+     - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -qq; fi
+     - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -qq libfuse-dev ruby-dev libmbedtls-dev; fi
+     - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
+-    - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install -v Caskroom/cask/osxfuse; fi
++    - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install -v Caskroom/cask/macfuse; fi
+     - if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./src/mbed_install.sh; fi
+     - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="/usr/bin:/usr/local/bin:$PATH"; fi
+ 
+diff --git a/INSTALL.md b/INSTALL.md
+index cca6c05..5feb1db 100644
+--- a/INSTALL.md
++++ b/INSTALL.md
+@@ -9,6 +9,7 @@ You need:
+ - Compiler, gcc or clang;
+ - cmake (at least version 2.6);
+ - make (or gmake, for FreeBSD);
++- pkg-config;
+ - Headers for FUSE;
+ - Headers for mbedTLS (previously known as PolarSSL);
+ - A partition encrypted with BitLocker, from Windows Vista, 7 or 8.
+@@ -56,7 +57,7 @@ Each OS type has its own section below, beware to follow yours:
+ Just install Homebrew (http://brew.sh/) and run the following commands:
+ ```
+ brew update
+-brew install Caskroom/cask/osxfuse
++brew install Caskroom/cask/macfuse
+ brew install src/dislocker.rb
+ ```
+ This will install dislocker.
+diff --git a/cmake/FindFUSE.cmake b/cmake/FindFUSE.cmake
+index 4f7acbd..06bee8b 100644
+--- a/cmake/FindFUSE.cmake
++++ b/cmake/FindFUSE.cmake
+@@ -9,26 +9,7 @@ IF (FUSE_INCLUDE_DIRS)
+         SET (FUSE_FIND_QUIETLY TRUE)
+ ENDIF (FUSE_INCLUDE_DIRS)
+ 
+-# find includes
+-FIND_PATH (FUSE_INCLUDE_DIRS fuse.h
+-        /usr/local/include/osxfuse
+-        /usr/local/include
+-        /usr/include
+-)
++FIND_PACKAGE (PkgConfig REQUIRED)
++pkg_check_modules (FUSE REQUIRED fuse)
+ 
+-# find lib
+-if (APPLE)
+-    SET(FUSE_NAMES libosxfuse.dylib fuse)
+-else (APPLE)
+-    SET(FUSE_NAMES fuse)
+-endif (APPLE)
+-FIND_LIBRARY(FUSE_LIBRARIES
+-        NAMES ${FUSE_NAMES}
+-        PATHS /lib64 /lib /usr/lib64 /usr/lib /usr/local/lib64 /usr/local/lib
+-)
+-
+-include ("FindPackageHandleStandardArgs")
+-find_package_handle_standard_args ("FUSE" DEFAULT_MSG
+-    FUSE_INCLUDE_DIRS FUSE_LIBRARIES)
+-
+-mark_as_advanced (FUSE_INCLUDE_DIRS FUSE_LIBRARIES)
++mark_as_advanced (FUSE_INCLUDE_DIRS FUSE_LIBRARIES FUSE_LIBRARY_DIRS)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index bd854d2..a4d2c77 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -92,11 +92,9 @@ if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
+ 	# Don't use `-read_only_relocs' here as it seems to only work for 32 bits
+ 	# binaries
+ 	set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-bind_at_load")
+-	set (FUSE_LIB osxfuse_i64)
+ else()
+ 	# Useless warnings when used within Darwin
+ 	set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wconversion")
+-	set (FUSE_LIB fuse)
+ 	if("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD")
+ 		link_directories ( ${LINK_DIRECTORIES} /usr/local/lib )
+ 	endif()
+@@ -138,8 +136,9 @@ if(RUBY_FOUND  AND  RUBY_INCLUDE_DIRS  AND  RUBY_LIBRARY)
+ endif()
+ 
+ find_package (FUSE)
+-if(FUSE_FOUND  AND  FUSE_INCLUDE_DIRS  AND  FUSE_LIBRARIES)
++if(FUSE_FOUND  AND  FUSE_INCLUDE_DIRS  AND  FUSE_LIBRARIES  AND  FUSE_LIBRARY_DIRS)
+ 	include_directories (${FUSE_INCLUDE_DIRS})
++	link_directories(${FUSE_LIBRARY_DIRS})
+ 	set (LIB ${LIB} ${FUSE_LIBRARIES})
+ endif()
+ 
+@@ -201,7 +200,7 @@ set (CLEAN_FILES "")
+ 
+ set (BIN_FUSE ${PROJECT_NAME}-fuse)
+ add_executable (${BIN_FUSE} ${BIN_FUSE}.c)
+-target_link_libraries (${BIN_FUSE} ${FUSE_LIB} ${PROJECT_NAME})
++target_link_libraries (${BIN_FUSE} ${FUSE_LIBRARIES} ${PROJECT_NAME})
+ set_target_properties (${BIN_FUSE} PROPERTIES COMPILE_DEFINITIONS FUSE_USE_VERSION=26)
+ set_target_properties (${BIN_FUSE} PROPERTIES LINK_FLAGS "-pie -fPIE")
+ add_custom_command (TARGET ${BIN_FUSE} POST_BUILD
+diff --git a/src/dislocker-fuse.c b/src/dislocker-fuse.c
+index f93523f..a103e60 100644
+--- a/src/dislocker-fuse.c
++++ b/src/dislocker-fuse.c
+@@ -32,12 +32,7 @@
+ #include "dislocker/dislocker.h"
+ 
+ 
+-
+-#ifdef __DARWIN
+-# include <osxfuse/fuse.h>
+-#else
+ # include <fuse.h>
+-#endif /* __DARWIN */
+ 
+ 
+ /** NTFS virtual partition's name */
+-- 
+2.25.1
+

@@ -1,0 +1,116 @@
+From c3d4dbcba40bc9169108a9cc282070b1d0f848c0 Mon Sep 17 00:00:00 2001
+From: jichan <joseph@jc-lab.net>
+Date: Tue, 13 Apr 2021 14:13:08 +0900
+Subject: [PATCH 09/14] Make mountable of the decrypted volume
+
+---
+ include/dislocker/metadata/metadata.h        | 1 +
+ include/dislocker/metadata/metadata_config.h | 3 +++
+ src/dislocker-metadata.c                     | 1 +
+ src/dislocker.c                              | 4 +++-
+ src/inouts/prepare.c                         | 2 +-
+ src/metadata/metadata.c                      | 9 +++++++--
+ 6 files changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/include/dislocker/metadata/metadata.h b/include/dislocker/metadata/metadata.h
+index 480ff87..287aac6 100644
+--- a/include/dislocker/metadata/metadata.h
++++ b/include/dislocker/metadata/metadata.h
+@@ -92,5 +92,6 @@ uint64_t dis_metadata_mftmirror(dis_metadata_t dis_meta);
+ 
+ uint32_t dis_metadata_backup_sectors_count(dis_metadata_t dis_meta);
+ 
++int dis_metadata_is_decrypted_state(dis_metadata_t dis_meta);
+ 
+ #endif // METADATA_H
+diff --git a/include/dislocker/metadata/metadata_config.h b/include/dislocker/metadata/metadata_config.h
+index b33ba42..b89e729 100644
+--- a/include/dislocker/metadata/metadata_config.h
++++ b/include/dislocker/metadata/metadata_config.h
+@@ -51,6 +51,9 @@ struct _dis_metadata_config {
+ 	/* States dislocker's metadata initialisation is at or will be stopped at */
+ 	dis_state_e   curr_state;
+ 	dis_state_e   init_stop_at;
++
++	/* Readonly mode for EOW support */
++	int readonly;
+ };
+ 
+ 
+diff --git a/src/dislocker-metadata.c b/src/dislocker-metadata.c
+index 0ff939e..38c50e3 100644
+--- a/src/dislocker-metadata.c
++++ b/src/dislocker-metadata.c
+@@ -131,6 +131,7 @@ int main(int argc, char **argv)
+ 	dis_meta_cfg = dis_metadata_config_new();
+ 	dis_meta_cfg->fve_fd       = fve_fd;
+ 	dis_meta_cfg->offset       = offset;
++	dis_meta_cfg->readonly     = 1;
+ 
+ 	dis_metadata = dis_metadata_new(dis_meta_cfg);
+ 	if(dis_metadata_initialize(dis_metadata) != DIS_RET_SUCCESS)
+diff --git a/src/dislocker.c b/src/dislocker.c
+index fb4a26c..c45edc9 100644
+--- a/src/dislocker.c
++++ b/src/dislocker.c
+@@ -183,6 +183,8 @@ int dis_initialize(dis_context_t dis_ctx)
+ 		return DIS_RET_ERROR_ALLOC;
+ 	}
+ 
++	dis_ctx->metadata->cfg->readonly = (dis_ctx->cfg.flags & DIS_FLAG_READ_ONLY) ? 1 : 0;
++
+ 	ret = dis_metadata_initialize(dis_ctx->metadata);
+ 	dis_ctx->curr_state = dis_meta_cfg->curr_state;
+ 	if(ret != DIS_RET_SUCCESS)
+@@ -326,7 +328,7 @@ int dislock(dis_context_t dis_ctx, uint8_t* buffer, off_t offset, size_t size)
+ 		return -EFAULT;
+ 	}
+ 
+-	if(offset >= (off_t)dis_ctx->io_data.volume_size)
++	if((offset >= (off_t)dis_ctx->io_data.volume_size) && !dis_metadata_is_decrypted_state(dis_ctx->io_data.metadata))
+ 	{
+ 		dis_printf(
+ 			L_ERROR,
+diff --git a/src/inouts/prepare.c b/src/inouts/prepare.c
+index eb2b1e3..193aaf7 100644
+--- a/src/inouts/prepare.c
++++ b/src/inouts/prepare.c
+@@ -116,7 +116,7 @@ int prepare_crypt(dis_context_t dis_ctx)
+ 	 * Get volume size directly from dis_metadata_t, which is more accurate.
+ 	 */
+ 	io_data->volume_size = io_data->encrypted_volume_size;
+-	if(io_data->volume_size == 0)
++	if(io_data->volume_size == 0 && !dis_metadata_is_decrypted_state(io_data->metadata))
+ 	{
+ 		dis_printf(L_ERROR, "Can't initialize the volume's size\n");
+ 		return DIS_RET_ERROR_VOLUME_SIZE_NOT_FOUND;
+diff --git a/src/metadata/metadata.c b/src/metadata/metadata.c
+index 65674a1..c9128bd 100644
+--- a/src/metadata/metadata.c
++++ b/src/metadata/metadata.c
+@@ -454,8 +454,10 @@ static int check_volume_header(dis_metadata_t dis_meta, int volume_fd, off_t dis
+ 			        " failed\n", source);
+ 		}
+ 
+-		dis_printf(L_ERROR, "EOW volume GUID not supported.\n");
+-		return FALSE;
++		if (!dis_meta->cfg->readonly) {
++			dis_printf(L_ERROR, "EOW volume GUID not supported for writing.\n");
++			return FALSE;
++        }
+ 	}
+ 	else
+ 	{
+@@ -1325,6 +1327,9 @@ uint32_t dis_metadata_backup_sectors_count(dis_metadata_t dis_meta)
+ 	return dis_meta->information->nb_backup_sectors;
+ }
+ 
++int dis_metadata_is_decrypted_state(dis_metadata_t dis_meta) {
++	return dis_meta->information->curr_state == METADATA_STATE_DECRYPTED;
++}
+ 
+ #ifdef _HAVE_RUBY
+ #include <sys/types.h>
+-- 
+2.25.1
+

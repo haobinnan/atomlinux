@@ -1,0 +1,326 @@
+From 5232009fadada0c566b39c11028d9e5619871a98 Mon Sep 17 00:00:00 2001
+From: a1346054 <36859588+a1346054@users.noreply.github.com>
+Date: Wed, 1 Sep 2021 19:26:37 +0000
+Subject: [PATCH 13/14] trim excess whitespace
+
+---
+ .gitignore                             |  1 -
+ INSTALL.md                             |  3 ---
+ README.md                              | 12 ------------
+ include/dislocker/dislocker.h          |  1 -
+ include/dislocker/encryption/decrypt.h |  1 -
+ include/dislocker/metadata/guid.h      |  1 -
+ src/accesses/bek/Makefile              |  2 --
+ src/accesses/rp/recovery_password.c    |  2 --
+ src/accesses/stretch_key.c             |  1 -
+ src/accesses/user_pass/Makefile        |  1 -
+ src/common.c                           |  1 -
+ src/config.c                           |  1 -
+ src/dislocker-bek.c                    |  1 -
+ src/encryption/aes-xts.c               |  1 -
+ src/encryption/diffuser.c              |  2 --
+ src/encryption/encrypt.c               |  3 ---
+ src/inouts/inouts.c                    |  1 -
+ src/inouts/prepare.c                   |  1 -
+ src/inouts/sectors.c                   |  1 -
+ src/logs/event_descriptors.c           |  1 -
+ src/metadata/print_metadata.c          |  1 -
+ src/ntfs/clock.c                       |  1 -
+ src/samples/metadata_from_userpass.rb  |  1 -
+ src/xstd/xstdio.c                      |  1 -
+ src/xstd/xstdlib.c                     |  2 --
+ 25 files changed, 44 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index 1400850..40ad625 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -27,4 +27,3 @@ Makefile
+ cmake_install.cmake
+ cmake_uninstall.cmake
+ install_manifest.txt
+-
+diff --git a/INSTALL.md b/INSTALL.md
+index 937ec98..10392bf 100644
+--- a/INSTALL.md
++++ b/INSTALL.md
+@@ -62,7 +62,6 @@ brew install src/dislocker.rb
+ ```
+ This will install dislocker.
+ 
+-
+ ## If you're on FreeBSD...
+ 
+ Follow the instructions below (next subsection) by replacing 'make' with 'gmake'.
+@@ -165,5 +164,3 @@ instance, if you want to compile dislocker-fuse only, you'd simply run:
+ $ cmake .
+ $ make dislocker-fuse
+ ```
+-
+-
+diff --git a/README.md b/README.md
+index 598c58e..27d6e95 100644
+--- a/README.md
++++ b/README.md
+@@ -2,7 +2,6 @@
+ 
+ ## Introduction and explanations
+ 
+-
+ This software has been designed to read BitLocker encrypted partitions under a
+ Linux system. The driver has the capability to read/write on:
+  - Windows Vista, 7, 8, 8.1 and 10 encrypted partitions - that's AES-CBC,
+@@ -33,19 +32,14 @@ binary needs: the same size as the volume you're trying to decrypt.
+ Nevertheless, once the partition is decrypted, you can mount your file as any
+ NTFS partition.
+ 
+-
+ Thanks goes to Rogier Wolff for testing, hugsy for all the OSX support and
+ patches, Will Dyson for the patches, and all the people who give feedbacks.
+ 
+-
+-
+ ## Installation and requirements
+ 
+ See `INSTALL.md` for things dealing with the install process.
+ Once installed, see `dislocker(1)` for details on how to use it.
+ 
+-
+-
+ ## Bugs
+ 
+ There may be bugs, and I'll be happy to hear about it!
+@@ -53,8 +47,6 @@ There may be bugs, and I'll be happy to hear about it!
+ Feel free to send comments and feedbacks to [dislocker __AT__ hsc __DOT__ fr](),
+ or to open an [issue](https://github.com/Aorimn/dislocker/issues).
+ 
+-
+-
+ ## A note on Bitlocker-To-Go
+ 
+ Microsoft's idea behind BitLocker-To-Go is that computers running Microsoft
+@@ -73,8 +65,6 @@ So, to access a  BitLocker-To-Go encrypted media, the whole partition is the
+ volume that dislocker works with. The use of dislocker is therefore the same
+ whether the volume is a standard BitLocker partition or a BitLocker-To-Go one.
+ 
+-
+-
+ ## A note on fstab
+ 
+ BitLocker partitions can be mount-ed using the /etc/fstab file and dislocker's
+@@ -84,8 +74,6 @@ The line below is an example line, which has to be adapted to each case:
+ /dev/sda2 /mnt/dislocker fuse.dislocker user-password=blah,nofail 0 0
+ ```
+ 
+-
+-
+ ## Note
+ 
+ Five binaries are built when compiling dislocker as described in the `INSTALL.md`
+diff --git a/include/dislocker/dislocker.h b/include/dislocker/dislocker.h
+index 4708e6c..6082001 100644
+--- a/include/dislocker/dislocker.h
++++ b/include/dislocker/dislocker.h
+@@ -102,4 +102,3 @@ int get_fvevol_fd(dis_context_t dis_ctx);
+ 
+ 
+ #endif /* DISLOCKER_MAIN_H */
+-
+diff --git a/include/dislocker/encryption/decrypt.h b/include/dislocker/encryption/decrypt.h
+index 05341b5..7e98119 100644
+--- a/include/dislocker/encryption/decrypt.h
++++ b/include/dislocker/encryption/decrypt.h
+@@ -76,4 +76,3 @@ int decrypt_sector(dis_crypt_t crypt, uint8_t* sector, off_t sector_address, uin
+ 
+ 
+ #endif /* DECRYPT_H */
+-
+diff --git a/include/dislocker/metadata/guid.h b/include/dislocker/metadata/guid.h
+index 44cb426..1443a0b 100644
+--- a/include/dislocker/metadata/guid.h
++++ b/include/dislocker/metadata/guid.h
+@@ -46,4 +46,3 @@ void Init_guid(VALUE rb_mDislockerMetadata);
+ 
+ 
+ #endif // GUID_H
+-
+diff --git a/src/accesses/bek/Makefile b/src/accesses/bek/Makefile
+index 2bb8c97..529dbc0 100644
+--- a/src/accesses/bek/Makefile
++++ b/src/accesses/bek/Makefile
+@@ -62,5 +62,3 @@ library : read_bekfile.o
+ clean :
+ 	@$(MAKE) -C ../../ clean
+ 	rm -rf -- $(BIN) *.o *~ *.swp *.gcno *.gcda *.gcov
+-
+-
+diff --git a/src/accesses/rp/recovery_password.c b/src/accesses/rp/recovery_password.c
+index 5a0b06d..31006a6 100644
+--- a/src/accesses/rp/recovery_password.c
++++ b/src/accesses/rp/recovery_password.c
+@@ -594,5 +594,3 @@ void print_intermediate_key(uint8_t *result_key)
+ 
+ 	dis_printf(L_INFO, "Intermediate recovery key:\n\t%s\n", s);
+ }
+-
+-
+diff --git a/src/accesses/stretch_key.c b/src/accesses/stretch_key.c
+index 0189989..cdc95c5 100644
+--- a/src/accesses/stretch_key.c
++++ b/src/accesses/stretch_key.c
+@@ -157,4 +157,3 @@ static int stretch_key(bitlocker_chain_hash_t* ch, uint8_t *result)
+ 
+ 	return TRUE;
+ }
+-
+diff --git a/src/accesses/user_pass/Makefile b/src/accesses/user_pass/Makefile
+index 542c790..76a56b9 100644
+--- a/src/accesses/user_pass/Makefile
++++ b/src/accesses/user_pass/Makefile
+@@ -73,4 +73,3 @@ library : user_pass.o
+ clean :
+ 	@$(MAKE) -C ../../ clean
+ 	rm -rf -- $(BIN) *.o *~ *.swp *.gcno *.gcda *.gcov
+-
+diff --git a/src/common.c b/src/common.c
+index e19f8a0..f2a90e1 100644
+--- a/src/common.c
++++ b/src/common.c
+@@ -340,4 +340,3 @@ VALUE rb_hexdump(uint8_t* data, size_t data_len)
+ }
+ 
+ #endif /* _HAVE_RUBY */
+-
+diff --git a/src/config.c b/src/config.c
+index f9b9423..7560aa6 100644
+--- a/src/config.c
++++ b/src/config.c
+@@ -828,4 +828,3 @@ int dis_is_volume_state_checked(dis_context_t dis_ctx)
+ 		return -1;
+ 	return !(dis_ctx->cfg.flags & DIS_FLAG_DONT_CHECK_VOLUME_STATE);
+ }
+-
+diff --git a/src/dislocker-bek.c b/src/dislocker-bek.c
+index ba85239..154bf35 100644
+--- a/src/dislocker-bek.c
++++ b/src/dislocker-bek.c
+@@ -132,4 +132,3 @@ int main (int argc, char **argv)
+ 
+ 	return EXIT_SUCCESS;
+ }
+-
+diff --git a/src/encryption/aes-xts.c b/src/encryption/aes-xts.c
+index 2172e39..be09c46 100644
+--- a/src/encryption/aes-xts.c
++++ b/src/encryption/aes-xts.c
+@@ -303,4 +303,3 @@ first:
+ 
+ 	return( 0 );
+ }
+-
+diff --git a/src/encryption/diffuser.c b/src/encryption/diffuser.c
+index 1b55328..b077863 100644
+--- a/src/encryption/diffuser.c
++++ b/src/encryption/diffuser.c
+@@ -177,5 +177,3 @@ void diffuserB_encrypt(uint8_t* sector, uint16_t sector_size, uint32_t* buffer)
+ 		Bcycles--;
+ 	}
+ }
+-
+-
+diff --git a/src/encryption/encrypt.c b/src/encryption/encrypt.c
+index e6dc287..3f96ae2 100644
+--- a/src/encryption/encrypt.c
++++ b/src/encryption/encrypt.c
+@@ -173,6 +173,3 @@ void encrypt_xts(
+ 		buffer
+ 	);
+ }
+-
+-
+-
+diff --git a/src/inouts/inouts.c b/src/inouts/inouts.c
+index de44e7e..0bdd9fe 100644
+--- a/src/inouts/inouts.c
++++ b/src/inouts/inouts.c
+@@ -105,4 +105,3 @@ uint16_t dis_inouts_sector_size(dis_context_t dis_ctx)
+ 
+ 	return dis_ctx->io_data.sector_size;
+ }
+-
+diff --git a/src/inouts/prepare.c b/src/inouts/prepare.c
+index 193aaf7..53750f2 100644
+--- a/src/inouts/prepare.c
++++ b/src/inouts/prepare.c
+@@ -136,4 +136,3 @@ int prepare_crypt(dis_context_t dis_ctx)
+ 
+ 	return DIS_RET_SUCCESS;
+ }
+-
+diff --git a/src/inouts/sectors.c b/src/inouts/sectors.c
+index 991face..e1ed967 100644
+--- a/src/inouts/sectors.c
++++ b/src/inouts/sectors.c
+@@ -612,4 +612,3 @@ static void fix_write_sector_vista(dis_iodata_t* io_data,
+ 
+ 	dis_metadata_vista_vbr_ntfs2fve(io_data->metadata, output);
+ }
+-
+diff --git a/src/logs/event_descriptors.c b/src/logs/event_descriptors.c
+index 6357245..ccf5e2a 100644
+--- a/src/logs/event_descriptors.c
++++ b/src/logs/event_descriptors.c
+@@ -504,4 +504,3 @@ void init_events()
+ 		.keyword = 0x8000000000000000
+ 	};
+ }
+-
+diff --git a/src/metadata/print_metadata.c b/src/metadata/print_metadata.c
+index 7a11dc9..0fac912 100644
+--- a/src/metadata/print_metadata.c
++++ b/src/metadata/print_metadata.c
+@@ -250,4 +250,3 @@ void print_data(DIS_LOGS level, dis_metadata_t dis_meta)
+ 		data += header.datum_size;
+ 	}
+ }
+-
+diff --git a/src/ntfs/clock.c b/src/ntfs/clock.c
+index 4a2095a..15b07ff 100644
+--- a/src/ntfs/clock.c
++++ b/src/ntfs/clock.c
+@@ -39,4 +39,3 @@ void ntfs2utc(ntfs_time_t t, time_t *ts)
+ 
+ 	*ts = (time_t) ((t - (uint64_t)(NTFS_TIME_OFFSET)) / (uint64_t)10000000 );
+ }
+-
+diff --git a/src/samples/metadata_from_userpass.rb b/src/samples/metadata_from_userpass.rb
+index 65c00a5..209b219 100644
+--- a/src/samples/metadata_from_userpass.rb
++++ b/src/samples/metadata_from_userpass.rb
+@@ -51,4 +51,3 @@ fvek = disaccess.fvek
+ 
+ puts ". FVEK found:"
+ puts fvek
+-
+diff --git a/src/xstd/xstdio.c b/src/xstd/xstdio.c
+index 50c8045..28fabf5 100644
+--- a/src/xstd/xstdio.c
++++ b/src/xstd/xstdio.c
+@@ -250,4 +250,3 @@ int dis_vprintf(DIS_LOGS level, const char* format, va_list ap)
+ 	fprintf(fds[level], "%s [%s] ", time2string, msg_tab[level]);
+ 	return vfprintf(fds[level], format, ap);
+ }
+-
+diff --git a/src/xstd/xstdlib.c b/src/xstd/xstdlib.c
+index a5c3552..f6617b4 100644
+--- a/src/xstd/xstdlib.c
++++ b/src/xstd/xstdlib.c
+@@ -65,5 +65,3 @@ void dis_free(void *pointer)
+ 
+ 	free(pointer);
+ }
+-
+-
+-- 
+2.25.1
+

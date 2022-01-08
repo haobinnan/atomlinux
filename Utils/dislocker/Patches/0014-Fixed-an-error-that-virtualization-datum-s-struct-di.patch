@@ -1,0 +1,120 @@
+From 515b6d91faf04986ccf411905d1187e423224af4 Mon Sep 17 00:00:00 2001
+From: haobinnan <haobinnan@gmail.com>
+Date: Wed, 1 Dec 2021 16:29:01 +0800
+Subject: [PATCH 14/14] Fixed an error that "virtualization datum's" struct did
+ not align by bytes. Fixed an error that relates to the support of BitLocker
+ created by Windows Vista.
+
+---
+ include/dislocker/metadata/extended_info.h |  6 ++++++
+ src/inouts/prepare.c                       |  4 ++++
+ src/inouts/sectors.c                       | 10 ++++++----
+ src/metadata/metadata.c                    |  2 +-
+ 4 files changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/include/dislocker/metadata/extended_info.h b/include/dislocker/metadata/extended_info.h
+index cdbaf65..aa0fe0f 100644
+--- a/include/dislocker/metadata/extended_info.h
++++ b/include/dislocker/metadata/extended_info.h
+@@ -32,6 +32,7 @@
+  * This structure is new to Windows 8
+  * It's the virtualization datum's payload
+  */
++#pragma pack (1)
+ typedef struct _extended_info {
+ 	uint16_t unknown1;
+ 	uint16_t size;
+@@ -41,7 +42,12 @@ typedef struct _extended_info {
+ 	uint32_t convertlog_size;
+ 	uint32_t sector_size1;
+ 	uint32_t sector_size2;
++	uint32_t unknown3[6];
++	uint64_t FVE2_da392a22_addr;
++	uint32_t FVE2_da392a22_size;
++	uint32_t unknown4;
+ } extended_info_t;
++#pragma pack ()
+ 
+ 
+ 
+diff --git a/src/inouts/prepare.c b/src/inouts/prepare.c
+index 193aaf7..c850c78 100644
+--- a/src/inouts/prepare.c
++++ b/src/inouts/prepare.c
+@@ -109,6 +109,10 @@ int prepare_crypt(dis_context_t dis_ctx)
+ 	io_data->decrypt_region = read_decrypt_sectors;
+ 	io_data->encrypt_region = encrypt_write_sectors;
+ 	io_data->encrypted_volume_size = dis_metadata_encrypted_volume_size(io_data->metadata);
++	if (io_data->metadata->information->version == V_VISTA) {
++		io_data->encrypted_volume_size = dis_metadata_volume_size_from_vbr(dis_ctx->metadata);
++		io_data->encrypted_volume_size += io_data->sector_size;		//The volume size of Vista should include the DBR backup
++	}
+ 	io_data->backup_sectors_addr   = dis_metadata_ntfs_sectors_address(io_data->metadata);
+ 	io_data->nb_backup_sectors     = dis_metadata_backup_sectors_count(io_data->metadata);
+ 
+diff --git a/src/inouts/sectors.c b/src/inouts/sectors.c
+index 2e700f0..375b87d 100644
+--- a/src/inouts/sectors.c
++++ b/src/inouts/sectors.c
+@@ -309,6 +309,7 @@ static void* thread_decrypt(void* params)
+ 	uint16_t version      = dis_metadata_information_version(io_data->metadata);
+ 	uint16_t sector_size  = args->sector_size;
+ 	uint16_t step_size    = (uint16_t) (sector_size * step_unit);
++	uint64_t encrypted_volume_total_sectors = io_data->encrypted_volume_size / sector_size;
+ 
+ 	off_t    offset       = args->sector_start + sector_size * loop;
+ 	uint8_t* loop_input   = args->input + sector_size * loop;
+@@ -375,12 +376,12 @@ static void* thread_decrypt(void* params)
+ 			);
+ 			memcpy(loop_output, loop_input, sector_size);
+ 		}
+-		else if(version == V_VISTA && sector_offset < 16)
++		else if(version == V_VISTA && (sector_offset < 16 || sector_offset + 1 == encrypted_volume_total_sectors))
+ 		{
+ 			/*
+ 			 * The firsts sectors are not really encrypted on a Vista volume
+ 			 */
+-			if(sector_offset < 1)
++			if(sector_offset < 1 || sector_offset + 1 == encrypted_volume_total_sectors)
+ 				fix_read_sector_vista(
+ 					io_data,
+ 					loop_input,
+@@ -433,6 +434,7 @@ static void* thread_encrypt(void* params)
+ 	uint16_t version     = dis_metadata_information_version(io_data->metadata);
+ 	uint16_t sector_size = args->sector_size;
+ 	uint16_t step_size   = (uint16_t) (sector_size * step_unit);
++	uint64_t encrypted_volume_total_sectors = io_data->encrypted_volume_size / sector_size;
+ 
+ 	uint8_t* loop_input  = args->input + sector_size * loop;
+ 	uint8_t* loop_output = args->output + sector_size * loop;
+@@ -458,12 +460,12 @@ static void* thread_encrypt(void* params)
+ 		 * NOTE: Seven specificities are dealt with earlier in the process
+ 		 * see dislocker.c:enlock()
+ 		 */
+-		if(version == V_VISTA && sector_offset < 16)
++		if(version == V_VISTA && (sector_offset < 16 || sector_offset + 1 == encrypted_volume_total_sectors))
+ 		{
+ 			/*
+ 			 * The firsts sectors are not really encrypted on a Vista volume
+ 			 */
+-			if(sector_offset < 1)
++			if(sector_offset < 1 || sector_offset + 1 == encrypted_volume_total_sectors)
+ 				fix_write_sector_vista(
+ 					io_data,
+ 					loop_input,
+diff --git a/src/metadata/metadata.c b/src/metadata/metadata.c
+index c9128bd..ee04d92 100644
+--- a/src/metadata/metadata.c
++++ b/src/metadata/metadata.c
+@@ -1159,7 +1159,7 @@ void dis_metadata_vista_vbr_fve2ntfs(dis_metadata_t dis_meta, void* vbr)
+ 	memcpy(volume_header->signature, NTFS_SIGNATURE, NTFS_SIGNATURE_SIZE);
+ 
+ 	/* And this is for the MFT Mirror field */
+-	volume_header->mft_mirror = dis_meta->volume_header->mft_mirror;
++	volume_header->mft_mirror = dis_metadata_mftmirror(dis_meta);
+ }
+ 
+ 
+-- 
+2.25.1
+

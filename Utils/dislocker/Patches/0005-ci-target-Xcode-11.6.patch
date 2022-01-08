@@ -1,0 +1,36 @@
+From 677fb08c2c18d86881bacb260861125be3304d14 Mon Sep 17 00:00:00 2001
+From: midchildan <git@midchildan.org>
+Date: Sun, 28 Mar 2021 15:47:54 +0900
+Subject: [PATCH 05/14] ci: target Xcode 11.6
+
+The default macOS image provided by Travis is no longer supported by
+Homebrew.
+---
+ .travis.yml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/.travis.yml b/.travis.yml
+index d587d4e..4d9d32b 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -13,6 +13,7 @@ jobs:
+     - os: linux
+       dist: xenial
+     - os: osx
++      osx_image: xcode11.6
+ 
+ before_install:
+     - echo $PATH
+@@ -24,7 +25,8 @@ before_install:
+     - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="/usr/bin:/usr/local/bin:$PATH"; fi
+ 
+ install:
+-    - cmake .
++    - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cmake .; fi
++    - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake . -DCMAKE_C_COMPILER=/usr/bin/clang; fi
+     - make VERBOSE=1
+     - sudo make install
+ 
+-- 
+2.25.1
+

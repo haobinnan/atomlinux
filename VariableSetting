@@ -109,29 +109,29 @@ AtomLinux_ShimURL=https://github.com/rhboot/shim.git
 #Shim
 
 #Grub2
-AtomLinux_Grub2MAINUPSTREAMVNumber=2.04
+AtomLinux_Grub2MAINUPSTREAMVNumber=2.06
 
 #AtomLinux_Grub2VNumber=2.04-8
 #AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
 
-AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.04-1ubuntu46,https://www.ubuntu.com/
-AtomLinux_Grub2VNumber=import/2.04-1ubuntu46
+AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu3,https://www.ubuntu.com/
+AtomLinux_Grub2VNumber=import/2.06-2ubuntu3
 AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.11.22
+AtomLinux_LinuxKernelVNumber=5.15.13
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
 #BusyBox
-AtomLinux_BusyBoxVNumber=1.33.1
+AtomLinux_BusyBoxVNumber=1.34.1
 AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 #BusyBox
 
 #QtLib
 AtomLinux_QtVNumber4=4.8.7
-AtomLinux_Qt4URL=http://download.qt.io/archive/qt/4.8/
+AtomLinux_Qt4URL=https://download.qt.io/archive/qt/4.8/
 AtomLinux_QtVNumber5=5.12.8
 AtomLinux_Qt5URL=http://download.qt.io/archive/qt/5.12/
 #QtLib
@@ -142,7 +142,7 @@ AtomLinux_NcursesURL=https://ftp.gnu.org/gnu/ncurses/
 #NcursesLib
 
 #Utils - mdadm
-AtomLinux_MdadmVNumber=4.1
+AtomLinux_MdadmVNumber=4.2
 AtomLinux_MdadmURL=https://cdn.kernel.org/pub/linux/utils/raid/mdadm/
 #Utils - mdadm
 
@@ -172,7 +172,7 @@ AtomLinux_ExfatURL=https://codeload.github.com/relan/exfat/
 #Utils - exfat
 
 #Utils - ntfs-3g
-AtomLinux_Ntfs3gVNumber=2017.3.23
+AtomLinux_Ntfs3gVNumber=2021.8.22
 AtomLinux_Ntfs3gURL=https://tuxera.com/opensource/
 #Utils - ntfs-3g
 
@@ -187,5 +187,5 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=edk2-stable202108
+AtomLinux_OvmfVNumber=edk2-stable202111
 #ovmf

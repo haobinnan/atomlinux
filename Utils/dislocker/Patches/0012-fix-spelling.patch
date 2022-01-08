@@ -1,0 +1,215 @@
+From 0f2a885e42a9a6f8553313b8d52d06da019a3601 Mon Sep 17 00:00:00 2001
+From: a1346054 <36859588+a1346054@users.noreply.github.com>
+Date: Wed, 1 Sep 2021 19:24:35 +0000
+Subject: [PATCH 12/14] fix spelling
+
+---
+ CHANGELOG.md                        | 4 ++--
+ INSTALL.md                          | 4 ++--
+ src/accesses/rp/recovery_password.c | 2 +-
+ src/common.c                        | 2 +-
+ src/dislocker.c                     | 2 +-
+ src/dislocker.rb                    | 2 +-
+ src/encryption/encrypt.c            | 2 +-
+ src/inouts/sectors.c                | 2 +-
+ src/metadata/datums.c               | 6 +++---
+ src/metadata/metadata.c             | 6 +++---
+ src/metadata/print_metadata.c       | 2 +-
+ 11 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index bc8e5d4..0e085a9 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -11,7 +11,7 @@ difference.
+ - Feature improvement:
+     - Reported NTFS volume size is more accurate (thanks @haobinnan)
+     - Add ability to decrypt from a VMK file (thanks Seunghun Han)
+-    - Add ability to read the user password from the envrironment variable `DISLOCKER_PASSWORD` (thanks @mhogomchungu)
++    - Add ability to read the user password from the environment variable `DISLOCKER_PASSWORD` (thanks @mhogomchungu)
+     - Add ability to read the user password from pipes (thanks @mhogomchungu)
+     - Decryption/encryption speed has been improved by disabling faulty threading
+ 
+@@ -27,7 +27,7 @@ difference.
+     option for the offset had to be changed. It is now `-O`;
+     - dislocker on FreeBSD can now read devices, not just partition dumps.
+ 
+-- Compatiblity improvement:
++- Compatibility improvement:
+     - OSX support and dependencies have been updated;
+     - Thanks to Eric Johnson, from Leidos, a BitBake recipe is now available.
+ 
+diff --git a/INSTALL.md b/INSTALL.md
+index 5feb1db..937ec98 100644
+--- a/INSTALL.md
++++ b/INSTALL.md
+@@ -18,11 +18,11 @@ You need:
+ If you have Ruby headers, the library will compile with some Ruby bindings and
+ another program - see the NOTE section below - will be available.
+ 
+-For Debian-like distos based on Debian Jessie or Ubuntu 14.04 or older:
++For Debian-like distros based on Debian Jessie or Ubuntu 14.04 or older:
+ 
+ - `aptitude install gcc cmake make libfuse-dev libpolarssl-dev ruby-dev`
+ 
+-For Debian-like distos based on Debian Stretch or Ubuntu 16.04 or later:
++For Debian-like distros based on Debian Stretch or Ubuntu 16.04 or later:
+ 
+ - `aptitude install gcc cmake make libfuse-dev libmbedtls-dev ruby-dev`
+ 
+diff --git a/src/accesses/rp/recovery_password.c b/src/accesses/rp/recovery_password.c
+index f7a4bec..5a0b06d 100644
+--- a/src/accesses/rp/recovery_password.c
++++ b/src/accesses/rp/recovery_password.c
+@@ -397,7 +397,7 @@ int intermediate_key(const uint8_t *recovery_password,
+ 
+ 	memclean(iresult, INTERMEDIATE_KEY_LENGTH * sizeof(uint8_t));
+ 
+-	/* We successfuly retrieve the key! */
++	/* We successfully retrieve the key! */
+ 	return TRUE;
+ } // End intermediate_key
+ 
+diff --git a/src/common.c b/src/common.c
+index 49ad6bd..e19f8a0 100644
+--- a/src/common.c
++++ b/src/common.c
+@@ -306,7 +306,7 @@ void xor_buffer(unsigned char* buf1, const unsigned char* buf2, unsigned char* o
+ /**
+  * Clean memory before freeing
+  *
+- * @param ptr A pointeur to the memory region
++ * @param ptr A pointer to the memory region
+  * @param size The size of the region
+  */
+ void memclean(void* ptr, size_t size)
+diff --git a/src/dislocker.c b/src/dislocker.c
+index c45edc9..41e216f 100644
+--- a/src/dislocker.c
++++ b/src/dislocker.c
+@@ -66,7 +66,7 @@
+ 
+ 
+ 
+-/* Get low-level errors the library encoutered by looking at this variable */
++/* Get low-level errors the library encountered by looking at this variable */
+ int dis_errno;
+ 
+ 
+diff --git a/src/dislocker.rb b/src/dislocker.rb
+index ab1b397..060d64e 100644
+--- a/src/dislocker.rb
++++ b/src/dislocker.rb
+@@ -12,7 +12,7 @@ class Dislocker < Formula
+ 
+     depends_on 'mbedtls'
+     depends_on 'cmake'
+-#    This dependency is seperately installed, as a cask
++#    This dependency is separately installed, as a cask
+ #    depends_on :osxfuse
+ 
+     def install
+diff --git a/src/encryption/encrypt.c b/src/encryption/encrypt.c
+index 325c4d1..e6dc287 100644
+--- a/src/encryption/encrypt.c
++++ b/src/encryption/encrypt.c
+@@ -57,7 +57,7 @@ int encrypt_sector(dis_crypt_t crypt, uint8_t* sector, off_t sector_address, uin
+ 
+ 
+ /**
+- * Encrypt a sector whithout the diffuser
++ * Encrypt a sector without the diffuser
+  *
+  * @param ctx AES's contexts
+  * @param sector_size Size of a sector (in bytes)
+diff --git a/src/inouts/sectors.c b/src/inouts/sectors.c
+index 2e700f0..991face 100644
+--- a/src/inouts/sectors.c
++++ b/src/inouts/sectors.c
+@@ -448,7 +448,7 @@ static void* thread_encrypt(void* params)
+ 		/*
+ 		 * Just encrypt this sector
+ 		 * Exception: don't encrypt it if the sector wasn't (as in the
+-		 * "BitLocker's-volume-encryption-was-paused case decribed in the
++		 * "BitLocker's-volume-encryption-was-paused case described in the
+ 		 * decryption function above")
+ 		 */
+ 
+diff --git a/src/metadata/datums.c b/src/metadata/datums.c
+index 1c78871..d989db8 100644
+--- a/src/metadata/datums.c
++++ b/src/metadata/datums.c
+@@ -163,7 +163,7 @@ char* cipherstr(cipher_t enc)
+  * string format
+  * @warning This returned string has to be free()d
+  *
+- * @param value_type The datum's value type to tranform
++ * @param value_type The datum's value type to transform
+  * @return The decoded string or NULL if there's no signification (index out of
+  * bound)
+  */
+@@ -327,7 +327,7 @@ void print_datum_key(DIS_LOGS level, void* vdatum)
+ 	datum_key_t* datum = (datum_key_t*) vdatum;
+ 	char* cipher_str = cipherstr((cipher_t) datum->algo);
+ 
+-	dis_printf(level, "Unkown: \n");
++	dis_printf(level, "Unknown: \n");
+ 	hexdump(level, (void*) &datum->padd, 2);
+ 	dis_printf(level, "Algo: %s (%#hx)\n", cipher_str, datum->algo);
+ 	dis_printf(level, "Key:\n");
+@@ -368,7 +368,7 @@ void print_datum_stretch_key(DIS_LOGS level, void* vdatum)
+ {
+ 	datum_stretch_key_t* datum = (datum_stretch_key_t*) vdatum;
+ 
+-	dis_printf(level, "Unkown: \n");
++	dis_printf(level, "Unknown: \n");
+ 	hexdump(level, (void*) &datum->padd, 2);
+ 	dis_printf(level, "Algo: %#x\n", datum->algo);
+ 	dis_printf(level, "Salt: \n");
+diff --git a/src/metadata/metadata.c b/src/metadata/metadata.c
+index c9128bd..f2cb870 100644
+--- a/src/metadata/metadata.c
++++ b/src/metadata/metadata.c
+@@ -216,7 +216,7 @@ int dis_metadata_initialize(dis_metadata_t dis_meta)
+ 	{
+ 		dis_printf(
+ 			L_CRITICAL,
+-			"A problem occured during the retrieving of metadata. Abort.\n"
++			"A problem occurred during the retrieving of metadata. Abort.\n"
+ 		);
+ 		return DIS_RET_ERROR_METADATA_CHECK;
+ 	}
+@@ -732,7 +732,7 @@ static int get_metadata(off_t source, void **metadata, int fd)
+ 
+ 	*metadata = dis_malloc(size);
+ 
+-	// Copy the header at the begining of the metadata
++	// Copy the header at the beginning of the metadata
+ 	memcpy(*metadata, &information, sizeof(bitlocker_information_t));
+ 
+ 	dis_printf(L_DEBUG, "Reading data...\n");
+@@ -835,7 +835,7 @@ static int get_eow_information(off_t source, void** eow_infos, int fd)
+ 
+ 	*eow_infos = dis_malloc(size);
+ 
+-	// Copy the header at the begining of the EOW information
++	// Copy the header at the beginning of the EOW information
+ 	memcpy(*eow_infos, &eow_infos_hdr, sizeof(bitlocker_eow_infos_t));
+ 
+ 	dis_printf(L_DEBUG, "Reading EOW information's payload...\n");
+diff --git a/src/metadata/print_metadata.c b/src/metadata/print_metadata.c
+index f743a5e..7a11dc9 100644
+--- a/src/metadata/print_metadata.c
++++ b/src/metadata/print_metadata.c
+@@ -122,7 +122,7 @@ void print_information(DIS_LOGS level, dis_metadata_t dis_meta)
+ 	dis_printf(level, "  Current state: %s (%hu)\n", get_state_str(information->curr_state), information->curr_state);
+ 	dis_printf(level, "  Next state: %s (%hu)\n",    get_state_str(information->next_state), information->next_state);
+ 	dis_printf(level, "  Encrypted volume size: %1$" PRIu64 " bytes (%1$#" PRIx64 "), ~%2$" PRIu64 " MB\n", information->encrypted_volume_size, information->encrypted_volume_size / (1024*1024));
+-	dis_printf(level, "  Size of convertion region: %1$#x (%1$u)\n", information->convert_size);
++	dis_printf(level, "  Size of conversion region: %1$#x (%1$u)\n", information->convert_size);
+ 	dis_printf(level, "  Number of boot sectors backuped: %1$u sectors (%1$#x)\n", information->nb_backup_sectors);
+ 	dis_printf(level, "  First metadata header offset:  %#" PRIx64 "\n", information->information_off[0]);
+ 	dis_printf(level, "  Second metadata header offset: %#" PRIx64 "\n", information->information_off[1]);
+-- 
+2.25.1
+
