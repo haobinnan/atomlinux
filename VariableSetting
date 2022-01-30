@@ -114,13 +114,13 @@ AtomLinux_Grub2MAINUPSTREAMVNumber=2.06
 #AtomLinux_Grub2VNumber=2.04-8
 #AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
 
-AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu3,https://www.ubuntu.com/
-AtomLinux_Grub2VNumber=import/2.06-2ubuntu3
+AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu4,https://www.ubuntu.com/
+AtomLinux_Grub2VNumber=import/2.06-2ubuntu4
 AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.15.13
+AtomLinux_LinuxKernelVNumber=5.15.15
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
@@ -162,7 +162,7 @@ AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
 #Utils - Dropbear SSH
 
 #Utils - hdparm
-AtomLinux_HdparmVNumber=9.62
+AtomLinux_HdparmVNumber=9.63
 AtomLinux_HdparmURL=https://jaist.dl.sourceforge.net/project/hdparm/hdparm/
 #Utils - hdparm
 
