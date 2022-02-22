@@ -115,7 +115,7 @@ MyInstall "libbz2-dev libgcrypt20-dev libdrm-dev libcupsimage2-dev libtiff-dev l
 #What you need to build 'Qt5'
 
 #What you need to build 'grub2'
-MyInstall_Base "libopts25 libfont-freetype-perl libopts25-dev libselinux1-dev autotools-dev libfreetype6-dev libdevmapper-dev libpciaccess-dev librpm-dev"
+MyInstall_Base "libopts25 libfont-freetype-perl libopts25-dev libselinux1-dev autotools-dev libfreetype6-dev libdevmapper-dev libpciaccess-dev librpm-dev libfuse3-dev"
 #What you need to build 'grub2'
 
 #What you need to build 'weston'

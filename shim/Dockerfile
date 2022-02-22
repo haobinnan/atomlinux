@@ -13,7 +13,7 @@ RUN apt update -y && \
 #set git proxy
 
 #git
-RUN git clone --branch isoo-shim-20210824-3 https://github.com/haobinnan/shim-review.git
+RUN git clone --branch isoo-shim-20220222 https://github.com/haobinnan/shim-review.git
 WORKDIR /shim-review
 #git
 

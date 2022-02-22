@@ -104,7 +104,7 @@ AtomLinux_CertificateName=null
 #Certificate Variable
 
 #Shim
-AtomLinux_ShimVNumber=15.4
+AtomLinux_ShimVNumber=15.5
 AtomLinux_ShimURL=https://github.com/rhboot/shim.git
 #Shim
 
@@ -114,13 +114,13 @@ AtomLinux_Grub2MAINUPSTREAMVNumber=2.06
 #AtomLinux_Grub2VNumber=2.04-8
 #AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
 
-AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu4,https://www.ubuntu.com/
-AtomLinux_Grub2VNumber=import/2.06-2ubuntu4
+AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu5,https://www.ubuntu.com/
+AtomLinux_Grub2VNumber=import/2.06-2ubuntu5
 AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.15.15
+AtomLinux_LinuxKernelVNumber=5.15.24
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
