@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 #file: CreateMBR.py
 
@@ -9,7 +9,7 @@ import shutil
 def WriteOffset(strFileName, iOffset, strText):
     with open(strFileName, "r+b") as fh:
         fh.seek(iOffset)
-        fh.write(strText)
+        fh.write(strText.encode())
     return
 
 if __name__ == '__main__':
@@ -31,11 +31,11 @@ if __name__ == '__main__':
             WriteOffset(strFileName, 0x9E3, strLDRName.lower())
             WriteOffset(strFileName, 0xBD3, strLDRName.lower())
 
-            print "MBR file creation completed."
+            print("MBR file creation completed.")
         else:
-            print "Error: The parameter is incorrect."
+            print("Error: The parameter is incorrect.")
             sys.exit(1)
     else:
-        print "Error: The parameter is incorrect."
+        print("Error: The parameter is incorrect.")
         sys.exit(1)
 

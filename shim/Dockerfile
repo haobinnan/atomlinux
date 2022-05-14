@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM debian:bullseye
 MAINTAINER binnan_hao<haobinnan@gmail.com>
 
 #update sources.list
@@ -9,11 +9,11 @@ RUN apt update -y && \
     DEBIAN_FRONTEND=noninteractive apt install -y devscripts dos2unix pesign
 
 #set git proxy
-# RUN git config --global http.proxy http://192.168.1.66:10809
+# RUN git config --global http.proxy http://192.168.1.66:10811
 #set git proxy
 
 #git
-RUN git clone --branch isoo-shim-20220222 https://github.com/haobinnan/shim-review.git
+RUN git clone --branch isoo-shim-20220311 https://github.com/haobinnan/shim-review.git
 WORKDIR /shim-review
 #git
 

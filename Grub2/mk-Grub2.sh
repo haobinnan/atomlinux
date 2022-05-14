@@ -282,7 +282,7 @@ function build_efi()
 grub,1,Free Software Foundation,grub,'${AtomLinux_Grub2MAINUPSTREAMVNumber}',https://www.gnu.org/software/grub/\n'${AtomLinux_Grub2UPSTREAMSBAT}'\ngrub.'${AtomLinux_SBAT_DISTRO_ID}',1,'${AtomLinux_SBAT_DISTRO_NAME}','${OBJ_PROJECT}','${AtomLinux_Grub2MAINUPSTREAMVNumber}-${AtomLinux_SBAT_DISTRO_ID}','${AtomLinux_SBAT_URL} > ./sbat-${ARCH}.csv
     #sbat.csv
 
-    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile linux multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test probe linux cpuid scsi lsefi lsefimmap efifwsetup efinet backtrace font loadenv syslinuxcfg video --sbat ./sbat-${ARCH}.csv
+    ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test probe linux cpuid scsi lsefi lsefimmap efifwsetup efinet linuxefi backtrace font loadenv syslinuxcfg video --sbat ./sbat-${ARCH}.csv
     #Check grub-mkimage
     if [ ! $? -eq 0 ]; then
         echo "Error: grub-mkimage (Grub2) ."

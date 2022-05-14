@@ -121,8 +121,10 @@ fi
 if [ ${AtomLinux_UsingDislocker} = "Yes" ]; then
     ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libfuse.so.*"
     ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/libcrypt.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/librt.so.*"
+    ArrayLib[$((iIndex++))]="/lib/${Arch}-linux-gnu/librt-*.so*"
     ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libmbedcrypto.so.*"
-#    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libruby-2.5.so.2.5"
+    ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libruby-*.so*"
     ArrayLib[$((iIndex++))]="/usr/lib/${Arch}-linux-gnu/libgmp.so.*"
 fi
 #dislocker

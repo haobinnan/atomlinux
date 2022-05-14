@@ -114,13 +114,13 @@ AtomLinux_Grub2MAINUPSTREAMVNumber=2.06
 #AtomLinux_Grub2VNumber=2.04-8
 #AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
 
-AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu5,https://www.ubuntu.com/
-AtomLinux_Grub2VNumber=import/2.06-2ubuntu5
+AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu7,https://www.ubuntu.com/
+AtomLinux_Grub2VNumber=import/2.06-2ubuntu7
 AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.15.24
+AtomLinux_LinuxKernelVNumber=5.15.39
 AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
 #LinuxKernel
 
@@ -157,7 +157,7 @@ AtomLinux_DislockerURL=https://codeload.github.com/Aorimn/dislocker/
 #Utils - dislocker
 
 #Utils - Dropbear SSH
-AtomLinux_DropbearSSHVNumber=2020.81
+AtomLinux_DropbearSSHVNumber=2022.82
 AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
 #Utils - Dropbear SSH
 
@@ -187,5 +187,5 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=edk2-stable202111
+AtomLinux_OvmfVNumber=edk2-stable202202
 #ovmf
