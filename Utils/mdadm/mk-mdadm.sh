@@ -90,12 +90,12 @@ fi
 
 #make
 if [ ${AtomLinux_Only64Bit} = "Yes" ]; then
-    echo | $Make CXFLAGS=-O2
+    echo | $Make CXFLAGS="-O2 -DNO_LIBUDEV"
 else
     if [ $(getconf LONG_BIT) = '64' ]; then
-        echo | $Make CXFLAGS="-O2 -m32"
+        echo | $Make CXFLAGS="-O2 -m32 -DNO_LIBUDEV"
     else
-        echo | $Make CXFLAGS=-O2
+        echo | $Make CXFLAGS=-"O2 -DNO_LIBUDEV"
     fi
 fi
 #make

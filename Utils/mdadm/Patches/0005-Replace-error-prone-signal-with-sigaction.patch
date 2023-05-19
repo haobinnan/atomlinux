@@ -1,7 +1,7 @@
 From 83a379cfbd283b387919fe05d44eb4c49e155ad6 Mon Sep 17 00:00:00 2001
 From: Lukasz Florczak <lukasz.florczak@linux.intel.com>
 Date: Mon, 21 Feb 2022 13:05:20 +0100
-Subject: [PATCH 05/12] Replace error prone signal() with sigaction()
+Subject: [PATCH 005/125] Replace error prone signal() with sigaction()
 
 Up to this date signal() was used which implementation could vary [1].
 Sigaction() call is preferred. This commit introduces replacement

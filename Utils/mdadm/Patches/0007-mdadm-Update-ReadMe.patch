@@ -1,7 +1,7 @@
 From c23400377bb3d8e98e810cd92dba478dac1dff82 Mon Sep 17 00:00:00 2001
 From: Lukasz Florczak <lukasz.florczak@linux.intel.com>
 Date: Fri, 18 Mar 2022 09:26:05 +0100
-Subject: [PATCH 07/12] mdadm: Update ReadMe
+Subject: [PATCH 007/125] mdadm: Update ReadMe
 
 Instead of hardcoded config file path give reference to config manual.
 

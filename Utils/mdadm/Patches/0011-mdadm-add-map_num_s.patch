@@ -1,7 +1,7 @@
 From 5f21d67472ad08c1e96b4385254adba79aa1c467 Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Thu, 20 Jan 2022 13:18:33 +0100
-Subject: [PATCH 11/12] mdadm: add map_num_s()
+Subject: [PATCH 011/125] mdadm: add map_num_s()
 
 map_num() returns NULL if key is not defined. This patch adds
 alternative, non NULL version for cases where NULL is not expected.

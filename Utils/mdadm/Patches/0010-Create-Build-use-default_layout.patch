@@ -1,7 +1,7 @@
 From 913f07d1db4a0078acc26d6ccabe1c315cf9273c Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Thu, 20 Jan 2022 13:18:32 +0100
-Subject: [PATCH 10/12] Create, Build: use default_layout()
+Subject: [PATCH 010/125] Create, Build: use default_layout()
 
 This code is duplicated for Build mode so make default_layout() extern
 and use it. Simplify the function structure.

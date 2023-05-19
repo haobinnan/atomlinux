@@ -61,7 +61,7 @@ function MyInstall()
 #function
 
 #tools
-MyInstall_Base "wget vim git git-gui sbsigntool lcab python2 perl ruby flex bison cmake gperf pesign libnss3-tools openssl automake nasm autogen m4 autoconf autopoint help2man xorriso texinfo gettext upx-ucl dos2unix genisoimage"
+MyInstall_Base "wget vim git git-gui sbsigntool lcab python2 perl ruby flex bison cmake gperf pesign libnss3-tools openssl automake nasm autogen m4 autoconf autopoint help2man xorriso texinfo gettext upx-ucl dos2unix genisoimage bc"
 MyInstall_Base "python3 python3-pip python3-setuptools python3-wheel"
 #tools
 
@@ -109,7 +109,7 @@ MyInstall "^libxcb.*-dev libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-de
 MyInstall "libicu-dev libxslt1-dev"
 # Qt WebKit
 
-# Qt WebEngine	
+# Qt WebEngine
 MyInstall "libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libdbus-1-dev libfontconfig1-dev libcap-dev libxtst-dev libpulse-dev libudev-dev libpci-dev libnspr4-dev libnss3-dev libasound2-dev libxss-dev libegl1-mesa-dev"
 MyInstall "libbz2-dev libgcrypt20-dev libdrm-dev libcupsimage2-dev libtiff-dev libcups2-dev libatkmm-1.6-dev"
 # Qt WebEngine

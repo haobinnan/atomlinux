@@ -1,7 +1,7 @@
 From cf9a109209aad285372b67306d54118af6fc522b Mon Sep 17 00:00:00 2001
 From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
 Date: Fri, 14 Jan 2022 16:44:33 +0100
-Subject: [PATCH 04/12] udev: adapt rules to systemd v247
+Subject: [PATCH 004/125] udev: adapt rules to systemd v247
 
 New events have been added in kernel 4.14 ("bind" and "unbind").
 Systemd maintainer suggests to modify "add|change" branches.

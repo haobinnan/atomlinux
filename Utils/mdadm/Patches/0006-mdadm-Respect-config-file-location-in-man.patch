@@ -1,7 +1,7 @@
 From e9dd5644843e2013a7dd1a8a5da2b9fa35837416 Mon Sep 17 00:00:00 2001
 From: Lukasz Florczak <lukasz.florczak@linux.intel.com>
 Date: Fri, 18 Mar 2022 09:26:04 +0100
-Subject: [PATCH 06/12] mdadm: Respect config file location in man
+Subject: [PATCH 006/125] mdadm: Respect config file location in man
 
 Default config file location could differ depending on OS (e.g. Debian family).
 This patch takes default config file into consideration when creating mdadm.man

@@ -1,0 +1,133 @@
+From 7b3b691ba69b909ea8c172aae693fa2a6938fd14 Mon Sep 17 00:00:00 2001
+From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
+Date: Thu, 23 Mar 2023 17:50:16 +0100
+Subject: [PATCH 123/125] mdadm: define is_devname_ignore()
+
+Use function instead of direct checks across code.
+
+Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
+Signed-off-by: Jes Sorensen <jes@trained-monkey.org>
+---
+ Incremental.c |  6 ++----
+ Monitor.c     |  2 +-
+ config.c      | 16 ++++++++++++++--
+ mdadm.c       |  5 ++---
+ mdadm.h       |  1 +
+ 5 files changed, 20 insertions(+), 10 deletions(-)
+
+diff --git a/Incremental.c b/Incremental.c
+index 59b850f1..f13ce027 100644
+--- a/Incremental.c
++++ b/Incremental.c
+@@ -202,8 +202,7 @@ int Incremental(struct mddev_dev *devlist, struct context *c,
+ 	if (!match && rv == 2)
+ 		goto out;
+ 
+-	if (match && match->devname &&
+-	    strcasecmp(match->devname, "<ignore>") == 0) {
++	if (match && match->devname && is_devname_ignore(match->devname) == true) {
+ 		if (c->verbose >= 0)
+ 			pr_err("array containing %s is explicitly ignored by mdadm.conf\n",
+ 				devname);
+@@ -1567,8 +1566,7 @@ static int Incremental_container(struct supertype *st, char *devname,
+ 				break;
+ 			}
+ 
+-			if (match && match->devname &&
+-			    strcasecmp(match->devname, "<ignore>") == 0) {
++			if (match && match->devname && is_devname_ignore(match->devname) == true) {
+ 				if (c->verbose > 0)
+ 					pr_err("array %s/%s is explicitly ignored by mdadm.conf\n",
+ 					       match->container, match->member);
+diff --git a/Monitor.c b/Monitor.c
+index 3273f2fb..66175968 100644
+--- a/Monitor.c
++++ b/Monitor.c
+@@ -250,7 +250,7 @@ int Monitor(struct mddev_dev *devlist,
+ 
+ 			if (mdlist->devname == NULL)
+ 				continue;
+-			if (strcasecmp(mdlist->devname, "<ignore>") == 0)
++			if (is_devname_ignore(mdlist->devname) == true)
+ 				continue;
+ 			if (!is_mddev(mdlist->devname))
+ 				continue;
+diff --git a/config.c b/config.c
+index f44cc1d3..e61c0496 100644
+--- a/config.c
++++ b/config.c
+@@ -119,6 +119,18 @@ int match_keyword(char *word)
+ 	return -1;
+ }
+ 
++/**
++ * is_devname_ignore() - check if &devname is a special "<ignore>" keyword.
++ */
++bool is_devname_ignore(char *devname)
++{
++	static const char keyword[] = "<ignore>";
++
++	if (strcasecmp(devname, keyword) == 0)
++		return true;
++	return false;
++}
++
+ /**
+  * ident_init() - Set defaults.
+  * @ident: ident pointer, not NULL.
+@@ -404,7 +416,7 @@ void arrayline(char *line)
+ 			 *  <ignore>
+ 			 *  or anything that doesn't start '/' or '<'
+ 			 */
+-			if (strcasecmp(w, "<ignore>") == 0 ||
++			if (is_devname_ignore(w) == true ||
+ 			    strncmp(w, DEV_MD_DIR, DEV_MD_DIR_LEN) == 0 ||
+ 			    (w[0] != '/' && w[0] != '<') ||
+ 			    (strncmp(w, DEV_NUM_PREF, DEV_NUM_PREF_LEN) == 0 &&
+@@ -571,7 +583,7 @@ void homehostline(char *line)
+ 	char *w;
+ 
+ 	for (w = dl_next(line); w != line; w = dl_next(w)) {
+-		if (strcasecmp(w, "<ignore>") == 0)
++		if (is_devname_ignore(w) == true)
+ 			require_homehost = 0;
+ 		else if (home_host == NULL) {
+ 			if (strcasecmp(w, "<none>") == 0)
+diff --git a/mdadm.c b/mdadm.c
+index 2296911d..076b45e0 100644
+--- a/mdadm.c
++++ b/mdadm.c
+@@ -154,7 +154,7 @@ int main(int argc, char *argv[])
+ 			continue;
+ 
+ 		case HomeHost:
+-			if (strcasecmp(optarg, "<ignore>") == 0)
++			if (is_devname_ignore(optarg) == true)
+ 				c.require_homehost = 0;
+ 			else
+ 				c.homehost = optarg;
+@@ -1749,8 +1749,7 @@ static int scan_assemble(struct supertype *ss,
+ 			int r;
+ 			if (a->assembled)
+ 				continue;
+-			if (a->devname &&
+-			    strcasecmp(a->devname, "<ignore>") == 0)
++			if (a->devname && is_devname_ignore(a->devname) == true)
+ 				continue;
+ 
+ 			r = Assemble(ss, a->devname,
+diff --git a/mdadm.h b/mdadm.h
+index f2e70baa..0932c2d3 100644
+--- a/mdadm.h
++++ b/mdadm.h
+@@ -1650,6 +1650,7 @@ extern void print_escape(char *str);
+ extern int use_udev(void);
+ extern unsigned long GCD(unsigned long a, unsigned long b);
+ extern int conf_name_is_free(char *name);
++extern bool is_devname_ignore(char *devname);
+ extern int conf_verify_devnames(struct mddev_ident *array_list);
+ extern int devname_matches(char *name, char *match);
+ extern struct mddev_ident *conf_match(struct supertype *st,
+-- 
+2.30.2
+

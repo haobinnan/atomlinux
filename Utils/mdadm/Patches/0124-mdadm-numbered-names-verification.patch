@@ -1,0 +1,145 @@
+From 25aa7329141c0b28d8811671627f0f5c5dc22273 Mon Sep 17 00:00:00 2001
+From: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
+Date: Thu, 23 Mar 2023 17:50:17 +0100
+Subject: [PATCH 124/125] mdadm: numbered names verification
+
+New functions added to remove literals and make the code reusable.
+Use parse_num() instead of is_numer().
+
+Signed-off-by: Mariusz Tkaczyk <mariusz.tkaczyk@linux.intel.com>
+Signed-off-by: Jes Sorensen <jes@trained-monkey.org>
+---
+ config.c | 17 ++---------------
+ lib.c    |  2 +-
+ mdadm.h  |  4 +++-
+ util.c   | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 50 insertions(+), 17 deletions(-)
+
+diff --git a/config.c b/config.c
+index e61c0496..450880e3 100644
+--- a/config.c
++++ b/config.c
+@@ -385,17 +385,6 @@ void devline(char *line)
+ struct mddev_ident *mddevlist = NULL;
+ struct mddev_ident **mddevlp = &mddevlist;
+ 
+-static int is_number(char *w)
+-{
+-	/* check if there are 1 or more digits and nothing else */
+-	int digits = 0;
+-	while (*w && isdigit(*w)) {
+-		digits++;
+-		w++;
+-	}
+-	return (digits && ! *w);
+-}
+-
+ void arrayline(char *line)
+ {
+ 	char *w;
+@@ -419,10 +408,8 @@ void arrayline(char *line)
+ 			if (is_devname_ignore(w) == true ||
+ 			    strncmp(w, DEV_MD_DIR, DEV_MD_DIR_LEN) == 0 ||
+ 			    (w[0] != '/' && w[0] != '<') ||
+-			    (strncmp(w, DEV_NUM_PREF, DEV_NUM_PREF_LEN) == 0 &&
+-			     is_number(w + DEV_NUM_PREF_LEN)) ||
+-			    (strncmp(w, "/dev/md_d", 9) == 0 &&
+-			     is_number(w + 9))) {
++			    is_devname_md_numbered(w) == true ||
++			    is_devname_md_d_numbered(w) == true) {
+ 				/* This is acceptable */;
+ 				if (mis.devname)
+ 					pr_err("only give one device per ARRAY line: %s and %s\n",
+diff --git a/lib.c b/lib.c
+index 65ea51e0..fe5c8d2c 100644
+--- a/lib.c
++++ b/lib.c
+@@ -570,7 +570,7 @@ void free_line(char *line)
+  *
+  * Return: 0 on success, 1 otherwise.
+  */
+-int parse_num(int *dest, char *num)
++int parse_num(int *dest, const char *num)
+ {
+ 	char *c = NULL;
+ 	long temp;
+diff --git a/mdadm.h b/mdadm.h
+index 0932c2d3..83f2cf7f 100644
+--- a/mdadm.h
++++ b/mdadm.h
+@@ -1601,7 +1601,7 @@ int default_layout(struct supertype *st, int level, int verbose);
+ extern int is_near_layout_10(int layout);
+ extern int parse_layout_10(char *layout);
+ extern int parse_layout_faulty(char *layout);
+-extern int parse_num(int *dest, char *num);
++extern int parse_num(int *dest, const char *num);
+ extern int parse_cluster_confirm_arg(char *inp, char **devname, int *slot);
+ extern int check_ext2(int fd, char *name);
+ extern int check_reiser(int fd, char *name);
+@@ -1651,6 +1651,8 @@ extern int use_udev(void);
+ extern unsigned long GCD(unsigned long a, unsigned long b);
+ extern int conf_name_is_free(char *name);
+ extern bool is_devname_ignore(char *devname);
++extern bool is_devname_md_numbered(const char *devname);
++extern bool is_devname_md_d_numbered(const char *devname);
+ extern int conf_verify_devnames(struct mddev_ident *array_list);
+ extern int devname_matches(char *name, char *match);
+ extern struct mddev_ident *conf_match(struct supertype *st,
+diff --git a/util.c b/util.c
+index d70ca43b..fa378eba 100644
+--- a/util.c
++++ b/util.c
+@@ -973,6 +973,50 @@ dev_t devnm2devid(char *devnm)
+ 	return 0;
+ }
+ 
++/**
++ * is_devname_numbered() - helper for numbered devname verification.
++ * @devname: path or name to check.
++ * @pref: expected devname prefix.
++ * @pref_len: prefix len.
++ */
++static bool is_devname_numbered(const char *devname, const char *pref, const int pref_len)
++{
++	int val;
++
++	assert(devname && pref);
++
++	if (strncmp(devname, pref, pref_len) != 0)
++		return false;
++
++	if (parse_num(&val, devname + pref_len) != 0)
++		return false;
++
++	if (val > 127)
++		return false;
++
++	return true;
++}
++
++/**
++ * is_devname_md_numbered() - check if &devname is numbered MD device (md).
++ * @devname: path or name to check.
++ */
++bool is_devname_md_numbered(const char *devname)
++{
++	return is_devname_numbered(devname, DEV_NUM_PREF, DEV_NUM_PREF_LEN);
++}
++
++/**
++ * is_devname_md_d_numbered() - check if &devname is secondary numbered MD device (md_d).
++ * @devname: path or name to check.
++ */
++bool is_devname_md_d_numbered(const char *devname)
++{
++	static const char d_dev[] = DEV_NUM_PREF "_d";
++
++	return is_devname_numbered(devname, d_dev, sizeof(d_dev) - 1);
++}
++
+ /**
+  * get_md_name() - Get main dev node of the md device.
+  * @devnm: Md device name or path.
+-- 
+2.30.2
+

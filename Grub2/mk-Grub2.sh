@@ -97,7 +97,7 @@ if [ $CodeAcquisitionMethod = "wget" ]; then
     mv ./${OBJ_PROJECT}-tmp/grub-debian* ./${OBJ_PROJECT}-tmp/${FILENAME_DIR}
     #Rename the directory
 else
-    FILENAME_DIR=grub2
+    FILENAME_DIR=grub2 #grub
 
     cd ./${OBJ_PROJECT}-tmp/
     git clone --branch ${AtomLinux_Grub2VNumber} ${AtomLinux_DownloadURL}
@@ -279,7 +279,7 @@ function build_efi()
 
     #sbat.csv
     echo -e 'sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-grub,1,Free Software Foundation,grub,'${AtomLinux_Grub2MAINUPSTREAMVNumber}',https://www.gnu.org/software/grub/\n'${AtomLinux_Grub2UPSTREAMSBAT}'\ngrub.'${AtomLinux_SBAT_DISTRO_ID}',1,'${AtomLinux_SBAT_DISTRO_NAME}','${OBJ_PROJECT}','${AtomLinux_Grub2MAINUPSTREAMVNumber}-${AtomLinux_SBAT_DISTRO_ID}','${AtomLinux_SBAT_URL} > ./sbat-${ARCH}.csv
+grub,2,Free Software Foundation,grub,'${AtomLinux_Grub2MAINUPSTREAMVNumber}',https://www.gnu.org/software/grub/\n'${AtomLinux_Grub2UPSTREAMSBAT}'\ngrub.'${AtomLinux_SBAT_DISTRO_ID}',1,'${AtomLinux_SBAT_DISTRO_NAME}','${OBJ_PROJECT}','${AtomLinux_Grub2MAINUPSTREAMVNumber}-${AtomLinux_SBAT_DISTRO_ID}','${AtomLinux_SBAT_URL} > ./sbat-${ARCH}.csv
     #sbat.csv
 
     ../../../bin/grub-mkimage -O ${ARCH}-efi -d . -o ${LDRNAME} -p ${AtomLinux_Grub2PrefixDirName} newc memdisk cpio part_gpt part_msdos msdospart ntfs ntfscomp fat exfat normal chain boot configfile multiboot png all_video search blocklist iso9660 udf minicmd loopback gfxmenu gfxterm reboot romfs procfs sleep ls cat echo halt test probe linux cpuid scsi lsefi lsefimmap efifwsetup efinet linuxefi backtrace font loadenv syslinuxcfg video --sbat ./sbat-${ARCH}.csv

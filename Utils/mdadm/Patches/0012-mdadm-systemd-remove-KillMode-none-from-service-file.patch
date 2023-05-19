@@ -1,7 +1,7 @@
 From 52c67fcdd6dadc4138ecad73e65599551804d445 Mon Sep 17 00:00:00 2001
 From: Coly Li <colyli@suse.de>
 Date: Tue, 15 Feb 2022 21:34:15 +0800
-Subject: [PATCH 12/12] mdadm/systemd: remove KillMode=none from service file
+Subject: [PATCH 012/125] mdadm/systemd: remove KillMode=none from service file
 
 For mdadm's systemd configuration, current systemd KillMode is "none" in
 following service files,

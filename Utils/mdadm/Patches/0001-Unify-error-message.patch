@@ -1,7 +1,7 @@
 From f1cc8ab9ab6a92c3cd94ab7590b46285e214681e Mon Sep 17 00:00:00 2001
 From: Lukasz Florczak <lukasz.florczak@linux.intel.com>
 Date: Tue, 15 Mar 2022 09:30:30 +0100
-Subject: [PATCH 01/12] Unify error message.
+Subject: [PATCH 001/125] Unify error message.
 
 Provide the same error message for the same error that can occur in Grow.c and super-intel.c.
 

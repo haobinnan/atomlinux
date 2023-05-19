@@ -1,7 +1,7 @@
 From c33bbda5b0e127bb161fd4ad44bcfaa2a5daf153 Mon Sep 17 00:00:00 2001
 From: Lukasz Florczak <lukasz.florczak@linux.intel.com>
 Date: Fri, 18 Mar 2022 09:26:07 +0100
-Subject: [PATCH 09/12] mdadm: Update config manual
+Subject: [PATCH 009/125] mdadm: Update config manual
 
 Add missing HOMECLUSTER keyword description.
 

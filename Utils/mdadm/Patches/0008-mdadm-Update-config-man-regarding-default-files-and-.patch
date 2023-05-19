@@ -1,7 +1,7 @@
 From 24e075c659d0a8718aabefe5af4c97195a188af7 Mon Sep 17 00:00:00 2001
 From: Lukasz Florczak <lukasz.florczak@linux.intel.com>
 Date: Fri, 18 Mar 2022 09:26:06 +0100
-Subject: [PATCH 08/12] mdadm: Update config man regarding default files and
+Subject: [PATCH 008/125] mdadm: Update config man regarding default files and
  multi-keyword behavior
 
 Simplify default and alternative config file and directory location references

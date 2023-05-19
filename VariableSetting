@@ -104,7 +104,7 @@ AtomLinux_CertificateName=null
 #Certificate Variable
 
 #Shim
-AtomLinux_ShimVNumber=15.5
+AtomLinux_ShimVNumber=15.6
 AtomLinux_ShimURL=https://github.com/rhboot/shim.git
 #Shim
 
@@ -114,18 +114,18 @@ AtomLinux_Grub2MAINUPSTREAMVNumber=2.06
 #AtomLinux_Grub2VNumber=2.04-8
 #AtomLinux_Grub2URL=https://salsa.debian.org/grub-team/grub/-/archive/debian/
 
-AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu7,https://www.ubuntu.com/
-AtomLinux_Grub2VNumber=import/2.06-2ubuntu7
+AtomLinux_Grub2UPSTREAMSBAT=grub.ubuntu,1,Ubuntu,grub2,2.06-2ubuntu10,https://www.ubuntu.com/
+AtomLinux_Grub2VNumber=import/2.06-2ubuntu10
 AtomLinux_Grub2URL=https://git.launchpad.net/ubuntu/+source/grub2
 #Grub2
 
 #LinuxKernel
-AtomLinux_LinuxKernelVNumber=5.15.39
-AtomLinux_LinuxKernelURL=https://cdn.kernel.org/pub/linux/kernel/v5.x/
+AtomLinux_LinuxKernelVNumber=5.15.111
+AtomLinux_LinuxKernelURL=http://mirrors.ustc.edu.cn/kernel.org/linux/kernel/v5.x/
 #LinuxKernel
 
 #BusyBox
-AtomLinux_BusyBoxVNumber=1.34.1
+AtomLinux_BusyBoxVNumber=1.36.1
 AtomLinux_BusyBoxURL=https://busybox.net/downloads/
 #BusyBox
 
@@ -157,22 +157,22 @@ AtomLinux_DislockerURL=https://codeload.github.com/Aorimn/dislocker/
 #Utils - dislocker
 
 #Utils - Dropbear SSH
-AtomLinux_DropbearSSHVNumber=2022.82
+AtomLinux_DropbearSSHVNumber=2022.83
 AtomLinux_DropbearSSHURL=https://matt.ucc.asn.au/dropbear/releases/
 #Utils - Dropbear SSH
 
 #Utils - hdparm
-AtomLinux_HdparmVNumber=9.63
+AtomLinux_HdparmVNumber=9.65
 AtomLinux_HdparmURL=https://jaist.dl.sourceforge.net/project/hdparm/hdparm/
 #Utils - hdparm
 
 #Utils - exfat
-AtomLinux_ExfatVNumber=1.3.0
+AtomLinux_ExfatVNumber=1.4.0
 AtomLinux_ExfatURL=https://codeload.github.com/relan/exfat/
 #Utils - exfat
 
 #Utils - ntfs-3g
-AtomLinux_Ntfs3gVNumber=2021.8.22
+AtomLinux_Ntfs3gVNumber=2022.10.3
 AtomLinux_Ntfs3gURL=https://tuxera.com/opensource/
 #Utils - ntfs-3g
 
@@ -187,5 +187,5 @@ AtomLinux_IconvURL=https://ftp.gnu.org/pub/gnu/libiconv/
 #Lib - iconv
 
 #ovmf
-AtomLinux_OvmfVNumber=edk2-stable202202
+AtomLinux_OvmfVNumber=edk2-stable202302
 #ovmf

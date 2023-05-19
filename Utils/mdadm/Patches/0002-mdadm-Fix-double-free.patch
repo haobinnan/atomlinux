@@ -1,7 +1,7 @@
 From 5ce5a15f0bf007e850e15259bba4f53736605fb2 Mon Sep 17 00:00:00 2001
 From: Lukasz Florczak <lukasz.florczak@linux.intel.com>
 Date: Fri, 25 Mar 2022 12:48:59 +0100
-Subject: [PATCH 02/12] mdadm: Fix double free
+Subject: [PATCH 002/125] mdadm: Fix double free
 
 If there was a size mismatch after creation it would get fixed on grow
 in imsm_fix_size_mismatch(), but due to double free "double free or corruption (fasttop)"

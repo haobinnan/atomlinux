@@ -89,7 +89,7 @@ fi
 #Patches
 
 #make
-cmake .
+cmake -DWITH_RUBY:STRING=OFF
 #Check cmake
 if [ ! $? -eq 0 ]; then
     echo "Error: cmake (dislocker) ."
